@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div>
+		<!-- <input type="hidden" th:text=${post.postCode}> -->
+		
+		<p th:text = ${post.pTitle}>제목</p>
+		<p th:text = ${post.pContent}>내용</p>
+		<p th:text = ${post.pPrice}>가격</p>
+		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
+		<p th:text = ${post.pCreateTime}>작성시간</p>
+	</div>    
+ 	
+	<h1>사조마켓 수정하기</h1>
+	<form action="" method="post" th:object="${post}">
+		<div>
+			<input type="hidden" name="postCode" th:field="*{postCode}">
+			
+			<label>제목
+				<input type="text" name="postTitle" th:field="*{pTitle}">
+			</label><br/>
+			
+			<label>내용
+				<textarea type="text" name="postContent" th:field="*{pContent}"></textarea>
+			</label><br/>
+			
+			<label>가격 :
+				<input type="number" name="postPrice" th:field="*{pPrice}">원
+			</label><br/>	
+			<label>
+				<p th:field="*{pCorrectionTime}"></p>
+			</label><br/>
+			
+		</div>
+		<div>		
+			<button type="submit">수정완료</button>
+			<button th:onclick="|location.href='@{/posts}'|">목록보기</button>   
+		</div>
+	</form>     
+</body>
+</html>
