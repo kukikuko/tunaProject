@@ -1,0 +1,19 @@
+{
+	"folders": [
+		{
+			"path": "../../workspace_web"
+		},
+		{
+			"path": "../../workspace_react"
+		},
+		{
+			"path": "../tunaProject"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "workspace_web"
+	}
+}
