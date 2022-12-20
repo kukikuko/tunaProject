@@ -3,20 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- <link href="${pageContext.request.contextPath}/resources/css/navBar.css" rel="stylesheet" /> -->
+<link rel="stylesheet" href="resources/static/css/navBar.css">
+<style>
+.TunaMarket {
+	margin: 0;
+	padding: 0;
+}
+
+.market {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(255, 238, 0);
+	text-align: center;
+	display: inline;
+}
+</style>
+
 </head>
 <body>
-	<div>
-		<!-- <input type="hidden" th:text=${post.postCode}> -->
-		
-		<p th:text = ${post.pTitle}>제목</p>
-		<p th:text = ${post.pContent}>내용</p>
-		<p th:text = ${post.pPrice}>가격</p>
+	<header>
+		<div class="TunaMarket">
+			<h1 class="market">사조마켓</h1>
+			<button>로그인</button>
+			<button>회원가입</button>
+		</div>
+	</header>
+	<div class="post" name="post" id="post">
+		<p th:text=${post.pTitle}>제목</p>
+		<p th:text=${post.pContent}>내용</p>
+		<p th:text=${post.pPrice}>가격</p>
 		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
-		<p th:text = ${post.pCreateTime}>작성시간</p>
-		<p th:text = ${post.pCorrectionTime}>수정시간</p>
-	</div>    
-	
-	<button th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|">수정하기</button>
-	<button th:onclick="|location.href='@{/posts}'|">목록보기</button>             
+		<p th:text=${post.pCreateTime}>작성시간</p>
+		<p th:text=${post.pCorrectionTime}>수정시간</p>
+
+		<button
+			th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|">수정하기</button>
+		<button th:onclick="|location.href='@{/posts}'|">목록보기</button>
+
+	</div>
+
 </body>
 </html>

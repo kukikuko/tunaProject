@@ -18,7 +18,7 @@
 		,#{pTitle}
 		,#{pContent}
 		,(TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI'))
-		,(TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI'))
+		,''
 		,#{pPrice}
 		,'1'
 		,'1'

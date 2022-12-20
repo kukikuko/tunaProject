@@ -3,8 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+.TunaMarket {
+	margin: 0;
+	padding: 0;
+}
+
+.market {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgb(255, 238, 0);
+	text-align: center;
+	display: inline;
+}
+</style>
+
 </head>
 <body>
+	<header>
+		<div class="TunaMarket">
+			<h1 class="market">사조마켓</h1>
+			<button>로그인</button>
+			<button>회원가입</button>
+		</div>
+	</header>
 	<h1>물품등록</h1>
 	<form action="writing" method="post" th:object="${post}">
 		<div>
@@ -26,8 +50,8 @@
 				<input type="file" name="postImege" th:field="*{p_imageCode}">
 			</label><br/> -->		
 			
-		<label>작성시간 :
-				<p th:field="*{p_createTime}"></p>
+		<label>
+				<p th:field="*{pCreateTime}"></p>
 			</label><br/>
 		</div>
 		
