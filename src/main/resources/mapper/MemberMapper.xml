@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--   mapper 태그에 namespace 속성은 연동시키고자 하는 Mapper 인터페이스명을 경로와 함께 명시 -->
+  <mapper namespace="com.project.TunaProject.repository.mybatis.MemberMapper">
+	<insert id="memberInsert" parameterType="MemberVO">
+  		insert into TUNA_MEMBER 
+  		values
+  		(
+  		TUNA_memberCode.nextVal,
+  		#{memberMail},
+  		#{password},
+  		#{memberName},
+  		#{memberBirth},
+  		#{memberNick},
+  		#{memberPN},
+  		#{memberAddr1},
+  		#{memberAddr2},
+  		#{memberAddr3},
+  		#{memberAddr4},
+  		0,
+  		sysdate
+  		)
+  	</insert>
+  	
+  	<select id="selectByEmail" resultType="MemberVO">
+		select membermail, password, memberName, memberBirth, memberNick, memberPN, memberAddr1, memberAddr2, memberAddr3,
+		memberAddr4 from tuna_member
+		where membermail = #{email}
+	</select>
+  </mapper>
