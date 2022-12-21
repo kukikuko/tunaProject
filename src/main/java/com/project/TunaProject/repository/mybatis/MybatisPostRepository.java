@@ -1,12 +1,12 @@
-package com.project.TunaProject.eg.repository.mybatis;
+package com.project.TunaProject.repository.mybatis;
 
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.project.TunaProject.eg.domain.Post;
-import com.project.TunaProject.eg.repository.PostRepository;
+import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.repository.PostRepository;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;

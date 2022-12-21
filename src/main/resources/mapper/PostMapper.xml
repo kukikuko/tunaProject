@@ -3,7 +3,7 @@
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper
-	namespace="com.project.TunaProject.eg.repository.mybatis.PostItemMapper">
+	namespace="com.project.TunaProject.repository.mybatis.PostItemMapper">
 	
 	
 	<insert id="insert" parameterType="Post">

@@ -1,4 +1,4 @@
-package com.project.TunaProject.eg.domain;
+package com.project.TunaProject.domain;
 
 import java.time.LocalDateTime;
 import java.util.List;

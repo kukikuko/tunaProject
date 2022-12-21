@@ -1,8 +1,8 @@
-package com.project.TunaProject.eg.repository;
+package com.project.TunaProject.repository;
 
 import java.util.List;
 
-import com.project.TunaProject.eg.domain.Image;
+import com.project.TunaProject.domain.Image;
 
 public interface ImageRepository {
 	public Image insert(Image image);

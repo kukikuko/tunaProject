@@ -1,4 +1,4 @@
-package com.project.TunaProject.eg.controller;
+package com.project.TunaProject.controller;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.TunaProject.eg.domain.Post;
-import com.project.TunaProject.eg.repository.PostRepository;
+import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.repository.PostRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +31,7 @@ public class PostController {
 	public String posts(Model model, HttpServletRequest rep) {
 		List<Post> postList = postRepository.selectAll();
 		model.addAttribute("posts", postList);
-		return "eg/posts/posts";
+		return "/posts/posts";
 	}
 	@GetMapping("/{postCode}")
 	public String post(Model model, @PathVariable("postCode") String postCode) {
@@ -40,14 +40,14 @@ public class PostController {
 		log.info("postItem {}", postItem);
 		model.addAttribute("post",postItem);
 		
-		return "eg/posts/post";
+		return "/posts/post";
 		
 	}
 	
 	@GetMapping("/writing")
 	public String postWriting(Model model) {
 		model.addAttribute("post", new Post());
-		return "eg/posts/writing";
+		return "/posts/writing";
 	}
 	
 	@PostMapping("/writing")
@@ -64,7 +64,7 @@ public class PostController {
 	public String updatePost(Model model, @PathVariable("postCode")String postCode) {
 		Post postItem = postRepository.selectByPostCode(postCode);
 		model.addAttribute("post",postItem);
-		return "eg/posts/update.html";
+		return "/posts/update.html";
 	}
 	
 	@PostMapping("/update/{postCode}")

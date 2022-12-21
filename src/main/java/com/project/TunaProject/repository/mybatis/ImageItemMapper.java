@@ -1,11 +1,11 @@
-package com.project.TunaProject.eg.repository.mybatis;
+package com.project.TunaProject.repository.mybatis;
 
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
-import com.project.TunaProject.eg.domain.Image;
+import com.project.TunaProject.domain.Image;
 
 
 @Mapper
