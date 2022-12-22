@@ -72,9 +72,4 @@ public class PostController {
 		postRepository.update(postCode, postItem);
 		return "redirect:/posts/{postCode}";
 	}
-	
-	
-	
-	
-	
 }

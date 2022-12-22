@@ -31,4 +31,12 @@ public class MybatisMemberRepository implements MemberRepository{
 	
 	}
 
+	@Override
+	public Integer idCheck(String email) {
+		// TODO Auto-generated method stub
+		Integer cnt = memberMapper.idCheck(email);
+		
+		return cnt;
+	}
+
 }

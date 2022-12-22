@@ -26,8 +26,19 @@
   	</insert>
   	
   	<select id="selectByEmail" resultType="MemberVO">
-		select membermail, password, memberName, memberBirth, memberNick, memberPN, memberAddr1, memberAddr2, memberAddr3,
+		select membermail, password, memberName, memberBirth, memberNick,
+		
+		 (select substr(memberPN, 0,2)  from tuna_member) memberPN1,
+		  (select substr(memberPN, 3,4) from tuna_member)memberPN2,
+		  (select substr(memberPN, 4,4) from tuna_member)memberPN3,
+		 
+		  memberAddr1, memberAddr2, memberAddr3,
 		memberAddr4 from tuna_member
 		where membermail = #{email}
+	</select>
+	
+	<select id="idCheck" resultType="Integer">
+		select count(*) from tuna_member 
+		where memberMail = #{email}
 	</select>
   </mapper>

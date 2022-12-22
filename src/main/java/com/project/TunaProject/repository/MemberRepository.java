@@ -7,4 +7,6 @@ public interface MemberRepository {
 	public MemberVO memberInsert(MemberVO memberVO);
 	
 	public MemberVO selectByEmail(String email);
+	
+	public Integer idCheck(String email);
 }

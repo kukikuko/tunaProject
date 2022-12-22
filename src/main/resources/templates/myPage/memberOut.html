@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>멤버아웃</h1>
+		<p th:text=${memberVO.pTitle}>제목</p>
+		<p th:text=${post.pContent}>내용</p>
+		<p th:text=${post.pPrice}>가격</p>
+		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
+		<p th:text=${post.pCreateTime}>작성시간</p>
+		<p th:text=${post.pCorrectionTime}>수정시간</p>
+	
+	<button type ="button" th:onClick="|location.href='@{/}'|">뒤로 가기</button>
+</body>
+</html>
