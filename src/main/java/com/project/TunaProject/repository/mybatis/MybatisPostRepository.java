@@ -21,8 +21,10 @@ public class MybatisPostRepository implements PostRepository{
 	private final PostItemMapper postItemMapper;
 
 	@Override
-	public Post insert(Post post) {
+	public Post insert(Post post, int membercode) {
 		// TODO Auto-generated method stub
+//		Post postItem = postItemMapper.insert(post, membercode);
+		post.setPMemCode(membercode);
 		Integer result = postItemMapper.insert(post);
 		return post;
 	}
@@ -31,6 +33,7 @@ public class MybatisPostRepository implements PostRepository{
 	public Post selectByPostCode(String postCode) {
 		// TODO Auto-generated method stub
 		Post post = postItemMapper.selectByPostCode(postCode);
+
 		return post;
 	}
 
@@ -56,6 +59,12 @@ public class MybatisPostRepository implements PostRepository{
 	public void deleteByPostCode(String postCode) {
 		// TODO Auto-generated method stub
 		postItemMapper.deleteByPostCode(postCode);
+	}
+
+	@Override
+	public void viewCont(String postCode) {
+		// TODO Auto-generated method stub
+		postItemMapper.viewCont(postCode);
 	}
 		
 }

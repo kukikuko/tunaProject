@@ -7,13 +7,15 @@ import com.project.TunaProject.domain.Post;
 
 public interface PostRepository {
 
-	public Post insert(Post post);
+	public Post insert(Post post, int membercode);
 	
 	public Post selectByPostCode(String postCode);
 	
 	public List<Post> selectAll();
 	
-	public boolean update(String postCdoe, Post post);
+	public boolean update(String postCode, Post post);
 	
 	public void deleteByPostCode(String postCode);
+	
+	public void viewCont(String postCode);
 }

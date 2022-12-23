@@ -9,6 +9,7 @@ import com.project.TunaProject.domain.Post;
 
 @Mapper
 public interface PostItemMapper {
+//	public Integer insert(@Param("post") Post post, @Param("membercode") int membercode);
 	public Integer insert(Post post);
 	
 	public Post selectByPostCode(String postCode);
@@ -18,4 +19,7 @@ public interface PostItemMapper {
 	public void update(@Param("postCode")String postCode, @Param("updatePost")Post post);
 	
 	public void deleteByPostCode(String postCode);
+	
+	public void viewCont(String postCode);
+	
 }
