@@ -22,6 +22,7 @@
 					<button type="submit" class="btn btn-primary" id="mailChkBtn">중복확인</button>
 					<div class="mail-check-box" id="mailCheckBox">
 						<button type="submit" class="btn btn-primary" id="mailCheckBtn1">인증번호 발송</button>
+						<p id="time">180</p>
 						<input class="mailCheckInput"  id="mailCheckInput" name="mailCheckInput"  placeholder="인증번호를 입력해주세요!" maxlength="8">
 						<button type="button" id="ePw-Check-Btn">인증번호 확인</button>
 					</div>
@@ -83,6 +84,7 @@
 
 	<script>
 	$("#mailCheckBox").css("display", "none");
+	$("#time").css("display", "none");
 	var pwd = document.getElementById("pwd");				//비밀번호
 	var repwd = document.getElementById("repwd");			//비밀번호 확인
 	var uname = document.getElementById("uname");			//이름
@@ -151,6 +153,14 @@
 			      },
 			      success : function(data){
 			         console.log("data : "+data);
+			         
+			         setInterval(function() {
+			        	 $("#mailCheckBtn1").css("display","none");
+			        	 $("#time").css("display", "block");
+			        	 $("#time").text($("#time").text()-1);
+			         }, 1000);
+			         
+			         
 // 			         chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
 			document.getElementById('ePw-Check-Btn').addEventListener('click', (e)=>{ 
 			e.preventDefault();
@@ -173,6 +183,7 @@
 		}
 				
 			});
+		
 	
  		document.getElementById('joinBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();

@@ -94,8 +94,8 @@ public class LoginController {
 		}
 		
 		return "redirect:/";
-		
 	}
+	
 	
 	@GetMapping("/naverLogin")
 	public String naver() {

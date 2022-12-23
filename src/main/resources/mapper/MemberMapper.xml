@@ -25,18 +25,33 @@
   		)
   	</insert>
   	
+<!--   	로그인 -->
   	<select id="selectByEmail" resultType="MemberVO">
 		select membermail, password, memberName, memberBirth, memberNick,
 		
-		 (select substr(memberPN, 0,2)  from tuna_member) memberPN1,
-		  (select substr(memberPN, 3,4) from tuna_member)memberPN2,
-		  (select substr(memberPN, 4,4) from tuna_member)memberPN3,
+		 (SELECT SUBSTR(memberPN, 1, INSTR(memberPN, '-', 1, 1) - 1) from tuna_member where membermail = #{email}) memberPN1,
+		 (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 1) + 1, INSTR(memberPN, '-', 1, 2)- INSTR(memberPN, '-', 1, 1) - 1)  FROM tuna_member where membermail = #{email})memberPN2,
+		  (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 2) + 1) FROM tuna_member where membermail = #{email})memberPN3,
 		 
 		  memberAddr1, memberAddr2, memberAddr3,
 		memberAddr4 from tuna_member
 		where membermail = #{email}
 	</select>
 	
+<!-- 	개인정보 변경 -->
+	<update id="updateMemberByEmail" parameterType="MemberVO">
+	UPDATE tuna_member
+	set memberName = #{memberName},
+    memberNick = #{memberNick},
+    memberPN = #{memberPN1}||'-'||#{memberPN2}||'-'||#{memberPN3},
+    memberAddr1 = #{memberAddr1},
+    memberAddr2 = #{memberAddr2},
+    memberAddr3 = #{memberAddr3},
+    memberAddr4 = #{memberAddr4}
+	where memberMail = #{memberMail}
+	</update>
+	
+<!-- 	회원가입시, 아이디 중복인지 체크 -->
 	<select id="idCheck" resultType="Integer">
 		select count(*) from tuna_member 
 		where memberMail = #{email}

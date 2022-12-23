@@ -1,8 +1,10 @@
 package com.project.TunaProject.repository.mybatis;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.TunaProject.domain.MemberVO;
+import com.project.TunaProject.domain.Post;
 import com.project.TunaProject.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -37,6 +39,17 @@ public class MybatisMemberRepository implements MemberRepository{
 		Integer cnt = memberMapper.idCheck(email);
 		
 		return cnt;
+	}
+	
+	@Override
+	@Transactional
+	public boolean updateMemberByEmail(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		memberMapper.updateMemberByEmail(memberVO);
+		result = true;
+		
+		return result;
 	}
 
 }

@@ -7,13 +7,16 @@
 <body>
 	<h1>개인정보 수정</h1>
 		
-	<form>
+	<form action="" method="post" th:object="${memberVO}" name="memberUpdate">
+		
 		<label>이름
-		 <input type="text" th:value="${memberVO?.memberName}"  name="memberName"  id="uname" maxlength="6"><br>
+		 <input type="text" th:value="${memberVO?.memberName}" th:field="*{memberName}" 
+		 	 	name="memberName"  id="uname" maxlength="6"><br>
 		</label>
 		
 		<label>닉네임 
-		<input type="text" th:value="${memberVO?.memberNick}"  name="memberNick"id="memberNickName" maxlength="6"><br>
+		<input type="text" th:value="${memberVO?.memberNick}" th:field="*{memberNick}"  
+				name="memberNick"id="memberNickName" maxlength="6"><br>
 		</label>
 		
 		
@@ -23,9 +26,12 @@
 				<option value="010">010</option>
 				<option value="011">011</option>
 		</select> 
-		<input type="text" th:value= "'0'+${memberVO?.memberPN1}"  name="memberPN1" id="mobil1" maxlength="3"> 
-		-  	<input type="text" th:value="${memberVO?.memberPN2}"  name="memberPN2" id="mobile2" maxlength="4">
-			<input type="text" th:value="${memberVO?.memberPN3}"  name="memberPN3" id="mobile3" maxlength="4"><br>
+		<input type="text" th:value= "'0'+${memberVO?.memberPN1}" th:field="*{memberPN1}"
+					name="memberPN1" id="mobil1" maxlength="3"> 
+		-  	<input type="text" th:value="${memberVO?.memberPN2}" th:field="*{memberPN2}" 
+					name="memberPN2" id="mobile2" maxlength="4">
+			<input type="text" th:value="${memberVO?.memberPN3}" th:field="*{memberPN3}" 
+			 		name="memberPN3" id="mobile3" maxlength="4"><br>
 		</label>
 		
 		
@@ -33,19 +39,23 @@
 				<br>
 				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 				<br>
-					<input type="text" id="sample6_postcode" name="memberAddr1"  th:value=${memberVO?.memberAddr1} readonly><br> 
-					<input type="text" id="sample6_address" name="memberAddr2"  th:value=${memberVO?.memberAddr2} readonly><br>
-					<input type="text" id="sample6_detailAddress" name="memberAddr3" th:value=${memberVO?.memberAddr3}> 
-					<input type="text" id="sample6_extraAddress" name="memberAddr4" th:value=${memberVO?.memberAddr4}>
+					<input type="text" id="sample6_postcode" name="memberAddr1" 
+							 th:value=${memberVO?.memberAddr1}  th:field="*{memberAddr1}" readonly><br> 
+					<input type="text" id="sample6_address" name="memberAddr2"
+							 th:value=${memberVO?.memberAddr2} th:field="*{memberAddr2}" readonly><br>
+					<input type="text" id="sample6_detailAddress" name="memberAddr3" 
+							th:value=${memberVO?.memberAddr3} th:field="*{memberAddr3}"> 
+					<input type="text" id="sample6_extraAddress" name="memberAddr4"
+							th:value=${memberVO?.memberAddr4} th:field="*{memberAddr4}">
 			</label>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 			<br>
-	
-	<button type ="submit" id="updateBtn" 
-	>수정 하기</button>
+			<button type ="submit" id="updateBtn" >수정 하기</button>
+			
 <!-- 	th:onClick="|location.href='@{/}'|" -->
-	<button type ="button" th:onClick="|location.href='@{/}'|">뒤로 가기</button>
+	
+			<button type ="button" th:onClick="|location.href='@{/}'|">뒤로 가기</button>
 	
 	</form>	
 	<script>
@@ -66,7 +76,7 @@
 	
  		document.getElementById('updateBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault(); 
-		let form = document.memberJoin; 
+		let form = document.memberUpdate; 
 		  
 		  if (uname.value == "") {
 		    alert("이름을 입력하세요.");
@@ -103,25 +113,25 @@
 		    return false;
 		  };
 		  
-		 if(mobile.value == ""){
-			 alert("전화번호를 입력해주세요.");
-			    mobile.focus();
-			    return false;
-		 } 
+// 		 if(mobile1.value == ""){
+// 			 alert("전화번호를 입력해주세요.");
+// 			    mobile.focus();
+// 			    return false;
+// 		 } 
 		 
 		 
 		  
-		 if (typeof(mobile1.value) != number || typeof(mobile2.value) != number || typeof(mobile3.value) != number) {
-			    alert("전화번호는 숫자만 입력할 수 있습니다.");
-			    mobile1.focus();
-			    return false;
-			  }
+// 		 if (typeof(mobile1.value) != number || typeof(mobile2.value) != number || typeof(mobile3.value) != number) {
+// 			    alert("전화번호는 숫자만 입력할 수 있습니다.");
+// 			    mobile1.focus();
+// 			    return false;
+// 			  }
 
-		if(mobile.length<8){
-		    alert("전화번호를 올바르게 입력해주세요.");
-		    mobile.focus();
-		    return false;
-		  };
+// 		if(mobile.length<8){
+// 		    alert("전화번호를 올바르게 입력해주세요.");
+// 		    mobile.focus();
+// 		    return false;
+// 		  };
 				 
 	  	if(confirm('수정 하시겠습니까?')){ 
 			alert('수정에 성공하였습니다.') 

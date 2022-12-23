@@ -51,17 +51,36 @@ public class MemberController {
 	public String memberUpdate(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession(false);
 		
-		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
+		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
 		
 		model.addAttribute("memberVO",memberVO);
-		
+		log.info("updateGET member {}", memberVO);
 		return "myPage/memberUpdate";
 	}
+	
+	@PostMapping("/myPage/memberUpdate")
+	public String updateMemberByEmail(MemberVO memberVO, HttpServletRequest req) {
+		
+		HttpSession session = req.getSession(false);
+
+		MemberVO tempVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
+		memberVO.setMemberPN(String.valueOf(memberVO.getMemberPN1())+String.valueOf(memberVO.getMemberPN2())+String.valueOf(memberVO.getMemberPN3()));
+		memberVO.setMemberMail(tempVO.getMemberMail());
+		log.info("update memberVO {}", memberVO);
+		memberRepository.updateMemberByEmail(memberVO);
+		
+		return "redirect:/";
+	}
+	
 	//비밀번호 변경	
 	@GetMapping("/myPage/passwordUpdate")
 	public String passwordUpdate() {
 		return "myPage/passwordUpdate";
 	}
+	
 	//회원 탈퇴
 	@GetMapping("/myPage/memberOut")
 	public String memberOut() {

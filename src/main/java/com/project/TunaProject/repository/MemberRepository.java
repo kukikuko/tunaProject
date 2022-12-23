@@ -9,4 +9,6 @@ public interface MemberRepository {
 	public MemberVO selectByEmail(String email);
 	
 	public Integer idCheck(String email);
+	
+	public boolean updateMemberByEmail(MemberVO memberVo);
 }

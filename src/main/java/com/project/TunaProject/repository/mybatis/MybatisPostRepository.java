@@ -43,10 +43,10 @@ public class MybatisPostRepository implements PostRepository{
 
 	@Override
 	@Transactional
-	public boolean update(String postCdoe, Post post) {
+	public boolean update(String postCode, Post post) {
 		// TODO Auto-generated method stub
 		boolean result = false;
-		postItemMapper.update(postCdoe, post);
+		postItemMapper.update(postCode, post);
 		result = true;
 		
 		return result;
