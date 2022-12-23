@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+
 <title>Insert title here</title>
 <style>
 body {
@@ -43,11 +44,15 @@ a {
 	font-size: 12px;
 }
 </style>
-
+<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
 <body>
 	<div>
-		<form action="" method="post" th:object="${loginForm}">
+		<form action="" method="post" th:object="${loginForm}" name="login">
+			<div th:if="${#fields.hasGlobalErrors()}">
+				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
+				글로벌오류</p>
+			</div>
 				<label for="loginId">ID(email)</label> <input type="text"
 					th:field="*{email}" class="in" id="email">
 				<div th:errors="*{email}"></div>
@@ -61,7 +66,47 @@ a {
 		</form>
 
 		<a href="#none">비밀번호를 잊어버리셨나요?</a>
+		<div id="naverIdLogin"></div>
 	</div>
+	<script type="text/javascript">
+    
+// 	document.getElementById('loginBtn').addEventListener('click', (e)=>{ 
+// 		e.preventDefault(); 
+// 		let form = document.login;
+		
+// 		var password = document.getElementById("password");				
+		
+// 		if(password.value == ""){
+// 			alert("비밀번호를 입력해주세요.");
+// 		    password.focus();
+// 		    return false;
+// 		}
+	
+// 	});
+	
+	
+	
+	
+	
+	
+	
+	
+	var naverLogin = new naver.LoginWithNaverId(
+        {
+            clientId: "sJ4ET5XqisIRcM0yjXe8",
+              // 본인의 Client ID로 수정, 띄어쓰기는 사용하지 마세요.
+            callbackUrl: "http://localhost:8080/naverLogin",
+              // 본인의 callBack url로 수정하세요.
+            isPopup: false,
+            loginButton: {color: "white", type: 3, height: 60}
+              // 네이버 로그인버튼 디자인 설정. 한번 바꿔보세요:D
+        }
+    );
+naverLogin.init();
 
+	
+	
+	
+</script>
 </body>
 </html>

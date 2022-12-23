@@ -40,89 +40,7 @@ public class LoginController {
 		return "login/login";
 	}
 	
-	@PostMapping("/login_cookie")
-	public String doLogin_cookie(@ModelAttribute LoginForm loginForm,
-			BindingResult bindingResult, HttpServletResponse resp) {
-		log.info("loginForm {}", loginForm);
-		
-		validateLoginForm(loginForm, bindingResult);
-		
-		if(bindingResult.hasErrors()) {
-			return "login/login";
-		}
-		
-	 	MemberVO memberVO = loginService.login(loginForm.getEmail(), loginForm.getPassword());
 
-	 	log.info("login {}", memberVO);
-	 	
-	 	if(memberVO == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
-	 		bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
-	 		return "login/login";
-	 	}
-		
-	 	//정상적으로 로그인 처리가 된 경우
-	 	
-	 	//쿠키를 추가
-	 	Cookie cookie = new Cookie("email", memberVO.getMemberMail1());
-	 	Cookie cookie2 = new Cookie("email", memberVO.getMemberMail1().toString());
-	 	resp.addCookie(cookie);
-	 	resp.addCookie(cookie2);
-		
-		return "redirect:/";
-	}
-	
-	@PostMapping("/login_Session")
-	public String doLogin_Session(@ModelAttribute LoginForm loginForm,
-			BindingResult bindingResult, HttpServletResponse resp) {
-		log.info("loginForm {}", loginForm);
-		
-		validateLoginForm(loginForm, bindingResult);
-		
-		if(bindingResult.hasErrors()) {
-			return "login/login";
-		}
-		
-	 	MemberVO memberVO = loginService.login(loginForm.getEmail(), loginForm.getPassword());
-
-	 	log.info("login {}", memberVO);
-	 	
-	 	if(memberVO == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
-	 		bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
-	 		return "login/login";
-	 	}
-		
-	 	sessionManager.create(memberVO, resp);
-		return "redirect:/";
-	}
-	
-	@PostMapping("/login_old")
-	public String doLogin_old(@ModelAttribute LoginForm loginForm,
-			BindingResult bindingResult, HttpServletResponse resp
-			, HttpServletRequest req) {
-		log.info("loginForm {}", loginForm);
-		
-		validateLoginForm(loginForm, bindingResult);
-		
-		if(bindingResult.hasErrors()) {
-			return "login/login";
-		}
-		
-	 	MemberVO memberVO = loginService.login(loginForm.getEmail(), loginForm.getPassword());
-
-	 	log.info("login {}", memberVO);
-	 	
-	 	if(memberVO == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
-	 		bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
-	 		return "login/login";
-	 	}
-		
-	 	
-	 	HttpSession session = req.getSession();
-	 	session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
-		
-		return "redirect:/";
-	}
-	
 	
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute LoginForm loginForm,
@@ -178,24 +96,14 @@ public class LoginController {
 		return "redirect:/";
 	}
 	
-	@PostMapping("/logout_Session")
-	public String logout_Session(HttpServletResponse resp, HttpServletRequest req) {
-		sessionManager.remove(req);
-		//세션 사용자쪽에 tempSessionId Cookie.
-		//세션 주체 서버
-		//서버 세션매니저 정보를 삭제
-		
-		return "redirect:/";
+	
+	@GetMapping("/naverLogin")
+	public String naver() {
+		return "login/naverCallback";
 	}
 	
-	@PostMapping("/logout_cookie")
-	public String logout_cookie(HttpServletResponse resp) {
-		Cookie cookie = new Cookie("memberId", null);
-		cookie.setMaxAge(0);
-		resp.addCookie(cookie);
-		
-		return "redirect:/";
+	@PostMapping("/naverLogin")
+	public String naverLogin() {
+		return "login/naverCallback";
 	}
-
-	
 }

@@ -101,16 +101,4 @@ public class PostController {
 		postRepository.update(postCode, postItem);
 		return "redirect:/posts/{postCode}";
 	}
-
-
-	/*
-	 * // @PostConstruct public void inserttest() {
-	 * 
-	 * Post ptest = new Post(); ptest.setPTitle("title");
-	 * ptest.setPContent("content"); ptest.setPPrice("3000"); Post postCode =
-	 * postRepository.insert(ptest, 2); log.info("postItem {}", postCode);
-	 * 
-	 * }
-	 */
-
 }

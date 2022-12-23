@@ -2,72 +2,56 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 	<h1>회원가입</h1>
-
 	<div>
 		<form action="" method="post" name="memberJoin">
-
 			<div>
-				<label>이메일 
+				<label>이메일  </label> 
 					<input type="text" name="memberMail1" id="memberMail" maxlength="15">@
-				 </label>
 					<input type="text" name="memberMail2" id="email_add" maxlength="15">
-					
 					<select name="email_sel" id="email_sel" onchange="change_email();">
 						<option value="">직접입력</option>
 						<option value="naver.com">naver</option>
 						<option value="gmail.com">gmail</option>
 						<option value="nate.com">nate</option>
 					</select>
-					
-					
-					
-<!-- 					<button type="button" class="btn btn-primary" id="mail-Check-Btn">본인인증</button> -->
-					
-					
-					
-					
-<!-- 					<div class="mail-check-box"> -->
-<!-- 						<input class="form-control mail-check-input" placeholder="인증번호 6자리를 입력해주세요!" maxlength="6"> -->
-<!-- 					</div> -->
-<!-- 						<span id="mail-check-warn"></span> -->
-			</div>
-			
-			<br>
-			
+					<button type="submit" class="btn btn-primary" id="mailChkBtn">중복확인</button>
+					<div class="mail-check-box" id="mailCheckBox">
+						<button type="submit" class="btn btn-primary" id="mailCheckBtn1">인증번호 발송</button>
+						<p id="time">180</p>
+						<input class="mailCheckInput"  id="mailCheckInput" name="mailCheckInput"  placeholder="인증번호를 입력해주세요!" maxlength="8">
+						<button type="button" id="ePw-Check-Btn">인증번호 확인</button>
+					</div>
+			</div><br>
 			<div>
 				<label>비밀번호
 					<input type="password" name="password" id="pwd" placeholder="영문자+숫자+특수문자 조합">
 				</label>
 			</div>
-			
 			<div>
 				<label>비밀번호 재확인
 					<input type="password" name="repwd" id="repwd">
 				</label>	
 			</div>
-
 			<div>
 				<label>이름
 					<input type="text" name="memberName" id="uname" maxlength="6">
 				</label>
 			</div>
-
 			<div>
 				<label>생년월일 
 					<input type="text" name="memberBirth" id="memberBirth" placeholder="ex)19000101" maxlength="8">
 				</label>	
 			</div>
-			
 			<div>
 				<label>닉네임
 					<input type="text" name="memberNick" id="memberNickName" maxlength="6" placeholder="2~6글자 한글로 입력해주세요."><br>
 				</label>
 			</div>
-			
 			<div>
 				<label>전화번호
 					 <select id="PN_sel" onchange="change_PN();">
@@ -75,14 +59,12 @@
 						<option value="010">010</option>
 						<option value="011">011</option>
 					</select>
-				
-				<input type="text" name="memberPN1" id="PN_add" maxlength="3"> - 
-				<input type="tel" name="memberPN2" id="mobile" maxlength="8"> 
+				<input type="text" name="memberPN1" id="PN_add" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> - 
+				<input type="text" name="memberPN2" id="mobile2" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+				<input type="text" name="memberPN3" id="mobile3" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"> 
 					ex"-"없이 숫자만 입력
 				</label>
 			</div>
-
-
 			<label>주소
 				<br>
 				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
@@ -101,64 +83,114 @@
 	</div>
 
 	<script>
+	$("#mailCheckBox").css("display", "none");
+	$("#time").css("display", "none");
 	var pwd = document.getElementById("pwd");				//비밀번호
 	var repwd = document.getElementById("repwd");			//비밀번호 확인
 	var uname = document.getElementById("uname");			//이름
-	var mobile = document.getElementById("mobile");			//휴대폰번호
+	var mobile1 = document.getElementById("PN_add");			//휴대폰번호 앞
+	var mobile2 = document.getElementById("mobile2");			//휴대폰번호 중간
+	var mobile3 = document.getElementById("mobile3");			//휴대폰번호 뒤
 	var memberMail = document.getElementById("memberMail");	//이메일 앞
 	var email_add = document.getElementById("email_add");	//이메일 뒤
 	var memverBirth = document.getElementById("memberBirth");//생일
 	var memberNickName = document.getElementById("memberNickName");//닉네임
-	var email = /^[a-zA-Z0-9]/;	//이메일 정규식. 알파벳, 숫자로 구성 
+	var mailCheckInput = document.getElementById("mailCheckInput"); 
+	var checkCnt = 0;
+	
+	var regEmail = /^[a-zA-Z0-9]/;	//이메일 정규식. 알파벳, 숫자로 구성 
 	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
 	let reg_name1 = /^[가-힣]+$/; // 한글만
 	var reg = /^[0-9]+/g; //숫자만 입력하는 정규식		
-	
-// 	document.getElementById('mail-Check-Btn').addEventListener('click', (e)=>{ 
-// 		e.preventDefault();
-// 			const email = memberMail.value + "@" + email_add.value;  // 이메일 주소값 얻어오기!
-// 			console.log('완성된 이메일 : ' + email); // 이메일 오는지 확인
+	var email = "";
+	  
+// 	  function showPopup() { window.open("08_2_popup.html", "a", "width=400, height=300, left=100, top=50"); }
+		document.getElementById('mailChkBtn').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		email = memberMail.value + "@" + email_add.value;  // 이메일 주소값 얻어오기!
+		
+		let form = document.mailCheck; 
+		
+		if(memberMail.value==""||email_add.value==""){
+			alert("이메일 주소를 입력해주세요.");
+		    memberMail.focus();
+		    return false;
+		    }
+		
+		if (!regEmail.test(memberMail.value)) {
+		    alert("이메일 형식을 올바르게 입력하세요.");
+		    memberMail.focus();
+		    return false;
+		  }
+		
+		checkId();
+		});
+		
+		document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		
+		if(memberMail.value==""||email_add.value==""){
+			console.log(memberMail.value + "@" + email_add.value);
+			console.log(email);
+			alert("이메일 주소를 입력해주세요.");
+		    memberMail.focus();
+		    return false;
+		}else if(email != memberMail.value + "@" + email_add.value){
+			console.log(memberMail.value + "@" + email_add.value);
+			console.log(email);
+			alert("이메일 주소를 올바르게 입력해주세요.");
+		    memberMail.focus();
+		    return false;
+		}
+		else{
 			
-// 			const checkInput = $('.mail-check-input') // 인증번호 입력하는곳 
-			
-// 			$.ajax({
-// 				type : 'post',
-// 				url : "emailConfirm", // GET방식이라 Url 뒤에 email을 뭍힐수있다.
-// 				data
-// 				success : function (data) {
-// 					console.log("data : " +  data);
-// 					checkInput.attr('disabled',false);
-// 					code =data;
-// 					alert('인증번호가 전송되었습니다.')
-// 				}			
-// 			}); // end ajax
-// 		}); // end send eamil
+	         alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+			   $.ajax({
+			      type : "POST",
+			      url : "emailConfirm",
+			      data : {
+			         "email" : email
+			      },
+			      success : function(data){
+			         console.log("data : "+data);
+			         
+			         setInterval(function() {
+			        	 $("#mailCheckBtn1").css("display","none");
+			        	 $("#time").css("display", "block");
+			        	 $("#time").text($("#time").text()-1);
+			         }, 1000);
+			         
+			         
+// 			         chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
+			document.getElementById('ePw-Check-Btn').addEventListener('click', (e)=>{ 
+			e.preventDefault();
+			console.log("input  : " + mailCheckInput);
+			if (data != mailCheckInput.value) { 
+ 				alert("인증번호가 일치하지 않습니다..");
+ 				}else{
+ 					alert("인증번호가 일치합니다!!");
+ 					document.getElementById('memberMail').readOnly = true;
+ 					document.getElementById('email_add').readOnly = true;
+ 					document.getElementById('email_sel').readOnly = true;
+ 					checkCnt++;
+ 					document.getElementById('mailCheckInput').readOnly = true;
+ 					$('#mailCheckBox').hide();
+ 				}
+			});
+			      }
+			   })
+		    return false;
+		}
+				
+			});
+		
 	
  		document.getElementById('joinBtn').addEventListener('click', (e)=>{ 
-		e.preventDefault(); 
+		e.preventDefault();
+		
 		let form = document.memberJoin; 
-		  
+		  var canJoin = true;
 		
-		
-		
-		  if (memberMail.value == "" || email_add.value == "") {
-			    alert("이메일 주소를 입력하세요.");
-			    memberMail.focus();
-			    return false;
-			  }
-		  
-		  if (!email.test(memberMail.value)) {
-			    alert("이메일 형식을 올바르게 입력하세요.");
-			    memberMail.focus();
-			    return false;
-			  }
-		  
-		  if (!email.test(email_add.value)) {
-			    alert("이메일 형식을 올바르게 입력하세요.");
-			    email_add.focus();
-			    return false;
-			  }
-
 		  if (form.password.value == "") {
 		    alert("비밀번호를 입력하세요.");
 		    pwd.focus();
@@ -207,7 +239,7 @@
 		    return false;
 		  };
 
-		  if (memberBirth.value< 8 || memberBirth.value <=0) {
+		  if (memberBirth.value.length!=8) {
 			    alert("생년월일을 올바르게 입력하세요");
 			    memberBirth.focus();
 			    return false;
@@ -218,14 +250,16 @@
 				var day = Number(memberBirth.value.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일)
 				var today = new Date(); // 날짜 변수 선언
 				var yearNow = today.getFullYear(); // 올해 연도 가져옴
-
-				if (memberBirth.value.length <=8) {
+				var monthNow = today.getMonth() + 1;
+				var dateNow = today.getDate();
+				
+				
 				// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
 					if (1900 > year || year > yearNow){
 						alert("연도를 올바르게 입력하세요");
 					    memberBirth.focus();
 						return false;
-					} else if (month < 1 || month > 12) {
+					}else if (month < 1 || month > 12) {
 						alert("월 정보를 올바르게 입력하세요");
 					    memberBirth.focus();
 						return false;
@@ -245,25 +279,51 @@
 						    memberBirth.focus();
 							return false;
 						} 
-					}}
+					}else if(year == yearNow){
+						if(month > monthNow){
+							alert("생년월일이 올바르지 않습니다.");
+							return false;
+						}else if(month == monthNow){
+							if(day>=dateNow){
+								alert("생년월일이 올바르지 않습니다.");
+								return false;
+							}
+						}
+					}
 
-
-		  if (!reg.test(mobile.value)) {
-		    alert("전화번호는 숫자만 입력할 수 있습니다.");
-		    mobile.focus();
-		    return false;
-		  }
-
-			if(mobile.length<8){
+			if(!(mobile1.value.length==3 && (mobile2.value.length==3 || mobile2.value.length==4) && mobile3.value.length==4) ){
 		    alert("전화번호를 올바르게 입력해주세요.");
-		    mobile.focus();
+		    mobile1.focus();
 		    return false;
 		  };
-		 
-		  if(confirm('회원가입 하시겠습니까?')){ 
- 						alert('회원 가입에 성공하였습니다.') 
- 						 form.submit();
+		  
+		  
+		  const email2 = memberMail.value + "@" + email_add.value;
+			  if(email != email2) {
+				alert("이메일을 확인하세요");
+				memberMail.focus();
+				return false;
+			  };
+		  if (sample6_postcode.value == "" || sample6_address.value == "") {
+			    alert("주소를 입력하세요.");
+			    sample6_postcode.focus();
+			    return false;
+			  };	  
+
+			  
+		 if(canJoin){
+			 if(checkCnt == 1){
+				 if(confirm('회원가입 하시겠습니까?')){
+					alert('회원 가입에 성공하였습니다.'); 
+					 form.submit();
 					}
+				 }else{
+					 alert('본인인증을 마치십시오.');
+					 memberMail.focus();
+						return false;
+				 }
+		 
+		 }
 					
  		});
  		
@@ -278,25 +338,53 @@
 
 		  email_add.value = val;
 		}
+		//이메일 중복체크 메소드
+		function checkId(){
+	        var email = memberMail.value + "@" + email_add.value; //id값이 "id"인 입력란의 값을 저장
+	       	console.log(email);
+	        $.ajax({
+	            url:"joongbok", //Controller에서 요청 받을 주소
+	            type:'post', //POST 방식으로 전달
+	            data:{"email":email},
+	            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+	                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+	                	if(confirm('이 메일 주소를 아이디로 사용하시겠습니까?')){
+	                		$("#memberMail").attr("readonly",true);
+	                		$("#email_add").attr("readonly",true);
+	     					hideDisplay();
+	     					console.log(memberMail.value)
+	     					console.log(email);
+						}
+	                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+	                     alert("아이디를 다시 입력해주세요");
+	                    $('#memberMail').val('');
+	                }
+	            },
+	            error:function(){
+	                alert("에러입니다");
+	            }
+	        });
+	        };
 		
 		//전화번호 옵션 선택 후 전화번호 자동 완성
  		function change_PN() {
  			  var PN_add = document.getElementById("PN_add");
  			  var PN_sel = document.getElementById("PN_sel");
-
  			  //지금 골라진 옵션의 순서와 값 구하기
  			  var idx = PN_sel.options.selectedIndex;
  			  var val = PN_sel.options[idx].value;
-
  			  PN_add.value = val;
- 			}  
-		  
-			
+ 			} 
+		
+		function hideDisplay()  {
+			$('#mailChkBtn').hide();
+			$('#email_sel').hide();
+			$('#mailCheckBox').show();
+		}
     function sample6_execDaumPostcode() {
         new daum.Postcode({
             oncomplete: function(data) {
                 // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-
                 // 각 주소의 노출 규칙에 따라 주소를 조합한다.
                 // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
                 var addr = ''; // 주소 변수
@@ -326,11 +414,9 @@
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
                     document.getElementById("sample6_extraAddress").value = extraAddr;
-                
                 } else {
                     document.getElementById("sample6_extraAddress").value = '';
                 }
-
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
                 document.getElementById("sample6_address").value = addr;
@@ -339,6 +425,7 @@
             }
         }).open();
     }
+	
 </script>
 </body>
 </html>

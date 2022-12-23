@@ -1,6 +1,7 @@
 package com.project.TunaProject.repository.mybatis;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.project.TunaProject.domain.MemberVO;
 
@@ -13,4 +14,8 @@ public interface MemberMapper {
 	
 	//로그인 하는 메소드
 	public MemberVO selectByEmail(String email);
+	
+	public Integer idCheck(String email);
+	
+	public void updateMemberByEmail(MemberVO memberVO);
 }
