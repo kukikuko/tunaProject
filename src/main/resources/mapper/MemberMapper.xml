@@ -26,7 +26,7 @@
   	</insert>
   	
   	<select id="selectByEmail" resultType="MemberVO">
-		select membermail, password, memberName, memberBirth, memberNick, memberPN, memberAddr1, memberAddr2, memberAddr3,
+		select membercode, membermail, password, memberName, memberBirth, memberNick, memberPN, memberAddr1, memberAddr2, memberAddr3,
 		memberAddr4 from tuna_member
 		where membermail = #{email}
 	</select>

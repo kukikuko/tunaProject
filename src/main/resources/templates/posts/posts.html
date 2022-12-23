@@ -30,6 +30,7 @@
 		<table  th:each="post :${posts}">
 			<thead>
 				<tr><a th:href="@{|/posts/${post.postCode}|}" th:text="${post.pTitle}"></a></tr>
+			
 			</thead>		
 		</table>
 	</div>

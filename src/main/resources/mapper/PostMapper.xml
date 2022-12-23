@@ -7,26 +7,28 @@
 	
 	
 	<insert id="insert" parameterType="Post">
-		<selectKey keyProperty="postCode" resultType="java.lang.String"
-			order="BEFORE">
-			SELECT (concat(to_char(sysdate,'yymmdd'),POSTCODESQ.nextVal)) as postCode from dual
+<!-- 		<selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE"> -->
+		<selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE">
+			SELECT (concat(to_char(sysdate,'yymmdd'), POSTCODESQ.nextVal)) as postCode from dual
 		</selectKey>
 		INSERT INTO TUNA_POST VALUES
 		(
 		#{postCode}
-		,(select memberCode from TUNA_MEMBER where membercode = 1)
+		,(select POSTCATEGORYCODE from TUNA_CATOGORY where POSTCATEGORYCODE = #{postCtCode})
+		,(select memberCode from TUNA_MEMBER where membercode = #{pMemCode})
 		,#{pTitle}
 		,#{pContent}
-		,(TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI'))
+		,TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI')
 		,''
 		,#{pPrice}
 		,'1'
 		,'1'
+		,0
 		)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 	</insert>
 
 	<select id="selectByPostCode" resultType="Post">
-		select postCode, pTitle, pContent, pPrice, pCreateTime, pCorrectionTime from TUNA_POST where postCode = #{postCode}
+		select postCode, pTitle, pContent, pPrice, pView, pCreateTime, pCorrectionTime from TUNA_POST where postCode = #{postCode}
 	</select>
 
 	<select id="selectAll" resultType="Post">
@@ -42,6 +44,12 @@
 		<!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
 		,pCorrectionTime = (TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI'))
 		where postCode = #{postCode}
+	</update>
+	
+	<update id="viewCont">
+		update TUNA_POST
+		set pView = pView + 1
+		where postCode = #{postCode}	
 	</update>
 
 	<delete id="deleteAll">

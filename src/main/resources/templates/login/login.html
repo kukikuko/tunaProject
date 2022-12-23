@@ -3,30 +3,64 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+body {
+	background-color: #a7cdfd;
+}
+
+div {
+	margin: auto;
+	width: 300px;
+	background-color: #EEEFF1;
+	border-radius: 5px;
+	text-align: center;
+	padding: 20px;
+}
+
+input {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+.in {
+	margin-bottom: 10px;
+}
+
+#btn {
+	background-color: #a7cdfd;
+	margin-bottom: 30px;
+	color: black;
+	border: none;
+	border-radius: 5px;
+}
+
+a {
+	text-decoration: none;
+	color: #9B9B9B;
+	font-size: 12px;
+}
+</style>
+
 </head>
 <body>
 	<div>
-		<h1>Login Page</h1>
-
 		<form action="" method="post" th:object="${loginForm}">
-
-
-			<div>
-				<label for="loginId">ID</label> 
-				<input type="text" th:field="*{email}" id="email">
+				<label for="loginId">ID(email)</label> <input type="text"
+					th:field="*{email}" class="in" id="email">
 				<div th:errors="*{email}"></div>
-			</div>
-			<div>
-				<label for="password">Password</label> 
-				<input type="password" th:field="*{password}" id="password">
+
+				<label for="password">Password</label> <input type="password"
+					th:field="*{password}" class="in" id="password">
 				<div th:errors="*{password}"></div>
-			</div>
 
-			<button type="submit">로그인</button>
-			<button type="button" th:onclick="|location.href='@{/}'|">취소</button>
-
-
+			<button type="submit" id="btn">로그인</button>
+			<button type="button" th:onclick="|location.href='@{/}'|" id="btn">취소</button>
 		</form>
+
+		<a href="#none">비밀번호를 잊어버리셨나요?</a>
 	</div>
 
 </body>
