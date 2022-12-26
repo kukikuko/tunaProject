@@ -46,7 +46,7 @@ public class PostController {
 	private final SessionManager sessionManager;
 	
 	@GetMapping
-	public String posts(Model model, HttpServletRequest rep) {
+	public String posts(Model model, HttpServletRequest req) {
 		List<Post> postList = postRepository.selectAll();
 		model.addAttribute("posts", postList);
 		return "/posts/posts";

@@ -53,6 +53,7 @@
 		</table>
 	</div>
 	<div>
+		<button th:if="${memberVO.getMemberMail().equals('admin')}" th:onClick="|location.href='@{/admin/home}'|">관리자 화면</button>
 		<button th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
 			<div>
 				<form th:action="@{/logout}" method="post">			
