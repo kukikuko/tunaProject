@@ -27,7 +27,7 @@
   	
 <!--   	로그인 -->
   	<select id="selectByEmail" resultType="MemberVO">
-		select membermail, password, memberName, memberBirth, memberNick,
+		select MEMBERCODE, membermail, password, memberName, memberBirth, memberNick,
 		
 		 (SELECT SUBSTR(memberPN, 1, INSTR(memberPN, '-', 1, 1) - 1) from tuna_member where membermail = #{email}) memberPN1,
 		 (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 1) + 1, INSTR(memberPN, '-', 1, 2)- INSTR(memberPN, '-', 1, 1) - 1)  FROM tuna_member where membermail = #{email})memberPN2,

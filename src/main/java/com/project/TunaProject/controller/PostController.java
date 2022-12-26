@@ -1,6 +1,7 @@
 package com.project.TunaProject.controller;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,6 +9,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.TunaProject.img.*;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,6 +48,9 @@ public class PostController {
 	private final PostRepository postRepository;
 	private final CategoryRepository categoryRepository;
 	private final SessionManager sessionManager;
+
+	private final ItemRepository itemRepository;
+	private final FileStore fileStore;
 	
 	@GetMapping
 	public String posts(Model model, HttpServletRequest req) {
@@ -75,17 +82,28 @@ public class PostController {
 	
 	@PostMapping("/writing")
 	public String postWritingInsert(@ModelAttribute Post postItem
+			, @ModelAttribute ItemForm form
 			, RedirectAttributes rAttr
-			, HttpServletRequest req) {
+			, HttpServletRequest req) throws IOException {
+
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
+		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
+
+		Item item = new Item();
+		item.setItemName(form.getItemName());
+		item.setImageFiles(storeImageFiles);
+		itemRepository.save(item);
+
+		log.info("img {}", item);
+		log.info("img {}", item.getImageFiles().get(0));
+
 		Post post = postRepository.insert(postItem, memberVO.getMemberCode());
 		log.info("postItem {}", post);
-		
-		
+
 		rAttr.addAttribute("postCode", post.getPostCode());
-		
+
 		return "redirect:/posts/{postCode}";
 	}
 	
@@ -100,5 +118,11 @@ public class PostController {
 	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {
 		postRepository.update(postCode, postItem);
 		return "redirect:/posts/{postCode}";
+	}
+
+	@ResponseBody
+	@GetMapping("/images/{filename}")
+	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+		return new UrlResource("file:" + fileStore.getFullPath(filename));
 	}
 }
