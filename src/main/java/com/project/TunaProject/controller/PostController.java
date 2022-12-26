@@ -53,12 +53,17 @@ public class PostController {
 	}
 	
 	@GetMapping("/{postCode}")
-	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem) {
+	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem
+			, HttpServletRequest req) {
 		postRepository.viewCont(postItem.getPostCode());
 		postItem = postRepository.selectByPostCode(postCode);
 		log.info("postItem {}", postItem);
-		model.addAttribute("post",postItem);
 		
+		HttpSession session = req.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		log.info("memberVO {}", memberVO.getMemberCode());
+		model.addAttribute("post",postItem);
+		model.addAttribute("member", memberVO);
 		return "/posts/post";
 		
 	}
@@ -75,12 +80,15 @@ public class PostController {
 	
 	@PostMapping("/writing")
 	public String postWritingInsert(@ModelAttribute Post postItem
+			, @ModelAttribute Category ct
 			, RedirectAttributes rAttr
 			, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-
-		Post post = postRepository.insert(postItem, memberVO.getMemberCode());
+		
+		log.info("ct {}", ct);
+		log.info("postItem {}", postItem);
+		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
 		log.info("postItem {}", post);
 		
 		

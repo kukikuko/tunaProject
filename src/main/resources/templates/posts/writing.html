@@ -45,12 +45,11 @@
 		</div>
 	</nav>
 	<h1>물품등록</h1>			
-			<select>
-				<option th:each="ct : ${cateItem}" th:value="${ct.ctName}" th:text="${ct.ctName}"></option>				
-			</select>
-	
 	<form action="writing" method="post" th:object="${post}">
 		<div>
+			<select name="ctCode">
+				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}" th:text="${ct.ctName}" ></option>				
+			</select>
 			<input type="hidden" name="postCode" th:field="*{postCode}">
 			<label>제목 <input type="text" name="postTitle"
 				th:field="*{pTitle}">
