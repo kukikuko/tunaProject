@@ -18,4 +18,7 @@ public interface MemberMapper {
 	public Integer idCheck(String email);
 	
 	public void updateMemberByEmail(MemberVO memberVO);
+	
+	//1225
+	public void updatePassword(MemberVO memberVO);
 }

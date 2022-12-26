@@ -81,6 +81,19 @@ public class MemberController {
 		return "myPage/passwordUpdate";
 	}
 	
+	//1225
+	@PostMapping("/myPage/passwordUpdate")
+	public String updatePassword(MemberVO memberVO, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+
+		MemberVO tempVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		memberVO.setMemberMail(tempVO.getMemberMail());
+		
+		memberRepository.updatePassword(memberVO);
+		
+		return "redirect:/";
+	}
+	
 	//회원 탈퇴
 	@GetMapping("/myPage/memberOut")
 	public String memberOut() {

@@ -51,5 +51,18 @@ public class MybatisMemberRepository implements MemberRepository{
 		
 		return result;
 	}
+	
+	//1225
+	@Override
+	@Transactional
+	public boolean updatePassword(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		boolean result = false;
+		memberMapper.updateMemberByEmail(memberVO);
+		result = true;
+		
+		return result;
+	}
+	
 
 }

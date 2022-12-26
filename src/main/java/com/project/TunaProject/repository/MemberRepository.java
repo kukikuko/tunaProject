@@ -11,4 +11,7 @@ public interface MemberRepository {
 	public Integer idCheck(String email);
 	
 	public boolean updateMemberByEmail(MemberVO memberVo);
+	
+	//1225
+	public boolean updatePassword(MemberVO memberVO);
 }

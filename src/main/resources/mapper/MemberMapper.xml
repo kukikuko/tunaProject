@@ -33,8 +33,11 @@
 		 (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 1) + 1, INSTR(memberPN, '-', 1, 2)- INSTR(memberPN, '-', 1, 1) - 1)  FROM tuna_member where membermail = #{email})memberPN2,
 		  (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 2) + 1) FROM tuna_member where membermail = #{email})memberPN3,
 		 
-		  memberAddr1, memberAddr2, memberAddr3,
-		memberAddr4 from tuna_member
+		  memberAddr1,
+		  memberAddr2,
+		  memberAddr3,
+		  memberAddr4
+		  from tuna_member
 		where membermail = #{email}
 	</select>
 	
@@ -50,6 +53,8 @@
     memberAddr4 = #{memberAddr4}
 	where memberMail = #{memberMail}
 	</update>
+	
+	<update id="updatePassword"></update>
 	
 <!-- 	회원가입시, 아이디 중복인지 체크 -->
 	<select id="idCheck" resultType="Integer">
