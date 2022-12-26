@@ -10,39 +10,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-.TunaMarket {
-	margin: 0;
-	padding: 0;
+.logoImg {
+	width: 40px;
+	height: 40px;
 }
-
-.market {
-	margin: 0;
-	padding: 0;
-	width: 100%;
-	height: 100%;
-	background-color: rgb(255, 238, 0);
-	text-align: center;
-	display: inline;
-}
-
-.navbar-brand-logo {
-	background-image: url(http://localhost:8080/images/Logo.png);
-	background-repeat: no-repeat;
-	background-position: left-top;
-	width: 110px;
-	height: 110px;
-}
-/* .form-control me-2{
-	width: 200px;
-	height: 100px;
-} */
 </style>
 </head>
 <body>
-
 	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<a class="navbar-brand-logo" href="#"></a>
+			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
 			<a class="navbar-brand" href="#">사조마켓</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
@@ -60,16 +37,13 @@
 					<input class="form-control me-2" type="search"
 						placeholder="물품이나 동네를 검색해주세요." aria-label="Search">
 					<button class="btn btn-outline-success" type="submit">검색</button>
+					<button type="button" th:onclick="|location.href='@{/join}'|">회원
+						가입</button>
+					<button type="button" th:onclick="|location.href='@{/login}'|">로그인</button>
 				</form>
 			</div>
 		</div>
 	</nav>
-
-
-
-	<button type="button" th:onclick="|location.href='@{/join}'|">회원
-		가입</button>
-	<button type="button" th:onclick="|location.href='@{/login}'|">로그인</button>
 
 	<!-- JavaScript Bundle with Popper -->
 	<script
