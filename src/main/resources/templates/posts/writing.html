@@ -51,6 +51,9 @@
 	
 	<form action="writing" method="post" th:object="${post}" enctype="multipart/form-data">
 		<div>
+			<select name="ctCode">
+				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}" th:text="${ct.ctName}" ></option>				
+			</select>
 			<input type="hidden" name="postCode" th:field="*{postCode}">
 			<label>제목 <input type="text" name="postTitle"
 				th:field="*{pTitle}">

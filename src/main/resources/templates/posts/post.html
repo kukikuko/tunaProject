@@ -52,9 +52,10 @@
 		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
 		<p th:text=${post.pCreateTime}></p>
 		<p th:text=${post.pCorrectionTime}></p>
-		
-		<button
-			th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|">수정하기</button>
+<!-- 		<p th:text=${post.pMemCode}></p>
+		<p th:text=${member.memberCode}></p> -->
+ 		 <span th:if="${post.pMemCode} == ${member.memberCode}">
+			<button th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|">수정하기</button> </span>
 		<button th:onclick="|location.href='@{/posts}'|">목록보기</button>
 
 	</div>

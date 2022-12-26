@@ -60,12 +60,17 @@ public class PostController {
 	}
 	
 	@GetMapping("/{postCode}")
-	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem) {
+	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem
+			, HttpServletRequest req) {
 		postRepository.viewCont(postItem.getPostCode());
 		postItem = postRepository.selectByPostCode(postCode);
 		log.info("postItem {}", postItem);
-		model.addAttribute("post",postItem);
 		
+		HttpSession session = req.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		log.info("memberVO {}", memberVO.getMemberCode());
+		model.addAttribute("post",postItem);
+		model.addAttribute("member", memberVO);
 		return "/posts/post";
 		
 	}
@@ -83,6 +88,7 @@ public class PostController {
 	@PostMapping("/writing")
 	public String postWritingInsert(@ModelAttribute Post postItem
 			, @ModelAttribute ItemForm form
+			, @ModelAttribute Category ct
 			, RedirectAttributes rAttr
 			, HttpServletRequest req) throws IOException {
 
@@ -98,8 +104,10 @@ public class PostController {
 
 		log.info("img {}", item);
 		log.info("img {}", item.getImageFiles().get(0));
-
-		Post post = postRepository.insert(postItem, memberVO.getMemberCode());
+		
+		log.info("ct {}", ct);
+		log.info("postItem {}", postItem);
+		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
 		log.info("postItem {}", post);
 
 		rAttr.addAttribute("postCode", post.getPostCode());
