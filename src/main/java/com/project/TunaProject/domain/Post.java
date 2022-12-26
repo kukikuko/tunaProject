@@ -6,9 +6,9 @@ import java.util.List;
 import lombok.Data;
 
 @Data
-
 public class Post {
 	private String postCode;
+	private String postCtCode;
 	private int pMemCode;
 	private String pTitle;
 	private String pContent;
@@ -17,6 +17,7 @@ public class Post {
 	private String pPrice;
 	private boolean pSalesStatus;
 	private boolean pOpenStatus;
+	private int pView;
 	
-	public Post() {}
+//	public Post() {}
 }
