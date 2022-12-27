@@ -2,14 +2,9 @@ package com.project.TunaProject.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
 import java.util.List;
 
-import com.project.TunaProject.domain.Image;
+import com.project.TunaProject.domain.*;
 import com.project.TunaProject.img.*;
 import com.project.TunaProject.repository.ImageRepository;
 import org.springframework.core.io.Resource;
@@ -22,20 +17,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.project.TunaProject.domain.Category;
-import com.project.TunaProject.domain.MemberVO;
-import com.project.TunaProject.domain.Post;
 import com.project.TunaProject.repository.CategoryRepository;
 import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
 
 
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
@@ -51,7 +40,6 @@ public class PostController {
 	private final CategoryRepository categoryRepository;
 	private final SessionManager sessionManager;
 	private final ImageRepository imageRepository;
-	private final ItemRepository itemRepository;
 	private final FileStore fileStore;
 	
 	@GetMapping

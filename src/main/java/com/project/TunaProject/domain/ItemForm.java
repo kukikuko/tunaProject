@@ -1,4 +1,4 @@
-package com.project.TunaProject.img;
+package com.project.TunaProject.domain;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
