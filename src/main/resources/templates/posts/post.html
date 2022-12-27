@@ -52,6 +52,10 @@
 		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
 		<p th:text=${post.pCreateTime}></p>
 		<p th:text=${post.pCorrectionTime}></p>
+
+		<img th:each="image : ${images}" th:src="|/posts/images/${image.imageFiles}|" width="300"
+			 height="300"/>
+
 <!-- 		<p th:text=${post.pMemCode}></p>
 		<p th:text=${member.memberCode}></p> -->
  		 <span th:if="${post.pMemCode} == ${member.memberCode}">

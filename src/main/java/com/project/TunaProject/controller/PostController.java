@@ -9,7 +9,9 @@ import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.project.TunaProject.domain.Image;
 import com.project.TunaProject.img.*;
+import com.project.TunaProject.repository.ImageRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
@@ -48,7 +50,7 @@ public class PostController {
 	private final PostRepository postRepository;
 	private final CategoryRepository categoryRepository;
 	private final SessionManager sessionManager;
-
+	private final ImageRepository imageRepository;
 	private final ItemRepository itemRepository;
 	private final FileStore fileStore;
 	
@@ -69,8 +71,17 @@ public class PostController {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		log.info("memberVO {}", memberVO.getMemberCode());
+
+		List<Image> images = imageRepository.selectAll(postCode);
+
+		log.info("img {}", images);
+
+		model.addAttribute("images", images);
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
+
+
+
 		return "/posts/post";
 		
 	}
@@ -95,22 +106,21 @@ public class PostController {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
-		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
-
-		Item item = new Item();
-		item.setItemName(form.getItemName());
-		item.setImageFiles(storeImageFiles);
-		itemRepository.save(item);
-
-		log.info("img {}", item);
-		log.info("img {}", item.getImageFiles().get(0));
-		
-		log.info("ct {}", ct);
-		log.info("postItem {}", postItem);
 		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
-		log.info("postItem {}", post);
 
 		rAttr.addAttribute("postCode", post.getPostCode());
+
+		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
+
+		for(UploadFile uf : storeImageFiles) {
+			Image img = new Image();
+			img.setImageName(uf.getUploadFileName());
+			img.setImageFiles(uf.getStoreFileName());
+			img.setITarget("1");
+			img.setIType(post.getPostCode());
+			imageRepository.insert(img);
+
+		}
 
 		return "redirect:/posts/{postCode}";
 	}
@@ -131,6 +141,7 @@ public class PostController {
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
+		log.info(filename);
 		return new UrlResource("file:" + fileStore.getFullPath(filename));
 	}
 }

@@ -14,7 +14,7 @@ public interface ImageItemMapper {
 	
 	public Image selectByImageCode(String ImageCode);
 	
-	public List<Image> selectAll();
+	public List<Image> selectAll(String code);
 	
 	public void update(@Param("imageCode")String postCode, @Param("updatePost")Image image);
 	
