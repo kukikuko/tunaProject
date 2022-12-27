@@ -60,6 +60,12 @@
 	where memberMail = #{memberMail}
 	</update>
 	
+	
+	<delete id="deleteMember">
+	delete from tuna_member
+    where membermail =#{memberMail}
+	</delete>
+	
 <!-- 	회원가입시, 아이디 중복인지 체크 -->
 	<select id="idCheck" resultType="Integer">
 		select count(*) from tuna_member 

@@ -21,4 +21,7 @@ public interface MemberMapper {
 	
 	//1225
 	public void updatePassword(MemberVO memberVO);
+	
+	//회원탈퇴 메소드
+	public void deleteMember(MemberVO memberVO);
 }

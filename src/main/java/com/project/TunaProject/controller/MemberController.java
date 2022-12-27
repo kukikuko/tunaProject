@@ -136,7 +136,31 @@ public class MemberController {
 	
 	//회원 탈퇴
 	@GetMapping("/memberOut")
-	public String memberOut() {
+	public String memberOut(HttpServletRequest req, Model model) {
+		
+		HttpSession session = req.getSession(false);
+		
+		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
+		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
+		
+		model.addAttribute("memberVO",memberVO);
+		
 		return "myPage/memberOut";
 	}
+	
+	@PostMapping("/memberOut")
+	public String deleteMember(HttpServletRequest req, MemberVO memberVO) {
+		HttpSession session = req.getSession(false);
+		
+		MemberVO tempVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		memberVO.setMemberMail(tempVO.getMemberMail());
+		memberRepository.deleteMember(memberVO);
+		session.invalidate();
+		
+	 		return "redirect:/";
+	}
+	
+	
+	
 }
