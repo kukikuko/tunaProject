@@ -21,10 +21,11 @@ public class MybatisPostRepository implements PostRepository{
 	private final PostItemMapper postItemMapper;
 
 	@Override
-	public Post insert(Post post, int membercode) {
+	public Post insert(Post post, int membercode, String ctCode) {
 		// TODO Auto-generated method stub
 //		Post postItem = postItemMapper.insert(post, membercode);
 		post.setPMemCode(membercode);
+		post.setPostCtCode(ctCode);
 		Integer result = postItemMapper.insert(post);
 		return post;
 	}
