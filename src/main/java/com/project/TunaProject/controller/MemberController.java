@@ -4,13 +4,21 @@ package com.project.TunaProject.controller;
 import org.springframework.boot.autoconfigure.cassandra.CassandraProperties.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.TunaProject.domain.MemberVO;
+import com.project.TunaProject.form.LoginForm;
 import com.project.TunaProject.repository.MemberRepository;
+import com.project.TunaProject.service.Tuna_LoginService;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
 
@@ -27,7 +35,8 @@ public class MemberController {
 	
 	private final SessionManager sessionManager;
 	private final MemberRepository memberRepository;
-	
+	private final Tuna_LoginService loginService;
+
 	@GetMapping("/join")
 	public String join() {
 		return "join/join";
@@ -77,23 +86,45 @@ public class MemberController {
 	
 	//비밀번호 변경	
 	@GetMapping("/myPage/passwordUpdate")
-	public String passwordUpdate() {
+	public String passwordUpdate(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession(false);
+		
+		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
+		memberVO.setMemberMail(tempVO.getMemberMail());
+		model.addAttribute("memberVO",memberVO);
+		log.info("updateGET member {}", memberVO);
 		return "myPage/passwordUpdate";
 	}
+
 	
 	//1225
 	@PostMapping("/myPage/passwordUpdate")
-	public String updatePassword(MemberVO memberVO, HttpServletRequest req) {
+	public String updatePassword(@ModelAttribute LoginForm loginForm,
+			BindingResult bindingResult, HttpServletResponse resp
+			, HttpServletRequest req, MemberVO memberVO
+			, @RequestParam(name="redirectURL", defaultValue = "/") String redirectURL ) {
+		
 		HttpSession session = req.getSession(false);
 
 		MemberVO tempVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		memberVO.setMemberMail(tempVO.getMemberMail());
 		
+		log.info("update memberVO {}", memberVO);
+		
 		memberRepository.updatePassword(memberVO);
 		
-		return "redirect:/";
+	 		return "redirect:/";
 	}
-	
+	public void validateLoginForm(LoginForm loginForm, Errors errors) {
+		if(!StringUtils.hasText(loginForm.getEmail())) {
+			errors.rejectValue("loginId", null, "아이디 필수 입력입니다.");
+		}
+		
+		if(!StringUtils.hasText(loginForm.getPassword())) {
+			errors.rejectValue("password", null, "비밀번호 필수 입력입니다.");
+		}
+	}
 	//회원 탈퇴
 	@GetMapping("/myPage/memberOut")
 	public String memberOut() {

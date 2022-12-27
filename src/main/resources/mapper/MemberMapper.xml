@@ -54,7 +54,11 @@
 	where memberMail = #{memberMail}
 	</update>
 	
-	<update id="updatePassword"></update>
+	<update id="updatePassword">
+	UPDATE tuna_member
+	set password = #{password}
+	where memberMail = #{memberMail}
+	</update>
 	
 <!-- 	회원가입시, 아이디 중복인지 체크 -->
 	<select id="idCheck" resultType="Integer">

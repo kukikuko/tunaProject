@@ -40,13 +40,13 @@
 				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 				<br>
 					<input type="text" id="sample6_postcode" name="memberAddr1" 
-							 th:value=${memberVO?.memberAddr1}  th:field="*{memberAddr1}" readonly><br> 
+							 th:value="${memberVO?.memberAddr1}"  th:field="*{memberAddr1}" readonly><br> 
 					<input type="text" id="sample6_address" name="memberAddr2"
-							 th:value=${memberVO?.memberAddr2} th:field="*{memberAddr2}" readonly><br>
+							 th:value="${memberVO?.memberAddr2}" th:field="*{memberAddr2}" readonly><br>
 					<input type="text" id="sample6_detailAddress" name="memberAddr3" 
-							th:value=${memberVO?.memberAddr3} th:field="*{memberAddr3}"> 
+							th:value="${memberVO?.memberAddr3}" th:field="*{memberAddr3}"> 
 					<input type="text" id="sample6_extraAddress" name="memberAddr4"
-							th:value=${memberVO?.memberAddr4} th:field="*{memberAddr4}">
+							th:value="${memberVO?.memberAddr4}" th:field="*{memberAddr4}">
 			</label>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 

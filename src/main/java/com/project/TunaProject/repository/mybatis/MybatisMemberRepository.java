@@ -58,7 +58,7 @@ public class MybatisMemberRepository implements MemberRepository{
 	public boolean updatePassword(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		boolean result = false;
-		memberMapper.updateMemberByEmail(memberVO);
+		memberMapper.updatePassword(memberVO);
 		result = true;
 		
 		return result;
