@@ -14,4 +14,6 @@ public interface MemberRepository {
 	
 	//1225
 	public boolean updatePassword(MemberVO memberVO);
+	
+	public void deleteMember(MemberVO memberVO);
 }
