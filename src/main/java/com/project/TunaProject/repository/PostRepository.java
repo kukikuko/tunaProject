@@ -7,7 +7,7 @@ import com.project.TunaProject.domain.Post;
 
 public interface PostRepository {
 
-	public Post insert(Post post, int membercode, String ctCode);
+	public Post insert(Post post, int memberCode, String ctCode);
 	
 	public Post selectByPostCode(String postCode);
 	

@@ -59,13 +59,16 @@ div {
 				</form>
 			</div>
 		</div>
-	</nav>		
-	<form action="writing" method="post" th:object="${post}">
+	</nav>
+	<h1>물품등록</h1>
+
+	<form action="writing" method="post" th:object="${post}" enctype="multipart/form-data">
 		<div>
 			<select name="ctCode">
 				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}" th:text="${ct.ctName}" ></option>				
 			</select><br/>
 			<input type="hidden" name="postCode" th:field="*{postCode}">
+			
 			<label><input type="text" name="postTitle"
 				th:field="*{pTitle}" placeholder="제목을 입력하세요.">
 			</label><br /> <label><textarea type="text" name="postContent"
@@ -73,10 +76,8 @@ div {
 			</label><br /> <label><input type="number" name="postPrice"
 				th:field="*{pPrice}" placeholder="가격">
 			</label><br/>
-
-			<!-- <label>이미지
-				<input type="file" name="postImege" th:field="*{p_imageCode}">
-			</label><br/> -->
+			<label>이미지 파일들<input type="file" multiple="multiple" name="imageFiles"></label>
+			
 			<button type="submit">등록하기</button>
 			<button type="button" th:onClick="|location.href='@{/posts}'|">뒤로가기</button>
 		</div>
