@@ -9,12 +9,8 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-</style>
+<link rel="stylesheet" href="/css/NewFile.css"> 
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-lg bg-light">
@@ -56,18 +52,18 @@
 			</div>
 		</div>
 	</nav>
-	<div>
-		<table th:each="post :${posts}">
+	<div class="posts">
+		<table th:each="post :${posts}" class="posttable">
 			<thead>
 				<tr>
-					<a th:href="@{|/posts/${post.postCode}|}" th:text="${post.pTitle}"></a>
+					<a class="tr" th:href="@{|/posts/${post.postCode}|}" th:if="${post.pOpenStatus != 'N'}" th:text="${post.pTitle}" ></a>
 				</tr>
 			</thead>
 		</table>
 	</div>
 	<div>
 		<!-- <button th:if="${memberVO.getMemberMail().equals('admin')}" th:onClick="|location.href='@{/admin/home}'|">관리자 화면</button> -->
-		<button th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
+		<button class="postBtn" th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
 	</div>
 	<!-- JavaScript Bundle with Popper -->
 	<script

@@ -21,14 +21,14 @@
 		,TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI')
 		,''
 		,#{pPrice}
-		,'1'
-		,'1'
+		,'Y'
+		,'Y'
 		,0
 		)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
 	</insert>
 
 	<select id="selectByPostCode" resultType="Post">
-		select postCode, pMemCode, pTitle, pContent, pPrice, pView, pCreateTime, pCorrectionTime from TUNA_POST where postCode = #{postCode}
+		select * from TUNA_POST where postCode = #{postCode}
 	</select>
 
 	<select id="selectAll" resultType="Post">
@@ -51,8 +51,10 @@
 		set pView = pView + 1
 		where postCode = #{postCode}	
 	</update>
-
-	<delete id="deleteAll">
-		delete from TUNA_POST
-	</delete>
+	
+	<update id="updateDelete">
+		update TUNA_POST
+		set POPENSTATUS = 'N'
+		where postCode = #{postCode}	
+	</update>
 </mapper>

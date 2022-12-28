@@ -46,6 +46,7 @@ public class PostController {
 	public String posts(Model model) {
 		List<Post> postList = postRepository.selectAll();
 		model.addAttribute("posts", postList);
+		log.info("posts {}" , postList);
 		return "/posts/posts";
 	}
 	
@@ -56,9 +57,7 @@ public class PostController {
 		postItem = postRepository.selectByPostCode(postCode);
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-<<<<<<< HEAD
 
-=======
 		log.info("memberVO {}", memberVO.getMemberCode());
 
 		List<Image> images = imageRepository.selectAll(postCode);
@@ -66,7 +65,6 @@ public class PostController {
 		log.info("img {}", images);
 
 		model.addAttribute("images", images);
->>>>>>> efa2ab730b137e16879dfbe1faa430bd5093233b
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
 
@@ -95,7 +93,7 @@ public class PostController {
 
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-
+		
 		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
 
 		rAttr.addAttribute("postCode", post.getPostCode());
@@ -128,17 +126,14 @@ public class PostController {
 		return "redirect:/posts/{postCode}";
 	}
 	
-	@GetMapping("/update/{postCode}")
-	public String deletePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
-		Post postItem = postRepository.selectByPostCode(postCode);
-		model.addAttribute("post",postItem);
-		return "/posts/update.html";
-	}
 	
-	@PostMapping("/update/{postCode}")
-	public String deletePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {
-		postRepository.update(postCode, postItem);
-		return "redirect:/posts/{postCode}";
+	@PostMapping("/delete")
+	public String updateDeleteProcess(@ModelAttribute Post post) {
+		log.info("postCode {}", post.getPostCode());
+
+		postRepository.updateDelete(post.getPostCode());
+		return "redirect:/posts";
+	}
 
 	@ResponseBody
 	@GetMapping("/images/{filename}")
