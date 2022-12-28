@@ -46,7 +46,7 @@ public class PostController {
 	private final SessionManager sessionManager;
 	
 	@GetMapping
-	public String posts(Model model, HttpServletRequest req) {
+	public String posts(Model model) {
 		List<Post> postList = postRepository.selectAll();
 		model.addAttribute("posts", postList);
 		return "/posts/posts";
@@ -57,11 +57,9 @@ public class PostController {
 			, HttpServletRequest req) {
 		postRepository.viewCont(postItem.getPostCode());
 		postItem = postRepository.selectByPostCode(postCode);
-		log.info("postItem {}", postItem);
-		
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		log.info("memberVO {}", memberVO.getMemberCode());
+
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
 		return "/posts/post";
@@ -85,20 +83,13 @@ public class PostController {
 			, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		
-		log.info("ct {}", ct);
-		log.info("postItem {}", postItem);
-		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
-		log.info("postItem {}", post);
-		
-		
-		rAttr.addAttribute("postCode", post.getPostCode());
-		
+		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());		
+		rAttr.addAttribute("postCode", post.getPostCode());		
 		return "redirect:/posts/{postCode}";
 	}
 	
 	@GetMapping("/update/{postCode}")
-	public String updatePost(Model model, @PathVariable("postCode")String postCode) {
+	public String updatePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
 		Post postItem = postRepository.selectByPostCode(postCode);
 		model.addAttribute("post",postItem);
 		return "/posts/update.html";
@@ -106,6 +97,19 @@ public class PostController {
 	
 	@PostMapping("/update/{postCode}")
 	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {
+		postRepository.update(postCode, postItem);
+		return "redirect:/posts/{postCode}";
+	}
+	
+	@GetMapping("/update/{postCode}")
+	public String deletePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
+		Post postItem = postRepository.selectByPostCode(postCode);
+		model.addAttribute("post",postItem);
+		return "/posts/update.html";
+	}
+	
+	@PostMapping("/update/{postCode}")
+	public String deletePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {
 		postRepository.update(postCode, postItem);
 		return "redirect:/posts/{postCode}";
 	}

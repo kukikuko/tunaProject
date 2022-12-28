@@ -28,7 +28,7 @@
 	</insert>
 
 	<select id="selectByPostCode" resultType="Post">
-		select postCode,pMemCode, pTitle, pContent, pPrice, pView, pCreateTime, pCorrectionTime from TUNA_POST where postCode = #{postCode}
+		select postCode, pMemCode, pTitle, pContent, pPrice, pView, pCreateTime, pCorrectionTime from TUNA_POST where postCode = #{postCode}
 	</select>
 
 	<select id="selectAll" resultType="Post">
