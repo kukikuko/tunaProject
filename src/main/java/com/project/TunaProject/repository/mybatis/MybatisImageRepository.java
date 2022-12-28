@@ -32,9 +32,9 @@ public class MybatisImageRepository implements ImageRepository{
 	}
 
 	@Override
-	public List<Image> selectAll() {
+	public List<Image> selectAll(String code) {
 		// TODO Auto-generated method stub
-		List<Image> imageList = imageItemMapper.selectAll();
+		List<Image> imageList = imageItemMapper.selectAll(code);
 		return imageList;
 	}
 

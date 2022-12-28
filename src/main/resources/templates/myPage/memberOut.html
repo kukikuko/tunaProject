@@ -2,17 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
 	<h1>멤버아웃</h1>
-		<p th:text=${memberVO.pTitle}>제목</p>
-		<p th:text=${post.pContent}>내용</p>
-		<p th:text=${post.pPrice}>가격</p>
-		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
-		<p th:text=${post.pCreateTime}>작성시간</p>
-		<p th:text=${post.pCorrectionTime}>수정시간</p>
 	
-	<button type ="button" th:onClick="|location.href='@{/}'|">뒤로 가기</button>
+	<form action="" method="post" th:object="${memberVO}" name="deleteMemeber">
+	
+	<div class="pwdCheckBox" id="pwdCheckBox">	
+	<p>현재 비밀번호를 입력해주세요.</p><br>
+	<label>
+		 <input type="password" id="oldpassword" maxlength="25" placeholder="현재 비밀번호" name="oldpassword"><br>
+	</label>
+		<button type="button" id="checkBtn">확인</button><br><br>
+	</div>
+	
+	<div class="memberOutBox" id="memberOutBox">
+		<p th:text="${memberVO?.memberName}+'님의 회원 탈퇴를 진행합니다.'" ></p>
+		 <button type="submit" id="deleteBtn">탈퇴</button>
+	</div><br>
+	
+	
+ 	<button type="button" th:onClick="|location.href='@{/}'|">뒤로가기</button>
+	</form>
+	<script>
+	$("#memberOutBox").css("display", "none");
+	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
+	var password = document.getElementById("oldpassword");
+	var checkCnt = 0;
+	
+	
+	document.getElementById('checkBtn').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		let form = document.deleteMemeber;
+
+		  $.ajax({
+			  type: "POST",
+			  url: "/myPage/pwcheck",
+			  data: {password : $('input#oldpassword').val()},
+			  success: function(data) {
+				  if(data.result == 1) {
+						alert('비밀번호가 일치합니다.'); 
+						checkCnt++;
+						 $("#memberOutBox").show();
+						 $("#pwdCheckBox").css("display", "none");
+				  } else {
+					  alert("비밀번호가 일치하지 않습니다.");
+					  password.focus();
+					  return false;
+				  }
+			  }
+		  })
+	});
+	
+	document.getElementById('deleteBtn').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		let form = document.deleteMemeber;
+		
+		if(checkCnt == 1){
+			if(confirm('회원 탈퇴하시겠습니까?')){
+				alert('탈퇴 되었습니다.'); 
+				 form.submit();
+				}
+		}else{
+			alret('비밀번호 확인을 진행해주세요');
+			return false;
+		}
+		
+		});
+
+	
+</script>
 </body>
 </html>

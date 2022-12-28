@@ -27,4 +27,18 @@ public class Tuna_LoginService {
 		
 		return null;
 	}
+	
+	//1225
+	public MemberVO passwordCheck(String email, String password) {
+		
+		MemberVO memberVO = memberRepository.selectByEmail(email);
+		
+		if(memberVO != null) {
+			if(memberVO.getPassword().equals(password)) {
+				return memberVO;
+			}
+		}
+		
+		return null;
+	}
 }

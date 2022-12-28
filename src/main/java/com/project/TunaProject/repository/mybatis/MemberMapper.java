@@ -18,4 +18,10 @@ public interface MemberMapper {
 	public Integer idCheck(String email);
 	
 	public void updateMemberByEmail(MemberVO memberVO);
+	
+	//1225
+	public void updatePassword(MemberVO memberVO);
+	
+	//회원탈퇴 메소드
+	public void deleteMember(MemberVO memberVO);
 }

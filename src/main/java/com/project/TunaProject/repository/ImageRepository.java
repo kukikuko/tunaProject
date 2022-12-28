@@ -9,7 +9,7 @@ public interface ImageRepository {
 	
 	public Image selectByImageCode(String ImageCode);
 	
-	public List<Image> selectAll();
+	public List<Image> selectAll(String code);
 	
 	public boolean update(String ImageCode,Image image);
 	
