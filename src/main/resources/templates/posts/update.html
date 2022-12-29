@@ -9,17 +9,12 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-</style>
+<link rel="stylesheet" href="/css/NewFile.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-light">
+	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
+			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
 			<a class="navbar-brand" href="#">사조마켓</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
@@ -37,48 +32,44 @@
 					<input class="form-control me-2" type="search"
 						placeholder="물품이나 동네를 검색해주세요." aria-label="Search">
 					<button class="btn btn-outline-success" type="submit">검색</button>
-					<button type="button" th:onclick="|location.href='@{/join}'|">회원
-						가입</button>
-					<button type="button" th:onclick="|location.href='@{/index}'|">로그아웃</button>
 				</form>
+				<form th:action="@{/logout}" method="post">
+					<button type="submit">로그아웃</button>
+				</form>
+				<div class="dropdown">
+					<button class="btn btn-secondary dropdown-toggle" type="button"
+						data-bs-toggle="dropdown" aria-expanded="false">개인정보</button>
+					<ul class="dropdown-menu">
+						<li><a class="dropdown-item" href="/myPage/memberUpdate">개인정보
+								변경</a></li>
+						<li><a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호
+								변경</a></li>
+						<li><a class="dropdown-item" href="/myPage/memberOut">회원
+								탈퇴</a></li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</nav>
 	<div>
-		<!-- <input type="hidden" th:text=${post.postCode}> -->
-		
-		<p th:text = ${post.pTitle}>제목</p>
-		<p th:text = ${post.pContent}>내용</p>
-		<p th:text = ${post.pPrice}>가격</p>
-		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
-		<p th:text = ${post.pCreateTime}>작성시간</p>
-	</div>    
- 	
-	<form action="" method="post" th:object="${post}">
-		<div>
-			<input type="hidden" name="postCode" th:field="*{postCode}">
-			
-			<label>제목
-				<input type="text" name="postTitle" th:field="*{pTitle}">
-			</label><br/>
-			
-			<label>내용
-				<textarea type="text" name="postContent" th:field="*{pContent}"></textarea>
-			</label><br/>
-			
-			<label>가격 :
-				<input type="number" name="postPrice" th:field="*{pPrice}">원
-			</label><br/>	
-			<label>
-				<p th:field="*{pCorrectionTime}"></p>
-			</label><br/>
-			
-		</div>
-		<div>		
-			<button type="submit">수정완료</button>
-			<button th:onclick="|location.href='@{/posts}'|">목록보기</button>   
-		</div>
-	</form>     
+		<form action="" method="post" th:object="${post}" class="post">
+			<div>
+				<input type="hidden" name="postCode" th:field="*{postCode}">
+
+				<label>제목 <input type="text" name="postTitle"
+					th:field="*{pTitle}" class="post-p">
+				</label><br /> <label>내용 <textarea type="text" name="postContent"
+						th:field="*{pContent}" class="post-p"></textarea>
+				</label><br /> <label>가격 : <input type="number" name="postPrice"
+					th:field="*{pPrice}" class="post-price">
+				</label><br />
+			</div>
+			<div>
+				<button type="submit" class="postBtn">수정완료</button>
+				<button th:onclick="|location.href='@{/posts}'|" class="postBtn">목록보기</button>
+			</div>
+		</form>
+	</div>
 	<!-- JavaScript Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

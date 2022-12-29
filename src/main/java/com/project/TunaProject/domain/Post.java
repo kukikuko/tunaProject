@@ -15,8 +15,8 @@ public class Post {
 	private String pCreateTime;
 	private String pCorrectionTime;
 	private String pPrice;
-	private boolean pSalesStatus;
-	private boolean pOpenStatus;
+	private String pSalesStatus;
+	private String pOpenStatus;
 	private int pView;
 	
 //	public Post() {}

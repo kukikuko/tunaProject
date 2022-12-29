@@ -44,9 +44,10 @@ public class PostController {
 	private final FileStore fileStore;
 	
 	@GetMapping
-	public String posts(Model model, HttpServletRequest req) {
+	public String posts(Model model) {
 		List<Post> postList = postRepository.selectAll();
 		model.addAttribute("posts", postList);
+		log.info("posts {}" , postList);
 		return "/posts/posts";
 	}
 	
@@ -55,10 +56,9 @@ public class PostController {
 			, HttpServletRequest req) {
 		postRepository.viewCont(postItem.getPostCode());
 		postItem = postRepository.selectByPostCode(postCode);
-		log.info("postItem {}", postItem);
-		
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+
 		log.info("memberVO {}", memberVO.getMemberCode());
 
 		List<Image> images = imageRepository.selectAll(postCode);
@@ -94,7 +94,7 @@ public class PostController {
 
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-
+		
 		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
 
 		rAttr.addAttribute("postCode", post.getPostCode());
@@ -115,7 +115,7 @@ public class PostController {
 	}
 	
 	@GetMapping("/update/{postCode}")
-	public String updatePost(Model model, @PathVariable("postCode")String postCode) {
+	public String updatePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
 		Post postItem = postRepository.selectByPostCode(postCode);
 		model.addAttribute("post",postItem);
 		return "/posts/update";
@@ -125,6 +125,15 @@ public class PostController {
 	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {
 		postRepository.update(postCode, postItem);
 		return "redirect:/posts/{postCode}";
+	}
+	
+	
+	@PostMapping("/delete")
+	public String updateDeleteProcess(@ModelAttribute Post post) {
+		log.info("postCode {}", post.getPostCode());
+
+		postRepository.updateDelete(post.getPostCode());
+		return "redirect:/posts";
 	}
 
 	@ResponseBody
