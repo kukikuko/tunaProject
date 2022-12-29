@@ -1,0 +1,171 @@
+
+
+
+
+@keyframes chat_balloon_ani{
+  0%
+  {
+    opacity:0;
+  }
+  100%
+  {
+    opacity:1;
+  }
+}
+
+.chat_ani
+{
+  animation-name: chat_balloon_ani;
+  animation-duration: 2s;
+}
+
+#chat_room{
+  width: 100vw;
+  height: 100vh;
+}
+
+#messages
+{
+  z-index: 1;
+  overflow:auto;
+  width: 100vw;
+  height: calc(100vh - 100px);
+  top: 0px;
+  position: relative;
+  background-color: bisque;
+}
+
+#up_bar{
+ z-index: 0;
+ width: 100vw;
+ height: 50px;
+ background-color: black;
+}
+
+#text_box{
+  right: 90px;
+  width: calc(100vw - 190px);
+  z-index: 1;
+  bottom: 10px;
+  height: 30px;
+  position: absolute;
+
+}
+#send{
+  z-index: 1;
+  width: 50px;
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
+#send_btn{
+  z-index: 2;
+  background-color: rgba(0,0,0,0);
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
+#title{
+margin-left: 50%;
+margin-right: 50%;
+  color: aliceblue;
+  top: 12px;
+  position: relative;
+  z-index: 5;
+}
+#bottom_bar{
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+ height: 50px;
+ bottom: 0px;
+ background-color: black;
+}
+#add_img{
+  position: absolute;
+  z-index: 2;
+  height: 50px;
+  bottom: 0px;
+  left: 20px;
+
+}
+
+.my_message{
+   right: 0px;
+
+}
+
+.btn_ui_my{
+  margin-bottom: 10px;
+  display: inline-block;
+  left:calc(100% - 58.75px);
+
+  color: black;
+  position: relative;
+  width: auto;
+
+}
+
+.btn_ui
+{
+  margin-bottom: 10px;
+  display: inline-block;
+  color: black;
+  left:20px;
+  position: relative;
+}
+
+.my_balloon{
+  left: calc(100% - 275px);
+  position:relative;
+}
+
+.c_Width1{
+  width: 93px;
+}
+.c_Width2{ 
+  width: 173px;
+}
+.c_Width3{
+  width: 277px;
+}
+
+.word_break{
+  word-wrap: break-word;
+  
+}
+.chat{
+  z-index: 1;
+  position: absolute;
+  color: azure;
+  font-family: 'MICEGothic Bold';
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 12px;
+}
+
+.chat_balloon_S{
+  z-index: 0;
+  height: 50px;
+  transform: scaleY(-1);
+
+}
+
+.chat_balloon_L{
+  z-index: 0;
+  width: 274px;
+  position: relative;
+  transform: scaleY(-1);
+
+}
+
+.hide{
+  z-index:0;
+  position:absolute;
+  font-family: 'MICEGothic Bold';
+}
+
