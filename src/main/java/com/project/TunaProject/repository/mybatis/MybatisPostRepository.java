@@ -70,5 +70,12 @@ public class MybatisPostRepository implements PostRepository{
 		// TODO Auto-generated method stub
 		postItemMapper.viewCont(postCode);
 	}
+
+	@Override
+	public List<Post> selectSearch(String keyword) {
+		// TODO Auto-generated method stub
+		List<Post> postList = postItemMapper.selectSearch(keyword);
+		return postList;
+	}
 		
 }

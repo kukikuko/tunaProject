@@ -32,7 +32,8 @@
 	</select>
 
 	<select id="selectAll" resultType="Post">
-		select * from TUNA_POST order by postCode 
+		select POSTCODE,POSTCATEGORYCODE,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME,substr(PCORRECTIONTIME,0,8),
+		 PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW  from TUNA_POST order by postCode 
 	</select>
 
 
@@ -57,4 +58,11 @@
 		set POPENSTATUS = 'N'
 		where postCode = #{postCode}	
 	</update>
+	
+	<select id="selectSearch" resultType="Post">
+		select POSTCODE,POSTCATEGORYCODE,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME,substr(PCORRECTIONTIME,0,8),
+		 PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW  from TUNA_POST
+		 where PTITLE = #{keyword} or PCONTENT = #{keyword}		 
+		 order by postCode 
+	</select>
 </mapper>
