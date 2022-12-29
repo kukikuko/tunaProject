@@ -19,6 +19,7 @@
 		<table class="board-table">
 			<thead class="postsThead">
 				<tr>
+					<th class="th-cate">카테고리</th>
 					<th class="th-date">작성시간</th>
 					<th class="th-title">제목</th>
 					<th class="th-view">조회수</th>
@@ -27,6 +28,8 @@
 			<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}"
 				class="postsTbody">
 				<tr>
+					<td a class="tr" th:href="@{|/posts/${post.postCode}|}"
+						th:text="${post.ctName}"></td>
 					<td a class="tr" th:href="@{|/posts/${post.postCode}|}"
 						th:text="${post.pCreateTime}"></td>
 					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"

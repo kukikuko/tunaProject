@@ -46,7 +46,7 @@ table {
   text-align: center;
 }
 
-.board-table .th-date {
+.board-table .th-date, .th-cate {
   width: 200px;
 }
 

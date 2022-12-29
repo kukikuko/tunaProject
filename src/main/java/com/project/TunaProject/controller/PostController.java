@@ -45,6 +45,7 @@ public class PostController {
 	@GetMapping
 	public String posts(Model model, HttpServletRequest req) {
 		List<Post> postList = postRepository.selectAll();
+		System.out.println(postList.size());
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		model.addAttribute("posts", postList);
@@ -159,9 +160,8 @@ public class PostController {
 		List<Post> postList = postRepository.selectSearch(keyword);
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		model.addAttribute("postList",postList);
+		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
-		log.info(postList.toString());
 		return "/posts/posts";
 	}
 	

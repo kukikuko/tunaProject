@@ -75,6 +75,7 @@ public class MybatisPostRepository implements PostRepository{
 	public List<Post> selectSearch(String keyword) {
 		// TODO Auto-generated method stub
 		List<Post> postList = postItemMapper.selectSearch(keyword);
+		System.out.println(postList.toString());
 		return postList;
 	}
 		
