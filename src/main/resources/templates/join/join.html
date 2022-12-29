@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<title>Insert title here</title>
+<!-- CSS only -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<style>
+body {
+	background-color: white;
+	/* background-color: #a7cdfd; */
+}
+
+.joinform {
+	margin: auto;
+	width: 500px;
+	background-color: #a7cdfd;
+	background-color: #EEEFF1;
+	border-radius: 5px;
+	text-align: left;
+	padding: 20px;
+}
+
+input{
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+.in, .mailCheckInput {
+	margin-bottom: 10px;
+}
+
+#joinBtn, #mailChkBtn {
+	background-color: #a7cdfd;
+	margin-bottom: 30px;
+	color: black;
+	border: none;
+	border-radius: 5px;
+}
+
+a {
+	text-decoration: none;
+	color: #9B9B9B;
+	font-size: 12px;
+}
+.logoImg {
+	width: 40px;
+	height: 40px;
+}
+
+</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg bg-light">
+		<div class="container-fluid">
+			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
+			<a class="navbar-brand" href="#">사조마켓</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
+				aria-controls="navbarScroll" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarScroll">
+				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+					style="-bs-scroll-height: 100px;">
+					<li class="nav-item"><a class="nav-link active"
+						aria-current="page" href="#">중고거래</a></li>
+				</ul>
+				<form class="d-flex" role="search">
+					<input class="form-control me-2" type="search"
+						placeholder="물품이나 동네를 검색해주세요." aria-label="Search">
+					<button class="btn btn-outline-success" type="submit">검색</button>
+				</form>
+			</div>
+		</div>
+	</nav>
+	<div>
+		<form action="" method="post" name="memberJoin" class="joinform">
+			<div>
+				<label>이메일</label> 
+					<input type="text" name="memberMail1" id="memberMail" maxlength="15" class="in">@
+					<input type="text" name="memberMail2" id="email_add" maxlength="15" class="in">
+					<select name="email_sel" id="email_sel" onchange="change_email();">
+						<option value="">직접입력</option>
+						<option value="naver.com">naver</option>
+						<option value="gmail.com">gmail</option>
+						<option value="nate.com">nate</option>
+					</select>
+					<button type="submit" class="btn btn-primary" id="mailChkBtn">중복확인</button>
+					<div class="mail-check-box" id="mailCheckBox">
+						<button type="submit" class="btn btn-primary" id="mailCheckBtn1">인증번호 발송</button>
+						<p id="time">180</p>
+						<input class="mailCheckInput"  id="mailCheckInput" name="mailCheckInput"  placeholder="인증번호를 입력해주세요!" maxlength="8">
+						<button type="button" id="ePw-Check-Btn">인증번호 확인</button>
+					</div>
+			</div><br>
+			<div>
+				<label>비밀번호
+					<input type="password" name="password" id="pwd" placeholder="영문자+숫자+특수문자 조합" class="in">
+				</label>
+			</div>
+			<div>
+				<label>비밀번호 재확인
+					<input type="password" name="repwd" id="repwd" class="in">
+				</label>	
+			</div>
+			<div>
+				<label>이름
+					<input type="text" name="memberName" id="uname" maxlength="6" class="in">
+				</label>
+			</div>
+			<div>
+				<label>생년월일 
+					<input type="text" name="memberBirth" id="memberBirth" placeholder="ex)19000101" maxlength="8" class="in">
+				</label>	
+			</div>
+			<div>
+				<label>닉네임
+					<input type="text" name="memberNick" id="memberNickName" maxlength="6" placeholder="2~6글자 한글로 입력해주세요." class="in"><br>
+				</label>
+			</div>
+			<div>
+				<label>전화번호
+					 <select id="PN_sel" onchange="change_PN();">
+						<option value="">직접입력</option>
+						<option value="010">010</option>
+						<option value="011">011</option>
+					</select>
+				<input type="text" name="memberPN1" id="PN_add" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="in"> - 
+				<input type="text" name="memberPN2" id="mobile2" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="in">
+				<input type="text" name="memberPN3" id="mobile3" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="in"> 
+					ex"-"없이 숫자만 입력
+				</label>
+			</div>
+			<label>주소
+				<br>
+				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="in">
+				<br>
+					<input type="text" id="sample6_postcode" name="memberAddr1" placeholder="우편번호" readonly class="in"><br> 
+					<input type="text" id="sample6_address" name="memberAddr2" placeholder="주소" readonly class="in"><br>
+					<input type="text" id="sample6_detailAddress" name="memberAddr3" placeholder="상세주소" class="in"> 
+					<input type="text" id="sample6_extraAddress" name="memberAddr4" placeholder="참고항목" class="in">
+			</label>
+			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
+			<br>
+
+			<button id="joinBtn" type="submit" >회원 가입</button>
+		</form>
+	</div>
+
+	<script>
+	$("#mailCheckBox").css("display", "none");
+	$("#time").css("display", "none");
+	var pwd = document.getElementById("pwd");				//비밀번호
+	var repwd = document.getElementById("repwd");			//비밀번호 확인
+	var uname = document.getElementById("uname");			//이름
+	var mobile1 = document.getElementById("PN_add");			//휴대폰번호 앞
+	var mobile2 = document.getElementById("mobile2");			//휴대폰번호 중간
+	var mobile3 = document.getElementById("mobile3");			//휴대폰번호 뒤
+	var memberMail = document.getElementById("memberMail");	//이메일 앞
+	var email_add = document.getElementById("email_add");	//이메일 뒤
+	var memverBirth = document.getElementById("memberBirth");//생일
+	var memberNickName = document.getElementById("memberNickName");//닉네임
+	var mailCheckInput = document.getElementById("mailCheckInput"); 
+	var checkCnt = 0;
+	
+	var regEmail = /^[a-zA-Z0-9]/;	//이메일 정규식. 알파벳, 숫자로 구성 
+	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
+	let reg_name1 = /^[가-힣]+$/; // 한글만
+	var reg = /^[0-9]+/g; //숫자만 입력하는 정규식		
+	var email = "";
+	  
+// 	  function showPopup() { window.open("08_2_popup.html", "a", "width=400, height=300, left=100, top=50"); }
+		document.getElementById('mailChkBtn').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		email = memberMail.value + "@" + email_add.value;  // 이메일 주소값 얻어오기!
+		
+		let form = document.mailCheck; 
+		
+		if(memberMail.value==""||email_add.value==""){
+			alert("이메일 주소를 입력해주세요.");
+		    memberMail.focus();
+		    return false;
+		    }
+		
+		if (!regEmail.test(memberMail.value)) {
+		    alert("이메일 형식을 올바르게 입력하세요.");
+		    memberMail.focus();
+		    return false;
+		  }
+		
+		checkId();
+		});
+		
+		document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		
+		if(memberMail.value==""||email_add.value==""){
+			console.log(memberMail.value + "@" + email_add.value);
+			console.log(email);
+			alert("이메일 주소를 입력해주세요.");
+		    memberMail.focus();
+		    return false;
+		}else if(email != memberMail.value + "@" + email_add.value){
+			console.log(memberMail.value + "@" + email_add.value);
+			console.log(email);
+			alert("이메일 주소를 올바르게 입력해주세요.");
+		    memberMail.focus();
+		    return false;
+		}
+		else{
+			
+	         alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+			   $.ajax({
+			      type : "POST",
+			      url : "emailConfirm",
+			      data : {
+			         "email" : email
+			      },
+			      success : function(data){
+			         console.log("data : "+data);
+			         
+			         setInterval(function() {
+			        	 $("#mailCheckBtn1").css("display","none");
+			        	 $("#time").css("display", "block");
+			        	 $("#time").text($("#time").text()-1);
+			         }, 1000);
+			         
+			         
+// 			         chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
+			document.getElementById('ePw-Check-Btn').addEventListener('click', (e)=>{ 
+			e.preventDefault();
+			console.log("input  : " + mailCheckInput);
+			if (data != mailCheckInput.value) { 
+ 				alert("인증번호가 일치하지 않습니다..");
+ 				}else{
+ 					alert("인증번호가 일치합니다!!");
+ 					document.getElementById('memberMail').readOnly = true;
+ 					document.getElementById('email_add').readOnly = true;
+ 					document.getElementById('email_sel').readOnly = true;
+ 					checkCnt++;
+ 					document.getElementById('mailCheckInput').readOnly = true;
+ 					$('#mailCheckBox').hide();
+ 				}
+			});
+			      }
+			   })
+		    return false;
+		}
+				
+			});
+		
+	
+ 		document.getElementById('joinBtn').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		
+		let form = document.memberJoin; 
+		  var canJoin = true;
+		
+		  if (form.password.value == "") {
+		    alert("비밀번호를 입력하세요.");
+		    pwd.focus();
+		    return false;
+		  };
+
+		  if (!pwdCheck.test(pwd.value)) {
+		    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+		    pwd.focus();
+		    return false;
+		  };
+
+		  if (repwd.value !== pwd.value) {
+		    alert("비밀번호가 일치하지 않습니다..");
+		    repwd.focus();
+		    return false;
+		  };
+
+		  if (uname.value == "") {
+		    alert("이름을 입력하세요.");
+		    uname.focus();
+		    return false;
+		  };
+
+		  if (!reg_name1.test(uname.value)) {
+		    alert("이름은 한글만 입력하세요.");
+		    uname.focus();
+		    return false;
+		  };
+		  
+		  if(uname<2 || uname>6){
+			    alert("이름은 2글자~ 6글자로 입력해주세요.");
+			    memberNickName.focus();
+			    return false;
+			  };
+
+		  if (!reg_name1.test(memberNickName.value)) {
+			    alert("닉네임은 한글만 입력하세요.");
+			    memberNickName.focus();
+			    return false;
+			  };
+			  
+		if(memberNickName<2 || memberNickName>6){
+		    alert("닉네임은 2글자~ 6글자로 정해주세요.");
+		    memberNickName.focus();
+		    return false;
+		  };
+
+		  if (memberBirth.value.length!=8) {
+			    alert("생년월일을 올바르게 입력하세요");
+			    memberBirth.focus();
+			    return false;
+			  };
+			  
+				var year = Number(memberBirth.value.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
+				var month = Number(memberBirth.value.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
+				var day = Number(memberBirth.value.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일)
+				var today = new Date(); // 날짜 변수 선언
+				var yearNow = today.getFullYear(); // 올해 연도 가져옴
+				var monthNow = today.getMonth() + 1;
+				var dateNow = today.getDate();
+				
+				
+				// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
+					if (1900 > year || year > yearNow){
+						alert("연도를 올바르게 입력하세요");
+					    memberBirth.focus();
+						return false;
+					}else if (month < 1 || month > 12) {
+						alert("월 정보를 올바르게 입력하세요");
+					    memberBirth.focus();
+						return false;
+					} else if (day < 1 || day > 31) {
+						alert("일 정보를 올바르게 입력하세요(1~31)");
+					    memberBirth.focus();
+						return false;
+					} else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+						alert("일 정보를 올바르게 입력하세요(30일까지인 달)");
+					    memberBirth.focus();
+						return false;
+					} else if (month == 2) {
+
+						var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+						if (day>29 || (day==29 && !isleap)) {
+							alert("일 정보를 올바르게 입력하세요(2월)");
+						    memberBirth.focus();
+							return false;
+						} 
+					}else if(year == yearNow){
+						if(month > monthNow){
+							alert("생년월일이 올바르지 않습니다.");
+							return false;
+						}else if(month == monthNow){
+							if(day>=dateNow){
+								alert("생년월일이 올바르지 않습니다.");
+								return false;
+							}
+						}
+					}
+
+			if(!(mobile1.value.length==3 && (mobile2.value.length==3 || mobile2.value.length==4) && mobile3.value.length==4) ){
+		    alert("전화번호를 올바르게 입력해주세요.");
+		    mobile1.focus();
+		    return false;
+		  };
+		  
+		  
+		  const email2 = memberMail.value + "@" + email_add.value;
+			  if(email != email2) {
+				alert("이메일을 확인하세요");
+				memberMail.focus();
+				return false;
+			  };
+		  if (sample6_postcode.value == "" || sample6_address.value == "") {
+			    alert("주소를 입력하세요.");
+			    sample6_postcode.focus();
+			    return false;
+			  };	  
+
+			  
+		 if(canJoin){
+			 if(checkCnt == 1){
+				 if(confirm('회원가입 하시겠습니까?')){
+					alert('회원 가입에 성공하였습니다.'); 
+					 form.submit();
+					}
+				 }else{
+					 alert('본인인증을 마치십시오.');
+					 memberMail.focus();
+						return false;
+				 }
+		 
+		 }
+					
+ 		});
+ 		
+		//이메일 옵션 선택후 주소 자동 완성
+		function change_email() {
+		  var email_add = document.getElementById("email_add");
+		  var email_sel = document.getElementById("email_sel");
+
+		  //지금 골라진 옵션의 순서와 값 구하기
+		  var idx = email_sel.options.selectedIndex;
+		  var val = email_sel.options[idx].value;
+
+		  email_add.value = val;
+		}
+		//이메일 중복체크 메소드
+		function checkId(){
+	        var email = memberMail.value + "@" + email_add.value; //id값이 "id"인 입력란의 값을 저장
+	       	console.log(email);
+	        $.ajax({
+	            url:"joongbok", //Controller에서 요청 받을 주소
+	            type:'post', //POST 방식으로 전달
+	            data:{"email":email},
+	            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+	                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+	                	if(confirm('이 메일 주소를 아이디로 사용하시겠습니까?')){
+	                		$("#memberMail").attr("readonly",true);
+	                		$("#email_add").attr("readonly",true);
+	     					hideDisplay();
+	     					console.log(memberMail.value)
+	     					console.log(email);
+						}
+	                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+	                     alert("아이디를 다시 입력해주세요");
+	                    $('#memberMail').val('');
+	                }
+	            },
+	            error:function(){
+	                alert("에러입니다");
+	            }
+	        });
+	        };
+		
+		//전화번호 옵션 선택 후 전화번호 자동 완성
+ 		function change_PN() {
+ 			  var PN_add = document.getElementById("PN_add");
+ 			  var PN_sel = document.getElementById("PN_sel");
+ 			  //지금 골라진 옵션의 순서와 값 구하기
+ 			  var idx = PN_sel.options.selectedIndex;
+ 			  var val = PN_sel.options[idx].value;
+ 			  PN_add.value = val;
+ 			} 
+		
+		function hideDisplay()  {
+			$('#mailChkBtn').hide();
+			$('#email_sel').hide();
+			$('#mailCheckBox').show();
+		}
+    function sample6_execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var addr = ''; // 주소 변수
+                var extraAddr = ''; // 참고항목 변수
+
+                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                    addr = data.roadAddress;
+                } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                    addr = data.jibunAddress;
+                }
+
+                // 사용자가 선택한 주소가 도로명 타입일때 참고항목을 조합한다.
+                if(data.userSelectedType === 'R'){
+                    // 법정동명이 있을 경우 추가한다. (법정리는 제외)
+                    // 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+                    if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                        extraAddr += data.bname;
+                    }
+                    // 건물명이 있고, 공동주택일 경우 추가한다.
+                    if(data.buildingName !== '' && data.apartment === 'Y'){
+                        extraAddr += (extraAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+                    }
+                    // 표시할 참고항목이 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+                    if(extraAddr !== ''){
+                        extraAddr = ' (' + extraAddr + ')';
+                    }
+                    // 조합된 참고항목을 해당 필드에 넣는다.
+                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                } else {
+                    document.getElementById("sample6_extraAddress").value = '';
+                }
+                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                document.getElementById('sample6_postcode').value = data.zonecode;
+                document.getElementById("sample6_address").value = addr;
+                // 커서를 상세주소 필드로 이동한다.
+                document.getElementById("sample6_detailAddress").focus();
+            }
+        }).open();
+    }
+	
+</script>
+	<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
+</body>
+</html>

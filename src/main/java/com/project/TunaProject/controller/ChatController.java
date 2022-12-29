@@ -1,4 +1,4 @@
-package com.project.TunaProject.Controller;
+package com.project.TunaProject.controller;
 
 
 import java.time.LocalDate;

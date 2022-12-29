@@ -1,4 +1,4 @@
-package com.project.TunaProject.Controller;
+package com.project.TunaProject.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
