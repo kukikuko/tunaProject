@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import com.project.TunaProject.domain.*;
+import com.project.TunaProject.form.ItemForm;
 import com.project.TunaProject.img.*;
 import com.project.TunaProject.repository.ImageRepository;
 import org.springframework.core.io.Resource;
@@ -117,7 +118,7 @@ public class PostController {
 	public String updatePost(Model model, @PathVariable("postCode")String postCode) {
 		Post postItem = postRepository.selectByPostCode(postCode);
 		model.addAttribute("post",postItem);
-		return "/posts/update.html";
+		return "/posts/update";
 	}
 	
 	@PostMapping("/update/{postCode}")
