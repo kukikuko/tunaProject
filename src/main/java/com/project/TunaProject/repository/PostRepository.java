@@ -18,4 +18,6 @@ public interface PostRepository {
 	public boolean updateDelete(String postCode);
 	
 	public void viewCont(String postCode);
+	
+	public List<Post> selectSearch(String keyword);
 }

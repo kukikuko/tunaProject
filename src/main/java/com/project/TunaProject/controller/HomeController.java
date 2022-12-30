@@ -47,7 +47,7 @@ public class HomeController {
         }
         List<Post> postList = postRepository.selectAll();
         model.addAttribute("posts", postList);
-        model.addAttribute("memberVO", memberVO);
+        model.addAttribute("member", memberVO);
         log.info("Login memberInfo {}", memberVO);
 
         return "/posts/posts";
