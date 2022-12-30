@@ -172,12 +172,17 @@ a {
 	var memverBirth = document.getElementById("memberBirth");//생일
 	var memberNickName = document.getElementById("memberNickName");//닉네임
 	var mailCheckInput = document.getElementById("mailCheckInput"); 
+	var sample6_detailAddress = document.getElementById("sample6_detailAddress");
+	var sample6_extraAddress = document.getElementById("sample6_extraAddress");
+	
+	
 	var checkCnt = 0;
 	
 	var regEmail = /^[a-zA-Z0-9]/;	//이메일 정규식. 알파벳, 숫자로 구성 
 	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
 	let reg_name1 = /^[가-힣]+$/; // 한글만
-	var reg = /^[0-9]+/g; //숫자만 입력하는 정규식		
+	var reg = /^[0-9]+/g; //숫자만 입력하는 정규식
+	var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/; //특수기호 못쓰게
 	var email = "";
 	  
 // 	  function showPopup() { window.open("08_2_popup.html", "a", "width=400, height=300, left=100, top=50"); }
@@ -266,7 +271,7 @@ a {
 		
 		let form = document.memberJoin; 
 		  var canJoin = true;
-		
+			
 		  if (form.password.value == "") {
 		    alert("비밀번호를 입력하세요.");
 		    pwd.focus();
@@ -385,7 +390,10 @@ a {
 			    sample6_postcode.focus();
 			    return false;
 			  };	  
-
+		if(!pattern3.test(sample6_extraAddress.value)||!pattern3.test(sample6_detailAddress.value)) {
+            alert("특수문자는 입력하실 수 없습니다.");
+            return false;
+		}
 			  
 		 if(canJoin){
 			 if(checkCnt == 1){
