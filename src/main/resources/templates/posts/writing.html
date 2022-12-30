@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -9,77 +10,28 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-input {
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border: none;
-}
-div {
-	margin: auto;
-	width:100%;
-	background-color: #a7cdfd;
-	background-color: #EEEFF1;
-	border-radius: 5px;
-	text-align: center;
-	padding: 20px;
-}
-</style>
+<link rel="stylesheet" href="/css/NewFile.css"> 
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
-			<a class="navbar-brand" href="#">사조마켓</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-				aria-controls="navbarScroll" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarScroll">
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-					style="-bs-scroll-height: 100px;">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">중고거래</a></li>
-				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search"
-						placeholder="물품이나 동네를 검색해주세요." aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">검색</button>
-					<button type="button" th:onclick="|location.href='@{/join}'|">회원
-						가입</button>
-					<button type="button" th:onclick="|location.href='@{/login}'|">로그인</button>
-				</form>
-			</div>
-		</div>
-	</nav>
-	<h1>물품등록</h1>
-
-	<form action="writing" method="post" th:object="${post}" enctype="multipart/form-data">
+	<div th:replace="layout/header :: headFrag"></div>
+	<form action="writing" method="post" th:object="${post}" enctype="multipart/form-data" class="post">
 		<div>
 			<select name="ctCode">
 				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}" th:text="${ct.ctName}" ></option>				
 			</select><br/>
-			<input type="hidden" name="postCode" th:field="*{postCode}">
+			<input type="hidden" name="postCode" th:field="*{postCode}" class="post-p">
 			
 			<label><input type="text" name="postTitle"
-				th:field="*{pTitle}" placeholder="제목을 입력하세요.">
-			</label><br /> <label><textarea type="text" name="postContent"
-					th:field="*{pContent}" placeholder="내용을 입력하세요."></textarea>
+				th:field="*{pTitle}" placeholder="제목을 입력하세요." class="post-p">
+			</label><br /> <label><textarea type="text" name="postContent" rows="15" cols="100"
+					th:field="*{pContent}" placeholder="내용을 입력하세요." class="post-p"></textarea>
 			</label><br /> <label><input type="number" name="postPrice"
-				th:field="*{pPrice}" placeholder="가격">
+				th:field="*{pPrice}" placeholder="가격" class="post-price">
 			</label><br/>
-			<label>이미지 파일들<input type="file" multiple="multiple" name="imageFiles"></label>
+			<label>이미지 파일들<input type="file" multiple="multiple" name="imageFiles" class="post-p"></label>
 			
-			<button type="submit">등록하기</button>
-			<button type="button" th:onClick="|location.href='@{/posts}'|">뒤로가기</button>
+			<button type="submit" class="postBtn">등록하기</button>
+			<button type="button" th:onClick="|location.href='@{/posts}'|" class="postBtn">뒤로가기</button>
 		</div>
 	</form>
 		<!-- JavaScript Bundle with Popper -->

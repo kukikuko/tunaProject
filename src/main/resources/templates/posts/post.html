@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -9,59 +10,31 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-</style>
+<link rel="stylesheet" href="/css/NewFile.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
-			<a class="navbar-brand" href="#">사조마켓</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-				aria-controls="navbarScroll" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarScroll">
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-					style="-bs-scroll-height: 100px;">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">중고거래</a></li>
-				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search"
-						placeholder="물품이나 동네를 검색해주세요." aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">검색</button>
-					<button type="button" th:onclick="|location.href='@{/join}'|">회원
-						가입</button>
-					<button type="button" th:onclick="|location.href='@{/login}'|">로그인</button>
-				</form>
-			</div>
-		</div>
-	</nav>
+	<div th:replace="layout/header :: headFrag"></div>
 	<div class="post" name="post" id="post">
-		<p th:text=${post.pTitle}></p>
-		<p th:text=${post.pContent}></p>
-		<p th:text=${post.pPrice}></p>
-		<p th:text=${post.pView}></p>
-		<!-- <p th:text = ${post.p_imageCode}>이미지</p> -->
-
-		<img th:each="image : ${images}" th:src="|/posts/images/${image.imageFiles}|" width="300"
-			 height="300"/>
-
-<!-- 		<p th:text=${post.pMemCode}></p>
-		<p th:text=${member.memberCode}></p> -->
-		<p th:if="${post.pCorrectionTime == null}" th:text=${post.pCreateTime}></p>
-		<p th:if="${post.pCorrectionTime != null}" th:text=${post.pCorrectionTime}></p>
- 		 <span th:if="${post.pMemCode} == ${member.memberCode}">
-			<button th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|">수정하기</button> </span>
-		<button th:onclick="|location.href='@{/posts}'|">목록보기</button>
-
+		<p class="post-p" th:text=${post.pTitle}></p>
+		<p class="post-pContent" th:text=${post.pContent}></p>
+		<p class="post-p-text"> 가격 : </p> 
+		<p class="post-p" th:text=${post.pPrice}></p>
+		<p class="post-p-text" > 조회수 : </p>
+		<p class="post-p" th:text=${post.pView}></p>
+		<p class="post-p">
+		<img class="post-img" th:each="image : ${images}" th:src="|/posts/images/${image.imageFiles}|" width="300"
+			 height="300"/></p>
+		<p class="post-p" th:if="${post.pCorrectionTime == null}" th:text=${post.pCreateTime}></p>
+		<p class="post-p" th:if="${post.pCorrectionTime != null}" th:text=${post.pCorrectionTime}></p>
+			<button th:if="${post.pMemCode} == ${member.memberCode}" th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|"
+			class="postBtn">수정</button>
+		<form action="/posts/delete" method="post">
+			<input type="hidden" th:value="${post.postCode}" name="postCode">
+			<button type="submit" th:if="${post.pMemCode} == ${member.memberCode}" class="postBtn"
+			th:onclick="return confirm('삭제하시겠습니까 ?');"
+			>삭제</button>
+		</form>
+		<button th:onclick="|location.href='@{/posts}'|" class="postBtn">목록보기</button>
 	</div>
 	<!-- JavaScript Bundle with Popper -->
 	<script

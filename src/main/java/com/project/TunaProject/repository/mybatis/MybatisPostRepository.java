@@ -57,15 +57,26 @@ public class MybatisPostRepository implements PostRepository{
 	}
 
 	@Override
-	public void deleteByPostCode(String postCode) {
+	public boolean updateDelete(String postCode) {
 		// TODO Auto-generated method stub
-		postItemMapper.deleteByPostCode(postCode);
+		boolean result = false;
+		postItemMapper.updateDelete(postCode);
+		result = true;		
+		return result;
 	}
 
 	@Override
 	public void viewCont(String postCode) {
 		// TODO Auto-generated method stub
 		postItemMapper.viewCont(postCode);
+	}
+
+	@Override
+	public List<Post> selectSearch(String keyword) {
+		// TODO Auto-generated method stub
+		List<Post> postList = postItemMapper.selectSearch(keyword);
+		System.out.println(postList.toString());
+		return postList;
 	}
 		
 }

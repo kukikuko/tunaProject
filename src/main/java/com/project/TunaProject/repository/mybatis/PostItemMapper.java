@@ -18,8 +18,9 @@ public interface PostItemMapper {
 	
 	public void update(@Param("postCode")String postCode, @Param("updatePost")Post post);
 	
-	public void deleteByPostCode(String postCode);
+	public void updateDelete(@Param("postCode")String postCode);
 	
 	public void viewCont(String postCode);
 	
+	public List<Post> selectSearch(@Param("keyword") String keyword);
 }

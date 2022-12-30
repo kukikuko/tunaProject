@@ -10,54 +10,7 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-
-<style>
-body {
-	background-color: white;
-	/* background-color: #a7cdfd; */
-}
-
-div {
-	margin: auto;
-	width: 300px;
-	background-color: #a7cdfd;
-	background-color: #EEEFF1;
-	border-radius: 5px;
-	text-align: center;
-	padding: 20px;
-}
-
-input {
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border: none;
-}
-
-.in {
-	margin-bottom: 10px;
-}
-
-#btn {
-	background-color: #a7cdfd;
-	margin-bottom: 30px;
-	color: black;
-	border: none;
-	border-radius: 5px;
-}
-
-a {
-	text-decoration: none;
-	color: #9B9B9B;
-	font-size: 12px;
-}
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-
-</style>
+<link rel="stylesheet" href="/css/NewFile.css"> 
 <script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
 </head>
 <body>
@@ -85,25 +38,25 @@ a {
 			</div>
 		</div>
 	</nav>
-	<div>
+	<div class="login-div">
 		<form action="" method="post" th:object="${loginForm}" name="login">
 			<div th:if="${#fields.hasGlobalErrors()}">
 				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
 				글로벌오류</p>
 			</div>
 				<label for="loginId">ID(email)</label> <input type="text"
-					th:field="*{email}" class="in" id="email">
+					th:field="*{email}" class="loing-in" id="email">
 				<div th:errors="*{email}"></div>
 
 				<label for="password">Password</label> <input type="password"
-					th:field="*{password}" class="in" id="password">
+					th:field="*{password}" class="loing-in" id="password">
 				<div th:errors="*{password}"></div>
 
-			<button type="submit" id="btn">로그인</button>
+			<button type="submit" id="login-btn">로그인</button>
 			<button type="button" th:onclick="|location.href='@{/}'|" id="btn">취소</button>
 		</form>
 
-		<a href="#none">비밀번호를 잊어버리셨나요?</a>
+		<a href="#none" class="login-a">비밀번호를 잊어버리셨나요?</a>
 	</div>
 	<script type="text/javascript">
     

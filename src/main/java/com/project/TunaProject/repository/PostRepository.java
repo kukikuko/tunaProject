@@ -15,7 +15,9 @@ public interface PostRepository {
 	
 	public boolean update(String postCode, Post post);
 	
-	public void deleteByPostCode(String postCode);
+	public boolean updateDelete(String postCode);
 	
 	public void viewCont(String postCode);
+	
+	public List<Post> selectSearch(String keyword);
 }

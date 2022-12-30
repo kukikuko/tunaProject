@@ -1,15 +1,14 @@
 package com.project.TunaProject.domain;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
 import lombok.Data;
 
 @Data
-public class Post {
+public class PostForCategory {
+	
 	private String postCode;
 	private String postCtCode;
 	private int pMemCode;
+	private String ctName;
 	private String pTitle;
 	private String pContent;
 	private String pCreateTime;
@@ -19,5 +18,6 @@ public class Post {
 	private String pOpenStatus;
 	private int pView;
 	
-//	public Post() {}
+	
+
 }
