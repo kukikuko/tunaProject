@@ -4,6 +4,8 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <!--   mapper 태그에 namespace 속성은 연동시키고자 하는 Mapper 인터페이스명을 경로와 함께 명시 -->
+ 
+ 
   <mapper namespace="com.project.TunaProject.repository.mybatis.MemberMapper">
 	<insert id="memberInsert" parameterType="MemberVO">
   		insert into TUNA_MEMBER 

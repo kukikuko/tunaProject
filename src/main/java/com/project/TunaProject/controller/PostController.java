@@ -1,13 +1,12 @@
 package com.project.TunaProject.controller;
 
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Map;
 
-import com.project.TunaProject.domain.*;
-import com.project.TunaProject.form.ItemForm;
-import com.project.TunaProject.img.*;
-import com.project.TunaProject.repository.ImageRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
@@ -17,14 +16,22 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.TunaProject.domain.Category;
+import com.project.TunaProject.domain.Image;
+import com.project.TunaProject.domain.MemberVO;
+import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.form.ItemForm;
+import com.project.TunaProject.img.FileStore;
+import com.project.TunaProject.img.UploadFile;
 import com.project.TunaProject.repository.CategoryRepository;
+import com.project.TunaProject.repository.ImageRepository;
 import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
-
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -166,5 +173,13 @@ public class PostController {
 		return "/posts/posts";
 	}
 	
+	@PostMapping("/notify")
+	public String notifyPost(@RequestParam Map<String, String> postCode) {
+		
+		String a = postCode.get("postCode");
+		System.out.println("****" + a + "****");
+		
+		return "redirect:/";
+	}
 	
 }

@@ -1,7 +1,6 @@
 package com.project.TunaProject.repository.mybatis;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.project.TunaProject.domain.MemberVO;
 
