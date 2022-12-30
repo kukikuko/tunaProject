@@ -102,7 +102,7 @@ margin-right: 50%;
 .btn_ui_my{
   margin-bottom: 10px;
   display: inline-block;
-  left:calc(100% - 58.75px);
+  left:calc(100% -  60px);
 
   color: black;
   position: relative;
