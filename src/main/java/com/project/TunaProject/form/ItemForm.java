@@ -1,4 +1,4 @@
-package com.project.TunaProject.domain;
+package com.project.TunaProject.form;
 
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
