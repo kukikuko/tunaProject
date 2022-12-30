@@ -43,9 +43,13 @@ public class PostController {
 	private final FileStore fileStore;
 	
 	@GetMapping
-	public String posts(Model model) {
+	public String posts(Model model, HttpServletRequest req) {
 		List<Post> postList = postRepository.selectAll();
+		System.out.println(postList.size());
+		HttpSession session = req.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		model.addAttribute("posts", postList);
+		model.addAttribute("member", memberVO);
 		log.info("posts {}" , postList);
 		return "/posts/posts";
 	}
@@ -75,11 +79,15 @@ public class PostController {
 	}
 	
 	@GetMapping("/writing")
-	public String postWriting(Model model) {
+	public String postWriting(Model model, HttpServletRequest req) {
 		
 		List<Category> cateItem = categoryRepository.selectAll();
+		HttpSession session = req.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
 		model.addAttribute("post", new Post());
 		model.addAttribute("cateItem", cateItem);
+		model.addAttribute("member", memberVO);
 		
 		return "/posts/writing";
 	}
@@ -116,7 +124,10 @@ public class PostController {
 	@GetMapping("/update/{postCode}")
 	public String updatePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
 		Post postItem = postRepository.selectByPostCode(postCode);
+		HttpSession session = req.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		model.addAttribute("post",postItem);
+		model.addAttribute("member", memberVO);
 		return "/posts/update.html";
 	}
 	
@@ -132,6 +143,7 @@ public class PostController {
 		log.info("postCode {}", post.getPostCode());
 
 		postRepository.updateDelete(post.getPostCode());
+		
 		return "redirect:/posts";
 	}
 
@@ -141,4 +153,17 @@ public class PostController {
 		log.info(filename);
 		return new UrlResource("file:" + fileStore.getFullPath(filename));
 	}
+	
+	@PostMapping
+	public String selectSearch(Model model,HttpServletRequest req) {
+		String keyword = req.getParameter("search");
+		List<Post> postList = postRepository.selectSearch(keyword);
+		HttpSession session = req.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		model.addAttribute("posts", postList);
+		model.addAttribute("member", memberVO);
+		return "/posts/posts";
+	}
+	
+	
 }

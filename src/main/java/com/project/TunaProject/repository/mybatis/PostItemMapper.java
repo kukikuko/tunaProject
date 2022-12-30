@@ -22,4 +22,5 @@ public interface PostItemMapper {
 	
 	public void viewCont(String postCode);
 	
+	public List<Post> selectSearch(@Param("keyword") String keyword);
 }

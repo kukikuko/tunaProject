@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -12,45 +13,7 @@
 <link rel="stylesheet" href="/css/NewFile.css">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg bg-light">
-		<div class="container-fluid">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-			<a class="navbar-brand" href="#">사조마켓</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-				aria-controls="navbarScroll" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarScroll">
-				<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-					style="-bs-scroll-height: 100px;">
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" href="#">중고거래</a></li>
-				</ul>
-				<form class="d-flex" role="search">
-					<input class="form-control me-2" type="search"
-						placeholder="물품이나 동네를 검색해주세요." aria-label="Search">
-					<button class="btn btn-outline-success" type="submit">검색</button>
-				</form>
-				<form th:action="@{/logout}" method="post">
-					<button type="submit" class="postBtn">로그아웃</button>
-				</form>
-				<div class="dropdown">
-					<button class="btn btn-secondary dropdown-toggle" type="button"
-						data-bs-toggle="dropdown" aria-expanded="false">개인정보</button>
-					<ul class="dropdown-menu">
-						<li><a class="dropdown-item" href="/myPage/memberUpdate">개인정보
-								변경</a></li>
-						<li><a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호
-								변경</a></li>
-						<li><a class="dropdown-item" href="/myPage/memberOut">회원
-								탈퇴</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</nav>
+	<div th:replace="layout/header :: headFrag"></div>
 	<div class="post" name="post" id="post">
 		<p class="post-p" th:text=${post.pTitle}></p>
 		<p class="post-pContent" th:text=${post.pContent}></p>
@@ -65,9 +28,11 @@
 		<p class="post-p" th:if="${post.pCorrectionTime != null}" th:text=${post.pCorrectionTime}></p>
 			<button th:if="${post.pMemCode} == ${member.memberCode}" th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|"
 			class="postBtn">수정</button>
-					<form action="/posts/delete" method="post">
+		<form action="/posts/delete" method="post">
 			<input type="hidden" th:value="${post.postCode}" name="postCode">
-			<button type="submit" th:if="${post.pMemCode} == ${member.memberCode}" class="postBtn">삭제</button>
+			<button type="submit" th:if="${post.pMemCode} == ${member.memberCode}" class="postBtn"
+			th:onclick="return confirm('삭제하시겠습니까 ?');"
+			>삭제</button>
 		</form>
 		<button th:onclick="|location.href='@{/posts}'|" class="postBtn">목록보기</button>
 	</div>

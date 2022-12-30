@@ -4,18 +4,22 @@
 
 <mapper
 	namespace="com.project.TunaProject.repository.mybatis.PostItemMapper">
-	
-	
+
+
 	<insert id="insert" parameterType="Post">
-<!-- 		<selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE"> -->
-		<selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE">
-			SELECT (concat(to_char(sysdate,'yymmdd'), POSTCODESQ.nextVal)) as postCode from dual
+		<!-- <selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE"> -->
+		<selectKey keyProperty="postCode"
+			resultType="java.lang.String" order="BEFORE">
+			SELECT
+			(concat(to_char(sysdate,'yymmdd'), POSTCODESQ.nextVal)) as postCode
+			from dual
 		</selectKey>
 		INSERT INTO TUNA_POST VALUES
 		(
 		#{postCode}
 		,#{postCtCode}
-		,(select memberCode from TUNA_MEMBER where membercode = #{pMemCode})
+		,(select
+		memberCode from TUNA_MEMBER where membercode = #{pMemCode})
 		,#{pTitle}
 		,#{pContent}
 		,TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI')
@@ -24,37 +28,58 @@
 		,'Y'
 		,'Y'
 		,0
-		)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+		)
 	</insert>
 
 	<select id="selectByPostCode" resultType="Post">
-		select * from TUNA_POST where postCode = #{postCode}
+		select * from TUNA_POST
+		where postCode = #{postCode}
 	</select>
 
-	<select id="selectAll" resultType="Post">
-		select * from TUNA_POST order by postCode 
+	<select id="selectAll" resultType="PostForCategory">
+		select POSTCODE,POSTCATEGORYCODE,
+		(select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
+		,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as
+		PCREATETIME,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
+		postCode
 	</select>
 
 
 	<update id="update">
 		update TUNA_POST
 		set pTitle = #{updatePost.pTitle}
-		,pContent = #{updatePost.pContent}
+		,pContent =
+		#{updatePost.pContent}
 		,pPrice = #{updatePost.pPrice}
 		<!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
 		,pCorrectionTime = (TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI'))
-		where postCode = #{postCode} 
+		where
+		postCode = #{postCode}
 	</update>
-	
+
 	<update id="viewCont">
 		update TUNA_POST
 		set pView = pView + 1
-		where postCode = #{postCode}	
+		where postCode =
+		#{postCode}
 	</update>
-	
+
 	<update id="updateDelete">
 		update TUNA_POST
 		set POPENSTATUS = 'N'
-		where postCode = #{postCode}	
+		where postCode =
+		#{postCode}
 	</update>
+
+	<select id="selectSearch" parameterType="String"
+		resultType="Post">
+		select POSTCODE,POSTCATEGORYCODE,PMEMCODE, PTITLE,
+		PCONTENT, substr(PCREATETIME,0,8) as
+		PCREATETIME,substr(PCORRECTIONTIME,0,8),
+		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST
+		where PTITLE like '%'||#{keyword}||'%' or PCONTENT like
+		'%'||#{keyword}||'%'
+		order by postCode
+	</select>
 </mapper>
