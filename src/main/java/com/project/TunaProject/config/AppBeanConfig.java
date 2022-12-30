@@ -1,13 +1,9 @@
  package com.project.TunaProject.config;
 
-import com.project.TunaProject.repository.ImageRepository;
+import com.project.TunaProject.repository.*;
 import com.project.TunaProject.repository.mybatis.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.project.TunaProject.repository.CategoryRepository;
-import com.project.TunaProject.repository.MemberRepository;
-import com.project.TunaProject.repository.PostRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +15,7 @@ public class AppBeanConfig {
 	private final PostItemMapper postItemMapper;
 	private final CategoryItemMapper categoryItemMapper;
 	private final ImageItemMapper imageItemMapper;
+	private final AdminMapper adminMapper;
 
 	@Bean
 	public MemberRepository memberRepository() {
@@ -37,4 +34,8 @@ public class AppBeanConfig {
 		return new MybatisImageRepository(imageItemMapper);
 	}
 
+	@Bean
+	public AdminRepository adminRepository() {
+		return new MybatisAdminRepository(adminMapper);
+	}
 }

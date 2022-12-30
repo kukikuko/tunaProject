@@ -5,6 +5,7 @@ import java.net.MalformedURLException;
 import java.util.List;
 
 import com.project.TunaProject.domain.*;
+import com.project.TunaProject.form.ItemForm;
 import com.project.TunaProject.img.*;
 import com.project.TunaProject.repository.ImageRepository;
 import org.springframework.core.io.Resource;
@@ -128,7 +129,7 @@ public class PostController {
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
-		return "/posts/update.html";
+		return "/posts/update";
 	}
 	
 	@PostMapping("/update/{postCode}")

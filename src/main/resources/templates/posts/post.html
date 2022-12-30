@@ -15,6 +15,7 @@
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<div class="post" name="post" id="post">
+		<p th:text="${post.ctName}">
 		<p class="post-p" th:text=${post.pTitle}></p>
 		<p class="post-pContent" th:text=${post.pContent}></p>
 		<p class="post-p-text"> 가격 : </p> 

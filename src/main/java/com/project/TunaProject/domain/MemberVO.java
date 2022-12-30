@@ -4,6 +4,8 @@ package com.project.TunaProject.domain;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class MemberVO {
 	private int memberCode;		
@@ -23,7 +25,7 @@ public class MemberVO {
 	private String memberAddr3;	//상세주소
 	private String memberAddr4;	//주소 참고항목 null 가능
 	private int adminCk;		//활동상태
-	private int regDate;		//가입일자
+	private Date regDate;		//가입일자
 	
 }
 

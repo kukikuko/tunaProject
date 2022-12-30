@@ -18,6 +18,7 @@ public class Post {
 	private String pSalesStatus;
 	private String pOpenStatus;
 	private int pView;
+	private String ctName;
 	
 //	public Post() {}
 }

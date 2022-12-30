@@ -2,9 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper
-	namespace="com.project.TunaProject.repository.mybatis.PostItemMapper">
-
+<mapper	namespace="com.project.TunaProject.repository.mybatis.PostItemMapper">
 
 	<insert id="insert" parameterType="Post">
 		<!-- <selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE"> -->
@@ -32,19 +30,22 @@
 	</insert>
 
 	<select id="selectByPostCode" resultType="Post">
-		select * from TUNA_POST
+		select POSTCODE,POSTCATEGORYCODE,
+		(select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
+		,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
+		,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p
 		where postCode = #{postCode}
 	</select>
 
 	<select id="selectAll" resultType="PostForCategory">
 		select POSTCODE,POSTCATEGORYCODE,
 		(select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
-		,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as
-		PCREATETIME,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+		,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
+		,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
 		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
 		postCode
 	</select>
-
 
 	<update id="update">
 		update TUNA_POST
@@ -74,12 +75,14 @@
 
 	<select id="selectSearch" parameterType="String"
 		resultType="PostForCategory">
-		select POSTCODE,POSTCATEGORYCODE,PMEMCODE, PTITLE,
-		PCONTENT, substr(PCREATETIME,0,8) as
-		PCREATETIME,substr(PCORRECTIONTIME,0,8),
-		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST
-		where PTITLE like '%'||#{keyword}||'%' or PCONTENT like
-		'%'||#{keyword}||'%'
+		select POSTCODE, POSTCATEGORYCODE
+		, (select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
+		, PMEMCODE, PTITLE, PCONTENT
+		, substr(PCREATETIME,0,8) as PCREATETIME
+		, substr(PCORRECTIONTIME,0,8) as pCorrectionTime
+		, PPRICE, PSALESSTATUS, POPENSTATUS, PVIEW from TUNA_POST p
+		where PTITLE like '%'||#{keyword}||'%' or PCONTENT like '%'||#{keyword}||'%'
 		order by postCode
 	</select>
+
 </mapper>
