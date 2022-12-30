@@ -71,6 +71,18 @@ public class MybatisMemberRepository implements MemberRepository{
 		memberMapper.deleteMember(memberVO);
 	}
 	
+	//비밀번호 찾기
+	@Override
+	public String emailFindPw(String email) {
+		// TODO Auto-generated method stub
+		System.out.println("여기" + email);
+		String password = memberMapper.emailFindPw(email);
+		System.out.println("여기1" + password);
+		
+		return password;
+	}
+	
+	
 	
 	
 

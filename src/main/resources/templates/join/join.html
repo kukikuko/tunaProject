@@ -147,8 +147,8 @@ a {
 				<br>
 					<input type="text" id="sample6_postcode" name="memberAddr1" placeholder="우편번호" readonly class="in"><br> 
 					<input type="text" id="sample6_address" name="memberAddr2" placeholder="주소" readonly class="in"><br>
-					<input type="text" id="sample6_detailAddress" name="memberAddr3" placeholder="상세주소" class="in"> 
-					<input type="text" id="sample6_extraAddress" name="memberAddr4" placeholder="참고항목" class="in">
+					<input type="text" id="sample6detailAddress" name="memberAddr3" placeholder="상세주소" class="in"> 
+					<input type="text" id="sample6extraAddress" name="memberAddr4" placeholder="참고항목" class="in">
 			</label>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -172,9 +172,8 @@ a {
 	var memverBirth = document.getElementById("memberBirth");//생일
 	var memberNickName = document.getElementById("memberNickName");//닉네임
 	var mailCheckInput = document.getElementById("mailCheckInput"); 
-	var sample6_detailAddress = document.getElementById("sample6_detailAddress");
-	var sample6_extraAddress = document.getElementById("sample6_extraAddress");
-	
+	var sample6detailAddress = document.getElementById("sample6detailAddress");
+	var sample6extraAddress = document.getElementById("sample6extraAddress");
 	
 	var checkCnt = 0;
 	
@@ -390,12 +389,17 @@ a {
 			    sample6_postcode.focus();
 			    return false;
 			  };	  
-		if(!pattern3.test(sample6_extraAddress.value)||!pattern3.test(sample6_detailAddress.value)) {
-            alert("특수문자는 입력하실 수 없습니다.");
+		if(pattern3.test(sample6detailAddress.value)) {
+            alert("특수문자는 입력하실 수 없습니다(3)");
             return false;
 		}
-			  
-		 if(canJoin){
+
+		if(pattern3.test(sample6extraAddress.value)){
+			alert("특수문자는 입력하실 수 없습니다(4)");
+            return false;
+		}
+		
+		if(canJoin){
 			 if(checkCnt == 1){
 				 if(confirm('회원가입 하시겠습니까?')){
 					alert('회원 가입에 성공하였습니다.'); 
@@ -497,15 +501,15 @@ a {
                         extraAddr = ' (' + extraAddr + ')';
                     }
                     // 조합된 참고항목을 해당 필드에 넣는다.
-                    document.getElementById("sample6_extraAddress").value = extraAddr;
+                    document.getElementById("sample6extraAddress").value = extraAddr;
                 } else {
-                    document.getElementById("sample6_extraAddress").value = '';
+                    document.getElementById("sample6extraAddress").value = '';
                 }
                 // 우편번호와 주소 정보를 해당 필드에 넣는다.
                 document.getElementById('sample6_postcode').value = data.zonecode;
                 document.getElementById("sample6_address").value = addr;
                 // 커서를 상세주소 필드로 이동한다.
-                document.getElementById("sample6_detailAddress").focus();
+                document.getElementById("sample6detailAddress").focus();
             }
         }).open();
     }

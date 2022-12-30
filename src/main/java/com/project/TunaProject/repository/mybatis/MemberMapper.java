@@ -24,4 +24,7 @@ public interface MemberMapper {
 	
 	//회원탈퇴 메소드
 	public void deleteMember(MemberVO memberVO);
+	
+	//비밀번호 찾는 메소드
+	public String emailFindPw(String email);
 }

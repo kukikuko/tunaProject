@@ -73,7 +73,7 @@
 	</update>
 
 	<select id="selectSearch" parameterType="String"
-		resultType="Post">
+		resultType="PostForCategory">
 		select POSTCODE,POSTCATEGORYCODE,PMEMCODE, PTITLE,
 		PCONTENT, substr(PCREATETIME,0,8) as
 		PCREATETIME,substr(PCORRECTIONTIME,0,8),
