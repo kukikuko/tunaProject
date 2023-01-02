@@ -79,9 +79,6 @@ public class PostController {
 		model.addAttribute("images", images);
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
-
-
-
 		return "/posts/post";
 		
 	}
@@ -132,16 +129,24 @@ public class PostController {
 	@GetMapping("/update/{postCode}")
 	public String updatePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
 		Post postItem = postRepository.selectByPostCode(postCode);
+		List<Category> cateItem = categoryRepository.selectAll();
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		log.info("p {}", postItem);
 		model.addAttribute("post",postItem);
-		model.addAttribute("member", memberVO);
+		model.addAttribute("cateItem", cateItem);
+		model.addAttribute("member", memberVO);		
 		return "/posts/update";
 	}
 	
 	@PostMapping("/update/{postCode}")
-	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {
-		postRepository.update(postCode, postItem);
+	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem,
+			@ModelAttribute ItemForm form, @ModelAttribute Category ct) {
+		
+		log.info(postCode);
+		log.info("ct {}", ct);
+		
+		postRepository.update(postCode, postItem, ct.getCtCode());
 		return "redirect:/posts/{postCode}";
 	}
 	

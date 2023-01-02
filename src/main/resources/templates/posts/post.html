@@ -15,40 +15,29 @@
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
-	<div class="post" name="post" id="post">
-		<p th:text="${post.ctName}">
-		
-		<p id="postCode" th:text="${post.postCode}"></p>
-		<p id="pMemCode" th:text="${post.pMemCode}"></p>
-		
-		
-		<p class="post-p" id="pTitle" th:text=${post.pTitle}></p>
-		<p class="post-pContent" th:text=${post.pContent}></p>
-		<p class="post-p-text"> 가격 : </p> 
-		<p class="post-p" th:text=${post.pPrice}></p>
-		<p class="post-p-text" > 조회수 : </p>
-		<p class="post-p" th:text=${post.pView}></p>
-		<p class="post-p">
-		<img class="post-img" th:each="image : ${images}" th:src="|/posts/images/${image.imageFiles}|" width="300"
-			 height="300"/></p>
-		<p class="post-p" th:if="${post.pCorrectionTime == null}" th:text=${post.pCreateTime}></p>
-		<p class="post-p" th:if="${post.pCorrectionTime != null}" th:text=${post.pCorrectionTime}></p>
-			<button th:if="${post.pMemCode} == ${member.memberCode}" th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|"
-			class="postBtn">수정</button>
-		
-			
-		<form action="/posts/delete" method="post">
+	<div class="Post" name="post" id="post" th:value="${post.postCode}">
+		<p class="post-category" th:text="${post.ctName}">
+		<p class="post-title" th:text=${post.pTitle}></p>
+		<p class="post-price">가격 : <span th:text=${post.pPrice}></span></p>
+		<p class="post-time" th:if="${post.pCorrectionTime == null}"
+			th:text=${post.pCreateTime}></p>
+		<p class="post-time" th:if="${post.pCorrectionTime != null}"
+			th:text=${post.pCorrectionTime}></p>
+		<p class="post-view">조회수 : <span th:text=${post.pView}></span></p>
+		<p class="post-content" th:text=${post.pContent}></p>
+		<img class="post-img" th:each="image : ${images}"
+			th:src="|/posts/images/${image.imageFiles}|" width="300" height="300" /><br/>
+		<button th:if="${post.pMemCode} == ${member.memberCode}"
+			th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|"
+			class="post_Btn">수정</button>
+		<form action="/posts/delete" method="post" class="deleteForm">
 			<input type="hidden" th:value="${post.postCode}" name="postCode">
-			<button type="submit" th:if="${post.pMemCode} == ${member.memberCode}" class="postBtn"
-			th:onclick="return confirm('삭제하시겠습니까 ?');"
-			>삭제</button>
+			<button type="submit"
+				th:if="${post.pMemCode} == ${member.memberCode}" class="post_Btn"
+				th:onclick="return confirm('삭제하시겠습니까 ?');">삭제</button>
 		</form>
-		
-		
-		<button th:onclick="|location.href='@{/posts}'|" class="postBtn">목록보기</button>
-		
-		
-						
+		<button th:onclick="|location.href='@{/posts}'|" class="post_Btn_back">목록보기</button>
+			
 			<button type="button" id="notifyBtn">신고하기</button>
 		
 		
