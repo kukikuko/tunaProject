@@ -1,0 +1,100 @@
+@charset "UTF-8";
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+
+.logoImg {
+	width: 40px;
+	height: 40px;
+}
+
+
+zocial
+[class*="entypo-"]:before {
+  font-family: 'entypo', sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; 
+}
+
+h2 {
+  color:black;
+  margin-left:12px;
+}
+
+.login-div {
+  background-color: #F8F9FA;
+  font-family: 'Roboto', sans-serif;
+  
+}
+
+.login-form {
+  position:relative;
+  margin: 50px auto;
+  width: 380px;
+  height: auto;
+}
+
+.login-form input {
+  padding: 16px;
+  border-radius:7px;
+  border:0px;
+  background: lavender;
+  display: block;
+  margin: 15px;
+  width: 300px;  
+  color:black;
+  font-size:18px;
+  height: 54px;
+}
+.inline{
+	display: inline-block;
+}
+
+.login-form input:focus {
+  outline-color: rgba(0,0,0,0);
+  background: rgba(255,255,255,.95);
+  color: #e74c3c;
+}
+
+.login-form button {
+  float:right;
+  height: 121px;
+  width: 50px;
+  border: 0px;
+  background: #e74c3c;
+  border-radius:7px;
+  padding: 10px;
+  color:white;
+  font-size:22px;
+}
+
+.inputUserIcon {
+  position:absolute;
+  top:68px;
+  right: 80px;
+  color:white;
+}
+
+.inputPassIcon {
+  position:absolute;
+  top:136px;
+  right: 80px;
+  color:white;
+}
+
+.login-form input::-webkit-input-placeholder {
+  color: white;
+}
+
+.login-form input:focus::-webkit-input-placeholder {
+  color: #e74c3c;
+}
+
+
+
