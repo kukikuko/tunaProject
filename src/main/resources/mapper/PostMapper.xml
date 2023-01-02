@@ -30,17 +30,16 @@
 	</insert>
 
 	<select id="selectByPostCode" resultType="Post">
-		select POSTCODE,POSTCATEGORYCODE,
-		(select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
-		,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
-		,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+		select POSTCODE,postCtCode,
+		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+		,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
 		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p
 		where postCode = #{postCode}
 	</select>
 
 	<select id="selectAll" resultType="PostForCategory">
-		select POSTCODE,POSTCATEGORYCODE,
-		(select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
+		select POSTCODE,postCtCode,
+		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
 		,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
 		,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
 		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
@@ -50,13 +49,12 @@
 	<update id="update">
 		update TUNA_POST
 		set pTitle = #{updatePost.pTitle}
-		,pContent =
-		#{updatePost.pContent}
+		,postCtCode = #{updatePost.postCtCode}
+		,pContent =#{updatePost.pContent}
 		,pPrice = #{updatePost.pPrice}
 		<!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
 		,pCorrectionTime = (TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI'))
-		where
-		postCode = #{postCode}
+		where postCode = #{postCode}
 	</update>
 
 	<update id="viewCont">
@@ -75,8 +73,8 @@
 
 	<select id="selectSearch" parameterType="String"
 		resultType="PostForCategory">
-		select POSTCODE, POSTCATEGORYCODE
-		, (select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
+		select POSTCODE, postCtCode
+		, (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
 		, PMEMCODE, PTITLE, PCONTENT
 		, substr(PCREATETIME,0,8) as PCREATETIME
 		, substr(PCORRECTIONTIME,0,8) as pCorrectionTime

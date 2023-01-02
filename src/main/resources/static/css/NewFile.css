@@ -131,8 +131,8 @@ table {
 	margin: 0;
 }
 
-/* writing */
-.writing {
+/* writing, update */
+.writing, .updateDiv{
 	margin: auto;
 	margin-top: 10px;
 	width: 100%;
@@ -143,25 +143,25 @@ table {
 	padding: 20px;
 }
 
-.writing_category, .writing_price, .writing_title , .writing_content, .writing_image{
+.writing_category, .writing_price, .writing_title, .writing_content, .writing_image 
+,.update_category, .update_title, .update_price, .update_content{
 	background-color: white;
 	padding: 10px;
 	box-sizing: border-box;
 	border-radius: 5px;
-	border: none;	
-	
+	border: none;
 }
 
-.writing_category, .writing_price {
+.writing_category, .writing_price, .update_category, .update_price{
 	width: 24%;
-	margin: 3px; 
+	margin: 3px;
 }
 
-.writing_title {
+.writing_title, .update_title {
 	width: 50%;
 }
 
-.writing_content {
+.writing_content, .update_content{
 	width: 100%;
 	height: 300px;
 	margin-top: 10px;
@@ -171,24 +171,92 @@ table {
 	width: 100%;
 	margin-top: 10px;
 }
-.writingBtn {
+
+.writingBtn, .updateBtn {
 	text-align: center;
 }
 
-.writing_Btn {
+.writing_Btn, .update_Btn {
 	border-radius: 20px;
 	border: 1px solid black;
 	background-color: white;
 	margin: auto;
 	margin-top: 10px;
-	/* display: block; */
-	display :inline-block;
+	display: inline-block;
 	width: 100px;
 	height: 40px;
 }
 
 .writing_price::-webkit-outer-spin-button, 
-.writing_pricee::-webkit-inner-spin-button {
+.writing_price::-webkit-inner-spin-button
+.update_price::-webkit-outer-spin-button, 
+.update_price::-webkit-inner-spin-button
+	{
 	-webkit-appearance: none;
 	margin: 0;
+}
+
+/* post */
+.Post {
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background-color: #a7cdfd;
+	background-color: #EEEFF1;
+	border-radius: 5px;
+	text-align: center;
+	padding: 20px;
+}
+
+.post-category, .post-title, .post-price , .post-view, .post-content, .post-img, .post-time{
+	margin-bottom: 10px;
+	padding: 10px;
+	background-color: white;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	display: inline-block;
+}
+
+.post-category {	
+	width: 15%;	
+	margin-right: 5px;
+}
+.post-title{
+	width: 50%;
+	margin-right: 5px;
+}
+.post-price, .post-view, .post-time{
+	width: 10%;	
+	margin-right: 5px;
+}
+
+.post-content {
+	width: 100%;
+	height: 300px;
+}
+
+.deleteForm{
+	display: inline-block;
+}
+.post_Btn {
+	border-radius: 20px;
+	border: 1px solid black;
+	background-color: white;
+	margin: auto;
+	margin-top: 10px;
+	display: inline-block;
+	width: 100px;
+	height: 40px;
+}
+
+.post_Btn_back {
+	border-radius: 20px;
+	border: 1px solid black;
+	background-color: white;
+	margin: auto;
+	margin-top: 10px;
+	display: inline-block;
+	width: 100px;
+	height: 40px;
 }

@@ -13,7 +13,7 @@ public interface PostRepository {
 	
 	public List<Post> selectAll();
 	
-	public boolean update(String postCode, Post post);
+	public boolean update(String postCode, Post post,  String ctCode);
 	
 	public boolean updateDelete(String postCode);
 	
