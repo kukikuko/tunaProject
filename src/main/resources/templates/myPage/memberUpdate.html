@@ -9,6 +9,8 @@
 		
 	<form action="" method="post" th:object="${memberVO}" name="memberUpdate">
 		
+		
+		
 		<label>이름
 		 <input type="text" th:value="${memberVO?.memberName}" th:field="*{memberName}" 
 		 	 	name="memberName"  id="uname" maxlength="6"><br>
@@ -21,11 +23,6 @@
 		
 		
 		<label>전화번호
-		 <select id="PN_sel" onchange="change_PN();">
-				<option value="">직접입력</option>
-				<option value="010">010</option>
-				<option value="011">011</option>
-		</select> 
 		<input type="text" th:value= "'0'+${memberVO?.memberPN1}" th:field="*{memberPN1}"
 					name="memberPN1" id="mobil1" maxlength="3"> 
 		-  	<input type="text" th:value="${memberVO?.memberPN2}" th:field="*{memberPN2}" 
@@ -76,18 +73,18 @@
 	let reg_name1 = /^[가-힣]+$/; // 한글만
 	var reg = /^[0-9]+/g; //숫자만 입력하는 정규식		
 	var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
-		var canJoin = true;
+		
+	var canJoin = true;
 	
 	
  		document.getElementById('updateBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault(); 
 		let form = document.memberUpdate; 
 	    
-		if (!pattern3.test(sample6extraAddress)||!pattern3.test(sample6detailAddress)) {
+		if(pattern3.test(sample6extraAddress.value)||pattern3.test(sample6detailAddress.value)) {
             alert("특수문자는 입력하실 수 없습니다.");
             
             return false;
-//             obj.value = obj.value.substring(0, obj.value.length - 1);//특수문자를 지우는 구문
         }
 		  if (uname.value == "") {
 		    alert("이름을 입력하세요.");
@@ -134,18 +131,7 @@
 			}
 	 	}
 				
-	 		});
- 		function change_PN() {
-			  var PN_add = document.getElementById("PN_add");
-			  var PN_sel = document.getElementById("PN_sel");
-
-			  //지금 골라진 옵션의 순서와 값 구하기
-			  var idx = PN_sel.options.selectedIndex;
-			  var val = PN_sel.options[idx].value;
-
-			  PN_add.value = val;
-			}  
-	
+	 		});	
 	function sample6_execDaumPostcode() {
 	        new daum.Postcode({
 	            oncomplete: function(data) {

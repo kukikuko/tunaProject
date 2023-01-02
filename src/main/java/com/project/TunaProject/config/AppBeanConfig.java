@@ -16,6 +16,7 @@ public class AppBeanConfig {
 	private final CategoryItemMapper categoryItemMapper;
 	private final ImageItemMapper imageItemMapper;
 	private final AdminMapper adminMapper;
+	private final NotifyMapper notifyMapper;
 
 	@Bean
 	public MemberRepository memberRepository() {
@@ -37,5 +38,10 @@ public class AppBeanConfig {
 	@Bean
 	public AdminRepository adminRepository() {
 		return new MybatisAdminRepository(adminMapper);
+	}
+	
+	@Bean
+	public NotifyRepository notifyRepository() {
+		return new MybatisNotifyRepository(notifyMapper);
 	}
 }

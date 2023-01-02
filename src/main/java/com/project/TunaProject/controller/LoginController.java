@@ -64,16 +64,12 @@ public class LoginController {
 	 		bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
 	 		return "login/login";
 	 	}
-		
 
 	 	HttpSession session = req.getSession();
 	 	session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
 		
 		return "redirect:" + redirectURL; //  /     /foods/new
 	}
-	
-	
-	
 	
 	public void validateLoginForm(LoginForm loginForm, Errors errors) {
 		if(!StringUtils.hasText(loginForm.getEmail())) {
@@ -95,15 +91,11 @@ public class LoginController {
 		
 		return "redirect:/";
 	}
-	
-	
-	@GetMapping("/naverLogin")
-	public String naver() {
-		return "login/naverCallback";
+	@GetMapping("/login/findPw")
+	public String findPw() {
+		
+		return "/login/findPw";
 	}
 	
-	@PostMapping("/naverLogin")
-	public String naverLogin() {
-		return "login/naverCallback";
-	}
+
 }

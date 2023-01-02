@@ -1,7 +1,6 @@
 package com.project.TunaProject.repository.mybatis;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 import com.project.TunaProject.domain.MemberVO;
 
@@ -24,4 +23,7 @@ public interface MemberMapper {
 	
 	//회원탈퇴 메소드
 	public void deleteMember(MemberVO memberVO);
+	
+	//비밀번호 찾는 메소드
+	public String emailFindPw(String email);
 }
