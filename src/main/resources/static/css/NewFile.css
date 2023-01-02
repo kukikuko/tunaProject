@@ -20,6 +20,8 @@ table {
 	border-spacing: 0;
 }
 
+
+
 .board-table {
 	font-size: 13px;
 	width: 100%;
@@ -83,7 +85,7 @@ table {
 	width: 300px;
 }
 
-.login-div, .post {
+ .post {
 	margin: auto;
 	width: 300px;
 	background-color: #a7cdfd;
