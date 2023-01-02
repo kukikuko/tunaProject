@@ -28,6 +28,7 @@
 		,'Y'
 		,'Y'
 		,0
+		
 		)
 	</insert>
 
@@ -37,8 +38,8 @@
 	</select>
 
 	<select id="selectAll" resultType="PostForCategory">
-		select POSTCODE,POSTCATEGORYCODE,
-		(select CtName from TUNA_CATEGORY ct where p.POSTCATEGORYCODE = ct.ctCode)as ctName
+		select POSTCODE,POSTCTCODE,
+		(select CtName from TUNA_CATEGORY ct where p.POSTCTCODE = ct.ctCode)as ctName
 		,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as
 		PCREATETIME,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
 		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
@@ -57,6 +58,8 @@
 		where
 		postCode = #{postCode}
 	</update>
+	
+
 
 	<update id="viewCont">
 		update TUNA_POST

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,8 +25,9 @@ import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
 
-
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,6 +55,27 @@ public class PostController {
 		log.info("posts {}" , postList);
 		return "/posts/posts";
 	}
+	
+	@PostMapping("/deal")
+	public String dealStart(HttpServletResponse resp,@RequestParam("postCode") String postCode,RedirectAttributes rAttr)
+	{
+		
+		
+		//쿠키올리고 거래 추가하고
+		
+		Cookie cookie = new Cookie("postCode",postCode);
+		cookie.setDomain("localhost");
+		cookie.setPath("/");
+		// 30초간 저장
+		cookie.setMaxAge(30*60);
+		cookie.setSecure(false);
+		resp.addCookie(cookie);
+		
+		//chat xml호출 인서트
+		
+		
+		return "redirect:http://localhost:3000/";
+				}
 	
 	@GetMapping("/{postCode}")
 	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem
@@ -130,6 +153,8 @@ public class PostController {
 		model.addAttribute("member", memberVO);
 		return "/posts/update.html";
 	}
+	
+	
 	
 	@PostMapping("/update/{postCode}")
 	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {

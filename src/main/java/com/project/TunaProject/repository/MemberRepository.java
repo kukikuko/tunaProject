@@ -8,6 +8,8 @@ public interface MemberRepository {
 	
 	public MemberVO selectByEmail(String email);
 	
+	public MemberVO selectByUUID(String activeUUID);
+	
 	public Integer idCheck(String email);
 	
 	public boolean updateMemberByEmail(MemberVO memberVo);
@@ -16,4 +18,6 @@ public interface MemberRepository {
 	public boolean updatePassword(MemberVO memberVO);
 	
 	public void deleteMember(MemberVO memberVO);
+	
+	public boolean updateUUID(MemberVO memberVO);
 }

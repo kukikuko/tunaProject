@@ -3,6 +3,8 @@ import React, { useEffect ,useState} from 'react';
 import axios from 'axios';
 import "./App.css";
 import Chat_room from "./chat_comp/Chat_room.js"
+import Main_room from "./chat_comp/Main_room.js"
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -17,9 +19,10 @@ function App() {
         <div>
         <BrowserRouter>
 				<Routes>
-                <Route  path="/" element={ <Chat_room/>}></Route>
+                <Route  path="/chat"  element={ <Chat_room member_code="2" chat_code="1"/>}></Route>
                 
-               
+                <Route  path="/"  element={ <Main_room/>}></Route>
+
 
                 </Routes>
 			</BrowserRouter>

@@ -34,6 +34,12 @@
 			th:onclick="return confirm('삭제하시겠습니까 ?');"
 			>삭제</button>
 		</form>
+		
+<form target="print_popup" action="/chat/add" method="post" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
+			<button  class="postBtn" >거래하기</button>
+		    <input type="hidden" th:value="${post.postCode}" name="postCode">
+						
+		</form>
 		<button th:onclick="|location.href='@{/posts}'|" class="postBtn">목록보기</button>
 		
 	</div>

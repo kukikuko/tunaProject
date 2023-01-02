@@ -6,19 +6,11 @@ import "../App.css";
 import Chat from "./Chat.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOMServer from 'react-dom/server'
-import Cookies from 'js-cookie';
 
 
 
-function Chat_room() {
-
-    let [check, set_check] = useState(false);
-    let [member_code, set_member] = useState("0");
-    let [chat_code, set_chat] = useState("0");
-    let [securety, set_secure] = useState(false);
-
+function Chat_room({chat_code,member_code}) {
     let [message_str, set_str] = useState('');
-    let [px_size, set_px_size] = useState(0);
     let [cur_message_code, set_message_code] = useState("0");
 
     let find_imgsrc = (img_code) => {
@@ -81,25 +73,12 @@ function Chat_room() {
         set_message_code(str[i - 6]);
     };
 
-    useEffect(() => {
-        if (securety === true) {
-            return
-        }
-        const m = Cookies.get("member_code");
-        const c = Cookies.get("chat_code");
-        set_member(m);
-        set_chat(c);
-        set_check(true);
-        if (member_code !== "0") {
-            set_secure(true);
-        }
-    }, [Cookies.get("member_code")]);
+ 
 
     useEffect(()=>{
         
         const timer = setInterval(() => {
-            console.log('http://localhost:8080/chat/get/' + chat_code + "/" + cur_message_code);
-            axios.get('http://localhost:8080/chat/get/' + chat_code + "/" + cur_message_code)
+            axios.get('http://localhost:8080/message/get/' + chat_code + "/" + cur_message_code)
                 .then((response) => { init_chat(response.data); })
                 .catch(error => console.log(error))
         }, 1000);
@@ -107,7 +86,7 @@ function Chat_room() {
         
         return ()=> clearInterval(timer);
 
-    }, [cur_message_code, chat_code]);
+    }, [cur_message_code]);
 
     useEffect(() => {
       
@@ -127,12 +106,11 @@ function Chat_room() {
                 setTimeout(() => {
                     document.getElementById("text_box").value = "";
                     set_str("");
-                    set_px_size(0);
-                }, 10);
+                }, 5);
             }
         });
 
-    },[check]);
+    });
 
     return (
         <div id="chat_room">
@@ -146,8 +124,8 @@ function Chat_room() {
             <div id="bottom_bar">
                 <img id="send" src="UI_img/send_icon.png" alt="보내기 아이콘 없음" />
                 <img id="add_img" src="UI_img/photo.png" alt="사진 아이콘 없음" />
-                <form action="http://localhost:8080/chat/up" method="post" id="myForm">
-                    <input id="text_box" type="text" name="message"  maxlength='105'></input>
+                <form action="http://localhost:8080/message/up" method="post" id="myForm">
+                    <input id="text_box" type="text" name="message"  maxLength='105'></input>
                     <input id="text_length" type="hidden" name="px_size" ></input>
                     <input type="hidden" value={member_code} name="member_code" ></input>
                     <input type="hidden" value={chat_code} name="chat_code" ></input>

@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.TunaProject.repository.mybatis.ChatMapper">
+<mapper namespace="com.project.TunaProject.repository.mybatis.MessageMapper">
 
-	<select id="select_chat" resultType="Chat">
+	<select id="select_Message" resultType="Message">
 	select *
 	from chat_message
 	where chatCode = #{chat_code}
 	order by messageCode
 	</select>
 	
-	<select id="select_chat_cur" resultType="Chat">
+	<select id="select_Message_cur" resultType="Message">
 	select *
 	from chat_message
 	where (chatCode = #{chat_code}) and (messageCode &gt; #{message_code})
 	order by messageCode	
 	</select>
 	
-	<insert id="insert_chat" parameterType="Chat">
+	<insert id="insert_Message" parameterType="Message">
 	insert into chat_message
 	values(chat_messagePK.nextVal,#{chatCode},#{memberCode},#{contents},SYSDATE,0,#{pixelLength})
 	

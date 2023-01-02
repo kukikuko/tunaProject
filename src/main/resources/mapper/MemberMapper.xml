@@ -28,7 +28,7 @@
   	
 <!--   	로그인 -->
   	<select id="selectByEmail" resultType="MemberVO">
-		select memberCode, membermail, password, memberName, memberBirth, memberNick,
+		select memberCode, memberMail, password, memberName, memberBirth, memberNick,
 		
 		 (SELECT SUBSTR(memberPN, 1, INSTR(memberPN, '-', 1, 1) - 1) from tuna_member where membermail = #{email}) memberPN1,
 		 (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 1) + 1, INSTR(memberPN, '-', 1, 2)- INSTR(memberPN, '-', 1, 1) - 1)  FROM tuna_member where membermail = #{email})memberPN2,
@@ -39,8 +39,20 @@
 		  memberAddr3,
 		  memberAddr4
 		  from tuna_member
-		where membermail = #{email}
+		where memberMail = #{email}
 	</select>
+	
+	<select id = "selectByUUID" resultType="MemberVO">
+	select *
+	from tuna_member
+	where activeUUID = #{activeUUID}
+	</select>
+	
+	<update id="updateUUID" parameterType="MemberVO">
+	UPDATE tuna_member
+	set activeUUID = #{activeUUID}
+	where memberMail = #{memberMail}
+	</update>
 	
 <!-- 	개인정보 변경 -->
 	<update id="updateMemberByEmail" parameterType="MemberVO">

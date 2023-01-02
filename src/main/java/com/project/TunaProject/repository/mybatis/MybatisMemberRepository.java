@@ -63,12 +63,31 @@ public class MybatisMemberRepository implements MemberRepository{
 		
 		return result;
 	}
+	
+	public boolean updateUUID(MemberVO memberVO) {
+		boolean result = false;
+		memberMapper.updateUUID(memberVO);
+		result = true;
+		
+		return result;
+		
+	}
 
 	//회원탈퇴 메소드
 	@Override
 	public void deleteMember(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		memberMapper.deleteMember(memberVO);
+	}
+
+	@Override
+	public MemberVO selectByUUID(String activeUUID) {
+		// TODO Auto-generated method stub
+		
+		MemberVO memberVO = memberMapper.selectByUUID(activeUUID);
+
+		
+		return memberVO;
 	}
 	
 	
