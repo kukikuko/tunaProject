@@ -8,7 +8,9 @@ public interface MemberRepository {
 	public MemberVO memberInsert(MemberVO memberVO);
 	
 	public MemberVO selectByEmail(String email);
-	
+
+	public MemberVO selectByCode(int code);
+
 	//id중복체크
 	public Integer idCheck(String email);
 	
