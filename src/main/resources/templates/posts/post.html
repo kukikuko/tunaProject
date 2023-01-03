@@ -20,6 +20,8 @@
 		<p class="post-code" id="postCode" th:text="${post.postCode}">
 		<p class="post-member" id="pMemCode" th:text="${post.pMemCode}">
 		
+		
+		
 		<p class="post-category" th:text="${post.ctName}">
 		<p class="post-title" th:text=${post.pTitle}></p>
 		<p class="post-price">가격 : <span th:text=${post.pPrice}></span></p>
@@ -47,8 +49,20 @@
 			
 			<button th:if="${post.pMemCode} != ${member.memberCode}"  
 			type="button" id="notifyBtn">신고하기</button>
-		
 			
+			
+<!-- 			class 건들면 찜하기 작동 안함 ㅅㄱ -->
+			<th:block th:if="${cnt123 == 0}">
+				<button th:if="${post.pMemCode} != ${member.memberCode}" 
+				class="heartBtn" type="submit" id="heartBtnWhite"> 찜하기</button>
+			</th:block>
+			
+			<th:block th:if="${cnt123 >= 1}">
+				<button th:if="${post.pMemCode} != ${member.memberCode}" 
+				class="heartBtn" type="submit" id="heartBtnRed"> 찜하기</button>
+			</th:block>
+
+
 		
 	</div>
 	<!-- JavaScript Bundle with Popper -->
@@ -60,9 +74,8 @@
 <script>
 	$("#postCode").css("display", "none");
 	$("#pMemCode").css("display", "none");
-	
+	$("#heartBtnRed").css('backgroundColor', 'red');
 	document.getElementById('notifyBtn').addEventListener('click', (e)=>{ 
-	
 		$.ajax({
 		      type : "POST",
 		      url : "/notify/post",
@@ -79,13 +92,42 @@
 			    			  location.href="http://localhost:8080";
 		    		  }
 		    	  }
-		    	  else if(cnt>1){	//cnt가 1 이상일때, 사용자가 1번 이상 신고한 게시글
+		    	  else if(cnt>=1){	//cnt가 1 이상일때, 사용자가 1번 이상 신고한 게시글
 	    			  console.log(cnt);
 	    			  alert("이미 신고한 게시글입니다.");
 	    		  }
 		      }
 		      });
 		});
+	
+	var heartBtn = document.querySelectorAll('.heartBtn');
+	
+	for(let i =0; i<2; i++){
+		heartBtn[i].addEventListener('click', (e)=>{
+			$.ajax({
+			      type : "POST",
+			      url : "/heart",
+			      data : {
+			         "postCode" : $("#postCode").text()
+			      }, 
+			      success:function(cnt){
+			    	  console.log(cnt);
+			    	  if(cnt=>1){
+			    		  $("#heartBtnWhite").css('backgroundColor', 'red');
+			    		  $("#heartBtnRed").css('backgroundColor', 'red');
+			      	}if(cnt==0){
+			      		 $("#heartBtnWhite").css('backgroundColor', '#F0F0F0');
+			      		 $("#heartBtnRed").css('backgroundColor', '#F0F0F0');
+			      		 
+			      	}
+			 }
+			      });
+		});
+
+	}
+	
+
+	
 	
 </script>
 </body>

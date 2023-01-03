@@ -2,33 +2,27 @@ package com.project.TunaProject.controller;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.springframework.boot.autoconfigure.cassandra.CassandraProperties.Request;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.TunaProject.domain.MemberVO;
+import com.project.TunaProject.domain.Post;
 import com.project.TunaProject.form.LoginForm;
 import com.project.TunaProject.repository.MemberRepository;
-import com.project.TunaProject.service.Tuna_LoginService;
-import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
 
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -160,6 +154,23 @@ public class MemberController {
 		
 	 		return "redirect:/";
 	}
+	//내 활동
+	@GetMapping("/myPage")
+	public String myPage(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession(false);
+		
+		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
+		List<Post> postList = memberRepository.selectByMemberCode(tempVO.getMemberCode());
+		
+		System.out.println(tempVO.getMemberCode());
+		
+		model.addAttribute("posts", postList);
+//		model.addAttribute("post", post);
+		
+		return "myPage/myPage";
+	}
+	
 	
 
 	
