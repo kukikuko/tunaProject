@@ -89,11 +89,21 @@
 	</select>
 	
 <!-- 	memberCode로 사용자가 작성한 글 보여주기 -->
-	<select id="selectByMemberCode" resultType="Post">
-	select * 
-	from tuna_post 
-	where pmemcode = #{memberCode}
+<!--	<select id="selectByMemberCode" resultType="Post">-->
+<!--	select * -->
+<!--	from tuna_post -->
+<!--	where pmemcode = #{memberCode}-->
+<!--	</select>-->
+
+	<select id="selectByMemberCode" resultType="PostForCategory">
+		select POSTCODE,postCtCode,
+			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+				,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
+				,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+			   PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
+		from TUNA_POST p
+		where pmemcode = #{memberCode}
+		order by postCode
 	</select>
-	
 	
   </mapper>
