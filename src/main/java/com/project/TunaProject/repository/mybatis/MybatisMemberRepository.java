@@ -84,6 +84,7 @@ public class MybatisMemberRepository implements MemberRepository{
 		return password;
 	}
 
+	//자신이 작성한 게시물을 내 활동에서 보여주는 메소드
 	@Override
 	public List<Post> selectByMemberCode(Integer memberCode) {
 		// TODO Auto-generated method stub
@@ -91,6 +92,13 @@ public class MybatisMemberRepository implements MemberRepository{
 		
 		return postList;
 		
+	}
+	//자신이 찜한 게시물을 내 활동에서 보여주는 메소드
+	@Override
+	public List<Post> selectByMemberAndHeart(Integer memberCode) {
+		// TODO Auto-generated method stub
+		List<Post> postListHeart = memberMapper.selectByMemberAndHeart(memberCode);
+		return postListHeart;
 	}
 	
 	

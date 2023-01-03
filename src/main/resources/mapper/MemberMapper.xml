@@ -89,5 +89,17 @@
 	where pmemcode = #{memberCode}
 	</select>
 	
+<!-- 	사용자가 찜한 게시물을 내활동 페이지에서 보여주기 -->
+	<select id="selectByMemberAndHeart" resultType="Post">
+	select * 
+	from tuna_post tp 
+	where tp.postcode in 
+		(
+		select hpostcode 
+		from tuna_heart 
+		where hmemCode=#{memberCode}
+		)
+	</select>
+	
 	
   </mapper>
