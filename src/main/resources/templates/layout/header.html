@@ -44,12 +44,10 @@ body{
 							data-bs-toggle="dropdown" aria-expanded="false"
 							th:text="${member.memberNick}"></button>
 						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/myPage/memberUpdate">개인정보
-									변경</a></li>
-							<li><a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호
-									변경</a></li>
-							<li><a class="dropdown-item" href="/myPage/memberOut">회원
-									탈퇴</a></li>
+							<li><a class="dropdown-item" href="/myPage/myPage">내 활동</a></li>
+							<li><a class="dropdown-item" href="/myPage/memberUpdate">개인정보 변경</a></li>
+							<li><a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호 변경</a></li>
+							<li><a class="dropdown-item" href="/myPage/memberOut">회원 탈퇴</a></li>
 						</ul>
 					</div>
 					<form th:action="@{/logout}" method="post">

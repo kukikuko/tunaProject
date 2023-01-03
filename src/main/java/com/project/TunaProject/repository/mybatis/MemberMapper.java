@@ -1,8 +1,11 @@
 package com.project.TunaProject.repository.mybatis;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.project.TunaProject.domain.MemberVO;
+import com.project.TunaProject.domain.Post;
 
 
 @Mapper
@@ -26,4 +29,8 @@ public interface MemberMapper {
 	
 	//비밀번호 찾는 메소드
 	public String emailFindPw(String email);
+	
+	//자신이 올린 게시물 확인
+	public List<Post> selectByMemberCode(Integer memberCode);
+	
 }

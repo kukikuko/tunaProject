@@ -7,6 +7,7 @@
  
  
   <mapper namespace="com.project.TunaProject.repository.mybatis.MemberMapper">
+	
 	<insert id="memberInsert" parameterType="MemberVO">
   		insert into TUNA_MEMBER 
   		values
@@ -81,6 +82,12 @@
 		where memberMail= #{email}
 	</select>
 	
+<!-- 	memberCode로 사용자가 작성한 글 보여주기 -->
+	<select id="selectByMemberCode" resultType="Post">
+	select * 
+	from tuna_post 
+	where pmemcode = #{memberCode}
+	</select>
 	
 	
   </mapper>
