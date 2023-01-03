@@ -1,9 +1,13 @@
 package com.project.TunaProject.controller;
 
 import com.project.TunaProject.domain.MemberVO;
+import com.project.TunaProject.domain.Post;
 import com.project.TunaProject.repository.AdminRepository;
 import com.project.TunaProject.repository.MemberRepository;
 import com.project.TunaProject.repository.PostRepository;
+import com.project.TunaProject.session.SessionVar;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -46,8 +50,10 @@ public class AdminController {
     public String adminMember(Model model, @PathVariable("memberCode")int memberCode) {
 
         MemberVO memberVO = memberRepository.selectByCode(memberCode);
+        List<Post> posts = memberRepository.selectByMemberCode(memberCode);
 
         model.addAttribute("member", memberVO);
+        model.addAttribute("posts", posts);
 
         return "/admin/member";
     }

@@ -89,10 +89,33 @@
 	</select>
 	
 <!-- 	memberCode로 사용자가 작성한 글 보여주기 -->
-	<select id="selectByMemberCode" resultType="Post">
+<!--	<select id="selectByMemberCode" resultType="Post">-->
+<!--	select * -->
+<!--	from tuna_post -->
+<!--	where pmemcode = #{memberCode}-->
+<!--	</select>-->
+
+	<select id="selectByMemberCode" resultType="PostForCategory">
+		select POSTCODE,postCtCode,
+			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+				,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
+				,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+			   PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
+		from TUNA_POST p
+		where pmemcode = #{memberCode}
+		order by postCode
+	</select>
+	
+<!-- 	사용자가 찜한 게시물을 내활동 페이지에서 보여주기 -->
+	<select id="selectByMemberAndHeart" resultType="Post">
 	select * 
-	from tuna_post 
-	where pmemcode = #{memberCode}
+	from tuna_post tp 
+	where tp.postcode in 
+		(
+		select hpostcode 
+		from tuna_heart 
+		where hmemCode=#{memberCode}
+		)
 	</select>
 	
 	

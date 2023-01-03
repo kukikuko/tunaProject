@@ -35,4 +35,7 @@ public interface MemberMapper {
 	//자신이 올린 게시물 확인
 	public List<Post> selectByMemberCode(Integer memberCode);
 	
+	//자신이 찜한 게시물을 내 활동에서 보여주는
+	public List<Post> selectByMemberAndHeart(Integer memberCode);
+	
 }
