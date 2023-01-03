@@ -1,5 +1,7 @@
 package com.project.TunaProject.repository.mybatis;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +33,12 @@ public class MybatisMemberRepository implements MemberRepository{
 		
 		return memberVO;
 	
+	}
+
+	@Override
+	public MemberVO selectByCode(int code) {
+		MemberVO memberVO = memberMapper.selectByCode(code);
+		return memberVO;
 	}
 
 	@Override
@@ -80,6 +88,15 @@ public class MybatisMemberRepository implements MemberRepository{
 		System.out.println("여기1" + password);
 		
 		return password;
+	}
+
+	@Override
+	public List<Post> selectByMemberCode(Integer memberCode) {
+		// TODO Auto-generated method stub
+		List<Post> postList = memberMapper.selectByMemberCode(memberCode);
+		
+		return postList;
+		
 	}
 	
 	

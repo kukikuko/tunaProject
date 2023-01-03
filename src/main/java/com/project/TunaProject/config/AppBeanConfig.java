@@ -17,6 +17,7 @@ public class AppBeanConfig {
 	private final ImageItemMapper imageItemMapper;
 	private final AdminMapper adminMapper;
 	private final NotifyMapper notifyMapper;
+	private final HeartMapper heartMapper;
 
 	@Bean
 	public MemberRepository memberRepository() {
@@ -43,5 +44,9 @@ public class AppBeanConfig {
 	@Bean
 	public NotifyRepository notifyRepository() {
 		return new MybatisNotifyRepository(notifyMapper);
+	}
+	@Bean
+	public HeartRepository heartRepository() {
+		return new MybatisHeartRepository(heartMapper);
 	}
 }

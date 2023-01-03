@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.project.TunaProject.repository.mybatis.HeartMapper">
+
+<!-- 	찜 누르면 작동 -->
+	<insert id="insertHeart">
+		insert into tuna_heart
+		values(
+			#{hMemCode}
+			,#{hPostCode}
+			)
+	</insert>
+	
+<!-- 	한 사용자가, 특정한 게시물에 찜 버튼을 눌렀는지 체크 -->
+	<select id="countHeart" resultType="Integer">
+	select count(*) 
+	from tuna_heart 
+	where 
+		hmemcode= #{hMemCode} 
+	and
+		hpostcode= #{hPostCode}
+	</select>
+	
+	<delete id="deleteHeart">
+	delete from tuna_heart 
+	where
+		hmemcode= #{hMemCode} 
+	and
+		hpostcode= #{hPostCode}
+	</delete>
+</mapper>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>내 활동</h1>
+	
+	<table class="board-table">
+		<thead class="postsThead">
+				<tr>
+					<th class="th-title">제목</th>
+					<th class="th-data">작성일</th>
+				</tr>
+			</thead>
+			<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}"
+				class="postsTbody">
+				<tr>
+					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}" th:text="${post.pTitle}"></a></td>
+					<td a class="tr" th:href="@{|/posts/${post.postCode}|}" th:text="${post.pCreateTime}"></td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<button type ="button" th:onClick="|location.href='@{/}'|">뒤로 가기</button>
+</body>
+</html>

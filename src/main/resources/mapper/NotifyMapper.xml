@@ -4,7 +4,7 @@
 
 <mapper	namespace="com.project.TunaProject.repository.mybatis.NotifyMapper">
 
-	<insert id="insertNotify" >
+	<insert id="insertNotify">
 		
 	insert into TUNA_NOTIFY 
 	values
@@ -14,8 +14,16 @@
 			, SYSDATE
 			, #{doNotifyMemberCode}
 			, #{notifyMemberCode}
+			
 			)
 	</insert>
+	
+	<select id="notifyCheck" resultType="Integer">
+	select count(*) 
+	from tuna_notify 
+	where NOTIFYTYPE = #{notifyType} 
+	and donotifyMemberCode= #{doNotifyMemberCode}
+	</select>
 
 
 </mapper>

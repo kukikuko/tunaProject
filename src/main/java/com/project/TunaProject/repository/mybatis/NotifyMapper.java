@@ -8,4 +8,6 @@ import com.project.TunaProject.domain.Notify;
 public interface NotifyMapper {
 
 	public Integer insertNotify(Notify notify);
+	
+	public Integer notifyCheck(Notify notify);
 }
