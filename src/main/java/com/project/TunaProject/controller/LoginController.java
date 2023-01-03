@@ -73,7 +73,7 @@ public class LoginController {
 	
 	public void validateLoginForm(LoginForm loginForm, Errors errors) {
 		if(!StringUtils.hasText(loginForm.getEmail())) {
-			errors.rejectValue("loginId", null, "아이디 필수 입력입니다.");
+			errors.rejectValue("email", null, "아이디 필수 입력입니다.");
 		}
 		
 		if(!StringUtils.hasText(loginForm.getPassword())) {
