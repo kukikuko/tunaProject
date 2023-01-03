@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.project.TunaProject.domain.MemberVO;
 import com.project.TunaProject.domain.Notify;
@@ -26,7 +27,8 @@ public class NotifyController {
 	private final MybatisNotifyRepository mybatisNotifyRepository;
 	
 	@PostMapping("/post")
-	public String notifyPost(@RequestParam Map<String, String> data, HttpServletRequest req) {
+	@ResponseBody
+	public Integer notifyPost(@RequestParam Map<String, String> data, HttpServletRequest req) {
 		
 //		int cnt = mybatisNotifyRepository.selectById();
 //		if(cnt > 0) {
@@ -41,11 +43,18 @@ public class NotifyController {
 		n.setNotifyMemberCode(data.get("pMemCode"));
 		n.setDoNotifyMemberCode(String.valueOf(tempVO.getMemberCode()));
 		n.setNotifyTarget(1);
-		mybatisNotifyRepository.insertNotify(n);
+		
+		int cnt = mybatisNotifyRepository.notifyCheck(n);
+		System.out.println("********************" + cnt);
+		
+		if(cnt==0) {
+			mybatisNotifyRepository.insertNotify(n);
+		}
+		
 //		
 //		return 2;
 //		}
-		return "tuna:/";
+		return cnt;
 	}
 	
 //	@PostMapping("/chat")

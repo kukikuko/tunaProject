@@ -16,6 +16,10 @@
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<div class="Post" name="post" id="post" th:value="${post.postCode}">
+		
+		<p class="post-code" id="postCode" th:text="${post.postCode}">
+		<p class="post-member" id="pMemCode" th:text="${post.pMemCode}">
+		
 		<p class="post-category" th:text="${post.ctName}">
 		<p class="post-title" th:text=${post.pTitle}></p>
 		<p class="post-price">가격 : <span th:text=${post.pPrice}></span></p>
@@ -38,9 +42,13 @@
 		</form>
 		<button th:onclick="|location.href='@{/posts}'|" class="post_Btn_back">목록보기</button>
 			
-			<button type="button" id="notifyBtn">신고하기</button>
+			<button th:if="${post.pMemCode} == ${member.memberCode}" style="display:none" 
+			type="button" id="notifyBtn">신고하기</button>
+			
+			<button th:if="${post.pMemCode} != ${member.memberCode}"  
+			type="button" id="notifyBtn">신고하기</button>
 		
-		
+			
 		
 	</div>
 	<!-- JavaScript Bundle with Popper -->
@@ -62,12 +70,19 @@
 		         "postCode" : $("#postCode").text(),
 		         "pMemCode" : $("#pMemCode").text()
 		      },
-		      success : function(data, status){
-		    	  if(status == "success"){
-		    		  if(confirm("신고하시겠습니까?")){
-		    			  alert("신고되었습니다.");
+		      success : function(cnt){
+		    	  console.log(cnt);
+		    	  if(cnt==0){	//cnt가 0일때. 사용자가 신고하지 않은 게시글
+		    		  console.log(cnt);
+			    		  if(confirm("신고하시겠습니까?")){
+			    			  alert("신고되었습니다.");
+			    			  location.href="http://localhost:8080";
 		    		  }
 		    	  }
+		    	  else if(cnt>1){	//cnt가 1 이상일때, 사용자가 1번 이상 신고한 게시글
+	    			  console.log(cnt);
+	    			  alert("이미 신고한 게시글입니다.");
+	    		  }
 		      }
 		      });
 		});

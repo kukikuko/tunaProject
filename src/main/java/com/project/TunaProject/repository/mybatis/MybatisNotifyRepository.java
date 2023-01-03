@@ -22,4 +22,11 @@ public class MybatisNotifyRepository implements NotifyRepository{
 		return notify;
 	}
 
+	@Override
+	public Integer notifyCheck(Notify notify) {
+		// TODO Auto-generated method stub
+		int result = notifyMapper.notifyCheck(notify);
+		return result;
+	}
+
 }
