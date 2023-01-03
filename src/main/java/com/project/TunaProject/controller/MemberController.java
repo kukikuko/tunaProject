@@ -154,7 +154,7 @@ public class MemberController {
 		
 	 		return "redirect:/";
 	}
-	//내 활동
+	//내 활동(내 판매내역, 내가 찜한 게시글)
 	@GetMapping("/myPage")
 	public String myPage(HttpServletRequest req, Model model) {
 		HttpSession session = req.getSession(false);
@@ -163,11 +163,14 @@ public class MemberController {
 		
 		List<Post> postList = memberRepository.selectByMemberCode(tempVO.getMemberCode());
 		
+		List<Post> postListHeart = memberRepository.selectByMemberAndHeart(tempVO.getMemberCode());
+
+		
 		System.out.println(tempVO.getMemberCode());
 		
 		model.addAttribute("posts", postList);
-//		model.addAttribute("post", post);
-		
+		model.addAttribute("postsHeart", postListHeart);
+
 		return "myPage/myPage";
 	}
 	

@@ -10,145 +10,12 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<style>
-@import url(http://weloveiconfonts.com/api/?family=entypo);
-@import url(https://fonts.googleapis.com/css?family=Roboto);
-
-/* zocial */
-[class*="entypo-"]:before {
-  font-family: 'entypo', sans-serif;
-}
-
-*,
-*:before,
-*:after {
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box; 
-}
-
-
-h2 {
-  color:rgba(255,255,255,.8);
-  margin-left:12px;
-}
-
-body {
-  background: #272125;
-  font-family: 'Roboto', sans-serif;
-  background-color: black;
-}
-
-form {
-  position:relative;
-  margin: 50px auto;
-  width: 380px;
-  height: auto;
-}
-
-input {
-  padding: 16px;
-  border-radius:7px;
-  border:0px;
-  background: rgba(255,255,255,.2);
-  display: block;
-  margin: 15px;
-  width: 300px;  
-  color:white;
-  font-size:18px;
-  height: 54px;
-}
-
-input:focus {
-  outline-color: rgba(0,0,0,0);
-  background: rgba(255,255,255,.95);
-  color: #e74c3c;
-}
-
-button {
-  float:right;
-  height: 121px;
-  width: 50px;
-  border: 0px;
-  background: #e74c3c;
-  border-radius:7px;
-  padding: 10px;
-  color:white;
-  font-size:22px;
-}
-
-.inputUserIcon {
-  position:absolute;
-  top:68px;
-  right: 80px;
-  color:white;
-}
-
-.inputPassIcon {
-  position:absolute;
-  top:136px;
-  right: 80px;
-  color:white;
-}
-
-input::-webkit-input-placeholder {
-  color: white;
-}
-
-input:focus::-webkit-input-placeholder {
-  color: #e74c3c;
-}
-body {
-	background-color: white;
-	/* background-color: #a7cdfd; */
-}
-
-.joinform {
-	margin: auto;
-	width: 500px;
-	background-color: #a7cdfd;
-	background-color: #EEEFF1;
-	border-radius: 5px;
-	text-align: left;
-	padding: 20px;
-}
-
-input{
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border: none;
-}
-
-.in, .mailCheckInput {
-	margin-bottom: 10px;
-}
-
-#joinBtn, #mailChkBtn {
-	background-color: #a7cdfd;
-	margin-bottom: 30px;
-	color: black;
-	border: none;
-	border-radius: 5px;
-}
-
-a {
-	text-decoration: none;
-	color: #9B9B9B;
-	font-size: 12px;
-}
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-
-</style>
+<link rel="stylesheet" href="/css/join.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-light">
+	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
+			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
 			<a class="navbar-brand" href="#">사조마켓</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
@@ -170,92 +37,82 @@ a {
 			</div>
 		</div>
 	</nav>
-	<div>
-		<form action="" method="post" name="memberJoin" class="joinform">
-			<div>
-				<label>이메일</label> 
-					<input type="text" name="memberMail1" id="memberMail" maxlength="15" class="in">@
-					<input type="text" name="memberMail2" id="email_add" maxlength="15" class="in">
-					<select name="email_sel" id="email_sel" onchange="change_email();">
-						<option value="">직접입력</option>
-						<option value="naver.com">naver</option>
-						<option value="gmail.com">gmail</option>
-						<option value="nate.com">nate</option>
-					</select>
-					<button type="submit" class="btn btn-primary" id="mailChkBtn">중복확인</button>
-					<div class="mail-check-box" id="mailCheckBox">
-						<button type="submit" class="btn btn-primary" id="mailCheckBtn1">인증번호 발송</button>
-						<p id="time">180</p>
-						<input class="mailCheckInput"  id="mailCheckInput" name="mailCheckInput"  placeholder="인증번호를 입력해주세요!" maxlength="8">
-						<button type="button" id="ePw-Check-Btn">인증번호 확인</button>
-					</div>
-			</div><br>
-			<div>
-				<label>비밀번호
-					<input type="password" name="password" id="pwd" placeholder="영문자+숫자+특수문자 조합" class="in">
-				</label>
-			</div>
-			<div>
-				<label>비밀번호 재확인
-					<input type="password" name="repwd" id="repwd" class="in">
-				</label>	
-			</div>
-			<div>
-				<label>이름
-					<input type="text" name="memberName" id="uname" maxlength="6" class="in">
-				</label>
-			</div>
-			<div>
-				<label>생년월일 
-					<input type="text" name="memberBirth" id="memberBirth" placeholder="ex)19000101" maxlength="8" class="in">
-				</label>	
-			</div>
-			<div>
-				<label>닉네임
-					<input type="text" name="memberNick" id="memberNickName" maxlength="6" placeholder="2~6글자 한글로 입력해주세요." class="in"><br>
-				</label>
-			</div>
-			<div>
-				<label>전화번호
-					 <select id="PN_sel" onchange="change_PN();">
-						<option value="">직접입력</option>
-						<option value="010">010</option>
-						<option value="011">011</option>
-					</select>
-				<input type="text" name="memberPN1" id="PN_add" maxlength="3" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="in"> - 
-				<input type="text" name="memberPN2" id="mobile2" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="in">
-				<input type="text" name="memberPN3" id="mobile3" maxlength="4" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" class="in"> 
-					ex"-"없이 숫자만 입력
-				</label>
-			</div>
-			<label>주소
-				<br>
-				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="in">
-				<br>
-					<input type="text" id="sample6_postcode" name="memberAddr1" placeholder="우편번호" readonly class="in"><br> 
-					<input type="text" id="sample6_address" name="memberAddr2" placeholder="주소" readonly class="in"><br>
-					<input type="text" id="sample6detailAddress" name="memberAddr3" placeholder="상세주소" class="in"> 
-					<input type="text" id="sample6extraAddress" name="memberAddr4" placeholder="참고항목" class="in">
+	<div class="join-div">
+		<form action="" method="post" name="memberJoin" class="joinform"> 
+			<label>아이디<br/>
+				<input type="text" name="memberMail1" id="memberMail" maxlength="15" 
+				class="join-email" placeholder="아이디"> @
+				<input type="text" name="memberMail2" id="email_add" maxlength="15" class="join-email">
+				<select name="email_sel" id="email_sel" onchange="change_email();" class="join-emailSelect">
+					<option value="">직접입력</option>
+					<option value="naver.com">naver</option>
+					<option value="gmail.com">gmail</option>
+					<option value="nate.com">nate</option>
+				</select>
+				<button type="submit" class="join-emailCheckBtn" id="mailChkBtn">중복확인</button>
+				<div class="mail-check-box" id="mailCheckBox">
+					<button type="submit" class="join-emailcheckNumBtn" id="mailCheckBtn1">인증번호발송</button>
+					<!-- <p id="time" class="join-emailChckTime">180</p> -->
+					<input class="join-emailCheckInput" id="mailCheckInput"
+						name="mailCheckInput" placeholder="인증번호를 입력해주세요!" maxlength="8">
+					<button type="button" id="ePw-Check-Btn" class="join-emailcheckNumBtn">인증번호 확인</button>
 			</label>
-			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+			</div>
+			<label>비밀번호 
+				<input type="password" name="password" id="pwd" placeholder="영문자+숫자+특수문자 조합" class="join-input">
+			</label> 
+			<label>비밀번호 재확인 
+				<input type="password" name="repwd" id="repwd" class="join-input">
+			</label> 
+			<label>이름 
+				<input type="text" name="memberName" id="uname" maxlength="6" class="join-input">
+			</label> 
+			<label>생년월일 
+				<input type="text" name="memberBirth" id="memberBirth" placeholder="ex)19000101" maxlength="8" class="join-input">
+			</label> 
+			<label>닉네임 
+				<input type="text" name="memberNick"
+				id="memberNickName" maxlength="6" placeholder="2~6글자 한글로 입력해주세요."
+				class="join-input">
+			</label>
+			<label>전화번호 <br/>
+					<select id="PN_sel" onchange="change_PN();" class="join-PhonNumSelect">
+							<option value="">직접입력</option>
+							<option value="010">010</option>
+							<option value="011">011</option>
+							<option value="011">017</option>
+							<option value="011">018</option>
+					</select> 
+					<input type="text" name="memberPN1" id="PN_add" maxlength="3"
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						class="join-phonNumIn"> - 
+						<input type="text" name="memberPN2"
+						id="mobile2" maxlength="4"
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						class="join-phonNumIn"> -
+						<input type="text" name="memberPN3"
+						id="mobile3" maxlength="4"
+						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+						class="join-phonNumIn"> <br/> ex"-"없이 숫자만 입력
+				</label>
+
+			<div>
+				<label>주소 <br> 
+					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="join-input">
+					<br> 
+					<input type="text" id="sample6_postcode" name="memberAddr1" placeholder="우편번호" readonly class="join-input"><br>
+					<input type="text" id="sample6_address" name="memberAddr2" placeholder="주소" readonly class="join-input"><br> 
+					<input type="text" id="sample6detailAddress" name="memberAddr3" placeholder="상세주소" class="join-input"><br> 
+					<input type="text" id="sample6extraAddress" name="memberAddr4" placeholder="참고항목" class="join-input">
+				</label>
+			</div>
+			<script
+				src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
 			<br>
-
-			<button id="joinBtn" type="submit" >회원 가입</button>
+			<button id="joinBtn" type="submit" class="joinBtn">가입하기</button>
 		</form>
 	</div>
-	<form action="">
-  <h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2>
-  <button class="submit"><span class="entypo-lock"><i class="fa fa-lock"></i></span></button>
-  <span class="entypo-user inputUserIcon">
-     <i class="fa fa-user"></i>
-   </span>
-  <input type="text" class="user" placeholder="ursername"/>
-  <span class="entypo-key inputPassIcon">
-     <i class="fa fa-key"></i>
-   </span>
-  <input type="password" class="pass"placeholder="password"/>
-</form>
 	<script>
 	$("#mailCheckBox").css("display", "none");
 	$("#time").css("display", "none");
