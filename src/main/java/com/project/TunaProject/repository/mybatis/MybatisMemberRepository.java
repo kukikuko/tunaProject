@@ -36,6 +36,12 @@ public class MybatisMemberRepository implements MemberRepository{
 	}
 
 	@Override
+	public MemberVO selectByCode(int code) {
+		MemberVO memberVO = memberMapper.selectByCode(code);
+		return memberVO;
+	}
+
+	@Override
 	public Integer idCheck(String email) {
 		// TODO Auto-generated method stub
 		Integer cnt = memberMapper.idCheck(email);

@@ -14,10 +14,10 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg bg-light">
+	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
-			<a class="navbar-brand" href="/">사조마켓</a>
+			<img src="http://localhost:8080/images/Logo.png" class="logoImg" /> <a
+				class="navbar-brand" href="/">사조마켓</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
 				aria-controls="navbarScroll" aria-expanded="false"
@@ -38,44 +38,41 @@
 			</div>
 		</div>
 	</nav>
-	
-	
+
+
 	<div class="login-div">
-		<form class="login-form" action="" method="post" th:object="${loginForm}" name="login">
+		<form class="login-form" action="" method="post"
+			th:object="${loginForm}" name="login">
+			<!-- 			<h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2> -->
+
+			<span class="entypo-user inputUserIcon"> <i class="fa fa-user"></i>
+			</span> <label for="loginId"></label> <input type="text" th:field="*{email}"
+				class="user" id="email" placeholder="아이디(이메일)를 입력해주세요."> <span
+				class="entypo-key inputPassIcon"> <i class="fa fa-key"></i>
+			</span>
+
+
+			<label for="password"></label>
+			 <input type="password"
+				th:field="*{password}" class="pass" id="password"  placeholder="비밀번호를 입력해주세요.">
+				
+			<button type="submit" class="loginBtn">
+				<span class="entypo-lock"><i class="fa fa-lock"></i></span>
+			</button>
+			<button type="button" th:onclick="|location.href='@{/}'|" class="backBtn" id="btn">취소</button>
+			<div class="errorMessage">
+				<div th:errors="*{email}"></div>
+				<div th:errors="*{password}"></div>
+			</div>
 			<div th:if="${#fields.hasGlobalErrors()}">
 				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
-				글로벌오류</p>
+					글로벌오류</p>
 			</div>
-			
-<!-- 			<h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2> -->
-				
-				<button class="submit" type="submit"><span class="entypo-lock"><i class="fa fa-lock"></i></span></button>
-				
-				<span class="entypo-user inputUserIcon">
-     				<i class="fa fa-user"></i>
-   				</span>
-   				
-				<label for="loginId"></label> 
-					
-					
-						<input type="text" th:field="*{email}" class="user" id="email">
-							<span class="entypo-key inputPassIcon">
-	     						<i class="fa fa-key"></i>
-	     					</span>
-	     				
-					<div th:errors="*{email}"></div>
-
-				<label for="password"></label> 
-					<input type="password" th:field="*{password}" class="pass" id="password">
-				<div th:errors="*{password}"></div>
-
-<!-- 			<button type="submit" id="login-btn">로그인</button> -->
-			<button type="button" th:onclick="|location.href='@{/}'|" id="btn">취소</button>
 		</form>
-
-		<a href="/login/findPw" class="login-a">비밀번호를 잊어버리셨나요?</a>
+		<a href="/join" class="login-join">회원이 아니신가요?</a><br/>
+		<a href="/login/findPw" class="login-findPw">비밀번호를 잊어버리셨나요?</a>
 	</div>
-<script type="text/javascript">
+	<script type="text/javascript">
 
 	$(".user").focusin(function(){
 	  $(".inputUserIcon").css("color", "#e74c3c");

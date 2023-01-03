@@ -43,6 +43,12 @@
 		  from tuna_member
 		where membermail = #{email}
 	</select>
+
+	<select id="selectByCode" resultType="MemberVO">
+		select *
+		from tuna_member
+		where memberCode = #{memberCode}
+	</select>
 	
 <!-- 	개인정보 변경 -->
 	<update id="updateMemberByEmail" parameterType="MemberVO">

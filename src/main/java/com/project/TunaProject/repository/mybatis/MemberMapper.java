@@ -16,6 +16,8 @@ public interface MemberMapper {
 	
 	//로그인 하는 메소드
 	public MemberVO selectByEmail(String email);
+
+	public MemberVO selectByCode(int memberCode);
 	
 	public Integer idCheck(String email);
 	
