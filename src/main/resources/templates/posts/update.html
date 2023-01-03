@@ -15,7 +15,8 @@
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<div class="updateDiv">
-		<form action="" method="post" th:object="${post}">
+		<form action="" method="post" th:object="${post}"
+			  enctype="multipart/form-data"s>
 				<input type="hidden" name="postCode" th:field="*{postCode}">
 				<select class="update_category" name="ctCode">
 					<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}"
@@ -25,6 +26,7 @@
 				<input type="number" name="postPrice" th:field="*{pPrice}" class="update_price">
 				<textarea type="text" name="postContent" th:field="*{pContent}" class="update_content"></textarea>
 			<div class="updateBtn">
+				<input class="writing_image" type="file" multiple="multiple" name="imageFiles">
 				<button type="submit" class="update_Btn">수정완료</button>
 				<button th:onclick="|location.href='@{/posts}'|" class="update_Btn">목록보기</button>
 			</div>

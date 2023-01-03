@@ -29,10 +29,18 @@ public class AdminController {
         return "/admin/home";
     }
 
-    @GetMapping("/member")
-    public String adminMember() {
-        return "/admin/member";
+    @GetMapping("/members")
+    public String adminMember(Model model) {
+
+        List<MemberVO> memberVOS = adminRepository.selectAll();
+        model.addAttribute("members", memberVOS);
+        return "/admin/members";
     }
 
+    @GetMapping("/notify/post")
+    public String notifyPost(Model model) {
+
+        return "/admin/notifyPost";
+    }
 }
 

@@ -6,7 +6,9 @@
 	namespace="com.project.TunaProject.repository.mybatis.AdminMapper">
 
 	<select id="selectAll" resultType="MemberVO">
-		select * from TUNA_Member order by MEMBERCODE
+		select * from TUNA_Member
+		where membercode >= 1
+		order by MEMBERCODE
 	</select>
 
 </mapper>
