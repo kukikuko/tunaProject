@@ -10,6 +10,7 @@ public class Post {
 	private String postCode;
 	private String postCtCode;
 	private int pMemCode;
+	private String memNick;
 	private String pTitle;
 	private String pContent;
 	private String pCreateTime;

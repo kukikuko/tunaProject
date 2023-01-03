@@ -8,6 +8,7 @@ public class PostForCategory {
 	private String postCode;
 	private String postCtCode;
 	private int pMemCode;
+	private String memNick;
 	private String ctName;
 	private String pTitle;
 	private String pContent;

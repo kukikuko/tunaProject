@@ -20,6 +20,7 @@
 			<thead class="postsThead">
 				<tr>
 					<th class="th-cate">카테고리</th>
+					<th class="th-title">작성자</th>
 					<th class="th-title">제목</th>
 					<th class="th-view">조회수</th>
 					<th class="th-data">작성일</th>
@@ -28,8 +29,8 @@
 			<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}"
 				class="postsTbody">
 				<tr>
-					<td a class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.ctName}"></td>
+					<td class="tr" th:text="${post.ctName}"></td>
+					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
 						th:text="${post.pTitle}"></a></td>
 					<td class="tr" th:href="@{|/posts/${post.postCode}|}"
