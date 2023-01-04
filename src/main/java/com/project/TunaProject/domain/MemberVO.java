@@ -24,7 +24,7 @@ public class MemberVO {
 	private String memberAddr2;	//도로명 or 지번
 	private String memberAddr3;	//상세주소
 	private String memberAddr4;	//주소 참고항목 null 가능
-	private int adminCk;		//활동상태
+	private String adminCk;		//활동상태
 	private Date regDate;		//가입일자
 	
 }

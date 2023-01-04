@@ -27,7 +27,11 @@ public interface MemberMapper {
 	public void updatePassword(MemberVO memberVO);
 	
 	//회원탈퇴 메소드
-	public void deleteMember(MemberVO memberVO);
+//	public void deleteMember(MemberVO memberVO);
+	public void updateAdminCk(MemberVO memberVO);
+	
+	//회원탈퇴시, 탈퇴한 회원이 작성한 게시글의 공개여부를 변경하는 메소드
+	public void updatePopenStatus(MemberVO memberVO);
 	
 	//비밀번호 찾는 메소드
 	public String emailFindPw(String email);

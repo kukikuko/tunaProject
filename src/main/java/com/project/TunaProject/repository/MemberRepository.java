@@ -24,7 +24,11 @@ public interface MemberRepository {
 	public boolean updatePassword(MemberVO memberVO);
 	
 	//회원탈퇴
-	public void deleteMember(MemberVO memberVO);
+//	public void deleteMember(MemberVO memberVO);
+	public boolean updateAdminCk(MemberVO memberVO);
+	
+	//회원 탈퇴시, 게시물 공개여부를 변경하기
+	public boolean updatePopenStatus(MemberVO memberVO);
 	
 	//비밀번호 찾기
 	public String emailFindPw(String email);
