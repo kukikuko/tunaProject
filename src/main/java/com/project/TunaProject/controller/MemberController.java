@@ -44,7 +44,7 @@ public class MemberController {
 		
 		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
 		
-		model.addAttribute("memberVO",memberVO);
+		model.addAttribute("member",memberVO);
 		log.info("updateGET member {}", memberVO);
 		return "myPage/memberUpdate";
 	}
@@ -73,7 +73,7 @@ public class MemberController {
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
 		memberVO.setMemberMail(tempVO.getMemberMail());
-		model.addAttribute("memberVO",memberVO);
+		model.addAttribute("member",memberVO);
 		log.info("updateGET member {}", memberVO);
 		return "myPage/passwordUpdate";
 	}
@@ -139,7 +139,7 @@ public class MemberController {
 		
 		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
 		
-		model.addAttribute("memberVO",memberVO);
+		model.addAttribute("member",memberVO);
 		
 		return "myPage/memberOut";
 	}
@@ -158,19 +158,14 @@ public class MemberController {
 	//내 활동(내 판매내역, 내가 찜한 게시글)
 	@GetMapping("/myPage")
 	public String myPage(HttpServletRequest req, Model model) {
-		HttpSession session = req.getSession(false);
-		
-		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		
-		List<Post> postList = memberRepository.selectByMemberCode(tempVO.getMemberCode());
-		
-		List<Post> postListHeart = memberRepository.selectByMemberAndHeart(tempVO.getMemberCode());
-
-		
-		System.out.println(tempVO.getMemberCode());
-		
+		HttpSession session = req.getSession(false);		
+		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);		
+		List<Post> postList = memberRepository.selectByMemberCode(tempVO.getMemberCode());		
+		List<Post> postListHeart = memberRepository.selectByMemberAndHeart(tempVO.getMemberCode());		
+		System.out.println(tempVO.getMemberCode());		
 		model.addAttribute("posts", postList);
 		model.addAttribute("postsHeart", postListHeart);
+		model.addAttribute("member", tempVO);
 
 		return "myPage/myPage";
 	}

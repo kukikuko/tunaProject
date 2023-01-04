@@ -9,6 +9,7 @@ public class PostForCategory {
 	private String postCtCode;
 	private int pMemCode;
 	private String memNick;
+	private String heart;
 	private String ctName;
 	private String pTitle;
 	private String pContent;
