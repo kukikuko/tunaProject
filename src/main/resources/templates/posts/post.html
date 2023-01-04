@@ -6,6 +6,10 @@
   <head>
     <meta charset="UTF-8" />
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script
+      src="https://kit.fontawesome.com/ef08a6d352.js"
+      crossorigin="anonymous"
+    ></script>
     <title>Insert title here</title>
     <!-- CSS only -->
     <link
@@ -15,10 +19,6 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="/css/posts.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
-    />
     <style>
       .logoImg {
         width: 40px;
@@ -31,6 +31,7 @@
     <div class="Post" name="post" id="post" th:value="${post.postCode}">
       <p class="post-code" id="postCode" th:text="${post.postCode}"></p>
       <p class="post-member" id="pMemCode" th:text="${post.pMemCode}"></p>
+
       <p class="post-category" th:text="${post.ctName}"></p>
       <p class="post-title" th:text="${post.pTitle}"></p>
       <p class="post-price">가격 : <span th:text="${post.pPrice}"></span></p>
@@ -74,6 +75,47 @@
       <button th:onclick="|location.href='@{/posts}'|" class="post_Btn_back">
         목록보기
       </button>
+
+      <button
+        th:if="${post.pMemCode} == ${member.memberCode}"
+        style="display: none"
+        type="button"
+        id="notifyBtn"
+      >
+        신고하기
+      </button>
+
+      <button
+        th:if="${post.pMemCode} != ${member.memberCode}"
+        type="button"
+        id="notifyBtn"
+      >
+        신고하기
+      </button>
+      <span><i class="fa-solid fa-heart"></i></span>
+
+      <!-- 			class 건들면 찜하기 작동 안함 ㅅㄱ -->
+      <th:block th:if="${cnt123 == 0}">
+        <button
+          th:if="${post.pMemCode} != ${member.memberCode}"
+          class="heartBtn"
+          type="submit"
+          id="heartBtnWhite"
+        >
+          찜하기
+        </button>
+      </th:block>
+
+      <th:block th:if="${cnt123 >= 1}">
+        <button
+          th:if="${post.pMemCode} != ${member.memberCode}"
+          class="heartBtn"
+          type="submit"
+          id="heartBtnRed"
+        >
+          찜하기
+        </button>
+      </th:block>
 
       <button
         th:if="${post.pMemCode} == ${member.memberCode}"
@@ -167,8 +209,8 @@
                     icon: "success",
                     title: "신고가 완료되었습니다.",
                     text: "해당 게시물은 관리자에게 전달되었습니다.",
-                  }).then((result)=>{
-                  	location.href = "http://localhost:8080";
+                  }).then((result) => {
+                    location.href = "http://localhost:8080";
                   });
                 } else if (cnt >= 1) {
                   //cnt가 1 이상일때, 사용자가 1번 이상 신고한 게시글
