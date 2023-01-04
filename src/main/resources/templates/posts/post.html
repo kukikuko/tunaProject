@@ -26,14 +26,13 @@
 		
 		<p class="post-code" id="postCode" th:text="${post.postCode}">
 		<p class="post-member" id="pMemCode" th:text="${post.pMemCode}">
-
 		<p class="post-category" th:text="${post.ctName}">
 		<p class="post-title" th:text=${post.pTitle}></p>
 		<p class="post-price">가격 : <span th:text=${post.pPrice}></span></p>
 		<p class="post-time" th:if="${post.pCorrectionTime == null}"
-			th:text=${post.pCreateTime}></p>
+			th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-time" th:if="${post.pCorrectionTime != null}"
-			th:text=${post.pCorrectionTime}></p>
+			th:text="${#dates.format(post.pCorrectionTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-view">조회수 : <span th:text=${post.pView}></span></p>
 		<p class="post-content" th:text=${post.pContent}></p>
 		<img class="post-img" th:each="image : ${images}"

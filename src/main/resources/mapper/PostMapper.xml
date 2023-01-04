@@ -20,7 +20,7 @@
 		memberCode from TUNA_MEMBER where membercode = #{pMemCode})
 		,#{pTitle}
 		,#{pContent}
-		,TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI')
+		,sysdate
 		,''
 		,#{pPrice}
 		,'Y'
@@ -38,12 +38,12 @@
 	</select>
 
 	<select id="selectAll" resultType="PostForCategory">
-		select POSTCODE,postCtCode,
+		select POSTCODE,postCtCode, pMemCode,
 		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
 		,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
 		,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
-		, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
-		,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+		, PTITLE, PCONTENT, PCREATETIME
+		,pCorrectionTime,
 		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
 		postCode
 	</select>
@@ -55,7 +55,7 @@
 		,pContent =#{updatePost.pContent}
 		,pPrice = #{updatePost.pPrice}
 		<!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
-		,pCorrectionTime = (TO_CHAR(sysdate, 'YY-MM-DD AM HH:MI'))
+		,pCorrectionTime = sysdate
 		where postCode = #{postCode}
 	</update>
 
@@ -78,8 +78,8 @@
 		select POSTCODE, postCtCode
 		, (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
 		, PMEMCODE, PTITLE, PCONTENT
-		, substr(PCREATETIME,0,8) as PCREATETIME
-		, substr(PCORRECTIONTIME,0,8) as pCorrectionTime
+		, PCREATETIME
+		, pCorrectionTime
 		, PPRICE, PSALESSTATUS, POPENSTATUS, PVIEW from TUNA_POST p
 		where PTITLE like '%'||#{keyword}||'%' or PCONTENT like '%'||#{keyword}||'%'
 		order by postCode

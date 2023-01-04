@@ -1,6 +1,7 @@
 package com.project.TunaProject.domain;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import lombok.Data;
@@ -13,8 +14,8 @@ public class Post {
 	private String memNick;
 	private String pTitle;
 	private String pContent;
-	private String pCreateTime;
-	private String pCorrectionTime;
+	private Date pCreateTime;
+	private Date pCorrectionTime;
 	private String pPrice;
 	private String pSalesStatus;
 	private String pOpenStatus;

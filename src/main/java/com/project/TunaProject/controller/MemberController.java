@@ -61,6 +61,7 @@ public class MemberController {
 		memberRepository.updateMemberByEmail(memberVO);
 
 		session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
+		log.info("memberV {}", memberVO);
 		
 		return "redirect:/";
 	}
