@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<style>
+.logoImg {
+	width: 40px;
+	height: 40px;
+}
+</style>
+</head>
+<body>
+	<div th:replace="layout/header :: headFrag"></div>
+	<h1>내 활동</h1>
+
+	<h3>내 판매내역</h3>
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>제목</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}">
+			<tr>
+				<td><a th:href="@{|/posts/${post.postCode}|}" th:text="${post.pTitle}"></a></td>
+				<td th:href="@{|/posts/${post.postCode}|}" th:text="${post.pCreateTime}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+	<h3>내가 찜한 게시글</h3>
+	
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>제목</th>
+				<th>작성일</th>
+			</tr>
+		</thead>
+		<tbody th:each="post :${postsHeart}" th:if="${post.pOpenStatus != 'N'}">
+			<tr>
+				<td><a th:href="@{|/posts/${post.postCode}|}" th:text="${post.pTitle}"></a></td>
+				<td th:href="@{|/posts/${post.postCode}|}" th:text="${post.pCreateTime}"></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+	<button type="button" th:onClick="|location.href='@{/}'|">뒤로
+		가기</button>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+</body>
+</html>

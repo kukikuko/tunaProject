@@ -69,15 +69,25 @@ public class LoginController {
 		}
 		
 	 	MemberVO memberVO = loginService.login(loginForm.getEmail(), loginForm.getPassword());
-		//Ctrl+Shift+o
-	 	//Ctrl+1
+
 	 	log.info("login {}", memberVO);
+	 	
+	 	
 	 	
 	 	if(memberVO == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
 	 		bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
 	 		return "login/login";
 	 	}
-		
+	 	
+	 	if(memberVO.getAdminCk().equals("N")) { //탈퇴한 회원일때...
+	 		bindingResult.reject("loginForm", "탈퇴한 회원입니다. 회원가입을 다시 진행해주세요.");
+	 		return "login/login";
+	 	}
+	 	
+	 	if(memberVO.getAdminCk().equals("S")) { //정지당한 회원일때...
+	 		bindingResult.reject("loginForm", "활동정지된 회원입니다. 관리자에게 문의해주세요.");
+	 		return "login/login";
+	 	}
 
 	 	HttpSession session = req.getSession();
 	 	session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
@@ -86,20 +96,18 @@ public class LoginController {
 	     memberRepository.updateUUID(memberVO);
 
 		
-		return "redirect:" + redirectURL; //  /     /foods/new
+		return "redirect:" + redirectURL; //  
 	}
-	
-	
-	
 	
 	public void validateLoginForm(LoginForm loginForm, Errors errors) {
 		if(!StringUtils.hasText(loginForm.getEmail())) {
-			errors.rejectValue("loginId", null, "아이디 필수 입력입니다.");
+			errors.rejectValue("email", null, "아이디 필수 입력입니다.");
 		}
 		
 		if(!StringUtils.hasText(loginForm.getPassword())) {
 			errors.rejectValue("password", null, "비밀번호 필수 입력입니다.");
 		}
+		
 	}
 	
 	@PostMapping("/logout")
@@ -115,15 +123,11 @@ public class LoginController {
 		
 		return "redirect:/";
 	}
-	
-	
-	@GetMapping("/naverLogin")
-	public String naver() {
-		return "login/naverCallback";
+	@GetMapping("/login/findPw")
+	public String findPw() {
+		
+		return "/login/findPw";
 	}
 	
-	@PostMapping("/naverLogin")
-	public String naverLogin() {
-		return "login/naverCallback";
-	}
+
 }

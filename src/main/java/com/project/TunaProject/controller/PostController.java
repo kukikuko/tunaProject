@@ -1,12 +1,12 @@
 package com.project.TunaProject.controller;
 
+//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.List;
+import java.util.Map;
 
-import com.project.TunaProject.domain.*;
-import com.project.TunaProject.img.*;
-import com.project.TunaProject.repository.ImageRepository;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
@@ -20,7 +20,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.project.TunaProject.domain.Category;
+import com.project.TunaProject.domain.Heart;
+import com.project.TunaProject.domain.Image;
+import com.project.TunaProject.domain.MemberVO;
+import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.form.ItemForm;
+import com.project.TunaProject.img.FileStore;
+import com.project.TunaProject.img.UploadFile;
 import com.project.TunaProject.repository.CategoryRepository;
+import com.project.TunaProject.repository.HeartRepository;
+import com.project.TunaProject.repository.ImageRepository;
 import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
@@ -43,6 +53,7 @@ public class PostController {
 	private final SessionManager sessionManager;
 	private final ImageRepository imageRepository;
 	private final FileStore fileStore;
+	private final HeartRepository heartRepository;
 	
 	@GetMapping
 	public String posts(Model model, HttpServletRequest req) {
@@ -67,17 +78,24 @@ public class PostController {
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
 		log.info("memberVO {}", memberVO.getMemberCode());
-
+		
+		//찜버튼 status를 전달할 수 있게
+		Heart h = new Heart();
+		h.setHMemCode(Integer.toString(memberVO.getMemberCode()));
+		h.setHPostCode(postCode);
+		int cnt = heartRepository.countHeart(h);
+		System.out.println("*******************"+cnt);
+		 
+		
 		List<Image> images = imageRepository.selectAll(postCode);
-
+		
 		log.info("img {}", images);
 
 		model.addAttribute("images", images);
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
-
-
-
+		model.addAttribute("cnt123", cnt);
+		
 		return "/posts/post";
 		
 	}
@@ -128,18 +146,26 @@ public class PostController {
 	@GetMapping("/update/{postCode}")
 	public String updatePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
 		Post postItem = postRepository.selectByPostCode(postCode);
+		List<Category> cateItem = categoryRepository.selectAll();
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		log.info("p {}", postItem);
 		model.addAttribute("post",postItem);
-		model.addAttribute("member", memberVO);
-		return "/posts/update.html";
+		model.addAttribute("cateItem", cateItem);
+		model.addAttribute("member", memberVO);		
+		return "/posts/update";
 	}
 	
 	
 	
 	@PostMapping("/update/{postCode}")
-	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem) {
-		postRepository.update(postCode, postItem);
+	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem,
+			@ModelAttribute ItemForm form, @ModelAttribute Category ct) {
+		
+		log.info(postCode);
+		log.info("ct {}", ct);
+		
+		postRepository.update(postCode, postItem, ct.getCtCode());
 		return "redirect:/posts/{postCode}";
 	}
 	
@@ -171,5 +197,13 @@ public class PostController {
 		return "/posts/posts";
 	}
 	
+	@PostMapping("/notify")
+	public String notifyPost(@RequestParam Map<String, String> postCode) {
+		
+		String a = postCode.get("postCode");
+		System.out.println("****" + a + "****");
+		
+		return "redirect:/";
+	}
 	
 }

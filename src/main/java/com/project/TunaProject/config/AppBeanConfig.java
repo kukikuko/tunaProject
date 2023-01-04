@@ -1,23 +1,9 @@
 package com.project.TunaProject.config;
 
+import com.project.TunaProject.repository.*;
+import com.project.TunaProject.repository.mybatis.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import com.project.TunaProject.repository.CategoryRepository;
-import com.project.TunaProject.repository.ChatRepository;
-import com.project.TunaProject.repository.ImageRepository;
-import com.project.TunaProject.repository.MemberRepository;
-import com.project.TunaProject.repository.PostRepository;
-import com.project.TunaProject.repository.mybatis.CategoryItemMapper;
-import com.project.TunaProject.repository.mybatis.ChatMapper;
-import com.project.TunaProject.repository.mybatis.ImageItemMapper;
-import com.project.TunaProject.repository.mybatis.MemberMapper;
-import com.project.TunaProject.repository.mybatis.MybatisCategoryRepository;
-import com.project.TunaProject.repository.mybatis.MybatisChatRepository;
-import com.project.TunaProject.repository.mybatis.MybatisImageRepository;
-import com.project.TunaProject.repository.mybatis.MybatisMemberRepository;
-import com.project.TunaProject.repository.mybatis.MybatisPostRepository;
-import com.project.TunaProject.repository.mybatis.PostItemMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -36,6 +22,9 @@ public class AppBeanConfig {
 	private final PostItemMapper postItemMapper;
 	private final CategoryItemMapper categoryItemMapper;
 	private final ImageItemMapper imageItemMapper;
+	private final AdminMapper adminMapper;
+	private final NotifyMapper notifyMapper;
+	private final HeartMapper heartMapper;
 
 	@Bean
 	public MemberRepository memberRepository() {
@@ -54,4 +43,17 @@ public class AppBeanConfig {
 		return new MybatisImageRepository(imageItemMapper);
 	}
 
+	@Bean
+	public AdminRepository adminRepository() {
+		return new MybatisAdminRepository(adminMapper);
+	}
+	
+	@Bean
+	public NotifyRepository notifyRepository() {
+		return new MybatisNotifyRepository(notifyMapper);
+	}
+	@Bean
+	public HeartRepository heartRepository() {
+		return new MybatisHeartRepository(heartMapper);
+	}
 }

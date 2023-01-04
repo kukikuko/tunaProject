@@ -10,8 +10,13 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/css/NewFile.css">
-
+<link rel="stylesheet" href="/css/posts.css">
+<style>
+.logoImg {
+	width: 40px;
+	height: 40px;
+}
+</style>
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
@@ -20,22 +25,23 @@
 			<thead class="postsThead">
 				<tr>
 					<th class="th-cate">카테고리</th>
-					<th class="th-date">작성시간</th>
+					<th class="th-title">작성자</th>
 					<th class="th-title">제목</th>
 					<th class="th-view">조회수</th>
+					<th class="th-view">찜</th>
+					<th class="th-data">작성일</th>
 				</tr>
 			</thead>
 			<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}"
 				class="postsTbody">
 				<tr>
-					<td a class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.ctName}"></td>
-					<td a class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.pCreateTime}"></td>
+					<td class="tr" th:text="${post.ctName}"></td>
+					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
 						th:text="${post.pTitle}"></a></td>
-					<td class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.pView}"></td>
+					<td class="tr" th:text="${post.pView}"></td>
+					<td class="tr" th:text="${post.heart}"></td>
+					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd')}"></td>
 				</tr>
 			</tbody>
 		</table>

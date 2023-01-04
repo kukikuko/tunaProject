@@ -2,17 +2,21 @@ package com.project.TunaProject.domain;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class PostForCategory {
 	
 	private String postCode;
 	private String postCtCode;
 	private int pMemCode;
+	private String memNick;
+	private String heart;
 	private String ctName;
 	private String pTitle;
 	private String pContent;
-	private String pCreateTime;
-	private String pCorrectionTime;
+	private Date pCreateTime;
+	private Date pCorrectionTime;
 	private String pPrice;
 	private String pSalesStatus;
 	private String pOpenStatus;

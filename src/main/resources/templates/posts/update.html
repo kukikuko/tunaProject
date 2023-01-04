@@ -10,26 +10,31 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/css/NewFile.css">
+<link rel="stylesheet" href="/css/posts.css">
+<style>
+.logoImg {
+	width: 40px;
+	height: 40px;
+}
+</style>
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
-	<div>
-		<form action="" method="post" th:object="${post}" class="post">
-			<div>
+	<div class="updateDiv">
+		<form action="" method="post" th:object="${post}"
+			  enctype="multipart/form-data"s>
 				<input type="hidden" name="postCode" th:field="*{postCode}">
-
-				<label>제목 <input type="text" name="postTitle"
-					th:field="*{pTitle}" class="post-p">
-				</label><br /> <label>내용 <textarea type="text" name="postContent"
-						th:field="*{pContent}" class="post-p"></textarea>
-				</label><br /> <label>가격 : <input type="number" name="postPrice"
-					th:field="*{pPrice}" class="post-price">
-				</label><br />
-			</div>
-			<div>
-				<button type="submit" class="postBtn">수정완료</button>
-				<button th:onclick="|location.href='@{/posts}'|" class="postBtn">목록보기</button>
+				<select class="update_category" name="ctCode">
+					<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}"
+						th:text="${ct.ctName}" th:selected="${ct.ctCode} == ${post.postCtCode}"></option>
+				</select>
+				<input type="text" name="postTitle" th:field="*{pTitle}" class="update_title">
+				<input type="number" name="postPrice" th:field="*{pPrice}" class="update_price">
+				<textarea type="text" name="postContent" th:field="*{pContent}" class="update_content"></textarea>
+			<div class="updateBtn">
+				<input class="writing_image" type="file" multiple="multiple" name="imageFiles">
+				<button type="submit" class="update_Btn">수정완료</button>
+				<button th:onclick="|location.href='@{/posts}'|" class="update_Btn">목록보기</button>
 			</div>
 		</form>
 	</div>

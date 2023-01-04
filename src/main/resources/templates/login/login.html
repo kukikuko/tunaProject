@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
 <!-- CSS only -->
 <link
@@ -10,14 +10,13 @@
 	rel="stylesheet"
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
-<link rel="stylesheet" href="/css/NewFile.css"> 
-<script type="text/javascript" src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.0.js" charset="utf-8"></script>
+<link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-light">
+	<nav class="navbar navbar-expand-lg bg-light">
 		<div class="container-fluid">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg"/>
-			<a class="navbar-brand" href="#">사조마켓</a>
+			<img src="http://localhost:8080/images/Logo.png" class="logoImg" /> <a
+				class="navbar-brand" href="/">사조마켓</a>
 			<button class="navbar-toggler" type="button"
 				data-bs-toggle="collapse" data-bs-target="#navbarScroll"
 				aria-controls="navbarScroll" aria-expanded="false"
@@ -38,41 +37,51 @@
 			</div>
 		</div>
 	</nav>
-	<div class="login-div">
-		<form action="" method="post" th:object="${loginForm}" name="login">
-			<div th:if="${#fields.hasGlobalErrors()}">
-				<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
-				글로벌오류</p>
-			</div>
-				<label for="loginId">ID(email)</label> <input type="text"
-					th:field="*{email}" class="loing-in" id="email">
-				<div th:errors="*{email}"></div>
-
-				<label for="password">Password</label> <input type="password"
-					th:field="*{password}" class="loing-in" id="password">
-				<div th:errors="*{password}"></div>
-
-			<button type="submit" id="login-btn">로그인</button>
-			<button type="button" th:onclick="|location.href='@{/}'|" id="btn">취소</button>
-		</form>
-
-		<a href="#none" class="login-a">비밀번호를 잊어버리셨나요?</a>
-	</div>
-	<script type="text/javascript">
-    
-// 	document.getElementById('loginBtn').addEventListener('click', (e)=>{ 
-// 		e.preventDefault(); 
-// 		let form = document.login;
-		
-// 		var password = document.getElementById("password");				
-		
-// 		if(password.value == ""){
-// 			alert("비밀번호를 입력해주세요.");
-// 		    password.focus();
-// 		    return false;
-// 		}
 	
-// 	});
+	<form class="login-form" action="" method="post"
+		th:object="${loginForm}" name="login">
+		<!-- 			<h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2> -->
+
+		<span class="entypo-user inputUserIcon"> <i class="fa fa-user"></i>
+		</span> <label for="loginId"></label> <input type="text" th:field="*{email}"
+			class="user" id="email" placeholder="아이디(이메일)를 입력해주세요."> <span
+			class="entypo-key inputPassIcon"> <i class="fa fa-key"></i>
+		</span> <label for="password"></label> <input type="password"
+			th:field="*{password}" class="pass" id="password"
+			placeholder="비밀번호를 입력해주세요.">
+		<div class="loginBtn">
+		<button type="button" th:onclick="|location.href='@{/}'|"
+			class="backBtn" id="btn">취소</button>
+		<button type="submit" class="loginBtn">
+			<span class="entypo-lock"><i class="fa fa-lock"></i></span>
+		</button>
+		</div>	
+		<div class="errorMessage">
+			<div th:errors="*{email}"></div>
+			<div th:errors="*{password}"></div>
+		</div>
+		<div th:if="${#fields.hasGlobalErrors()}">
+			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
+				글로벌오류</p>
+		</div>
+		<div>
+			<a href="/join" class="login-join">회원이 아니신가요?</a><br /> <a
+				href="/login/findPw" class="login-findPw">비밀번호를 잊어버리셨나요?</a>
+		</div>
+	</form>
+	<script type="text/javascript">
+
+	$(".user").focusin(function(){
+	  $(".inputUserIcon").css("color", "#e74c3c");
+	}).focusout(function(){
+	  $(".inputUserIcon").css("color", "white");
+	});
+	
+	$(".pass").focusin(function(){
+	  $(".inputPassIcon").css("color", "#e74c3c");
+	}).focusout(function(){
+	  $(".inputPassIcon").css("color", "white");
+	});
 </script>
 	<!-- JavaScript Bundle with Popper -->
 	<script

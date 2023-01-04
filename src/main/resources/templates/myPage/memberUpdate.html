@@ -3,60 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+<style>
+.logoImg {
+	width: 40px;
+	height: 40px;
+}
+</style>
+<link rel="stylesheet" href="/css/memberUpdate.css">
 </head>
+<style>
+* {
+  padding: 0;
+  margin: 0;
+}
+form {
+  width: 60%;
+  height: 50px;
+  margin: 150px auto;
+  text-align: center;/* input의 글자 성격을 중앙정렬 하기 위해 */
+}
+form::before {
+  content: '개인정보 수정';
+  font-size: 80px;
+  font-weight: 900;
+}
+input[type="text"] {
+  height: 50px;
+  width: 70%;
+  border: 1px solid #e0e0e0;
+  padding: 30px;/* 내용물 작성했을 때 여백감 */
+  border-radius: 50px;/* 굴곡 주면 padding 값도 그에 상응하게 적용하는 것이 좋음 */
+  display: block;
+  margin: auto;
+}
+* {
+  transition: all ease-in 0.5s; /* input 효과 부드럽게~~ */
+}
+input[type="text"] {
+  outline: none; /* 가장 바깥부분을 둘러싸고 있는 아웃라인 부분의 스타일을 설정 */
+}
+
+</style>
+
 <body>
-	<h1>개인정보 수정</h1>
-		
-	<form action="" method="post" th:object="${memberVO}" name="memberUpdate">
-		
-		<label>이름
-		 <input type="text" th:value="${memberVO?.memberName}" th:field="*{memberName}" 
-		 	 	name="memberName"  id="uname" maxlength="6"><br>
+	<div th:replace="layout/header :: headFrag"></div>
+	<form action="" method="post" th:object="${member}" name="memberUpdate" class="memUpdateForm">
+		<h3>개인정보 수정</h3>
+		<label>이름<br>
+		 <input type="text" th:value="${member?.memberName}" th:field="*{memberName}" 
+		 	 	name="memberName"  id="uname" maxlength="6" class="memUpInput">
 		</label>
-		
-		<label>닉네임 
-		<input type="text" th:value="${memberVO?.memberNick}" th:field="*{memberNick}"  
-				name="memberNick"id="memberNickName" maxlength="6"><br>
+		<label>닉네임<br> 
+		<input type="text" th:value="${member?.memberNick}" th:field="*{memberNick}"  
+				name="memberNick"id="memberNickName" maxlength="6" class="memUpInput">
 		</label>
-		
-		
-		<label>전화번호
-		 <select id="PN_sel" onchange="change_PN();">
-				<option value="">직접입력</option>
-				<option value="010">010</option>
-				<option value="011">011</option>
-		</select> 
-		<input type="text" th:value= "'0'+${memberVO?.memberPN1}" th:field="*{memberPN1}"
-					name="memberPN1" id="mobil1" maxlength="3"> 
-		-  	<input type="text" th:value="${memberVO?.memberPN2}" th:field="*{memberPN2}" 
-					name="memberPN2" id="mobile2" maxlength="4">
-			<input type="text" th:value="${memberVO?.memberPN3}" th:field="*{memberPN3}" 
-			 		name="memberPN3" id="mobile3" maxlength="4"><br>
+		<label>전화번호<br>
+		<input type="text" th:value= "'0'+${member?.memberPN1}" th:field="*{memberPN1}"
+					name="memberPN1" id="mobil1" maxlength="3" class="memUpPNInput"> 
+		-  	<input type="text" th:value="${member?.memberPN2}" th:field="*{memberPN2}" 
+					name="memberPN2" id="mobile2" maxlength="4" class="memUpPNInput">
+		-					
+			<input type="text" th:value="${member?.memberPN3}" th:field="*{memberPN3}" 
+			 		name="memberPN3" id="mobile3" maxlength="4" class="memUpPNInput">
 		</label>
-		
-		
-		<label>주소
-				<br>
-				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
-				<br>
+		<label>주소<br>
+				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="memUpInput"><br>
 					<input type="text" id="sample6_postcode" name="memberAddr1" 
-							 th:value="${memberVO?.memberAddr1}"  th:field="*{memberAddr1}" readonly><br> 
+							 th:value="${member?.memberAddr1}"  th:field="*{memberAddr1}" readonly class="memUpInput"><br> 
 					<input type="text" id="sample6_address" name="memberAddr2"
-							 th:value="${memberVO?.memberAddr2}" th:field="*{memberAddr2}" readonly><br>
+							 th:value="${member?.memberAddr2}" th:field="*{memberAddr2}" readonly class="memUpInput"><br>
 					<input type="text" id="sample6detailAddress" name="memberAddr3" 
-							th:value="${memberVO?.memberAddr3}" th:field="*{memberAddr3}"> 
+							th:value="${member?.memberAddr3}" th:field="*{memberAddr3}" class="memUpInput"><br>
 					<input type="text" id="sample6extraAddress" name="memberAddr4"
-							th:value="${memberVO?.memberAddr4}" th:field="*{memberAddr4}">
+							th:value="${member?.memberAddr4}" th:field="*{memberAddr4}" class="memUpInput">
 			</label>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 			<br>
 			<button type ="submit" id="updateBtn" >수정 하기</button>
-			
-<!-- 	th:onClick="|location.href='@{/}'|" -->
-	
 			<button type ="button" th:onClick="|location.href='@{/}'|">뒤로 가기</button>
-	
 	</form>	
 	<script>
 	var pwd = document.getElementById("pwd");				//비밀번호
@@ -76,18 +105,18 @@
 	let reg_name1 = /^[가-힣]+$/; // 한글만
 	var reg = /^[0-9]+/g; //숫자만 입력하는 정규식		
 	var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
-		var canJoin = true;
+		
+	var canJoin = true;
 	
 	
  		document.getElementById('updateBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault(); 
 		let form = document.memberUpdate; 
 	    
-		if (!pattern3.test(sample6extraAddress)||!pattern3.test(sample6detailAddress)) {
+		if(pattern3.test(sample6extraAddress.value)||pattern3.test(sample6detailAddress.value)) {
             alert("특수문자는 입력하실 수 없습니다.");
             
             return false;
-//             obj.value = obj.value.substring(0, obj.value.length - 1);//특수문자를 지우는 구문
         }
 		  if (uname.value == "") {
 		    alert("이름을 입력하세요.");
@@ -134,18 +163,7 @@
 			}
 	 	}
 				
-	 		});
- 		function change_PN() {
-			  var PN_add = document.getElementById("PN_add");
-			  var PN_sel = document.getElementById("PN_sel");
-
-			  //지금 골라진 옵션의 순서와 값 구하기
-			  var idx = PN_sel.options.selectedIndex;
-			  var val = PN_sel.options[idx].value;
-
-			  PN_add.value = val;
-			}  
-	
+	 		});	
 	function sample6_execDaumPostcode() {
 	        new daum.Postcode({
 	            oncomplete: function(data) {
@@ -194,5 +212,10 @@
 	        }).open();
 	    }
 	</script>
+		<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
 </body>
 </html>
