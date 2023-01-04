@@ -63,5 +63,24 @@ public class AdminController {
 
         return "/admin/notifyPost";
     }
+
+    @GetMapping("/posts")
+    public String posts(Model model){
+
+        List<Post> posts = postRepository.selectAll();
+        log.info("p {}", posts);
+        model.addAttribute("posts", posts);
+
+        return "/admin/posts";
+    }
+
+    @GetMapping("/post/{postCode}")
+    public String posts(@PathVariable("postCode")String postCode, Model model) {
+
+        Post post = postRepository.selectByPostCode(postCode);
+        model.addAttribute("post", post);
+
+        return "/admin/post";
+    }
 }
 

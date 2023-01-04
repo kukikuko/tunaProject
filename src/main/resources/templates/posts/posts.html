@@ -41,7 +41,7 @@
 						th:text="${post.pTitle}"></a></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
-					<td class="tr" th:text="${post.pCreateTime}"></td>
+					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd')}"></td>
 				</tr>
 			</tbody>
 		</table>

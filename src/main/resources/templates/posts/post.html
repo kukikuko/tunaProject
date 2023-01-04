@@ -36,9 +36,9 @@
 			가격 : <span th:text="${post.pPrice}"></span>
 		</p>
 		<p class="post-time" th:if="${post.pCorrectionTime == null}"
-			th:text="${post.pCreateTime}"></p>
+      th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-time" th:if="${post.pCorrectionTime != null}"
-			th:text="${post.pCorrectionTime}"></p>
+      th:text="${#dates.format(post.pCorrectionTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-view">
 			조회수 : <span th:text="${post.pView}"></span>
 		</p>

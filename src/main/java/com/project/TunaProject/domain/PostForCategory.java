@@ -2,6 +2,8 @@ package com.project.TunaProject.domain;
 
 import lombok.Data;
 
+import java.util.Date;
+
 @Data
 public class PostForCategory {
 	
@@ -13,8 +15,8 @@ public class PostForCategory {
 	private String ctName;
 	private String pTitle;
 	private String pContent;
-	private String pCreateTime;
-	private String pCorrectionTime;
+	private Date pCreateTime;
+	private Date pCorrectionTime;
 	private String pPrice;
 	private String pSalesStatus;
 	private String pOpenStatus;
