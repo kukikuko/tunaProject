@@ -35,6 +35,11 @@
   background-color: bisque;
 }
 
+#rooms{
+  overflow:auto;
+
+}
+
 #up_bar{
  z-index: 0;
  width: 100vw;
@@ -70,8 +75,7 @@
 }
 
 #title{
-margin-left: 50%;
-margin-right: 50%;
+text-align:center;
   color: aliceblue;
   top: 12px;
   position: relative;
@@ -99,7 +103,7 @@ margin-right: 50%;
 
 }
 
-.btn_ui_my{
+.time_ui_my{
   margin-bottom: 10px;
   display: inline-block;
   left:calc(100% -  60px);
@@ -110,9 +114,10 @@ margin-right: 50%;
 
 }
 
-.btn_ui
+.time_ui
 {
-  margin-bottom: 10px;
+  margin-top: 5px;
+  margin-bottom: 6px;
   display: inline-block;
   color: black;
   left:20px;
@@ -169,3 +174,32 @@ margin-right: 50%;
   font-family: 'MICEGothic Bold';
 }
 
+.roombox{
+  cursor: pointer;
+  width: 100%;
+  height: 100px;
+  background-color: rgb(172, 172, 172);
+  border: 3px solid;
+  border-color: rgb(112, 112, 112);
+  border-radius: 10px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button_ui_my
+{
+  display: none;
+}
+
+.button_ui{
+  position: relative;
+  left:30px;
+  border-radius: 10px;
+}

@@ -10,4 +10,7 @@ public class Chat {
 	private String postCode;
 	private int seller;
 	private int buyer;
+	
+	
+	
 }

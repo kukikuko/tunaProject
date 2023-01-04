@@ -1,5 +1,4 @@
 
-import React, {useEffect, useState} from 'react';
 //import axios from 'axios';
 import "../App.css";
 
@@ -12,7 +11,8 @@ function Chat({data}) {
     let set_message2 = "";
     let set_ballon2 = "";
     let ballon_img_src ="";
-    let btn_class = "btn_ui";
+    let time_class = "time_ui";
+    let button_class = "button_ui"
 
 
     if(data.is_my)
@@ -20,20 +20,22 @@ function Chat({data}) {
         set_message2="my_message"
         set_ballon2="my_balloon"
 
-        ballon_img_src="Chat_balloon/" + "B" +" chat_balloon/" + "B" +" chat_balloon"+ data.ballon_size +".png"
+        ballon_img_src="/Chat_balloon/" + "B" +" chat_balloon/" + "B" +" chat_balloon"+ data.ballon_size +".png"
 
-        btn_class="btn_ui_my"
+        time_class="time_ui_my"
+        button_class = "button_ui_my"
+
     }
     else
     {
-        ballon_img_src="Chat_balloon/" + "A" +" chat_balloon/" + "A" +" chat_balloon"+ data.ballon_size +".png"
-        data.time += " 신고 | 복사"
+        ballon_img_src="/Chat_balloon/" + "A" +" chat_balloon/" + "A" +" chat_balloon"+ data.ballon_size +".png"
+
 
     }
 
     if(data.ani)
     {
-        btn_class= "chat_ani "+btn_class;
+        time_class= "chat_ani "+time_class;
         set_message= "chat_ani "+set_message;
         set_ballon= "chat_ani "+set_ballon;
     }
@@ -56,7 +58,8 @@ function Chat({data}) {
             <p className={set_message}>{data.message_contents}</p>
             <img className={set_ballon} src={ballon_img_src}></img>
             <br/>
-            <p className={btn_class}>{data.time}</p>
+            <p className={time_class}>{data.time}</p>
+            <button value={data.message_code}  className={button_class} id={"button"+data.message_code}>신고</button>
 
         </>
     );

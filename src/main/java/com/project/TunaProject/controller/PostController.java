@@ -56,26 +56,7 @@ public class PostController {
 		return "/posts/posts";
 	}
 	
-	@PostMapping("/deal")
-	public String dealStart(HttpServletResponse resp,@RequestParam("postCode") String postCode,RedirectAttributes rAttr)
-	{
-		
-		
-		//쿠키올리고 거래 추가하고
-		
-		Cookie cookie = new Cookie("postCode",postCode);
-		cookie.setDomain("localhost");
-		cookie.setPath("/");
-		// 30초간 저장
-		cookie.setMaxAge(30*60);
-		cookie.setSecure(false);
-		resp.addCookie(cookie);
-		
-		//chat xml호출 인서트
-		
-		
-		return "redirect:http://localhost:3000/";
-				}
+
 	
 	@GetMapping("/{postCode}")
 	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem

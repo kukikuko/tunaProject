@@ -6,19 +6,27 @@ import "../App.css";
 import Chat from "./Chat.js"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOMServer from 'react-dom/server'
+import { useParams } from 'react-router-dom';
 
 
 
-function Chat_room({chat_code,member_code}) {
+function Chat_room({member_code}) {
+    const chat_code  = useParams().chatcode;
     let [message_str, set_str] = useState('');
     let [cur_message_code, set_message_code] = useState("0");
+    let [chat_title,set_title]=useState("제목");
+    let [ani_effect,set_effect]=useState(false);
 
     let find_imgsrc = (img_code) => {
+        if(img_code==0)
+        {
+            return "";
+        }
         // axios.get('http://localhost:8080/img/find_src/'+img_code)
         // .then((response) => {return response.data})
         // .catch(error => console.log(error))
         //////////////////////////////////////////////////////////////////////////////
-        return null
+        return "";
     }
 
     let add_chat = (message_data) => {
@@ -46,12 +54,12 @@ function Chat_room({chat_code,member_code}) {
             message_data.message_code = str[i];
             let time_str =  str[i + 3].split("T");
             message_data.time =time_str[1];
-            message_data.is_my = false;
+            message_data.is_my = (str[i+1]==member_code ? true:false );
             console.log("받아온 크기"+str[i + 5])
             if (str[i + 1] === member_code) {
                 message_data.is_my = true;
             }
-            message_data.ani = false;
+            message_data.ani = ani_effect;
 
             if (str[i + 5] <= 53) {
                 
@@ -69,28 +77,42 @@ function Chat_room({chat_code,member_code}) {
             add_chat(message_data);
             //벌룬 사이즈 
             //93 173 277
+        
+            document.getElementById("button"+str[i]).addEventListener("click",(event)=>{axios.post("http://localhost:8080/api/message/notify",{MessageCode:event.target.value, ChatCode:chat_code,doNotifyUser:member_code, notifyMemberCode:"신고당한사람"})});
         }
-        set_message_code(str[i - 6]);
-    };
+            set_message_code(str[i - 6]);
+       
 
+    }
  
 
     useEffect(()=>{
-        
+
+        if(member_code=="")
+        {
+            return;
+        }
+
+        console.log("check")
         const timer = setInterval(() => {
-            axios.get('http://localhost:8080/message/get/' + chat_code + "/" + cur_message_code)
-                .then((response) => { init_chat(response.data); })
+            axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code)
+                .then((response) => { init_chat(response.data);   })
                 .catch(error => console.log(error))
         }, 1000);
-
-        
+        document.getElementById("messages").scroll({
+            top: document.getElementById("messages").scrollHeight,
+            behavior: 'auto'
+          });
+         
         return ()=> clearInterval(timer);
 
-    }, [cur_message_code]);
+    }, [cur_message_code,member_code]);
 
     useEffect(() => {
-      
-
+        if(ani_effect==false)
+        {
+            set_effect(true);
+        }
         window.addEventListener('submit', (event) => {
 
             if (document.getElementById("text_box").value === "") {
@@ -110,25 +132,26 @@ function Chat_room({chat_code,member_code}) {
             }
         });
 
-    });
+    },[member_code]);
 
     return (
         <div id="chat_room">
             <div id="up_bar">
-                <p id="title">sadjsaidji</p>
+                <p id="title">{chat_title}</p>
             </div>
             <p className="hide" id="lengthcalc">{message_str}</p>
 
             <div id="messages">
             </div>
             <div id="bottom_bar">
-                <img id="send" src="UI_img/send_icon.png" alt="보내기 아이콘 없음" />
-                <img id="add_img" src="UI_img/photo.png" alt="사진 아이콘 없음" />
-                <form action="http://localhost:8080/message/up" method="post" id="myForm">
+                <img id="send" src="/UI_img/send_icon.png" alt="보내기 아이콘 없음" />
+                <img id="add_img" src="/UI_img/photo.png" alt="사진 아이콘 없음" />
+                <form action="http://localhost:8080/api/message/up" method="post" id="myForm">
                     <input id="text_box" type="text" name="message"  maxLength='105'></input>
                     <input id="text_length" type="hidden" name="px_size" ></input>
                     <input type="hidden" value={member_code} name="member_code" ></input>
                     <input type="hidden" value={chat_code} name="chat_code" ></input>
+                    <input type="hidden" value={0} name="image_code" ></input>
 
 
                     <button id="send_btn" type="submit" ></button>

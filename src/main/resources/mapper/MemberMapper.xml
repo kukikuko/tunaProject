@@ -42,7 +42,7 @@
 		where memberMail = #{email}
 	</select>
 	
-	<select id = "selectByUUID" resultType="MemberVO">
+	<select id ="selectByUUID" resultType="MemberVO">
 	select *
 	from tuna_member
 	where activeUUID = #{activeUUID}
