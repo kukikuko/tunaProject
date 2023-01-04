@@ -21,22 +21,22 @@
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<div class="writing">
-		<form action="writing" method="post" th:object="${post}"
+		<form action="writing" method="post" th:object="${post}" name="writing"
 			enctype="multipart/form-data">
 			<select class="writing_category" name="ctCode">
 				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}"
 					th:text="${ct.ctName}"></option>
 			</select> <input type="hidden" name="postCode" th:field="*{postCode}">
 			<input class="writing_title" type="text" name="postTitle"
-				th:field="*{pTitle}" placeholder="제목을 입력하세요."> <input
-				class="writing_price" type="number" name="postPrice"
+				th:field="*{pTitle}" id="pTitle" placeholder="제목을 입력하세요.">
+			<input class="writing_price" type="number" name="postPrice" id="pPrice"
 				th:field="*{pPrice}" placeholder="가격"><br />
-			<textarea class="writing_content" type="text" name="postContent"
+			<textarea class="writing_content" type="text" name="postContent" id="pContent"
 				rows="15" cols="100" th:field="*{pContent}" placeholder="내용을 입력하세요."></textarea>
 			<br /> <input class="writing_image" type="file" multiple="multiple"
 				name="imageFiles">
 			<div class="writingBtn">
-			<button class="writing_Btn" type="submit">등록하기</button>
+			<button class="writing_Btn" type="submit" id="writingBtn">등록하기</button>
 			<button class="writing_Btn" type="button"
 				th:onClick="|location.href='@{/posts}'|">뒤로가기</button>
 			</div>
@@ -47,5 +47,39 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 		crossorigin="anonymous"></script>
+		
+<script>
+var pTitle = document.getElementById("pTitle");
+var pContent = document.getElementById("pContent");
+var pPrice = document.getElementById("pPrice");
+
+
+document.getElementById('writingBtn').addEventListener('click', (e)=>{ 
+	e.preventDefault();
+	
+	let form = document.writing;
+	
+	if(pTitle.value==""||pContent.value==""||pPrice.value==""){
+		alert("내용을 입력해주세요.");
+		pTitle.focus();
+	    return false;
+	    }else{
+			if(pPrice.value<0){
+				alert("가격을 확인해주세요.");
+				pPrice.focus();
+			    return false;
+			    }else{
+			    	if(confirm('글 등록을 하시겠습니까?')){
+						alert('등록에 성공하였습니다.'); 
+						 form.submit();
+						}
+			    	
+			    }
+	    }
+	
+	
+	
+});
+</script>
 </body>
 </html>

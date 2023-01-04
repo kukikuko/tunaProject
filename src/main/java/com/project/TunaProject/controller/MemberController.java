@@ -151,7 +151,9 @@ public class MemberController {
 		
 		MemberVO tempVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		memberVO.setMemberMail(tempVO.getMemberMail());
-		memberRepository.deleteMember(memberVO);
+		memberRepository.updateAdminCk(memberVO);
+		memberRepository.updatePopenStatus(memberVO);
+		
 		session.invalidate();
 		
 	 		return "redirect:/";

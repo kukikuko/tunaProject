@@ -15,28 +15,28 @@
 	height: 40px;
 }
 </style>
+<link rel="stylesheet" href="/css/memberOut.css">
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
-	<h1>멤버아웃</h1>
-	
-	<form action="" method="post" th:object="${member}" name="deleteMemeber">
-	
-	<div class="pwdCheckBox" id="pwdCheckBox">	
-	<p>현재 비밀번호를 입력해주세요.</p><br>
-	<label>
-		 <input type="password" id="oldpassword" maxlength="25" placeholder="현재 비밀번호" name="oldpassword"><br>
-	</label>
-		<button type="button" id="checkBtn">확인</button><br><br>
-	</div>
-	
-	<div class="memberOutBox" id="memberOutBox">
-		<p th:text="${member?.memberName}+'님의 회원 탈퇴를 진행합니다.'" ></p>
-		 <button type="submit" id="deleteBtn">탈퇴</button>
-	</div><br>
-	
-	
- 	<button type="button" th:onClick="|location.href='@{/}'|">뒤로가기</button>
+	<form action="" method="post" th:object="${member}" name="deleteMemeber" class="mamebrOutForm">
+		<div class="pwdCheckBox" id="pwdCheckBox">
+			<h3>회원탈퇴</h3>
+			<p>현재 비밀번호를 입력해주세요.</p>
+			<br> 
+			<label> 
+				<input type="password" id="oldpassword" maxlength="25" placeholder="현재 비밀번호" name="oldpassword"><br>
+			</label>
+			<br/>
+			<button type="button" id="checkBtn" class="outCheckBtn">확인</button>
+		<button type="button" th:onClick="|location.href='@{/}'|" class="outBack">뒤로가기</button>
+			<br/>
+		</div>
+		<div class="memberOutBox" id="memberOutBox">
+			<p th:text="${member?.memberName}+'님의 회원 탈퇴를 진행합니다.'"></p>
+			<button type="submit" id="deleteBtn" class="outBtn">탈퇴</button>
+		</div>
+		<br>
 	</form>
 	<script>
 	$("#memberOutBox").css("display", "none");

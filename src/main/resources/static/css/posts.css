@@ -130,12 +130,6 @@ table {
 	border: none;
 }
 
-.post-price::-webkit-outer-spin-button, .post-price::-webkit-inner-spin-button
-	{
-	-webkit-appearance: none;
-	margin: 0;
-}
-
 /* writing, update */
 .writing, .updateDiv{
 	margin: auto;
@@ -193,7 +187,7 @@ table {
 }
 
 .writing_price::-webkit-outer-spin-button, 
-.writing_price::-webkit-inner-spin-button
+.writing_price::-webkit-inner-spin-button,
 .update_price::-webkit-outer-spin-button, 
 .update_price::-webkit-inner-spin-button
 	{

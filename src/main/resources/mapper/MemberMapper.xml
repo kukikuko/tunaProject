@@ -23,14 +23,14 @@
   		#{memberAddr2},
   		#{memberAddr3},
   		#{memberAddr4},
-  		0,
+  		'Y',
   		sysdate
   		)
   	</insert>
   	
 <!--   	로그인 -->
   	<select id="selectByEmail" resultType="MemberVO">
-		select memberCode, membermail, password, memberName, memberBirth, memberNick,
+		select memberCode, membermail, password, memberName, memberBirth, memberNick, ADMINCK,
 		
 		 (SELECT SUBSTR(memberPN, 1, INSTR(memberPN, '-', 1, 1) - 1) from tuna_member where membermail = #{email}) memberPN1,
 		 (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 1) + 1, INSTR(memberPN, '-', 1, 2)- INSTR(memberPN, '-', 1, 1) - 1)  FROM tuna_member where membermail = #{email})memberPN2,
@@ -70,10 +70,30 @@
 	</update>
 	
 	
-	<delete id="deleteMember">
-	delete from tuna_member
-    where membermail =#{memberMail}
-	</delete>
+<!-- 	<delete id="deleteMember"> -->
+<!-- 	delete from tuna_member -->
+<!--     where membermail =#{memberMail} -->
+<!-- 	</delete> -->
+
+
+<!-- 	회원탈퇴 수정본 -->
+	<update id="updateAdminCk" parameterType="MemberVO">
+		UPDATE tuna_member
+		set adminCk = 'N'
+		where memberMail = #{memberMail}
+	</update>
+	
+<!-- 	회원 탈퇴시, 작성한 게시물의 공개여부를 N으로 바뀌도록 -->
+	<update id="updatePopenStatus" parameterType="MemberVO">
+		UPDATE tuna_POST 
+		set POPENSTATUS = 'N' 
+		where PMEMCODE= (
+			select memberCode 
+			from tuna_member 
+			where memberMail = #{memberMail} 
+			)
+	</update>
+	
 	
 <!-- 	회원가입시, 아이디 중복인지 체크 -->
 	<select id="idCheck" resultType="Integer">
