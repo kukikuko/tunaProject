@@ -53,13 +53,14 @@ public class MemberController {
 	public String updateMemberByEmail(MemberVO memberVO, HttpServletRequest req) {
 		
 		HttpSession session = req.getSession(false);
-
 		MemberVO tempVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
 		memberVO.setMemberPN(String.valueOf(memberVO.getMemberPN1())+String.valueOf(memberVO.getMemberPN2())+String.valueOf(memberVO.getMemberPN3()));
 		memberVO.setMemberMail(tempVO.getMemberMail());
 		log.info("update memberVO {}", memberVO);
 		memberRepository.updateMemberByEmail(memberVO);
+
+		session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
 		
 		return "redirect:/";
 	}

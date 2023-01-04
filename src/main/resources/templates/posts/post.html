@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://kit.fontawesome.com/ef08a6d352.js" crossorigin="anonymous"></script>
 <title>Insert title here</title>
 <!-- CSS only -->
 <link
@@ -19,9 +20,7 @@
 		
 		<p class="post-code" id="postCode" th:text="${post.postCode}">
 		<p class="post-member" id="pMemCode" th:text="${post.pMemCode}">
-		
-		
-		
+
 		<p class="post-category" th:text="${post.ctName}">
 		<p class="post-title" th:text=${post.pTitle}></p>
 		<p class="post-price">가격 : <span th:text=${post.pPrice}></span></p>
@@ -49,6 +48,7 @@
 			
 			<button th:if="${post.pMemCode} != ${member.memberCode}"  
 			type="button" id="notifyBtn">신고하기</button>
+			<span><i class="fa-solid fa-heart"></i></span>
 			
 			
 <!-- 			class 건들면 찜하기 작동 안함 ㅅㄱ -->
