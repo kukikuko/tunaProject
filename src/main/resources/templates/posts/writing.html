@@ -28,8 +28,8 @@
 					th:text="${ct.ctName}"></option>
 			</select> <input type="hidden" name="postCode" th:field="*{postCode}">
 			<input class="writing_title" type="text" name="postTitle"
-				th:field="*{pTitle}" placeholder="제목을 입력하세요."> <input
-				class="writing_price" type="number" name="postPrice"
+				th:field="*{pTitle}" placeholder="제목을 입력하세요."> 
+			<input class="writing_price" type="number" name="postPrice"
 				th:field="*{pPrice}" placeholder="가격"><br />
 			<textarea class="writing_content" type="text" name="postContent"
 				rows="15" cols="100" th:field="*{pContent}" placeholder="내용을 입력하세요."></textarea>
