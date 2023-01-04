@@ -73,10 +73,27 @@ public class MybatisMemberRepository implements MemberRepository{
 	}
 
 	//회원탈퇴 메소드
+//	@Override
+//	public void deleteMember(MemberVO memberVO) {
+//		// TODO Auto-generated method stub
+//		memberMapper.deleteMember(memberVO);
+//	}
 	@Override
-	public void deleteMember(MemberVO memberVO) {
-		// TODO Auto-generated method stub
-		memberMapper.deleteMember(memberVO);
+	public boolean updateAdminCk(MemberVO memberVO) {
+		boolean result = false;
+		memberMapper.updateAdminCk(memberVO);
+		result = true;
+		
+		return result;
+	}
+	//회원탈퇴시, 탈퇴한 회원이 작성한 게시물의 공개여부를 변경하는 메소드
+	@Override
+	public boolean updatePopenStatus(MemberVO memberVO) {
+		boolean result = false;
+		memberMapper.updatePopenStatus(memberVO);
+		result = true;
+		
+		return result;
 	}
 	
 	//비밀번호 찾기
