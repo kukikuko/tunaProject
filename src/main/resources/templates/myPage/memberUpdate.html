@@ -4,13 +4,47 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+* {
+  padding: 0;
+  margin: 0;
+}
+form {
+  width: 60%;
+  height: 50px;
+  margin: 150px auto;
+  text-align: center;/* input의 글자 성격을 중앙정렬 하기 위해 */
+}
+form::before {
+  content: '개인정보 수정';
+  font-size: 80px;
+  font-weight: 900;
+}
+input[type="text"] {
+  height: 50px;
+  width: 70%;
+  border: 1px solid #e0e0e0;
+  padding: 30px;/* 내용물 작성했을 때 여백감 */
+  border-radius: 50px;/* 굴곡 주면 padding 값도 그에 상응하게 적용하는 것이 좋음 */
+  display: block;
+  margin: auto;
+}
+* {
+  transition: all ease-in 0.5s; /* input 효과 부드럽게~~ */
+}
+input[type="text"] {
+  outline: none; /* 가장 바깥부분을 둘러싸고 있는 아웃라인 부분의 스타일을 설정 */
+}
+
+</style>
+
 <body>
-	<h1>개인정보 수정</h1>
+	
 		
 	<form action="" method="post" th:object="${memberVO}" name="memberUpdate">
 		
 		
-		
+		<br>
 		<label>이름
 		 <input type="text" th:value="${memberVO?.memberName}" th:field="*{memberName}" 
 		 	 	name="memberName"  id="uname" maxlength="6"><br>

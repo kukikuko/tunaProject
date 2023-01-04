@@ -53,8 +53,6 @@ public class HeartController {
 		HttpSession session = req.getSession(false);
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
-		
-		
 		Heart h = new Heart();
 		
 		h.setHMemCode(Integer.toString(tempVO.getMemberCode()));
