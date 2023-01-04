@@ -3,6 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
+	<style>
+.logoImg {
+	width: 40px;
+	height: 40px;
+}
+</style>
 </head>
 <style>
 * {
@@ -39,29 +50,30 @@ input[type="text"] {
 </style>
 
 <body>
-	
+	<div th:replace="layout/header :: headFrag"></div>
+	<h1>개인정보 수정</h1>
 		
-	<form action="" method="post" th:object="${memberVO}" name="memberUpdate">
+	<form action="" method="post" th:object="${member}" name="memberUpdate">
 		
 		
 		<br>
 		<label>이름
-		 <input type="text" th:value="${memberVO?.memberName}" th:field="*{memberName}" 
+		 <input type="text" th:value="${member?.memberName}" th:field="*{memberName}" 
 		 	 	name="memberName"  id="uname" maxlength="6"><br>
 		</label>
 		
 		<label>닉네임 
-		<input type="text" th:value="${memberVO?.memberNick}" th:field="*{memberNick}"  
+		<input type="text" th:value="${member?.memberNick}" th:field="*{memberNick}"  
 				name="memberNick"id="memberNickName" maxlength="6"><br>
 		</label>
 		
 		
 		<label>전화번호
-		<input type="text" th:value= "'0'+${memberVO?.memberPN1}" th:field="*{memberPN1}"
+		<input type="text" th:value= "'0'+${member?.memberPN1}" th:field="*{memberPN1}"
 					name="memberPN1" id="mobil1" maxlength="3"> 
-		-  	<input type="text" th:value="${memberVO?.memberPN2}" th:field="*{memberPN2}" 
+		-  	<input type="text" th:value="${member?.memberPN2}" th:field="*{memberPN2}" 
 					name="memberPN2" id="mobile2" maxlength="4">
-			<input type="text" th:value="${memberVO?.memberPN3}" th:field="*{memberPN3}" 
+			<input type="text" th:value="${member?.memberPN3}" th:field="*{memberPN3}" 
 			 		name="memberPN3" id="mobile3" maxlength="4"><br>
 		</label>
 		
@@ -71,13 +83,13 @@ input[type="text"] {
 				 	<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기">
 				<br>
 					<input type="text" id="sample6_postcode" name="memberAddr1" 
-							 th:value="${memberVO?.memberAddr1}"  th:field="*{memberAddr1}" readonly><br> 
+							 th:value="${member?.memberAddr1}"  th:field="*{memberAddr1}" readonly><br> 
 					<input type="text" id="sample6_address" name="memberAddr2"
-							 th:value="${memberVO?.memberAddr2}" th:field="*{memberAddr2}" readonly><br>
+							 th:value="${member?.memberAddr2}" th:field="*{memberAddr2}" readonly><br>
 					<input type="text" id="sample6detailAddress" name="memberAddr3" 
-							th:value="${memberVO?.memberAddr3}" th:field="*{memberAddr3}"> 
+							th:value="${member?.memberAddr3}" th:field="*{memberAddr3}"> 
 					<input type="text" id="sample6extraAddress" name="memberAddr4"
-							th:value="${memberVO?.memberAddr4}" th:field="*{memberAddr4}">
+							th:value="${member?.memberAddr4}" th:field="*{memberAddr4}">
 			</label>
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
@@ -214,5 +226,10 @@ input[type="text"] {
 	        }).open();
 	    }
 	</script>
+		<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
 </body>
 </html>
