@@ -133,7 +133,7 @@ public class APIController {
     public void up_chat(HttpServletResponse resp,@RequestParam("MessageCode") String MessageCode,@RequestParam("ChatCode") String ChatCode,@RequestParam("doNotifyUser") String doNotifyUser) {
     	resp.setStatus(204);
 
-    	
+    	//메세지창 상대 멤버 코드 찾기 
     	
     	}
     

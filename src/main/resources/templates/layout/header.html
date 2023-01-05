@@ -4,14 +4,16 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
 <style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
+
+
+
+
 body{
 	background-color: #EEEFF1;
 }
+
 </style>
 </head>
 <body>
@@ -50,24 +52,13 @@ body{
 							<li><a class="dropdown-item" href="/myPage/memberOut">회원 탈퇴</a></li>
 						</ul>
 					</div>
+									<img src="http://localhost:8080/images/normal.png" class="messageImg" />
+					
 					<form th:action="@{/logout}" method="post">
 						<button type="submit">로그아웃</button>
 					</form>
-					<div class="dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button"
-							data-bs-toggle="dropdown" aria-expanded="false" th:text="${member.memberNick}"></button>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/myPage/memberUpdate">개인정보
-									변경</a></li>
-							<li><a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호
-									변경</a></li>
-							<li><a class="dropdown-item" href="/myPage/memberOut">회원
-									탈퇴</a></li>
-						</ul>
-						
-					</div>
+					
 				</div>
-				<img src="http://localhost:8080/images/normal.png" class="message_img" />
 			</div>
 		</nav>
 	</th:block>

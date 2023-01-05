@@ -11,12 +11,7 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous">
 <link rel="stylesheet" href="/css/posts.css">
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-</style>
+
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
@@ -41,7 +36,7 @@
 						th:text="${post.pTitle}"></a></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
-					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd')}"></td>
+					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
 				</tr>
 			</tbody>
 		</table>

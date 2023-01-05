@@ -9,7 +9,10 @@
 	height: 40px;
 }
 
-
+.messageImg{
+	width: 40px;
+	height: 40px;
+}
 *, *:before, *:after {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;

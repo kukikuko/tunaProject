@@ -140,6 +140,12 @@ public class MybatisMemberRepository implements MemberRepository{
 		List<Post> postListHeart = memberMapper.selectByMemberAndHeart(memberCode);
 		return postListHeart;
 	}
+
+	@Override
+	public void deleteMember(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

@@ -3,7 +3,15 @@
 .logoImg {
 	width: 40px;
 	height: 40px;
+
 }
+
+
+.messageImg{
+	width: 40px;
+	height: 40px;
+}
+
 
 body{
 	background-color: #EEEFF1;

@@ -32,7 +32,7 @@ public interface MemberRepository {
 	
 	//회원 탈퇴시, 게시물 공개여부를 변경하기
 	public boolean updatePopenStatus(MemberVO memberVO);
-	
+	public MemberVO selectByCode(int code);
 	//비밀번호 찾기
 	public String emailFindPw(String email);
 	
