@@ -15,6 +15,8 @@ body{
 }
 
 </style>
+<link rel="stylesheet" href="/css/header.css" />
+
 </head>
 <body>
 	<th:block th:fragment="headFrag">
@@ -52,8 +54,12 @@ body{
 							<li><a class="dropdown-item" href="/myPage/memberOut">회원 탈퇴</a></li>
 						</ul>
 					</div>
-									<img src="http://localhost:8080/images/normal.png" class="messageImg" />
-					
+					<form target="print_popup" action="http://localhost:3000/chat/main" method="get" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
+
+					<button id="message_main_btn">
+					<img src="http://localhost:8080/images/normal.png" class="messageImg"/>
+					</button>
+					</form>
 					<form th:action="@{/logout}" method="post">
 						<button type="submit">로그아웃</button>
 					</form>

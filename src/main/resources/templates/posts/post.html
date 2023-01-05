@@ -16,6 +16,7 @@
 <link rel="stylesheet" href="/css/posts.css" />
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<link rel="stylesheet" href="/css/header.css" />
 
 
 </head>
@@ -50,7 +51,7 @@
 				th:onclick="return confirm('삭제하시겠습니까 ?');">삭제</button>
 		</form>
     <form target="print_popup" action="/chat/add" method="post" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
-			<button  class="postBtn" >거래하기</button>
+			<button  class="postBtn" th:if="${post.pMemCode} != ${member.memberCode}" >거래하기</button>
 		    <input type="hidden" th:value="${post.postCode}" name="postCode">
 						
 		</form>
