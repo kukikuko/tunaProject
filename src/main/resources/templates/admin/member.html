@@ -56,29 +56,44 @@
                         </h2>
                         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <table class="board-table">
-                                    <thead class="postsThead">
-                                    <tr>
-                                        <th class="th-cate">카테고리</th>
-                                        <th class="th-title">제목</th>
-                                        <th class="th-view">조회수</th>
-                                        <th class="th-data">작성일</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}"
-                                           class="postsTbody">
-                                    <tr>
-                                        <td a class="tr" th:href="@{|/posts/${post.postCode}|}"
-                                            th:text="${post.ctName}"></td>
-                                        <td><a class="tr" th:href="@{|/admin/post/${post.postCode}|}"
-                                               th:text="${post.pTitle}"></a></td>
-                                        <td class="tr" th:href="@{|/posts/${post.postCode}|}"
-                                            th:text="${post.pView}"></td>
-                                        <td a class="tr" th:href="@{|/posts/${post.postCode}|}"
-                                            th:text="${post.pCreateTime}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-table me-1"></i>
+                                        게시글 목록
+                                    </div>
+                                    <div class="card-body">
+                                        <table id="datatablesSimple1">
+                                            <thead>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>게시글 코드</th>
+                                                <th>카테고리</th>
+                                                <th>제목</th>
+                                                <th>조회수</th>
+                                                <th>찜</th>
+                                                <th>작성일</th>
+                                                <th>수정시간</th>
+                                                <th>공개여부</th>
+                                                <th>판매여부</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="post, i : ${posts}">
+                                                <td th:text="${i.count}"></td>
+                                                <td th:text="${post.getPostCode()}"></td>
+                                                <td th:text="${post.getCtName()}"></td>
+                                                <td><a th:text="${post.getPTitle()}" th:href="@{|/admin/post/${post.getPostCode()}|}"></a></td>
+                                                <td th:text="${post.getPView()}"></td>
+                                                <td th:text="${post.heart}"></td>
+                                                <td th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></td>
+                                                <td th:text="${#dates.format(post.getPCorrectionTime(), 'yy-MM-dd a hh시mm분')}"></td>
+                                                <td th:text="${post.getPOpenStatus()}"></td>
+                                                <td th:text="${post.getPSalesStatus()}"></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

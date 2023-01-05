@@ -118,8 +118,7 @@
 	<select id="selectByMemberCode" resultType="PostForCategory">
 		select POSTCODE,postCtCode,
 			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
-				,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
-				,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+				,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
 			   PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
 		from TUNA_POST p
 		where pmemcode = #{memberCode}

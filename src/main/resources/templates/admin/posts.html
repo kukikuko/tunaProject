@@ -39,7 +39,9 @@
                 <th>조회수</th>
                 <th>찜</th>
                 <th>작성일</th>
+                <th>수정시간</th>
                 <th>공개여부</th>
+                <th>판매여부</th>
               </tr>
               </thead>
               <tbody>
@@ -50,8 +52,10 @@
                 <td><a th:text="${post.getPTitle()}" th:href="@{|/admin/post/${post.getPostCode()}|}"></a></td>
                 <td th:text="${post.getPView()}"></td>
                 <td th:text="${post.heart}"></td>
-                <td th:text="${post.getPCreateTime()}"></td>
+                <td th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></td>
+                <td th:text="${#dates.format(post.getPCorrectionTime(), 'yy-MM-dd a hh시mm분')}"></td>
                 <td th:text="${post.getPOpenStatus()}"></td>
+                <td th:text="${post.getPSalesStatus()}"></td>
               </tr>
               </tbody>
             </table>
