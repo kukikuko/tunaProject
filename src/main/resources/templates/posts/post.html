@@ -24,9 +24,9 @@
 			가격 : <span th:text="${post.pPrice}"></span>
 		</p>
 		<p class="post-time" th:if="${post.pCorrectionTime == null}"
-			th:text="${post.pCreateTime}"></p>
+      th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-time" th:if="${post.pCorrectionTime != null}"
-			th:text="${post.pCorrectionTime}"></p>
+      th:text="${#dates.format(post.pCorrectionTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-view">
 			조회수 : <span th:text="${post.pView}"></span>
 		</p>
@@ -41,6 +41,11 @@
 			<button type="submit"
 				th:if="${post.pMemCode} == ${member.memberCode}" class="post_Btn"
 				th:onclick="return confirm('삭제하시겠습니까 ?');">삭제</button>
+		</form>
+    <form target="print_popup" action="/chat/add" method="post" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
+			<button  class="postBtn" th:if="${post.pMemCode} != ${member.memberCode}" >거래하기</button>
+		    <input type="hidden" th:value="${post.postCode}" name="postCode">
+						
 		</form>
 		<button th:onclick="|location.href='@{/posts}'|" class="post_Btn_back">
 			목록보기</button>

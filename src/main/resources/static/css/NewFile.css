@@ -1,0 +1,143 @@
+@charset "UTF-8";
+
+
+
+.posts{
+  padding-bottom: 20px;
+  text-align: center;
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing:0 ;
+  table-layout: fixed;
+    border-bottom: 1px solid gray;	
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.board-table {
+  font-size: 13px;
+  width: 100%;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.board-table a {
+  color: #333;
+  display: inline-block;
+  line-height: 1.4;
+  word-break: break-all;
+  vertical-align: middle;
+}
+.board-table a:hover {
+  text-decoration: underline;
+}
+.board-table th {
+  text-align: center;
+}
+
+.board-table .th-view {
+  width: 100px;
+  text-align: center;
+}
+
+.board-table .th-date, .th-cate {
+  width: 200px;
+}
+
+.board-table th, .board-table td {
+  padding: 14px 0;
+}
+
+.board-table tbody td {
+  border-top: 1px solid #e7e7e7;
+  text-align: center;
+}
+
+.board-table tbody th {
+  padding-left: 28px;
+  padding-right: 14px;
+  border-top: 1px solid #e7e7e7;
+  text-align: left;
+}
+.postBtn{
+  border-radius: 20px;
+  border:1px solid black;
+  background-color: white;
+  margin : auto;
+  margin-top : 5px;
+  display: block;
+  width: 100px;
+  height : 40px;
+}
+
+.me-2{
+	width:300px;
+}
+
+.login-div, .post{
+	margin: auto;
+	width: 300px;
+	background-color: #a7cdfd;
+	background-color: #EEEFF1;
+	border-radius: 5px;
+	text-align: center;
+	padding: 20px;
+}
+
+.loing-in, .post-p, .post-p-text {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+.in, .post-p, .post-p-text{
+	margin-bottom: 10px;
+}
+
+.post{
+	margin: auto;
+	width: 1000px;
+	height : 100%;
+	background-color: #a7cdfd;
+	background-color: #EEEFF1;
+	border-radius: 5px;
+	padding: 20px;
+}
+.post-pContent{
+	width: 100%;
+	height :300px;
+	background-color: white;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+.post-p, .post-price{
+	width: 100%;
+	background-color: white;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+.post-p-text {
+	width: 80px;
+	height : 50px;
+	background-color: white;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+}
+
+.post-price::-webkit-outer-spin-button,
+.post-price::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

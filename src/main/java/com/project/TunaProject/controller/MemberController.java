@@ -61,6 +61,7 @@ public class MemberController {
 		memberRepository.updateMemberByEmail(memberVO);
 
 		session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
+		log.info("memberV {}", memberVO);
 		
 		return "redirect:/";
 	}
@@ -94,7 +95,11 @@ public class MemberController {
 		
 		memberRepository.updatePassword(memberVO);
 		
-	 		return "redirect:/";
+		if(session != null) {
+			session.invalidate();
+		}
+		
+	 		return "redirect:/login";
 	}
 	
 	@PostMapping("/pwcheck")

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper
+	namespace="com.project.TunaProject.repository.mybatis.ChatMapper">
+	
+	<insert id="insertChat" parameterType="Chat">
+
+	insert into chat (chatCode,postCode,seller,buyer)
+	select chatPK.nextVal,#{postCode},#{seller},#{buyer}
+	FROM DUAL WHERE not(EXISTS(SELECT * FROM CHAT where ( postCode=#{postCode} AND (SELLER=#{seller} AND buyer=#{buyer}))) or #{seller}=#{buyer})
+
+	</insert>
+	
+	<select id="findChatCode" resultType="Chat">
+	select *
+	from CHAT
+	where postCode=#{postCode} AND (seller=#{seller} AND buyer=#{buyer})
+	order by chatCode	
+	
+	</select>
+	
+	<select id="selectMyChat" resultType="Chat">
+	select *
+	from CHAT
+	where SELLER=#{memberCode} OR buyer=#{memberCode}
+	order by chatCode	
+	
+	</select>
+	
+	<select id="selectMyChatByCur" resultType="Chat">
+	select *
+	from CHAT
+	where (SELLER=#{memberCode} OR buyer=#{memberCode}) AND chatCode > #{chatCode}
+	order by chatCode	
+	
+	</select>
+	
+	</mapper>

@@ -24,7 +24,8 @@
   		#{memberAddr3},
   		#{memberAddr4},
   		'Y',
-  		sysdate
+  		sysdate,
+  		null
   		)
   	</insert>
   	
@@ -41,7 +42,7 @@
 		  memberAddr3,
 		  memberAddr4
 		  from tuna_member
-		where membermail = #{email}
+		where memberMail = #{email}
 	</select>
 
 	<select id="selectByCode" resultType="MemberVO">
@@ -49,6 +50,18 @@
 		from tuna_member
 		where memberCode = #{memberCode}
 	</select>
+	
+	<select id ="selectByUUID" resultType="MemberVO">
+	select *
+	from tuna_member
+	where activeUUID = #{activeUUID}
+	</select>
+	
+	<update id="updateUUID" parameterType="MemberVO">
+	UPDATE tuna_member
+	set activeUUID = #{activeUUID}
+	where memberMail = #{memberMail}
+	</update>
 	
 <!-- 	개인정보 변경 -->
 	<update id="updateMemberByEmail" parameterType="MemberVO">
@@ -118,8 +131,7 @@
 	<select id="selectByMemberCode" resultType="PostForCategory">
 		select POSTCODE,postCtCode,
 			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
-				,PMEMCODE, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
-				,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+				,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
 			   PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
 		from TUNA_POST p
 		where pmemcode = #{memberCode}

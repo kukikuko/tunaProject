@@ -1,4 +1,4 @@
- package com.project.TunaProject.config;
+package com.project.TunaProject.config;
 
 import com.project.TunaProject.repository.*;
 import com.project.TunaProject.repository.mybatis.*;
@@ -10,6 +10,13 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class AppBeanConfig {
+	private final ChatMapper chatMapper;
+
+    @Bean
+    public ChatRepository chatRepository() {
+        return new MybatisChatRepository(chatMapper);
+//        return new ListMemberRepository();
+    }
 
 	private final MemberMapper memberMapper;
 	private final PostItemMapper postItemMapper;

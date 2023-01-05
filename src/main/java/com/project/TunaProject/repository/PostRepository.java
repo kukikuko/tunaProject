@@ -2,6 +2,8 @@ package com.project.TunaProject.repository;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.project.TunaProject.domain.Post;
 
 
@@ -20,4 +22,6 @@ public interface PostRepository {
 	public void viewCont(String postCode);
 	
 	public List<Post> selectSearch(String keyword);
+	public boolean ACCOUNTUPDATE(@Param("postCode")String postCode,@Param("accountcode")String accountcode);
+
 }

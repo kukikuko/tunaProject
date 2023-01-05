@@ -6,6 +6,10 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/posts.css">
 <link rel="stylesheet" href="/css/header.css" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 699c69949c6bee1daf75ba5e4ca44133ebc4ae98
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
@@ -30,7 +34,7 @@
 						th:text="${post.pTitle}"></a></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
-					<td class="tr" th:text="${post.pCreateTime}"></td>
+					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
 				</tr>
 			</tbody>
 		</table>

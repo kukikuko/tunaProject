@@ -25,5 +25,11 @@
 	and donotifyMemberCode= #{doNotifyMemberCode}
 	</select>
 
+	<select id="selectNotifyAll" resultType="Notify">
+	select notifycode, notifytype, notifytime, donotifymembercode, notifymembercode
+	from tuna_notify
+	where notifytarget = #{target}
+	</select>
+
 
 </mapper>

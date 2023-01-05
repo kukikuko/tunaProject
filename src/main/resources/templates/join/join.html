@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/join.css">
+<style>
+	canvas{z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);}
+</style>
 </head>
 <body>
 	<nav class="navbar">
@@ -36,8 +40,7 @@
 	<div class="join-div">
 		<form action="" method="post" name="memberJoin" class="joinform"> 
 			<label>아이디<br/>
-				<input type="text" name="memberMail1" id="memberMail" maxlength="15" 
-				class="join-email" placeholder="아이디"> @
+				<input type="text" name="memberMail1" id="memberMail" maxlength="15" class="join-email" placeholder="아이디"> @
 				<input type="text" name="memberMail2" id="email_add" maxlength="15" class="join-email">
 				<select name="email_sel" id="email_sel" onchange="change_email();" class="join-emailSelect">
 					<option value="">직접입력</option>
@@ -45,15 +48,17 @@
 					<option value="gmail.com">gmail</option>
 					<option value="nate.com">nate</option>
 				</select>
+			</label>
+			
 				<button type="submit" class="join-emailCheckBtn" id="mailChkBtn">중복확인</button>
+				
 				<div class="mail-check-box" id="mailCheckBox">
 					<button type="submit" class="join-emailcheckNumBtn" id="mailCheckBtn1">인증번호발송</button>
 					<!-- <p id="time" class="join-emailChckTime">180</p> -->
 					<input class="join-emailCheckInput" id="mailCheckInput"
 						name="mailCheckInput" placeholder="인증번호를 입력해주세요!" maxlength="8">
 					<button type="button" id="ePw-Check-Btn" class="join-emailcheckNumBtn">인증번호 확인</button>
-			</label>
-			</div>
+				</div>
 			<label>비밀번호 
 				<input type="password" name="password" id="pwd" placeholder="영문자+숫자+특수문자 조합" class="join-input">
 			</label> 
@@ -109,9 +114,20 @@
 			<button id="joinBtn" type="submit" class="joinBtn">가입하기</button>
 		</form>
 	</div>
+<div class="buttonContainer">
+	<button class="canvasBtn" id="stopButton">Stop Confetti</button>
+	<button class="canvasBtn" id="startButton">Drop Confetti</button>	
+</div>
+
+<canvas id="canvas"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
+
+	
 	$("#mailCheckBox").css("display", "none");
 	$("#time").css("display", "none");
+	$("#stopButton").css("display", "none");
+	$("#startButton").css("display", "none");
 	var pwd = document.getElementById("pwd");				//비밀번호
 	var repwd = document.getElementById("repwd");			//비밀번호 확인
 	var uname = document.getElementById("uname");			//이름
@@ -134,6 +150,27 @@
 	var reg = /^[0-9]+/g; //숫자만 입력하는 정규식
 	var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/; //특수기호 못쓰게
 	var email = "";
+	var form = document.memberJoin; 
+	
+	document.memberJoin.addEventListener("keydown", evt => {
+		if (evt.code === "Enter") {
+		    evt.preventDefault();
+		}
+	});
+	
+	
+	function reAction(){
+	  	$("#startButton").trigger("click");
+// 	  	setTimeout(function(){
+	  		Swal.fire({
+				  title: '회원가입이 완료되었습니다!',         // Alert 제목
+				  text: '사조마켓의 회원이 되신 것을 진심으로 축하드립니다!',  // Alert 내용
+				  icon: 'success',                         // Alert 타입
+				}).then((result) => {
+	  				form.submit();
+				})
+// 	  	}, 3000);
+ };
 	  
 // 	  function showPopup() { window.open("08_2_popup.html", "a", "width=400, height=300, left=100, top=50"); }
 		document.getElementById('mailChkBtn').addEventListener('click', (e)=>{ 
@@ -143,18 +180,16 @@
 		let form = document.mailCheck; 
 		
 		if(memberMail.value==""||email_add.value==""){
-			alert("이메일 주소를 입력해주세요.");
+			Swal.fire({
+				  title: '이메일 주소를 확인해주세요.',         // Alert 제목
+				  text: '모든 내용을 작성하셨나요?',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    memberMail.focus();
 		    return false;
+		    }else{
+				checkId();
 		    }
-		
-		if (!regEmail.test(memberMail.value)) {
-		    alert("이메일 형식을 올바르게 입력하세요.");
-		    memberMail.focus();
-		    return false;
-		  }
-		
-		checkId();
 		});
 		
 		document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{ 
@@ -163,19 +198,31 @@
 		if(memberMail.value==""||email_add.value==""){
 			console.log(memberMail.value + "@" + email_add.value);
 			console.log(email);
-			alert("이메일 주소를 입력해주세요.");
+			Swal.fire({
+				  title: '이메일 주소를 확인해주세요.',         // Alert 제목
+				  text: '모든 내용을 작성하셨나요?',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    memberMail.focus();
 		    return false;
 		}else if(email != memberMail.value + "@" + email_add.value){
 			console.log(memberMail.value + "@" + email_add.value);
 			console.log(email);
-			alert("이메일 주소를 올바르게 입력해주세요.");
+			Swal.fire({
+				  title: '이메일 주소를 확인해주세요.',         // Alert 제목
+				  text: '모든 내용을 작성하셨나요?',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    memberMail.focus();
 		    return false;
 		}
 		else{
 			
-	         alert("해당 이메일로 인증번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+			Swal.fire({
+				  title: '해당 이메일로 인증번호 발송이 완료되었습니다.',         // Alert 제목
+				  text: '확인 부탁드립니다.',  // Alert 내용
+				  icon: 'success',                         // Alert 타입
+				});
 			   $.ajax({
 			      type : "POST",
 			      url : "emailConfirm",
@@ -197,9 +244,17 @@
 			e.preventDefault();
 			console.log("input  : " + mailCheckInput);
 			if (data != mailCheckInput.value) { 
- 				alert("인증번호가 일치하지 않습니다..");
+				Swal.fire({
+					  title: '인증번호가 일치하지 않습니다.',         // Alert 제목
+					  text: '올바르게 입력하셨나요?',  // Alert 내용
+					  icon: 'warning',                         // Alert 타입
+					});
  				}else{
- 					alert("인증번호가 일치합니다!!");
+ 					Swal.fire({
+ 						  title: '인증번호가 일치합니다.',         // Alert 제목
+ 						  text: '다음 내용들을 작성해주세요',  // Alert 내용
+ 						  icon: 'success',                         // Alert 타입
+ 						});
  					document.getElementById('memberMail').readOnly = true;
  					document.getElementById('email_add').readOnly = true;
  					document.getElementById('email_sel').readOnly = true;
@@ -219,59 +274,95 @@
  		document.getElementById('joinBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();
 		
-		let form = document.memberJoin; 
+		
 		  var canJoin = true;
 			
 		  if (form.password.value == "") {
-		    alert("비밀번호를 입력하세요.");
+			  Swal.fire({
+				  title: '비밀번호를 입력해주세요.',         // Alert 제목
+				  text: '공란은 허용되지 않아요',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    pwd.focus();
 		    return false;
 		  };
 
 		  if (!pwdCheck.test(pwd.value)) {
-		    alert("비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.");
+			  Swal.fire({
+				  title: '비밀번호를 다시 입력해주세요.',         // Alert 제목
+				  text: '비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야 합니다.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    pwd.focus();
 		    return false;
 		  };
 
 		  if (repwd.value !== pwd.value) {
-		    alert("비밀번호가 일치하지 않습니다..");
+			  Swal.fire({
+				  title: '비밀번호를 확인해주세요.',         // Alert 제목
+				  text: '비밀번호와, 비밀번호 확인이 일치하지 않습니다.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    repwd.focus();
 		    return false;
 		  };
 
 		  if (uname.value == "") {
-		    alert("이름을 입력하세요.");
+			  Swal.fire({
+				  title: '이름을 입력해주세요.',         // Alert 제목
+				  text: '공란은 허용되지 않아요.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    uname.focus();
 		    return false;
 		  };
 
 		  if (!reg_name1.test(uname.value)) {
-		    alert("이름은 한글만 입력하세요.");
+			  Swal.fire({
+				  title: '이름을 확인해주세요.',         // Alert 제목
+				  text: '이름은 한글만 입력할 수 있답니다.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    uname.focus();
 		    return false;
 		  };
 		  
 		  if(uname<2 || uname>6){
-			    alert("이름은 2글자~ 6글자로 입력해주세요.");
+			  Swal.fire({
+				  title: '이름을 확인해주세요.',         // Alert 제목
+				  text: '이름은 2글자~ 6글자로 입력해야해요.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 			    memberNickName.focus();
 			    return false;
 			  };
 
 		  if (!reg_name1.test(memberNickName.value)) {
-			    alert("닉네임은 한글만 입력하세요.");
+			  Swal.fire({
+				  title: '닉네임을 확인해주세요.',         // Alert 제목
+				  text: '닉네임은 한글로 입력해야해요.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 			    memberNickName.focus();
 			    return false;
 			  };
 			  
 		if(memberNickName<2 || memberNickName>6){
-		    alert("닉네임은 2글자~ 6글자로 정해주세요.");
+			 Swal.fire({
+				  title: '닉네임을을 확인해주세요.',         // Alert 제목
+				  text: '닉네임은 2글자~ 6글자로 입력해야해요.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 		    memberNickName.focus();
 		    return false;
 		  };
 
 		  if (memberBirth.value.length!=8) {
-			    alert("생년월일을 올바르게 입력하세요");
+			  Swal.fire({
+				  title: '생일을 바르게 입력해주세요.',         // Alert 제목
+				  text: '생년월일은 8글자로 입력해야합니다.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 			    memberBirth.focus();
 			    return false;
 			  };
@@ -287,43 +378,75 @@
 				
 				// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
 					if (1900 > year || year > yearNow){
-						alert("연도를 올바르게 입력하세요");
+						 Swal.fire({
+							  title: '연도 정보를 올바르게 입력해주세요.',         // Alert 제목
+							  text: '1900~ 이번 연도까지로 입력해주세요',  // Alert 내용
+							  icon: 'warning',                         // Alert 타입
+							});
 					    memberBirth.focus();
 						return false;
 					}else if (month < 1 || month > 12) {
-						alert("월 정보를 올바르게 입력하세요");
+						 Swal.fire({
+							  title: '월 정보를 올바르게 입력해주세요.',         // Alert 제목
+							  text: '1~12월 사이로 입력해주세요.',  // Alert 내용
+							  icon: 'warning',                         // Alert 타입
+							});
 					    memberBirth.focus();
 						return false;
 					} else if (day < 1 || day > 31) {
-						alert("일 정보를 올바르게 입력하세요(1~31)");
+						 Swal.fire({
+							  title: '일 정보를 확인해주세요.',         // Alert 제목
+							  text: '1~ 31일 사이로 입력해주세요.',  // Alert 내용
+							  icon: 'warning',                         // Alert 타입
+							});
 					    memberBirth.focus();
 						return false;
 					} else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
-						alert("일 정보를 올바르게 입력하세요(30일까지인 달)");
+						 Swal.fire({
+							  title: '일 정보를 확인해주세요.',         // Alert 제목
+							  text: '1~30일 사이로 입력해주세요.',  // Alert 내용
+							  icon: 'warning',                         // Alert 타입
+							});
 					    memberBirth.focus();
 						return false;
 					} else if (month == 2) {
 
 						var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 						if (day>29 || (day==29 && !isleap)) {
-							alert("일 정보를 올바르게 입력하세요(2월)");
+							 Swal.fire({
+								  title: '일 정보를 확인해주세요,',         // Alert 제목
+								  text: '윤년을 제외한 연도는 1~28일 사이로 입력해주세요.',  // Alert 내용
+								  icon: 'warning',                         // Alert 타입
+								});
 						    memberBirth.focus();
 							return false;
 						} 
 					}else if(year == yearNow){
 						if(month > monthNow){
-							alert("생년월일이 올바르지 않습니다.");
+							 Swal.fire({
+								  title: '생년월일을 확인해주세요.',         // Alert 제목
+								  text: '월 정보를 올바르게 입력해주세요.',  // Alert 내용
+								  icon: 'warning',                         // Alert 타입
+								});
 							return false;
 						}else if(month == monthNow){
 							if(day>=dateNow){
-								alert("생년월일이 올바르지 않습니다.");
+								 Swal.fire({
+									  title: '생년월일을 확인해주세요.',         // Alert 제목
+									  text: '날짜 정보를 올바르게 입력해주세요.',  // Alert 내용
+									  icon: 'warning',                         // Alert 타입
+									});
 								return false;
 							}
 						}
 					}
 
 			if(!(mobile1.value.length==3 && (mobile2.value.length==3 || mobile2.value.length==4) && mobile3.value.length==4) ){
-		    alert("전화번호를 올바르게 입력해주세요.");
+				 Swal.fire({
+					  title: '전화번호를 확인해주세요.',         // Alert 제목
+					  text: 'ex) 010-1234-5678.',  // Alert 내용
+					  icon: 'warning',                         // Alert 타입
+					});
 		    mobile1.focus();
 		    return false;
 		  };
@@ -331,40 +454,59 @@
 		  
 		  const email2 = memberMail.value + "@" + email_add.value;
 			  if(email != email2) {
-				alert("이메일을 확인하세요");
+				  Swal.fire({
+					  title: '이메일을 확인해주세요.',         // Alert 제목
+					  text: '이메일을 올바르게 입력하셨나요?.',  // Alert 내용
+					  icon: 'warning',                         // Alert 타입
+					});
 				memberMail.focus();
 				return false;
 			  };
 		  if (sample6_postcode.value == "" || sample6_address.value == "") {
-			    alert("주소를 입력하세요.");
+			  Swal.fire({
+				  title: '주소를 입력해주세요.',         // Alert 제목
+				  text: '우편번호 찾기 버튼을 이용해주세요.',  // Alert 내용
+				  icon: 'warning',                         // Alert 타입
+				});
 			    sample6_postcode.focus();
 			    return false;
 			  };	  
-		if(pattern3.test(sample6detailAddress.value)) {
-            alert("특수문자는 입력하실 수 없습니다(3)");
-            return false;
-		}
-
-		if(pattern3.test(sample6extraAddress.value)){
-			alert("특수문자는 입력하실 수 없습니다(4)");
-            return false;
-		}
+		
 		
 		if(canJoin){
-			 if(checkCnt == 1){
-				 if(confirm('회원가입 하시겠습니까?')){
-					alert('회원 가입에 성공하였습니다.'); 
-					 form.submit();
-					}
+			 if(checkCnt >= 1){
+				 
+				 Swal.fire({
+			          title: "회원가입 하시겠습니까?",
+			          text: "입력한 회원 정보는, 회원가입 이후에 수정하실 수 있습니다.",
+			          icon: "warning",
+			          showCancelButton: true,
+			          confirmButtonColor: "#3085d6",
+			          cancelButtonColor: "#d33",
+			          confirmButtonText: "승인",
+			          cancelButtonText: "취소",
+			          reverseButtons: true,
+			        }).then((result) => {
+				 
+				 
+					 reAction();
+
+					});
 				 }else{
-					 alert('본인인증을 마치십시오.');
+					 Swal.fire({
+						  title: '본인인증을 마쳐주세요.',         // Alert 제목
+						  text: '이메일 인증을 마치셨나요?.',  // Alert 내용
+						  icon: 'warning',                         // Alert 타입
+						});
 					 memberMail.focus();
-						return false;
 				 }
 		 
 		 }
 					
  		});
+ 		
+ 		
+ 	
  		
 		//이메일 옵션 선택후 주소 자동 완성
 		function change_email() {
@@ -386,16 +528,30 @@
 	            type:'post', //POST 방식으로 전달
 	            data:{"email":email},
 	            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-	                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
-	                	if(confirm('이 메일 주소를 아이디로 사용하시겠습니까?')){
+	                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+	                	Swal.fire({
+	                        title: "이 메일주소를 사용하시겠습니까?",
+	                        text: "로그인 시, 아이디로 사용될 것 입니다.",
+	                        icon: "warning",
+	                        showCancelButton: true,
+	                        confirmButtonColor: "#3085d6",
+	                        cancelButtonColor: "#d33",
+	                        confirmButtonText: "승인",
+	                        cancelButtonText: "취소",
+	                        reverseButtons: true,
+	                      }).then((result) => {
 	                		$("#memberMail").attr("readonly",true);
 	                		$("#email_add").attr("readonly",true);
 	     					hideDisplay();
 	     					console.log(memberMail.value)
 	     					console.log(email);
-						}
-	                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-	                     alert("아이디를 다시 입력해주세요");
+	                });
+	                      } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+	                	 Swal.fire({
+	       				  title: '사용중인 아이디입니다.',         // Alert 제목
+	       				  text: '다른 아이디로 중복확인을 해주세요.',  // Alert 내용
+	       				  icon: 'warning',                         // Alert 타입
+	       				});
 	                    $('#memberMail').val('');
 	                }
 	            },
