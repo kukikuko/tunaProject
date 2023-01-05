@@ -48,16 +48,16 @@
       postCode
    </select>
 
-   <update id="update">
-      update TUNA_POST
-      set pTitle = #{updatePost.pTitle}
-      ,postCtCode = #{updatePost.postCtCode}
-      ,pContent =#{updatePost.pContent}
-      ,pPrice = #{updatePost.pPrice}
-      <!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
-      ,pCorrectionTime = SYSDATE
-      where postCode = #{postCode}
-   </update>
+	<update id="update">
+		update TUNA_POST
+		set pTitle = #{updatePost.pTitle}
+		,postCtCode = #{updatePost.postCtCode}
+		,pContent =#{updatePost.pContent}
+		,pPrice = #{updatePost.pPrice}
+		,pSalesStatus = #{updatePost.pSalesStatus}
+		,pCorrectionTime = sysdate
+		where postCode = #{postCode}
+	</update>
 
    <update id="viewCont">
       update TUNA_POST

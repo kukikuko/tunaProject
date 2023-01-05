@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/memberOut.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> <!-- alert 창     -->
 <link rel="stylesheet" href="/css/header.css" />
 
 </head>
@@ -29,13 +29,13 @@
 		</div>
 		<br>
 	</form>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
 	$("#memberOutBox").css("display", "none");
 	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
 	var password = document.getElementById("oldpassword");
 	var checkCnt = 0;
-	
-	
+
 	document.getElementById('checkBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();
 		let form = document.deleteMemeber;
@@ -46,12 +46,21 @@
 			  data: {password : $('input#oldpassword').val()},
 			  success: function(data) {
 				  if(data.result == 1) {
-						alert('비밀번호가 일치합니다.'); 
-						checkCnt++;
+					  
+					  Swal.fire({
+				            title: "비밀번호가 일치합니다!", // Alert 제목
+				            text: "회원 탈퇴 버튼을 클릭하면, 탈퇴가 진행되요.", // Alert 내용
+				            icon: "success", // Alert 타입
+				          }); 
+						checkCnt=1;
 						 $("#memberOutBox").show();
 						 $("#pwdCheckBox").css("display", "none");
 				  } else {
-					  alert("비밀번호가 일치하지 않습니다.");
+					  Swal.fire({
+				            title: "비밀번호를 확인해주세요.", // Alert 제목
+				            text: "입력한 비밀번호가 일치하지 않습니다.", // Alert 내용
+				            icon: "warning", // Alert 타입
+				          });
 					  password.focus();
 					  return false;
 				  }
@@ -64,12 +73,33 @@
 		let form = document.deleteMemeber;
 		
 		if(checkCnt == 1){
-			if(confirm('회원 탈퇴하시겠습니까?')){
-				alert('탈퇴 되었습니다.'); 
-				 form.submit();
-				}
+			Swal.fire({
+	            title: "회원탈퇴를 진행하시겠습니까?",
+	            text: "",
+	            icon: "warning",
+	            showCancelButton: true,
+	            confirmButtonColor: "#3085d6",
+	            cancelButtonColor: "#d33",
+	            confirmButtonText: "승인",
+	            cancelButtonText: "취소",
+	            reverseButtons: true,
+	          }).then((result) => {
+	        	  if(result.isConfirmed) {
+			            Swal.fire({
+			            	title: "회원 탈퇴가 진행되었습니다.", // Alert 제목
+			                text: "다음에 다시 만나요😂", // Alert 내용
+			                icon: "success", // Alert 타입
+			            }).then((result) => {
+			              	form.submit();	
+			            });
+	        	  }
+	          });
 		}else{
-			alret('비밀번호 확인을 진행해주세요');
+			Swal.fire({
+	            title: "현재 비밀번호를 확인해주세요.", // Alert 제목
+	            text: "비밀번호 인증을 마쳐야, 회원탈퇴를 진행할 수 있어요.", // Alert 내용
+	            icon: "warning", // Alert 타입
+	          });
 			return false;
 		}
 		

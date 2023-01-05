@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
+<script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script> <!-- 꽃가루 -->
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/join.css">
@@ -258,7 +258,7 @@
  					document.getElementById('memberMail').readOnly = true;
  					document.getElementById('email_add').readOnly = true;
  					document.getElementById('email_sel').readOnly = true;
- 					checkCnt++;
+ 					checkCnt=1;
  					document.getElementById('mailCheckInput').readOnly = true;
  					$('#mailCheckBox').hide();
  				}
@@ -487,10 +487,10 @@
 			          cancelButtonText: "취소",
 			          reverseButtons: true,
 			        }).then((result) => {
-				 
-				 
+			        	if(result.isConfirmed) {
+			        		
 					 reAction();
-
+			        }
 					});
 				 }else{
 					 Swal.fire({

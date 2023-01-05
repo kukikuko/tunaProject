@@ -150,6 +150,13 @@ public class PostController {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		log.info("p {}", postItem);
+		if(postItem.getPSalesStatus().equals("Y")) {
+			postItem.setPSalesStatus("판매중");
+		}else if(postItem.getPSalesStatus().equals("S")) {
+			postItem.setPSalesStatus("예약중");
+		}else if(postItem.getPSalesStatus().equals("N")) {
+			postItem.setPSalesStatus("판매완료");
+		}
 		model.addAttribute("post",postItem);
 		model.addAttribute("cateItem", cateItem);
 		model.addAttribute("member", memberVO);		
@@ -164,6 +171,16 @@ public class PostController {
 		
 		log.info(postCode);
 		log.info("ct {}", ct);
+		
+		System.out.println(postItem.getPSalesStatus());
+		
+		if(postItem.getPSalesStatus().equals("판매중")) {
+			postItem.setPSalesStatus("Y");
+		}else if(postItem.getPSalesStatus().equals("예약중")) {
+			postItem.setPSalesStatus("S");
+		}else if(postItem.getPSalesStatus().equals("판매완료")) {
+			postItem.setPSalesStatus("N");
+		}
 		
 		postRepository.update(postCode, postItem, ct.getCtCode());
 		return "redirect:/posts/{postCode}";
