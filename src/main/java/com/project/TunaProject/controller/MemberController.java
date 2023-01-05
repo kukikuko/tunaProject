@@ -95,7 +95,11 @@ public class MemberController {
 		
 		memberRepository.updatePassword(memberVO);
 		
-	 		return "redirect:/";
+		if(session != null) {
+			session.invalidate();
+		}
+		
+	 		return "redirect:/login";
 	}
 	
 	@PostMapping("/pwcheck")

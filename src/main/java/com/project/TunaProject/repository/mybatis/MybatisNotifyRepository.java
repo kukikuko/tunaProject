@@ -7,6 +7,8 @@ import com.project.TunaProject.repository.NotifyRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class MybatisNotifyRepository implements NotifyRepository{
@@ -27,6 +29,12 @@ public class MybatisNotifyRepository implements NotifyRepository{
 		// TODO Auto-generated method stub
 		int result = notifyMapper.notifyCheck(notify);
 		return result;
+	}
+
+	@Override
+	public List<Notify> selectNotifyAll(String target) {
+		List<Notify> notifyList = notifyMapper.selectNotifyAll(target);
+		return notifyList;
 	}
 
 }
