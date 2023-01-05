@@ -4,27 +4,31 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
+<link rel="stylesheet" href="/css/header.css" />
 </head>
 <body>
+	<div th:replace="layout/header :: headFrag"></div>
 	<h1>비밀번호찾기</h1>
-	
 	<p>회원가입시 등록한 이메일을 입력해주세요.</p>
 	<form action="" method="post">
-	<div>
-		<label>이메일</label> 
-			<input type="text" name="memberMail1" id="memberMail" maxlength="15" class="in">@
-			<input type="text" name="memberMail2" id="email_add" maxlength="15" class="in">
-			<select name="email_sel" id="email_sel" onchange="change_email();">
+		<div>
+			<label>이메일</label> <input type="text" name="memberMail1"
+				id="memberMail" maxlength="15" class="in">@ <input
+				type="text" name="memberMail2" id="email_add" maxlength="15"
+				class="in"> <select name="email_sel" id="email_sel"
+				onchange="change_email();">
 				<option value="">직접입력</option>
 				<option value="naver.com">naver</option>
 				<option value="gmail.com">gmail</option>
 				<option value="nate.com">nate</option>
 			</select>
-			<button type="submit" class="btn btn-primary" id="mailCheckBtn1">비밀번호 발송</button>
-			<button type="button" th:onclick="|location.href='@{/login}'|">뒤로 가기</button>
-	</div>
+			<button type="submit" class="btn btn-primary" id="mailCheckBtn1">비밀번호
+				발송</button>
+			<button type="button" th:onclick="|location.href='@{/login}'|">뒤로
+				가기</button>
+		</div>
 	</form>
-<script>
+	<script>
 var memberMail = document.getElementById("memberMail");	//이메일 앞
 var email_add = document.getElementById("email_add");	//이메일 뒤
 
@@ -87,6 +91,7 @@ console.log(email);
         });
 	};
 </script>
-	
+	<script src="https://kit.fontawesome.com/9f54d9c571.js"
+		crossorigin="anonymous"></script>
 </body>
 </html>
