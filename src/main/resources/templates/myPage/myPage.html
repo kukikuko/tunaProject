@@ -26,7 +26,7 @@
 		<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}">
 			<tr>
 				<td><a th:href="@{|/posts/${post.postCode}|}" th:text="${post.pTitle}"></a></td>
-				<td th:href="@{|/posts/${post.postCode}|}" th:text="${post.pCreateTime}"></td>
+				<td th:href="@{|/posts/${post.postCode}|}" th:text=" ${#dates.format(post.pCreateTime, 'yy-MM-dd')}"></td>
 			</tr>
 		</tbody>
 	</table>
@@ -43,7 +43,7 @@
 		<tbody th:each="post :${postsHeart}" th:if="${post.pOpenStatus != 'N'}">
 			<tr>
 				<td><a th:href="@{|/posts/${post.postCode}|}" th:text="${post.pTitle}"></a></td>
-				<td th:href="@{|/posts/${post.postCode}|}" th:text="${post.pCreateTime}"></td>
+				<td th:href="@{|/posts/${post.postCode}|}" th:text=" ${#dates.format(post.pCreateTime, 'yy-MM-dd')}"></td>
 			</tr>
 		</tbody>
 	</table>

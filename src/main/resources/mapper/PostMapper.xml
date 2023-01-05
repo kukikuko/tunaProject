@@ -55,6 +55,7 @@
 		,pContent =#{updatePost.pContent}
 		,pPrice = #{updatePost.pPrice}
 		<!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
+		,pSalesStatus = #{updatePost.pSalesStatus}
 		,pCorrectionTime = sysdate
 		where postCode = #{postCode}
 	</update>
