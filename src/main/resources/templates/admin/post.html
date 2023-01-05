@@ -23,14 +23,24 @@
           <li class="breadcrumb-item"><a th:href="@{/admin/posts}">Posts</a></li>
           <li class="breadcrumb-item active" th:text="${post.getPTitle()}"></li>
         </ol>
-        <div class="card mb-4">
-          <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            게시글 목록
-          </div>
-          <div class="card-body">
-
-          </div>
+        <div>
+          <p> 게시글 코드 : <span th:text="${post.getPostCode()}"></span></p>
+          <p> 회원 코드 : <span th:text="${post.getPMemCode()}"></span></p>
+          <p> 카테고리 : <span th:text="${post.getCtName()}"></span></p>
+          <p> 제목 : <span th:text="${post.getPTitle()}"></span></p>
+          <p> 가격 : <span th:text="${post.getPPrice()}"></span></p>
+          <p>
+           작성 시간 : <span th:text="${#dates.format(post.getPCreateTime, 'yy-MM-dd a hh시mm분')}"></span>
+          </p>
+          <p>
+           수정 시간 : <span th:text="${#dates.format(post.getPCorrectionTime, 'yy-MM-dd a hh시mm분')}"></span>
+          </p>
+          <p> 조회수 : <span th:text="${post.getPView}"></span></p>
+          <p> 내용 : <span th:text="${post.getPContent}"></span></p>
+          <p> 판매 여부 : <span th:text="${post.getPSalesStatus()}"></span></p>
+          <p> 공개 여부 : <span th:text="${post.getPOpenStatus()}"></span></p>
+          <img th:each="image : ${images}"
+               th:src="|/posts/images/${image.getImageFiles}|" width="300" height="300" /><br />
         </div>
       </div>
     </main>

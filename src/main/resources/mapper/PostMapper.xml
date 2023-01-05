@@ -2,51 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper	namespace="com.project.TunaProject.repository.mybatis.PostItemMapper">
+<mapper   namespace="com.project.TunaProject.repository.mybatis.PostItemMapper">
 
-	<insert id="insert" parameterType="Post">
-		<!-- <selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE"> -->
-		<selectKey keyProperty="postCode"
-			resultType="java.lang.String" order="BEFORE">
-			SELECT
-			(concat(to_char(sysdate,'yymmdd'), POSTCODESQ.nextVal)) as postCode
-			from dual
-		</selectKey>
-		INSERT INTO TUNA_POST VALUES
-		(
-		#{postCode}
-		,#{postCtCode}
-		,(select
-		memberCode from TUNA_MEMBER where membercode = #{pMemCode})
-		,#{pTitle}
-		,#{pContent}
-		,sysdate
-		,''
-		,#{pPrice}
-		,'Y'
-		,'Y'
-		,0
-		)
-	</insert>
+   <insert id="insert" parameterType="Post">
+      <!-- <selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE"> -->
+      <selectKey keyProperty="postCode"
+         resultType="java.lang.String" order="BEFORE">
+         SELECT
+         (concat(to_char(SYSDATE,'YY-MM-DD'), POSTCODESQ.nextVal)) as postCode
+         from dual
+      </selectKey>
+      INSERT INTO TUNA_POST VALUES
+      (
+      #{postCode}
+      ,#{postCtCode}
+      ,(select
+      memberCode from TUNA_MEMBER where membercode = #{pMemCode})
+      ,#{pTitle}
+      ,#{pContent}
+      ,SYSDATE
+      ,''
+      ,#{pPrice}
+      ,'Y'
+      ,'Y'
+      ,0
+      )
+   </insert>
 
-	<select id="selectByPostCode" resultType="Post">
-		select POSTCODE,postCtCode,
-		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
-		,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
-		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p
-		where postCode = #{postCode}
-	</select>
+   <select id="selectByPostCode" resultType="Post">
+      select POSTCODE,postCtCode,
+      (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+      ,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
+      PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p
+      where postCode = #{postCode}
+   </select>
 
-	<select id="selectAll" resultType="PostForCategory">
-		select POSTCODE,postCtCode, pMemCode,
-		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
-		,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
-		,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
-		, PTITLE, PCONTENT, PCREATETIME
-		,pCorrectionTime,
-		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
-		postCode
-	</select>
+   <select id="selectAll" resultType="PostForCategory">
+      select POSTCODE,postCtCode,
+      (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+      ,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
+      ,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
+      , PTITLE, PCONTENT, PCREATETIME
+      ,pCorrectionTime,
+      PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
+      postCode
+   </select>
 
 	<update id="update">
 		update TUNA_POST
@@ -54,36 +54,35 @@
 		,postCtCode = #{updatePost.postCtCode}
 		,pContent =#{updatePost.pContent}
 		,pPrice = #{updatePost.pPrice}
-		<!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
 		,pSalesStatus = #{updatePost.pSalesStatus}
 		,pCorrectionTime = sysdate
 		where postCode = #{postCode}
 	</update>
 
-	<update id="viewCont">
-		update TUNA_POST
-		set pView = pView + 1
-		where postCode =
-		#{postCode}
-	</update>
+   <update id="viewCont">
+      update TUNA_POST
+      set pView = pView + 1
+      where postCode =
+      #{postCode}
+   </update>
 
-	<update id="updateDelete">
-		update TUNA_POST
-		set POPENSTATUS = 'N'
-		where postCode =
-		#{postCode}
-	</update>
+   <update id="updateDelete">
+      update TUNA_POST
+      set POPENSTATUS = 'N'
+      where postCode =
+      #{postCode}
+   </update>
 
-	<select id="selectSearch" parameterType="String"
-		resultType="PostForCategory">
-		select POSTCODE, postCtCode
-		, (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
-		, PMEMCODE, PTITLE, PCONTENT
-		, PCREATETIME
-		, pCorrectionTime
-		, PPRICE, PSALESSTATUS, POPENSTATUS, PVIEW from TUNA_POST p
-		where PTITLE like '%'||#{keyword}||'%' or PCONTENT like '%'||#{keyword}||'%'
-		order by postCode
-	</select>
+   <select id="selectSearch" parameterType="String"
+      resultType="PostForCategory">
+      select POSTCODE, postCtCode
+      , (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+      , PMEMCODE, PTITLE, PCONTENT
+      , substr(PCREATETIME,0,8) as PCREATETIME
+      , substr(PCORRECTIONTIME,0,8) as pCorrectionTime
+      , PPRICE, PSALESSTATUS, POPENSTATUS, PVIEW from TUNA_POST p
+      where PTITLE like '%'||#{keyword}||'%' or PCONTENT like '%'||#{keyword}||'%'
+      order by postCode
+   </select>
 
 </mapper>

@@ -35,7 +35,9 @@ import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -64,6 +66,8 @@ public class PostController {
 		log.info("posts {}" , postList);
 		return "/posts/posts";
 	}
+	
+
 	
 	@GetMapping("/{postCode}")
 	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem
@@ -158,6 +162,8 @@ public class PostController {
 		model.addAttribute("member", memberVO);		
 		return "/posts/update";
 	}
+	
+	
 	
 	@PostMapping("/update/{postCode}")
 	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem,
