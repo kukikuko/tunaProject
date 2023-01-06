@@ -19,6 +19,7 @@ public interface PostItemMapper {
 	public void update(@Param("postCode")String postCode, @Param("updatePost")Post post);
 	
 	public void updateDelete(@Param("postCode")String postCode);
+	public void ACCOUNTUPDATE(@Param("postCode")String postCode,@Param("accountcode")String accountcode);
 	
 	public void viewCont(String postCode);
 	

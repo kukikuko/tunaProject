@@ -79,5 +79,14 @@ public class MybatisPostRepository implements PostRepository{
 		System.out.println(postList.toString());
 		return postList;
 	}
+
+	@Override
+	public boolean ACCOUNTUPDATE(String postCode, String accountcode) {
+		// TODO Auto-generated method stub
+	    boolean result = false;
+		postItemMapper.ACCOUNTUPDATE(postCode, accountcode);
+		result =true;
+	    return result;
+	}
 		
 }

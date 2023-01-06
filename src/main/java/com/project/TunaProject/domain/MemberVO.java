@@ -2,6 +2,8 @@ package com.project.TunaProject.domain;
 
 
 
+import java.util.Date;
+
 import lombok.Data;
 
 import java.util.Date;
@@ -26,6 +28,6 @@ public class MemberVO {
 	private String memberAddr4;	//주소 참고항목 null 가능
 	private String adminCk;		//활동상태
 	private Date regDate;		//가입일자
-	
+	private String activeUUID; //활성UUID (비활성시 NULL)
 }
 

@@ -4,58 +4,70 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-body{
-	background-color: #EEEFF1;
-}
-</style>
+<link rel="stylesheet" href="/css/header.css" />
 </head>
 <body>
 	<th:block th:fragment="headFrag">
-		<nav class="navbar navbar-expand-lg bg-light">
-			<div class="container-fluid">
+		<nav class="navbar">
+			<div class="navbar_logo">
 				<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-				<a class="navbar-brand" href="/posts">사조마켓</a>
-				<button class="navbar-toggler" type="button"
-					data-bs-toggle="collapse" data-bs-target="#navbarScroll"
-					aria-controls="navbarScroll" aria-expanded="false"
-					aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="collapse navbar-collapse" id="navbarScroll">
-					<ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
-						style="-bs-scroll-height: 100px;">
-						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="#">중고거래</a></li>
-					</ul>
-					<div class="searchForm">
-						<form class="d-flex" role="search" action="/posts" method="post">
-							<input name="search" class="form-control me-2" type="search"
-								placeholder="물품이나 동네를 검색해주세요." aria-label="Search">
-							<button class="btn btn-outline-success" type="submit">검색</button>
-						</form>
+				<a href="/" class="mainText">사조마켓</a>
+			</div>
+			<div class="navbar_toggleBtn">
+					<i class="fa-solid fa-bars"></i>
+				</div>
+			<div class="navbar_toggle">
+				<div class="navbar_menu">
+					<div class="navbar_menu_text">
+						<a href="/posts" class="menuText">중고거래</a>
 					</div>
-					<div class="dropdown">
-						<button class="btn btn-secondary dropdown-toggle" type="button"
-							data-bs-toggle="dropdown" aria-expanded="false"
-							th:text="${member.memberNick}"></button>
-						<ul class="dropdown-menu">
-							<li><a class="dropdown-item" href="/myPage/myPage">내 활동</a></li>
-							<li><a class="dropdown-item" href="/myPage/memberUpdate">개인정보 변경</a></li>
-							<li><a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호 변경</a></li>
-							<li><a class="dropdown-item" href="/myPage/memberOut">회원 탈퇴</a></li>
-						</ul>
+					<div class="navbar_menu_right">
+						<div class="navbar_search">
+							<form action="/posts" method="post" class="searchForm">
+								<input name="search" type="search" placeholder="물품이나 동네를 검색해주세요."
+									class="searchInput">
+								<button class="searchBtn" type="submit">검색</button>
+							</form>
+						</div>
+						<div class="dropdown">
+							<button class="dropdown-button" type="button"
+								th:text="${member.memberNick}"></button>
+							<div class="dropdown-content">
+								<a class="dropdown-item" href="/myPage/myPage">내 활동</a>
+								<a class="dropdown-item" href="/myPage/memberUpdate">개인정보 변경</a> 
+								<a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호 변경</a> 
+								<a class="dropdown-item" href="/myPage/memberOut">회원 탈퇴</a>
+								<form target="print_popup" action="http://localhost:3000/chat/main" method="get" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
+			
+								<button id="message_main_btn">
+								<img src="http://localhost:8080/images/normal.png" class="messageImg"/>
+								</button>
+								</form>
+								<form th:action="@{/logout}" method="post">
+									<button type="submit" class="logout">로그아웃</button>
+								</form>
+							</div>
+						</div>
 					</div>
-					<form th:action="@{/logout}" method="post">
-						<button type="submit">로그아웃</button>
-					</form>
 				</div>
 			</div>
 		</nav>
+		<script src="https://kit.fontawesome.com/9f54d9c571.js"
+			crossorigin="anonymous"></script>
+
+		<script>
+        const toggleBtn = document.querySelector('.navbar_toggleBtn');
+        const menu = document.querySelector('.navbar_menu');
+        const search = document.querySelector('.navbar_search');
+        const menu_text = document.querySelector('.navbar_menu_text');
+        
+
+        toggleBtn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            search.classList.toggle('active');
+            menu_text.classList.toggle('active');
+        });
+    </script>
 	</th:block>
 </body>
 </html>

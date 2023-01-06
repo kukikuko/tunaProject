@@ -4,19 +4,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- CSS only -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-	crossorigin="anonymous">
 <link rel="stylesheet" href="/css/posts.css">
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-</style>
+<link rel="stylesheet" href="/css/header.css" />
+<<<<<<< HEAD
+=======
+
+>>>>>>> 699c69949c6bee1daf75ba5e4ca44133ebc4ae98
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
@@ -41,7 +34,7 @@
 						th:text="${post.pTitle}"></a></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
-					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd')}"></td>
+					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -51,10 +44,7 @@
 		<button class="postBtn"
 			th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
 	</div>
-	<!-- JavaScript Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
 </body>
 </html>

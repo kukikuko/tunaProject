@@ -71,6 +71,15 @@ public class MybatisMemberRepository implements MemberRepository{
 		
 		return result;
 	}
+	
+	public boolean updateUUID(MemberVO memberVO) {
+		boolean result = false;
+		memberMapper.updateUUID(memberVO);
+		result = true;
+		
+		return result;
+		
+	}
 
 	//회원탈퇴 메소드
 //	@Override
@@ -86,8 +95,16 @@ public class MybatisMemberRepository implements MemberRepository{
 		
 		return result;
 	}
-	//회원탈퇴시, 탈퇴한 회원이 작성한 게시물의 공개여부를 변경하는 메소드
 	@Override
+	public MemberVO selectByUUID(String activeUUID) {
+		// TODO Auto-generated method stub
+		
+		MemberVO memberVO = memberMapper.selectByUUID(activeUUID);
+
+		
+		return memberVO;
+	}
+	//회원탈퇴시, 탈퇴한 회원이 작성한 게시물의 공개여부를 변경하는 메소드
 	public boolean updatePopenStatus(MemberVO memberVO) {
 		boolean result = false;
 		memberMapper.updatePopenStatus(memberVO);
@@ -123,7 +140,12 @@ public class MybatisMemberRepository implements MemberRepository{
 		List<Post> postListHeart = memberMapper.selectByMemberAndHeart(memberCode);
 		return postListHeart;
 	}
-	
+
+	@Override
+	public void deleteMember(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

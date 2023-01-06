@@ -22,6 +22,7 @@ public class SessionManager {
 		
 		Cookie cookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
 		resp.addCookie(cookie);
+		
 	}
 	
 	public void remove(HttpServletRequest req) {
