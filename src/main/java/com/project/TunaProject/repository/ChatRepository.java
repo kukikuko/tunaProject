@@ -9,4 +9,6 @@ public interface ChatRepository {
 	public String findChatCode(Chat chat);
 	public List<Chat> selectMyChat(int memberCode);
 	public List<Chat> selectMyChatByCur(int memberCode,int chatCode);
+    public String findPostCode(int chatCode);
+
 }

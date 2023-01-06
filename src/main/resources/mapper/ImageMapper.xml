@@ -6,9 +6,16 @@
 	namespace="com.project.TunaProject.repository.mybatis.ImageItemMapper">
 
 	<insert id="insert" parameterType="Image">
+	
+	<selectKey keyProperty="imageCode"
+         resultType="_long" order="BEFORE">
+         SELECT
+         IMAGECODESQ.nextVal as imageCode
+         from dual
+      </selectKey>
 		INSERT INTO TUNA_POSTIMAGE
 		values (
-			IMAGECODESQ.nextVal,
+			#{imageCode},
 		    #{imageName},
 		    #{imageFiles},
 		    #{IType},
@@ -22,4 +29,12 @@
 		where IType = #{code}
 		order by IMAGECODE
 	</select>
+	
+	
+		<select id="selectByImageCode" resultType="Image">
+		select IMAGEFILES
+		from TUNA_POSTIMAGE
+		where IMAGECODE = #{ImageCode}
+		</select>
+
 </mapper>

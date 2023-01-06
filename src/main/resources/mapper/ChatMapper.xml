@@ -21,6 +21,12 @@
 	
 	</select>
 	
+	<select id="findPostCode" resultType="string">
+	select postcode
+	from CHAT
+	where chatCode = #{chatCode}
+	</select>
+	
 	<select id="selectMyChat" resultType="Chat">
 	select *
 	from CHAT

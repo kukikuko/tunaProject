@@ -50,4 +50,12 @@ public class MybatisChatRepository implements ChatRepository {
 		return chat_list;
 	}
 
+	@Override
+	public String findPostCode(int chatCode) {
+		
+		return chatMapper.findPostCode(chatCode);
+
+		// TODO Auto-generated method stub
+	}
+
 }
