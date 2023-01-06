@@ -17,7 +17,7 @@ public class Post {
 	private Date pCreateTime;
 	private Date pCorrectionTime;
 	private String pPrice;
-	private String pSalesStatus;
+	private SaleType pSalesStatus;
 	private String pOpenStatus;
 	private int pView;
 	private String ctName;

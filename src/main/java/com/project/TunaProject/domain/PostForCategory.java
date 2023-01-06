@@ -18,7 +18,7 @@ public class PostForCategory {
 	private Date pCreateTime;
 	private Date pCorrectionTime;
 	private String pPrice;
-	private String pSalesStatus;
+	private SaleType pSalesStatus;
 	private String pOpenStatus;
 	private int pView;
 	
