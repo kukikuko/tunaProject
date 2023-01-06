@@ -13,9 +13,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -90,7 +88,7 @@ public class AdminController {
     }
 
     @GetMapping("/post/{postCode}")
-    public String posts(@PathVariable("postCode")String postCode, Model model) {
+    public String post(@PathVariable("postCode")String postCode, Model model) {
 
         Post post = postRepository.selectByPostCode(postCode);
         List<Image> images = imageRepository.selectAll(postCode);
@@ -98,6 +96,12 @@ public class AdminController {
         model.addAttribute("images", images);
 
         return "/admin/post";
+    }
+
+    @PostMapping("/post")
+    public void postDelete(@RequestParam("code") String code) {
+        log.info("sasd");
+        log.info(code);
     }
 }
 

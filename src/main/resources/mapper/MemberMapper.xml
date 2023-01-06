@@ -24,7 +24,8 @@
   		#{memberAddr3},
   		#{memberAddr4},
   		'Y',
-  		sysdate
+  		sysdate,
+  		null
   		)
   	</insert>
   	

@@ -18,8 +18,6 @@ public class Tuna_LoginService {
 	
 	public MemberVO login(String email, String password) {
 		MemberVO memberVO = memberRepository.selectByEmail(email);
-		String adminCk = memberVO.getAdminCk();
-		System.out.println("********************"+adminCk);
 		
 		if(memberVO != null) {
 			if(memberVO.getPassword().equals(password)) {
