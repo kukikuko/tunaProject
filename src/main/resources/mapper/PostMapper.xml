@@ -9,7 +9,7 @@
       <selectKey keyProperty="postCode"
          resultType="java.lang.String" order="BEFORE">
          SELECT
-         (concat(to_char(SYSDATE,'YY-MM-DD'), POSTCODESQ.nextVal)) as postCode
+         (concat(to_char(SYSDATE,'YYMMDD'), POSTCODESQ.nextVal)) as postCode
          from dual
       </selectKey>
       INSERT INTO TUNA_POST VALUES
@@ -48,16 +48,16 @@
       postCode
    </select>
 
-   <update id="update">
-      update TUNA_POST
-      set pTitle = #{updatePost.pTitle}
-      ,postCtCode = #{updatePost.postCtCode}
-      ,pContent =#{updatePost.pContent}
-      ,pPrice = #{updatePost.pPrice}
-      <!-- ,pSaleStatus = #{updatePost.pSaleStatus} -->
-      ,pCorrectionTime = SYSDATE
-      where postCode = #{postCode}
-   </update>
+	<update id="update">
+		update TUNA_POST
+		set pTitle = #{updatePost.pTitle}
+		,postCtCode = #{updatePost.postCtCode}
+		,pContent =#{updatePost.pContent}
+		,pPrice = #{updatePost.pPrice}
+		,pSalesStatus = #{updatePost.pSalesStatus}
+		,pCorrectionTime = sysdate
+		where postCode = #{postCode}
+	</update>
 
    <update id="viewCont">
       update TUNA_POST
@@ -73,16 +73,16 @@
       #{postCode}
    </update>
 
-   <select id="selectSearch" parameterType="String"
-      resultType="PostForCategory">
-      select POSTCODE, postCtCode
-      , (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
-      , PMEMCODE, PTITLE, PCONTENT
-      , substr(PCREATETIME,0,8) as PCREATETIME
-      , substr(PCORRECTIONTIME,0,8) as pCorrectionTime
-      , PPRICE, PSALESSTATUS, POPENSTATUS, PVIEW from TUNA_POST p
-      where PTITLE like '%'||#{keyword}||'%' or PCONTENT like '%'||#{keyword}||'%'
-      order by postCode
-   </select>
+	<select id="selectSearch" parameterType="String"
+		resultType="PostForCategory">
+		select POSTCODE,postCtCode,
+		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+		,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
+		,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
+		, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
+		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p
+		where PTITLE like '%'||#{keyword}||'%' or PCONTENT like '%'||#{keyword}||'%'
+		order by postCode
+	</select>
 
 </mapper>

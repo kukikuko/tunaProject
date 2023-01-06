@@ -58,16 +58,15 @@ public class PostController {
 	@GetMapping
 	public String posts(Model model, HttpServletRequest req) {
 		List<Post> postList = postRepository.selectAll();
-		System.out.println(postList.size());
+		
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
 		log.info("posts {}" , postList);
 		return "/posts/posts";
 	}
-	
-
 	
 	@GetMapping("/{postCode}")
 	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem
@@ -150,6 +149,7 @@ public class PostController {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		log.info("p {}", postItem);
+
 		model.addAttribute("post",postItem);
 		model.addAttribute("cateItem", cateItem);
 		model.addAttribute("member", memberVO);		
@@ -164,6 +164,11 @@ public class PostController {
 		
 		log.info(postCode);
 		log.info("ct {}", ct);
+		
+		System.out.println(postItem.getPSalesStatus());
+		
+		log.info("postItem {}", postItem);
+		log.info("postEnum {}, {}", postItem.getPSalesStatus().getMemo(), postItem.getPSalesStatus());
 		
 		postRepository.update(postCode, postItem, ct.getCtCode());
 		return "redirect:/posts/{postCode}";
@@ -186,7 +191,8 @@ public class PostController {
 		return new UrlResource("file:" + fileStore.getFullPath(filename));
 	}
 	
-	@PostMapping
+	//검색 메소드
+ 	@PostMapping
 	public String selectSearch(Model model,HttpServletRequest req) {
 		String keyword = req.getParameter("search");
 		List<Post> postList = postRepository.selectSearch(keyword);

@@ -69,10 +69,6 @@ public class LoginController {
 		}
 		
 	 	MemberVO memberVO = loginService.login(loginForm.getEmail(), loginForm.getPassword());
-
-	 	log.info("login {}", memberVO);
-	 	
-	 	
 	 	
 	 	if(memberVO == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
 	 		bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
@@ -88,6 +84,8 @@ public class LoginController {
 	 		bindingResult.reject("loginForm", "활동정지된 회원입니다. 관리자에게 문의해주세요.");
 	 		return "login/login";
 	 	}
+
+		 log.info("memberVO {}", memberVO);
 
 	 	HttpSession session = req.getSession();
 	 	session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);

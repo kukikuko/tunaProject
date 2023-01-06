@@ -43,7 +43,6 @@ public class MemberController {
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
 		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
-		
 		model.addAttribute("member",memberVO);
 		log.info("updateGET member {}", memberVO);
 		return "myPage/memberUpdate";
@@ -114,6 +113,9 @@ public class MemberController {
 		HttpSession session = req.getSession(false);
 		
 		MemberVO tempVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
+		log.info("tempVO {}", tempVO);
+		
 		if(tempVO.getPassword().equals(password)) {
 			result.put("result", 1);
 			return result;

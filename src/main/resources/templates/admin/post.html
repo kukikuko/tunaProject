@@ -11,6 +11,7 @@
   <link href="/css/styles.css" rel="stylesheet" />
   <link rel="stylesheet" href="/css/header.css" />
 
+  <link href="/css/adminMem.css" rel="stylesheet" />
   <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body class="sb-nav-fixed">
@@ -26,7 +27,7 @@
           <li class="breadcrumb-item active" th:text="${post.getPTitle()}"></li>
         </ol>
         <div>
-          <p> 게시글 코드 : <span th:text="${post.getPostCode()}"></span></p>
+          <p> 게시글 코드 : <span id="postCode" th:value="${post.getPostCode()}" th:text="${post.getPostCode()}"></span></p>
           <p> 회원 코드 : <span th:text="${post.getPMemCode()}"></span></p>
           <p> 카테고리 : <span th:text="${post.getCtName()}"></span></p>
           <p> 제목 : <span th:text="${post.getPTitle()}"></span></p>
@@ -44,6 +45,14 @@
           <img th:each="image : ${images}"
                th:src="|/posts/images/${image.getImageFiles}|" width="300" height="300" /><br />
         </div>
+        <div>
+          <th:block th:if="${!post.getPOpenStatus().equals('N')}">
+            <button class="btnAd" id="postDelBtn"><span>숨김 처리</span></button>
+          </th:block>
+          <th:block th:if="${!post.getPOpenStatus().equals('Y')}">
+            <button class="btnAd" id="postInsBtn"><span>활성화</span></button>
+          </th:block>
+        </div>
       </div>
     </main>
     <div th:replace="/admin/footer :: footer"></div>
@@ -53,5 +62,23 @@
 <script src="/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="/js/table.js"></script>
+<script>
+
+
+  document.getElementById('postDelBtn').addEventListener('click', (e)=>{
+    e.preventDefault();
+
+    $.ajax({
+      type: "POST",
+      url : "/admin/post",
+      data : {
+        code : "asdasd"
+      },
+      success : () => {
+
+      }
+    })
+  })
+</script>
 </body>
 </html>
