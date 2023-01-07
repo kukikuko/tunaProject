@@ -86,6 +86,7 @@ public class PostController {
 		int cnt = heartRepository.countHeart(h);
 		System.out.println("*******************"+cnt);
 		 
+		log.info(postCode);
 		
 		List<Image> images = imageRepository.selectAll(postCode);
 		

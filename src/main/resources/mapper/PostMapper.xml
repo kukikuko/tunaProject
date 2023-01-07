@@ -9,7 +9,7 @@
       <selectKey keyProperty="postCode"
          resultType="java.lang.String" order="BEFORE">
          SELECT
-         (concat(to_char(SYSDATE,'YY-MM-DD'), POSTCODESQ.nextVal)) as postCode
+         (concat(to_char(SYSDATE,'YYMMDD'), POSTCODESQ.nextVal)) as postCode
          from dual
       </selectKey>
       INSERT INTO TUNA_POST VALUES
