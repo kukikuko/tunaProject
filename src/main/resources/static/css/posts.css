@@ -256,3 +256,24 @@ table {
 	width: 100px;
 	height: 40px;
 }
+
+.post_Btn_notify {
+	border-radius: 20px;
+	border: 1px solid black;
+	background-color: white;
+	margin: auto;
+	margin-top: 10px;
+	display: inline-block;
+	width: 100px;
+	height: 40px;
+}
+.heartBtn{
+	border-radius: 20px;
+	border: 1px solid black;
+	background-color: white;
+	margin: auto;
+	margin-top: 10px;
+	display: inline-block;
+	width: 100px;
+	height: 40px;
+}
