@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.domain.PostCard;
 
 
 public interface PostRepository {
@@ -24,4 +25,9 @@ public interface PostRepository {
 	public List<Post> selectSearch(String keyword);
 	public boolean ACCOUNTUPDATE(@Param("postCode")String postCode,@Param("accountcode")String accountcode);
 
+	//조회수 top10
+	public List<Post> orderByPview();
+	
+	public PostCard selectCard(String postCode); 
+	
 }

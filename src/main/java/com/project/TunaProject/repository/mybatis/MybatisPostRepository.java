@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.domain.PostCard;
 import com.project.TunaProject.repository.PostRepository;
 
 import lombok.AllArgsConstructor;
@@ -87,6 +88,21 @@ public class MybatisPostRepository implements PostRepository{
 		postItemMapper.ACCOUNTUPDATE(postCode, accountcode);
 		result =true;
 	    return result;
+	}
+	
+	//조회수 top10
+	@Override
+	public List<Post> orderByPview() {
+		// TODO Auto-generated method stub
+		List<Post> postList = postItemMapper.orderByPview();
+		
+		return postList;
+	}
+
+	@Override
+	public PostCard selectCard(String postCode) {
+		// TODO Auto-generated method stub
+		return postItemMapper.selectCard(postCode);
 	}
 		
 }
