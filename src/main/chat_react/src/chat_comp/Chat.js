@@ -20,7 +20,14 @@ function Chat({data}) {
         set_message2="my_message"
         set_ballon2="my_balloon"
 
-        ballon_img_src="/Chat_balloon/" + "B" +" chat_balloon/" + "B" +" chat_balloon"+ data.ballon_size +".png"
+        if(data.img_src=="")
+        {
+            ballon_img_src="/Chat_balloon/" + "B" +" chat_balloon/" + "B" +" chat_balloon"+ data.ballon_size +".png"
+        }
+        else
+        {
+            ballon_img_src="http://localhost:8080/posts/images/"+data.img_src;
+        }
 
         time_class="time_ui_my"
         button_class = "button_ui_my"
@@ -28,8 +35,15 @@ function Chat({data}) {
     }
     else
     {
+        if(data.img_src=="")
+        {
         ballon_img_src="/Chat_balloon/" + "A" +" chat_balloon/" + "A" +" chat_balloon"+ data.ballon_size +".png"
+        }
+        else
+        {
+            ballon_img_src="http://localhost:8080/posts/images/"+data.img_src;
 
+        }
 
     }
 
@@ -41,14 +55,19 @@ function Chat({data}) {
     }
     
 
-
-    if(data.ballon_size<4)
+    if(data.img_src!="")
+    {
+        set_ballon="image_file "+set_ballon2;
+        data.message_contents="";
+    }
+    else if (data.ballon_size<4)
     {
         set_message+=(data.ballon_size+" "+set_message2);
         set_ballon+=("S "+set_ballon2);
     }
     else
     {
+      
         set_message+=("3 word_break "+set_message2);
         set_ballon+=("L "+set_ballon2);
     }

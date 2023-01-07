@@ -12,10 +12,9 @@ function Main_room({member_code})
     let init_main=(datas)=>{
         let str = datas.split("\0");
         let i=0;
-        for(i=0;i<str.length-1;i+=2)
+        for(i=0;i<str.length-1;i+=3)
         {
-            let room_data = { title: str[i], chatCode: str[i+1] }
-         
+            let room_data = { title: str[i], chatCode: str[i+1], nick: str[i+2] }
             let room_comp = ReactDOMServer.renderToString(<Room data={room_data} />);
             document.getElementById("rooms").insertAdjacentHTML('beforeend', room_comp);
             document.getElementById("rooms").insertAdjacentHTML('beforeend', "<br/>");
@@ -25,11 +24,11 @@ function Main_room({member_code})
             document.getElementById("room"+str[i+1]).addEventListener('click',()=>{window.location.assign(link)})
             
         }
-        if(str[i-1]==undefined)
+        if(str[i-2]==undefined)
         {
             return;
         }
-        set_chat_code(str[i-1]);
+        set_chat_code(str[i-2]);
 
     }
 
@@ -40,10 +39,13 @@ function Main_room({member_code})
         {
             return;
         }
-        console.log(cur_chat_code);
-        axios.get('http://localhost:8080/api/chat/find/' + member_code+"/"+cur_chat_code)
-        .then((response) => { init_main(response.data); })
-        .catch(error => console.log(error))
+        else{
+            console.log(cur_chat_code);
+            axios.get('http://localhost:8080/api/chat/find/' + member_code+"/"+cur_chat_code)
+            .then((response) => { init_main(response.data); })
+            .catch(error => console.log(error))
+        }
+       
         },200);
 
         return ()=> clearInterval(timer);
