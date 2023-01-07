@@ -4,6 +4,7 @@ import axios from 'axios';
 import "./App.css";
 import Chat_room from "./chat_comp/Chat_room.js"
 import Main_room from "./chat_comp/Main_room.js"
+import Image_upload from "./chat_comp/Image_upload.js"
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
@@ -37,7 +38,7 @@ function App() {
                 <Route  path="/chat/:chatcode"  element={ <Chat_room member_code={id}/>}></Route>
                 
                 <Route  path="/chat/main"  element={ <Main_room member_code={id}/>}></Route>
-
+                 <Route path="/:chatcode" element={<Image_upload member_code={id}/>}></Route>
 
                 </Routes>
             </BrowserRouter>

@@ -2,6 +2,7 @@
 
 
 
+
 @keyframes chat_balloon_ani{
   0%
   {
@@ -46,7 +47,16 @@
  height: 50px;
  background-color: black;
 }
+#imgup_btn{
+  position: absolute;
+  bottom: 0px;
+  z-index: 2;
+  background-color: rgba(0,0,0,0);
+  width: 50px;
+  height: 45px;
 
+  left: 20px;
+}
 #text_box{
   right: 90px;
   width: calc(100vw - 190px);
@@ -86,7 +96,7 @@ text-align:center;
   z-index: 1;
   width: 100vw;
  height: 50px;
- bottom: 0px;
+ bottom: 0vh;
  background-color: black;
 }
 #add_img{
@@ -162,9 +172,35 @@ text-align:center;
 
 .chat_balloon_L{
   z-index: 0;
-  width: 274px;
+  width:  274px;
   position: relative;
   transform: scaleY(-1);
+
+}
+
+#previewimg{
+  position: relative;
+  max-width: 350px;
+  max-height: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#imgup_btn{
+  z-index: 3;
+  position: relative;
+  
+}
+
+#submit_btn{
+  position: relative;
+}
+
+.image_file{
+  z-index: 0;
+  max-height: 300px;
+  width:  274px;
+  position: relative;
 
 }
 

@@ -14,19 +14,22 @@ function Chat_room({member_code}) {
     const chat_code  = useParams().chatcode;
     let [message_str, set_str] = useState('');
     let [cur_message_code, set_message_code] = useState("0");
-    let [chat_title,set_title]=useState("제목");
+    let [chat_title,set_title]=useState("로딩중...");
     let [ani_effect,set_effect]=useState(false);
 
-    let find_imgsrc = (img_code) => {
+
+
+
+     function  find_imgsrc (img_code) 
+     {
         if(img_code==0)
         {
             return "";
         }
-        // axios.get('http://localhost:8080/img/find_src/'+img_code)
-        // .then((response) => {return response.data})
-        // .catch(error => console.log(error))
-        //////////////////////////////////////////////////////////////////////////////
-        return "";
+        return new Promise((resolve)=>{
+        axios.get('http://localhost:8080/api/image/get/'+img_code)
+        .then((response) =>{resolve(response.data)})
+        .catch(error => console.log(error))});
     }
 
     let add_chat = (message_data) => {
@@ -36,7 +39,8 @@ function Chat_room({member_code}) {
         document.getElementById("messages").insertAdjacentHTML('beforeend', "<br/>");
     };
 
-    let init_chat = (datas) => {
+    async function init_chat  (datas)
+     {
         //메세지 코드에따라
         if (datas === "") {
             return;
@@ -46,11 +50,24 @@ function Chat_room({member_code}) {
         let str = datas.split("\0");
         let i = 0;
 
+
+        axios.get('http://localhost:8080/api/chat_title/find/' + chat_code)
+                .then((response) => { set_title(response.data == "" ? "제목":response.data); console.log(response.data);   })
+                .catch(error => console.log(error))
+
+
         for (i = 0; i < str.length - 1; i += 6) {
             let message_data = { message_contents: "", img_src: "", message_code: "", ballon_size: "", time: "", is_my: "", ani: "" }
 
             message_data.message_contents = str[i + 2];
-            message_data.img_src = find_imgsrc(str[i + 4]);
+       
+            try{
+                message_data.img_src = await find_imgsrc(str[i + 4]);
+            }catch(error)
+            {
+
+            }
+             console.log(message_data.img_src);
             message_data.message_code = str[i];
             let time_str =  str[i + 3].split("T");
             message_data.time =time_str[1];
@@ -78,9 +95,13 @@ function Chat_room({member_code}) {
             //벌룬 사이즈 
             //93 173 277
         
-            document.getElementById("button"+str[i]).addEventListener("click",(event)=>{axios.post("http://localhost:8080/api/message/notify",{MessageCode:event.target.value, ChatCode:chat_code,doNotifyUser:member_code, notifyMemberCode:"신고당한사람"})});
+            document.getElementById("button"+str[i]).addEventListener("click",(event)=>{axios.post("http://localhost:8080/api/message/notify",{MessageCode:event.target.value, ChatCode:chat_code,doNotifyUser:member_code})});
         }
             set_message_code(str[i - 6]);
+            if(ani_effect==false)
+        {
+            set_effect(true);
+        }
        
 
     }
@@ -98,7 +119,8 @@ function Chat_room({member_code}) {
             axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code)
                 .then((response) => { init_chat(response.data);   })
                 .catch(error => console.log(error))
-        }, 1000);
+        }, 100);
+        
         document.getElementById("messages").scroll({
             top: document.getElementById("messages").scrollHeight,
             behavior: 'auto'
@@ -109,10 +131,7 @@ function Chat_room({member_code}) {
     }, [cur_message_code,member_code]);
 
     useEffect(() => {
-        if(ani_effect==false)
-        {
-            set_effect(true);
-        }
+       
         window.addEventListener('submit', (event) => {
 
             if (document.getElementById("text_box").value === "") {
@@ -146,6 +165,12 @@ function Chat_room({member_code}) {
             <div id="bottom_bar">
                 <img id="send" src="/UI_img/send_icon.png" alt="보내기 아이콘 없음" />
                 <img id="add_img" src="/UI_img/photo.png" alt="사진 아이콘 없음" />
+
+                <form  method="get" onSubmit={(event)=>{window.open("http://localhost:3000/"+chat_code,'_blank','width=350,height=300')}}>
+                <button id="imgup_btn" type="submit"></button>
+                </form>
+
+
                 <form action="http://localhost:8080/api/message/up" method="post" id="myForm">
                     <input id="text_box" type="text" name="message"  maxLength='105'></input>
                     <input id="text_length" type="hidden" name="px_size" ></input>
@@ -155,6 +180,7 @@ function Chat_room({member_code}) {
 
 
                     <button id="send_btn" type="submit" ></button>
+
                 </form>
             </div>
 

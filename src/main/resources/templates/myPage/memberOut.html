@@ -23,14 +23,22 @@
 			<button type="button" id="checkBtn" class="outCheckBtn">확인</button>
 			<br />
 		</div>
+	</form>
+	<form action="" method="post" th:object="${member}" name="memberOut">
 		<div class="memberOutBox" id="memberOutBox">
 			<p th:text="${member?.memberName}+'님의 회원 탈퇴를 진행합니다.'"></p>
-			<button type="submit" id="deleteBtn" class="outBtn">탈퇴</button>
+			<button type="button" th:onClick="|location.href='@{/}'|"
+				class="outBack">뒤로가기</button>
+			<button type="button" id="deleteBtn" class="outBtn">탈퇴</button>
 		</div>
-		<br>
 	</form>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
+	$('input[type="password"]').keydown(function() {
+		  if (event.keyCode === 13) {
+		    event.preventDefault();
+		  };
+		});
 	$("#memberOutBox").css("display", "none");
 	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
 	var password = document.getElementById("oldpassword");
@@ -58,7 +66,7 @@
 				  } else {
 					  Swal.fire({
 				            title: "비밀번호를 확인해주세요.", // Alert 제목
-				            text: "입력한 비밀번호가 일치하지 않습니다.", // Alert 내용
+				            text: "", // Alert 내용
 				            icon: "warning", // Alert 타입
 				          });
 					  password.focus();
@@ -68,9 +76,11 @@
 		  })
 	});
 	
+	
+	
 	document.getElementById('deleteBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();
-		let form = document.deleteMemeber;
+		let form = document.memberOut;
 		
 		if(checkCnt == 1){
 			Swal.fire({
@@ -97,7 +107,7 @@
 		}else{
 			Swal.fire({
 	            title: "현재 비밀번호를 확인해주세요.", // Alert 제목
-	            text: "비밀번호 인증을 마쳐야, 회원탈퇴를 진행할 수 있어요.", // Alert 내용
+	            text: "", // Alert 내용
 	            icon: "warning", // Alert 타입
 	          });
 			return false;

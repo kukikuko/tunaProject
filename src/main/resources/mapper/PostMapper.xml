@@ -79,8 +79,7 @@
 		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
 		,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
 		,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
-		, PTITLE, PCONTENT, substr(PCREATETIME,0,8) as PCREATETIME
-		,substr(PCORRECTIONTIME,0,8) as pCorrectionTime,
+		, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
 		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p
 		where PTITLE like '%'||#{keyword}||'%' or PCONTENT like '%'||#{keyword}||'%'
 		order by postCode

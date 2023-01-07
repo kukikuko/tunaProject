@@ -8,6 +8,7 @@
     <meta name="author" content="" />
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
     <link href="/css/styles.css" rel="stylesheet" />
+    <link href="/css/adminMem.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 </head>
@@ -32,19 +33,19 @@
                         </h2>
                         <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                             <div class="accordion-body">
-                                <p th:text="${member.memberCode}"></p>
-                                <p th:text="${member.memberName}"></p>
-                                <p th:text="${member.memberNick}"></p>
-                                <p th:text="${member.memberMail}"></p>
-                                <p th:text="${member.password}"></p>
-                                <p th:text="${member.memberBirth}"></p>
-                                <p th:text="${member.memberPN}"></p>
-                                <p th:text="${member.memberAddr1}"></p>
-                                <p th:text="${member.memberAddr2}"></p>
-                                <p th:text="${member.memberAddr3}"></p>
-                                <p th:text="${member.memberAddr4}"></p>
-                                <p th:text="${member.adminCk}"></p>
-                                <p th:text="${#dates.format(member.regDate, 'yyyy-MM-dd')}"></p>
+                                <p> 멤버코드 : <span th:text="${member.memberCode}"></span></p>
+                                <p> 이름 : <span th:text="${member.memberName}"></span></p>
+                                <p> 닉네임 : <span th:text="${member.memberNick}"></span></p>
+                                <p> 메일 : <span th:text="${member.memberMail}"></span></p>
+                                <p> 비밀번호 : <span th:text="${member.password}"></span></p>
+                                <p> 생년월일 : <span th:text="${member.memberBirth}"></span></p>
+                                <p> 전화번호 : <span th:text="${member.memberPN}"></span></p>
+                                <p> 우편번호 : <span th:text="${member.memberAddr1}"></span></p>
+                                <p> 도로명 or 지번 :<span th:text="${member.memberAddr2}"></span></p>
+                                <p> 상세주소 : <span th:text="${member.memberAddr3}"></span></p>
+                                <p> 참고항목 : <span th:text="${member.memberAddr4}"></span></p>
+                                <p> 활동상태 : <span th:text="${member.adminCk}"></span></p>
+                                <p> 가입일자 : <span th:text="${#dates.format(member.regDate, 'yyyy-MM-dd')}"></span></p>
                             </div>
                         </div>
                     </div>
@@ -97,6 +98,17 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <div>
+                    <th:block th:if="${member.getAdminCk().equals('Y')}">
+                        <button class="btnAd"><span>회원 정지</span></button>
+                    </th:block>
+                    <th:block th:if="${!member.getAdminCk().equals('Y')}">
+                        <button class="btnAd"><span>회원 활성화</span></button>
+                    </th:block>
+                    <th:block th:if="${!member.getAdminCk().equals('N')}">
+                        <button class="btnAd"><span>회원 탈퇴</span></button>
+                    </th:block>
                 </div>
             </div>
         </main>

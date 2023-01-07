@@ -39,4 +39,11 @@ public class MybatisMessageRepository implements MessageRepository {
 		
 	}
 
+	@Override
+	public int find_Message_Caller(int message_code) {
+		// TODO Auto-generated method stub
+		return messageMapper.find_Message_Caller(message_code).getMemberCode();
+		
+	}
+
 }

@@ -10,6 +10,13 @@
 	order by messageCode
 	</select>
 	
+	
+	<select id="find_Message_Caller" resultType="Message">
+	select memberCode
+	from chat_message
+	where messageCode = #{messageCode}
+	</select>
+	
 	<select id="select_Message_cur" resultType="Message">
 	select *
 	from chat_message
@@ -19,7 +26,7 @@
 	
 	<insert id="insert_Message" parameterType="Message">
 	insert into chat_message
-	values(chat_messagePK.nextVal,#{chatCode},#{memberCode},#{contents},SYSDATE,0,#{pixelLength})
+	values(chat_messagePK.nextVal,#{chatCode},#{memberCode},#{contents},SYSDATE,#{imageCode},#{pixelLength})
 	
 	</insert>
 	
