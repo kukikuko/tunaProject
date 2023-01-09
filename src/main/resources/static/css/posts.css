@@ -286,3 +286,15 @@ table {
 	width: 100px;
 	height: 40px;
 }
+.pSalesStatusBtn, select{
+	border-radius: 20px;
+	background-color: white;
+	margin: auto;
+	text-align: center;
+	display: inline-block;
+	width: 100px;
+	height: 40px;
+}
+option{
+	border-radius: 20px;
+}

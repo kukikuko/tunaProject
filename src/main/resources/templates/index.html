@@ -8,12 +8,17 @@
 <link rel="stylesheet" href="/css/index.css" />
 <link rel="stylesheet" href="/css/footer.css" />
 <!-- CSS only -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+	crossorigin="anonymous">
 <style>
 
 </style>
 </head>
 <body>
+
 	<nav class="navbar">
 		<div class="navbar_logo">
 			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
@@ -43,88 +48,119 @@
 			</div>
 		</div>
 	</nav>
-<div class="h1AndDiv">
-		<h1 class="mainPagetext">사조참치<br>
-		사조마켓
-		</h1>
-		<div class="wrapper">
-	    <div class="typing-demo">
-	      가까운 이웃들과 따듯한 거래를
-	    </div>
-	</div>
-</div>
-	<section class="home-main-section background-pale-green">
-    <div class="home-main-content home-main-reverse">
-      <div class="home-main-image home-main-image-02">
-          <img srcset="http://localhost:8080/images/sajoMarket.png" loading="lazy" alt="이웃과 함께하는 동네생활" src="http://localhost:8080/images/sajoMarket.png" />
-      </div>
-      <div>
-        <h1 class="home-main-title">이웃과 함께 하는<br>동네생활</h1>
-        <p class="text-m">
-          우리 동네의 다양한 이야기를
-          
-          이웃과 함께 나누어요.
-        </p>
-          <ul class="home-story-list">
-            <li class="home-story-list-item">
-              <div class="icon-story icon-story-01"></div>
-              <div class="text-s text-bold mt-3 mb-2">우리동네질문</div>
-              <div class="text-xs">궁금한 게 있을 땐<br> 이웃에게 물어보세요.</div>
-            </li>
-            <li class="home-story-list-item">
-              <div class="icon-story icon-story-02"></div>
-              <div class="text-s text-bold mt-3 mb-2">동네분실센터</div>
-              <div class="text-xs">무언가를 잃어버렸을 때,<br> 함께 찾을 수 있어요.</div>
-            </li>
-            <li class="home-story-list-item">
-              <div class="icon-story icon-story-03"></div>
-              <div class="text-s text-bold mt-3 mb-2">동네모임</div>
-              <div class="text-xs">관심사가 비슷한 이웃과<br> 온오프라인으로 만나요.</div>
-            </li>
-          </ul>
-      </div>
+<section class='section'>
+    <div class='masthead-image' id='master-container'>
+        <div class='content center'>
+            <h1 id='master'>
+              <div>사조마켓과 함께</div>
+              <div id='master-container-scroller'>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>아껴쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>나눠쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>바꿔쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>다시쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>아껴쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>나눠쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>바꿔쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>다시쓰고</a>.
+                </div>
+                <div class='master-container-scroller_item'>
+                  <a class='cta-link' href='#'>아나바다</a>.
+                </div>
+              </div>
+              <div>환경을 위한 작은 발걸음.</div>
+            </h1>
+        </div>
     </div>
-  </section>
-	<section class="home-main-section background-gray">
-    <div class="home-hot-content">
-      <h1 class="home-main-title text-center home-hot-title">
-         중고거래 인기매물
-      </h1>
-      <div class="cards-wrap">
- 		<div class="inlineBlock">
-			<div class="card" style="width: 12rem;" th:each="postCard :${postCardList}" >
-		  		<img th:if="${postCard.imageFiles} != null" th:src="|/posts/images/${postCard.imageFiles}|" width="80" height="80" class="card-img-top">
-		  		<img th:if="${postCard.imageFiles} == null" src="http://localhost:8080/images/Logo.png" width="80" height="80" class="card-img-top">
-		  		<div class="card-body">
-		    		<h5 class="card-title" th:text="${postCard.pTitle}"></h5>
-				    <h6 class="card-text" th:text="'가격: '+${postCard.pPrice}"></h6>
-				    <p class="card-text" th:text="'조회수: '+${postCard.pView}"></p>
-		  		</div>
+</section>
+	<div class="h1AndDiv">
+		<h1 class="mainPagetext">
+			사조참치<br> 사조마켓
+		</h1>
+		<div class="wrapper1">
+			<div class="typing-demo">가까운 이웃들과 따듯한 거래를</div>
 		</div>
 	</div>
-      </div>
-      
-    </div>
-  </section>
-  
-  <div class="footer" id="footer">
-  	<p>Copyright © SajoMarket 2023</p>
-  </div>
-  	<img src="http://localhost:8080/images/top.png" class="moveTopBtn" />
+	<section class="home-main-section background-pale-green">
+		<div class="home-main-content home-main-reverse">
+			<div class="home-main-image home-main-image-02">
+				<img srcset="http://localhost:8080/images/sajoMarket.png"
+					loading="lazy" alt="이웃과 함께하는 동네생활"
+					src="http://localhost:8080/images/sajoMarket.png" />
+			</div>
+			<div>
+				<h1 class="home-main-title">
+					이웃과 함께 하는<br>동네생활
+				</h1>
+				<p class="text-m">우리 동네의 다양한 이야기를 이웃과 함께 나누어요.</p>
+				<ul class="home-story-list">
+					<li class="home-story-list-item">
+						<div class="icon-story icon-story-01"></div>
+						<div class="text-s text-bold mt-3 mb-2">우리동네질문</div>
+						<div class="text-xs">궁금한 게 있을 땐 이웃에게 물어보세요.</div>
+					</li>
+					<li class="home-story-list-item">
+						<div class="icon-story icon-story-02"></div>
+						<div class="text-s text-bold mt-3 mb-2">동네분실센터</div>
+						<div class="text-xs">무언가를 잃어버렸을 때, 함께 찾을 수 있어요.</div>
+					</li>
+					<li class="home-story-list-item">
+						<div class="icon-story icon-story-03"></div>
+						<div class="text-s text-bold mt-3 mb-2">동네모임</div>
+						<div class="text-xs">관심사가 비슷한 이웃과 온오프라인으로 만나요.</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+	<section class="home-main-section background-gray">
+		<div class="home-hot-content">
+			<h1 class="home-main-title text-center home-hot-title">중고거래 인기매물
+			</h1>
+			<div class="cards-wrap">
+				<div class="inlineBlock">
+					<div class="card" style="width: 12rem;"
+						th:each="postCard :${postCardList}">
+						<img th:if="${postCard.imageFiles} != null"
+							th:src="|/posts/images/${postCard.imageFiles}|" width="80"
+							height="80" class="card-img-top"> <img
+							th:if="${postCard.imageFiles} == null"
+							src="http://localhost:8080/images/Logo.png" width="80"
+							height="80" class="card-img-top">
+						<div class="card-body">
+							<h5 class="card-title" th:text="${postCard.pTitle}"></h5>
+							<h6 class="card-text" th:text="${postCard.pPrice}"></h6>
+							<p class="card-text" th:text="${postCard.pView}"></p>
+						</div>
+					</div>
+				</div>
+			</div>
 
-	
+		</div>
+	</section>
+<div class="footer" id="footer">
+  	<p>Copyright © SajoMarket 2023</p>
+  	</div>
+
 
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
 
 	<script>
-	
-	const $topBtn = document.querySelector(".moveTopBtn");
-
-	// 버튼 클릭 시 맨 위로 이동
-	$topBtn.onclick = () => {
-	  window.scrollTo({ top: 0, behavior: "smooth" });  
-	}
 const toggleBtn = document.querySelector('.navbar_toggleBtn');
 const menu = document.querySelector('.navbar_menu');
 const search = document.querySelector('.navbar_search');
@@ -137,7 +173,10 @@ search.classList.toggle('active');
 menu_text.classList.toggle('active');
 });
 </script>
-<!-- JavaScript Bundle with Popper -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+	<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+		crossorigin="anonymous"></script>
 </body>
 </html>

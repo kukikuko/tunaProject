@@ -1,105 +1,70 @@
 <!DOCTYPE html>
-<html
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  xmlns:th="http://www.thymeleaf.org"
->
-  <head>
-    <meta charset="UTF-8" />
-    <title>Insert title here</title>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
-    />
-    <!-- alert창 -->
-    <link rel="stylesheet" href="/css/posts.css" />
-    <link rel="stylesheet" href="/css/header.css" />
-    <link rel="stylesheet" href="/css/footer.css" />
-    <style>
-      body,
-      html {
-        height: 100%;
-      }
-      body {
-        display: flex;
-        flex-direction: column;
-      }
-    </style>
-  </head>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css" />
+<!-- alert창 -->
+<link rel="stylesheet" href="/css/posts.css" />
+<link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+<style>
+body, html {
+	height: 100%;
+}
 
-  <body>
-    <div th:replace="layout/header :: headFrag"></div>
-    <div class="updateDiv">
-      <form
-        action=""
-        method="post"
-        th:object="${post}"
-        enctype="multipart/form-data"
-        name="updateForm"
-      >
-        <input type="hidden" name="postCode" th:field="*{postCode}" />
-        <select class="update_category" name="ctCode">
-          <option
-            th:each="ct : ${cateItem}"
-            th:value="${ct.ctCode}"
-            th:text="${ct.ctName}"
-            th:selected="${ct.ctCode} == ${post.postCtCode}"
-          ></option>
-        </select>
-        <input
-          type="text"
-          name="postTitle"
-          th:field="*{pTitle}"
-          class="update_title"
-        />
-        <input
-          type="number"
-          name="postPrice"
-          th:field="*{pPrice}"
-          class="update_price"
-        />
-        <textarea
-          type="text"
-          name="postContent"
-          th:field="*{pContent}"
-          class="update_content"
-        ></textarea>
-        <div class="updateBtn">
-          <input
-            class="writing_image"
-            type="file"
-            multiple="multiple"
-            name="imageFiles"
-          />
+body {
+	display: flex;
+	flex-direction: column;
+}
+</style>
+</head>
 
-          <div class="dropdown">
-            <select
-              class="btn btn-secondary dropdown-toggle"
-              aria-expanded="false"
-              th:value="${post.pSalesStatus}"
-              th:field="*{pSalesStatus}"
-              id="saleStatus"
-            >
-              <option value="Y">판매중</option>
-              <option value="S">예약중</option>
-              <option value="N">판매완료</option>
-            </select>
-          </div>
+<body>
+	<div th:replace="layout/header :: headFrag"></div>
+	<div class="updateDiv">
+		<form action="" method="post" th:object="${post}"
+			enctype="multipart/form-data" name="updateForm">
+			<input type="hidden" name="postCode" th:field="*{postCode}" /> <select
+				class="update_category" name="ctCode">
+				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}"
+					th:text="${ct.ctName}"
+					th:selected="${ct.ctCode} == ${post.postCtCode}"></option>
+			</select> <input type="text" name="postTitle" th:field="*{pTitle}"
+				class="update_title" /> <input type="number"
+				name="postPrice" th:field="*{pPrice}" class="update_price" />
+			<textarea type="text" name="postContent" th:field="*{pContent}"
+				class="update_content"></textarea>
+			<div class="updateBtn">
+				<input class="writing_image" type="file" multiple="multiple"
+					name="imageFiles" />
 
-          <button type="submit" class="update_Btn" id="update_Btn">
-            수정완료
-          </button>
+				<div class="pSalesStatusBtn">
+					<select class="pSalesStatusBtn"
+						aria-expanded="false" th:value="${post.pSalesStatus}"
+						th:field="*{pSalesStatus}" id="saleStatus">
+						<option value="Y">판매중</option>
+						<option value="S">예약중</option>
+						<option value="N">판매완료</option>
+					</select>
+				</div>
 
-          <button th:onclick="|location.href='@{/posts}'|" class="update_Btn">
-            목록보기
-          </button>
-        </div>
-      </form>
-    </div>
-    <div th:replace="layout/footer :: footerFrag"></div>
-    <!-- JavaScript Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+				<button type="submit" class="update_Btn" id="update_Btn">
+					수정완료</button>
 
-    <script>
+				<button th:onclick="|location.href='@{/posts}'|" class="update_Btn">
+					목록보기</button>
+			</div>
+		</form>
+	</div>
+	<div th:replace="layout/footer :: footerFrag"></div>
+	<!-- JavaScript Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+
+	<script>
       function change_saleStatus() {
         var saleStatus = document.getElementById("saleStatus");
         var saleStatus_drop = document.getElementById("saleStatus_drop");
@@ -138,5 +103,5 @@
         });
       });
     </script>
-  </body>
+</body>
 </html>
