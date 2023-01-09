@@ -4,7 +4,11 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
-
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
 
 *, *:before, *:after {
 	-moz-box-sizing: border-box;

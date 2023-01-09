@@ -4,9 +4,12 @@
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script> <!-- 꽃가루 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> <!-- alert 창     -->
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/join.css">
+<link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
 
 <style>
 	canvas{z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);}
@@ -16,7 +19,12 @@
 	<nav class="navbar">
 		<div class="navbar_logo">
 			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-			<a href="/" class="mainText">사조마켓</a>
+			<a href="/" class="mainText-link">
+				<span class="mainText text1">사</span>
+            	<span class="mainText text2">조</span>
+            	<span class="mainText text3">마</span>
+            	<span class="mainText text4">켓</span>
+			</a>
 		</div>
 		<div class="navbar_toggleBtn">
 			<i class="fa-solid fa-bars"></i>
@@ -60,7 +68,9 @@
 						name="mailCheckInput" placeholder="인증번호를 입력해주세요!" maxlength="8">
 					<button type="button" id="ePw-Check-Btn" class="join-emailcheckNumBtn">인증번호 확인</button>
 				</div>
-			<label>비밀번호 
+				<br>
+				  비밀번호
+			<label> 
 				<input type="password" name="password" id="pwd" placeholder="영문자+숫자+특수문자 조합" class="join-input">
 			</label> 
 			<label>비밀번호 재확인 
@@ -77,7 +87,9 @@
 				id="memberNickName" maxlength="6" placeholder="2~6글자 한글로 입력해주세요."
 				class="join-input">
 			</label>
-			<label>전화번호 <br/>
+			 전화번호 ("-"없이 숫자만 입력)
+			<div class="pnBox">
+			 <br/>
 					<select id="PN_sel" onchange="change_PN();" class="join-PhonNumSelect">
 							<option value="">직접입력</option>
 							<option value="010">010</option>
@@ -95,11 +107,11 @@
 						<input type="text" name="memberPN3"
 						id="mobile3" maxlength="4"
 						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-						class="join-phonNumIn"> <br/> ex"-"없이 숫자만 입력
-				</label>
-
+						class="join-phonNumIn"> <br/> 
+				</div>
+				 주소
 			<div>
-				<label>주소 <br> 
+				<label> <br> 
 					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="join-input">
 					<br> 
 					<input type="text" id="sample6_postcode" name="memberAddr1" placeholder="우편번호" readonly class="join-input"><br>
@@ -115,6 +127,12 @@
 			<button id="joinBtn" type="submit" class="joinBtn">가입하기</button>
 		</form>
 	</div>
+
+<div class="footer" id="footer">
+  	<p>Copyright © SajoMarket 2023</p>
+  </div>
+  	
+
 <div class="buttonContainer">
 	<button class="canvasBtn" id="stopButton">Stop Confetti</button>
 	<button class="canvasBtn" id="startButton">Drop Confetti</button>	
