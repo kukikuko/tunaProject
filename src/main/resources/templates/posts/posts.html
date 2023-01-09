@@ -26,19 +26,20 @@
 				<tr>
 					<td class="tr" th:text="${post.ctName}"></td>
 					<td class="tr" th:text="${post.memNick}"></td>
-					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.pTitle}"></a> <span th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
+					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}"
+						th:text="${post.pTitle}"></a> <span
+						th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
-					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
+					<td class="tr"
+						th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 	<div>
-		<!-- <button th:if="${memberVO.getMemberMail().equals('admin')}" th:onClick="|location.href='@{/admin/home}'|">관리자 화면</button> -->
-		<button class="postBtn"
-			th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
+		<!-- <button th:if="${memberVO.getMemberMail().equals('admin')}" th:onClick="location.href='@{/admin/home}'">관리자 화면</button> -->
+		<button class="postBtn" th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
 	</div>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
