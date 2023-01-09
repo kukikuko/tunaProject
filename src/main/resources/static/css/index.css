@@ -151,11 +151,11 @@ img{
 .indexBtn {
 	padding: 8px;
 	font-size: 13px;
-	border-radius: 15px;
-	border: 1px solid lightslategrey;
+	border-radius: 5px;
+	border: 2px solid #ffd900;;
 	background-color: white;
 	display: inline-block;
-	width: 70px;
+	width: 80px;
 	height: 40px;
 	margin-left: 3px;
 }

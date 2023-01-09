@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.findPwForm {
+	position: relative;
+	margin: 50px auto;
+	width: 800px;
+	height: auto;
+	text-align: center;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #F8F9FA;
+	font-family: 'Roboto', sans-serif;
+	padding: 20px;
+}
+
+.findPwForm input{
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	display: inline-block;
+	margin: auto;
+	width: 200px;
+	color: black;
+	font-size: 15px;
+	height: 54px;
+}
+.findPwSelect{
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	display: inline-block;
+	margin: auto;
+	width: 150px;
+	color: black;
+	font-size: 15px;
+	height: 54px;
+}
+
+.findPwForm input:focus {
+	outline-color: rgba(0, 0, 0, 0);
+	background: rgba(255, 255, 255, .95);
+	color: #e74c3c;
+}
+.findPwBtn{
+	text-align: center;
+}
+.findPwBtnBack, .findPwBtnSubm {
+	height: 50px;
+	width: 80px;
+	border: 0px;
+	background: #e74c3c;
+	border-radius: 7px;
+	padding: 0px;
+	color: black;
+	display: inline-block;
+	margin: 10px;
+	font-size: 15px;
+}
+
+.findPwForm input::-webkit-input-placeholder {
+	color: black;
+}
+
+.findPwForm input:focus::-webkit-input-placeholder {
+	color: #e74c3c;
+}
