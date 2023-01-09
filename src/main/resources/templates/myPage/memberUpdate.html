@@ -1,78 +1,160 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css" />
-<!-- alert 창     -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
-	crossorigin="anonymous" />
-	<link rel="stylesheet" href="/css/header.css" />
-	<link rel="stylesheet" href="/css/footer.css" />
-<style>
-.logoImg {
-	width: 40px;
-	height: 40px;
-}
-</style>
-<link rel="stylesheet" href="/css/memberUpdate.css" />
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"
+    />
+    <!-- alert 창     -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <style>
+      .logoImg {
+        width: 40px;
+        height: 40px;
+      }
+    </style>
+    <link rel="stylesheet" href="/css/memberUpdate.css" />
+  </head>
 
-<body>
-	<div th:replace="layout/header :: headFrag"></div>
-	<form action="" method="post" th:object="${member}" name="memberUpdate"
-		class="memUpdateForm">
-		<h3>개인정보 수정</h3>
-		<label>이름<br /> <input type="text"
-			th:value="${member?.memberName}" th:field="*{memberName}"
-			name="memberName" id="uname" maxlength="6" class="memUpInput" />
-		</label> <label>닉네임<br /> <input type="text"
-			th:value="${member?.memberNick}" th:field="*{memberNick}"
-			name="memberNick" id="memberNickName" maxlength="6"
-			class="memUpInput" />
-		</label> <label>전화번호<br /> 
-		<th:block th:if="${member?.memberPN1} ge 100"> 
-		<input type="text" th:value="${member?.memberPN1}" name="memberPN1" id="mobile1" maxlength="3" class="memUpPNInput" />
-		</th:block>	
-		<th:block th:if="${member?.memberPN1} lt 100"> 
-		<input type="text" th:value="'0'+${member?.memberPN1}" name="memberPN1" id="mobile1" maxlength="3" class="memUpPNInput" />
-		</th:block>
-		- 
-		<input type="text" th:value="${member?.memberPN2}" th:field="*{memberPN2}" name="memberPN2" id="mobile2" maxlength="4"
-			class="memUpPNInput" /> - <input type="text"
-			th:value="${member?.memberPN3}" th:field="*{memberPN3}"
-			name="memberPN3" id="mobile3" maxlength="4" class="memUpPNInput" />
-		</label> <label>주소<br /> <input type="button"
-			onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
-			class="memUpInput" /><br /> <input type="text"
-			id="sample6_postcode" name="memberAddr1"
-			th:value="${member?.memberAddr1}" th:field="*{memberAddr1}" readonly
-			class="memUpInput" /><br /> <input type="text"
-			id="sample6_address" name="memberAddr2"
-			th:value="${member?.memberAddr2}" th:field="*{memberAddr2}" readonly
-			class="memUpInput" /><br /> <input type="text"
-			id="sample6detailAddress" name="memberAddr3"
-			th:value="${member?.memberAddr3}" th:field="*{memberAddr3}"
-			class="memUpInput" /><br /> <input type="text"
-			id="sample6extraAddress" name="memberAddr4"
-			th:value="${member?.memberAddr4}" th:field="*{memberAddr4}"
-			class="memUpInput" />
-		</label>
-		<script
-			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-		<script
-			src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-		<br />
-		<button type="submit" id="updateBtn">수정 하기</button>
-		<button type="button" th:onClick="|location.href='@{/}'|">뒤로
-			가기</button>
-	</form>
-	<div th:replace="layout/footer :: footerFrag"></div>
-	<script>
+  <body>
+    <div th:replace="layout/header :: headFrag"></div>
+    <form
+      action=""
+      method="post"
+      th:object="${member}"
+      name="memberUpdate"
+      class="memUpdateForm"
+    >
+      <h3>개인정보 수정</h3>
+      <label
+        >이름<br />
+        <input
+          type="text"
+          th:value="${member?.memberName}"
+          th:field="*{memberName}"
+          name="memberName"
+          id="uname"
+          maxlength="6"
+          class="memUpInput"
+        />
+      </label>
+      <label
+        >닉네임<br />
+        <input
+          type="text"
+          th:value="${member?.memberNick}"
+          th:field="*{memberNick}"
+          name="memberNick"
+          id="memberNickName"
+          maxlength="6"
+          class="memUpInput"
+        />
+      </label>
+      <label
+        >전화번호<br />
+        <th:block th:if="${member?.memberPN1} ge 100">
+          <input
+            type="text"
+            th:value="${member?.memberPN1}"
+            name="memberPN1"
+            id="mobile1"
+            maxlength="3"
+            class="memUpPNInput"
+          />
+        </th:block>
+        <th:block th:if="${member?.memberPN1} lt 100">
+          <input
+            type="text"
+            th:value="'0'+${member?.memberPN1}"
+            name="memberPN1"
+            id="mobile1"
+            maxlength="3"
+            class="memUpPNInput"
+          />
+        </th:block>
+        -
+        <input
+          type="text"
+          th:value="${member?.memberPN2}"
+          th:field="*{memberPN2}"
+          name="memberPN2"
+          id="mobile2"
+          maxlength="4"
+          class="memUpPNInput"
+        />
+        -
+        <input
+          type="text"
+          th:value="${member?.memberPN3}"
+          th:field="*{memberPN3}"
+          name="memberPN3"
+          id="mobile3"
+          maxlength="4"
+          class="memUpPNInput"
+        />
+      </label>
+      <label
+        >주소<br />
+        <input
+          type="button"
+          onclick="sample6_execDaumPostcode()"
+          value="우편번호 찾기"
+          class="memUpInput"
+        /><br />
+        <input
+          type="text"
+          id="sample6_postcode"
+          name="memberAddr1"
+          th:value="${member?.memberAddr1}"
+          th:field="*{memberAddr1}"
+          readonly
+          class="memUpInput"
+        /><br />
+        <input
+          type="text"
+          id="sample6_address"
+          name="memberAddr2"
+          th:value="${member?.memberAddr2}"
+          th:field="*{memberAddr2}"
+          readonly
+          class="memUpInput"
+        /><br />
+        <input
+          type="text"
+          id="sample6detailAddress"
+          name="memberAddr3"
+          th:value="${member?.memberAddr3}"
+          th:field="*{memberAddr3}"
+          class="memUpInput"
+        /><br />
+        <input
+          type="text"
+          id="sample6extraAddress"
+          name="memberAddr4"
+          th:value="${member?.memberAddr4}"
+          th:field="*{memberAddr4}"
+          class="memUpInput"
+        />
+      </label>
+      <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+      <br />
+      <button type="submit" id="updateBtn">수정 하기</button>
+      <button type="button" th:onClick="|location.href='@{/}'|">
+        뒤로 가기
+      </button>
+    </form>
+    <div th:replace="layout/footer :: footerFrag"></div>
+    <script>
       var pwd = document.getElementById("pwd"); //비밀번호
       var repwd = document.getElementById("repwd"); //비밀번호 확인
       var uname = document.getElementById("uname"); //이름
@@ -94,27 +176,21 @@
       var pattern3 = /[~!@#$%^&*()_+|<>?:{}]/;
 
       var canJoin = true;
-	
 
-	      
       document.getElementById("updateBtn").addEventListener("click", (e) => {
         e.preventDefault();
         let form = document.memberUpdate;
 
-
-       
-        if(mobile1.value<0 || mobile2.value<0 || mobile3.value<0){
-            Swal.fire({
-                title: "전화번호를 확인해주세요.", // Alert 제목
-                text: "", // Alert 내용
-                icon: "warning", // Alert 타입
-              });
-              uname.focus();
-              return false;
-
+        if (mobile1.value < 0 || mobile2.value < 0 || mobile3.value < 0) {
+          Swal.fire({
+            title: "전화번호를 확인해주세요.", // Alert 제목
+            text: "", // Alert 내용
+            icon: "warning", // Alert 타입
+          });
+          uname.focus();
+          return false;
         }
-        
-        
+
         if (uname.value == "") {
           Swal.fire({
             title: "이름을 입력해주세요.", // Alert 제목
@@ -254,10 +330,5 @@
         }).open();
       }
     </script>
-	<!-- JavaScript Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-		crossorigin="anonymous"></script>
-</body>
+  </body>
 </html>

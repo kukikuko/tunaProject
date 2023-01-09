@@ -25,5 +25,15 @@ public class MybatisCategoryRepository implements CategoryRepository{
 		return cateList;
 	}
 
+	@Override
+	public void updateCtName(Category category) {
+		categoryMapper.updateCtName(category);
+	}
+
+	@Override
+	public void insertCategory(String ctName) {
+		categoryMapper.insertCategory(ctName);
+	}
+
 
 }

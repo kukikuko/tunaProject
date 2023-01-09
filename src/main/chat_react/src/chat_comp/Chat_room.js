@@ -51,10 +51,6 @@ function Chat_room({member_code}) {
         let i = 0;
 
 
-        axios.get('http://localhost:8080/api/chat_title/find/' + chat_code)
-                .then((response) => { set_title(response.data == "" ? "제목":response.data); console.log(response.data);   })
-                .catch(error => console.log(error))
-
 
         for (i = 0; i < str.length - 1; i += 6) {
             let message_data = { message_contents: "", img_src: "", message_code: "", ballon_size: "", time: "", is_my: "", ani: "" }
@@ -132,6 +128,10 @@ function Chat_room({member_code}) {
 
     useEffect(() => {
        
+        axios.get('http://localhost:8080/api/chat_title/find/' + chat_code)
+                .then((response) => { set_title(response.data == "" ? "제목":response.data); console.log(response.data);   })
+                .catch(error => console.log(error))
+
         window.addEventListener('submit', (event) => {
 
             if (document.getElementById("text_box").value === "") {

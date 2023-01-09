@@ -1,14 +1,12 @@
 package com.project.TunaProject.controller;
 
-import com.project.TunaProject.domain.Image;
-import com.project.TunaProject.domain.MemberVO;
-import com.project.TunaProject.domain.Notify;
-import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.domain.*;
 import com.project.TunaProject.repository.*;
 import com.project.TunaProject.session.SessionVar;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.websocket.server.PathParam;
+import jdk.jfr.Relational;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -28,6 +26,7 @@ public class AdminController {
     private final PostRepository postRepository;
     private final ImageRepository imageRepository;
     private final NotifyRepository notifyRepository;
+    private final CategoryRepository categoryRepository;
 
     @GetMapping("/main")
     public String adminHome(Model model) {
@@ -98,10 +97,43 @@ public class AdminController {
         return "/admin/post";
     }
 
-    @PostMapping("/post")
-    public void postDelete(@RequestParam("code") String code) {
-        log.info("sasd");
-        log.info(code);
+    @ResponseBody
+    @PostMapping("/member/status")
+    public void memberStatus(@RequestParam("memCode") int memCode
+            , @RequestParam("status") String status) {
+
+        adminRepository.memberStatus(memCode, status);
+
+    }
+
+    @ResponseBody
+    @PostMapping("/post/status")
+    public void postStatus(@RequestParam("postCode") String postCode
+            , @RequestParam("status") String status) {
+
+        adminRepository.postStatus(postCode, status);
+    }
+
+    @GetMapping("/category")
+    public String category(Model model) {
+
+        model.addAttribute("categories", adminRepository.categoryAll());
+
+        return "/admin/category";
+    }
+
+    @ResponseBody
+    @PostMapping("/category")
+    public void categoryChange(@RequestParam("ctCode") String ctCode
+                ,@RequestParam("ctName") String ctName){
+        log.info("category {} {}", ctCode, ctName);
+        categoryRepository.updateCtName(new Category(ctCode, ctName));
+    }
+
+    @ResponseBody
+    @PostMapping("/category/insert")
+    public void categoryInsert(@RequestParam("ctName") String ctName){
+        categoryRepository.insertCategory(ctName);
     }
 }
 
