@@ -6,29 +6,27 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> <!-- alert 창     -->
 <link rel="stylesheet" href="/css/header.css" />
-
+<link rel="stylesheet" href="/css/memberOut.css">
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
-	<form action="" method="post" th:object="${member}"
-		name="deleteMemeber" class="mamebrOutForm">
+	<form action="" method="post" th:object="${member}" name="deleteMemeber" class="mamebrOutForm" id="deleteMemeber">
 		<div class="pwdCheckBox" id="pwdCheckBox">
 			<h3>회원탈퇴</h3>
 			<p>현재 비밀번호를 입력해주세요.</p>
-			<br> <label> <input type="password" id="oldpassword"
-				maxlength="25" placeholder="현재 비밀번호" name="oldpassword"><br>
-			</label> <br />
-			<button type="button" th:onClick="|location.href='@{/}'|"
-				class="outBack">뒤로가기</button>
+			<br> <label> 
+			<input type="password" id="oldpassword" maxlength="25" placeholder="현재 비밀번호" name="oldpassword"><br>
+			</label><br />
+			<button type="button" th:onClick="|location.href='@{/}'|" class="outBack">뒤로가기</button>
 			<button type="button" id="checkBtn" class="outCheckBtn">확인</button>
 			<br />
 		</div>
 	</form>
-	<form action="" method="post" th:object="${member}" name="memberOut">
+	
+	<form action="" method="post" th:object="${member}" name="memberOut" class="mamebrOutForm" id="memberOut">
 		<div class="memberOutBox" id="memberOutBox">
 			<p th:text="${member?.memberName}+'님의 회원 탈퇴를 진행합니다.'"></p>
-			<button type="button" th:onClick="|location.href='@{/}'|"
-				class="outBack">뒤로가기</button>
+			<button type="button" th:onClick="|location.href='@{/}'|" class="outBack">뒤로가기</button>
 			<button type="button" id="deleteBtn" class="outBtn">탈퇴</button>
 		</div>
 	</form>
@@ -39,7 +37,7 @@
 		    event.preventDefault();
 		  };
 		});
-	$("#memberOutBox").css("display", "none");
+	$("#memberOut").css("display", "none");
 	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
 	var password = document.getElementById("oldpassword");
 	var checkCnt = 0;
@@ -61,8 +59,8 @@
 				            icon: "success", // Alert 타입
 				          }); 
 						checkCnt=1;
-						 $("#memberOutBox").show();
-						 $("#pwdCheckBox").css("display", "none");
+						 $("#memberOut").show();
+						 $("#deleteMemeber").css("display", "none");
 				  } else {
 					  Swal.fire({
 				            title: "비밀번호를 확인해주세요.", // Alert 제목

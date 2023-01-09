@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.project.TunaProject.domain.Post;
+import com.project.TunaProject.domain.PostCard;
 
 @Mapper
 public interface PostItemMapper {
@@ -24,4 +25,9 @@ public interface PostItemMapper {
 	public void viewCont(String postCode);
 	
 	public List<Post> selectSearch(@Param("keyword") String keyword);
+	
+	//조회수 top10
+	public List<Post> orderByPview();
+	
+	public PostCard selectCard(String postCode); 
 }

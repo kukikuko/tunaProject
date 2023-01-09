@@ -74,7 +74,7 @@
 
 
 		<button th:if="${post.pMemCode} != ${member.memberCode}" type="button"
-			id="notifyBtn">신고하기</button>
+			id="notifyBtn" class="post_Btn_notify">신고하기</button>
 
 		<!-- 			class 건들면 찜하기 작동 안함 ㅅㄱ -->
 		<th:block th:if="${cnt123 == 0}">
@@ -149,10 +149,10 @@
 	        });
 	      });
 	      }
-      
-      
+     
+     
       if(document.getElementById('deleteBtn')){
-    		document.getElementById('deleteBtn').addEventListener('click', (e)=>{ 
+    		document.getElementById('deleteBtn').addEventListener('click', (e)=>{
     			e.preventDefault();
     			
     			let form = document.deleteForm;
@@ -181,7 +181,7 @@
     			
     		});
     		}
-      
+     
       const Toast = Swal.mixin({
           toast: true,
           position: "center-center",
@@ -193,9 +193,9 @@
             toast.addEventListener("mouseleave", Swal.resumeTimer);
           },
         });
-      
-      
-      
+     
+     
+     
       var heartBtn = document.querySelectorAll(".heartBtn");
 	if(heartBtn){
       for (let i = 0; i < 2; i++) {
@@ -217,8 +217,8 @@
                 });
               }
               if (cnt == 0) {
-                $("#heartBtnWhite").css("backgroundColor", "#F0F0F0");
-                $("#heartBtnRed").css("backgroundColor", "#F0F0F0");
+                $("#heartBtnWhite").css("backgroundColor", "white");
+                $("#heartBtnRed").css("backgroundColor", "white");
                 Toast.fire({
                   icon: "success",
                   title: "찜 취소",
