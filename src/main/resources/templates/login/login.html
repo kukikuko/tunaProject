@@ -1,96 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<title>Insert title here</title>
-<link rel="stylesheet" href="/css/header.css" />
-<link rel="stylesheet" href="/css/login.css">
-<<<<<<< HEAD
-<link rel="stylesheet" href="/css/header.css" />
-<link rel="stylesheet" href="/css/footerSmall.css" />
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/footerSmall.css" />
+  </head>
 
-=======
->>>>>>> 849e05d0ba6426c691cc2d370703c2856abc6bce
-</head>
+  <body>
+    <nav class="navbar">
+      <div class="navbar_logo">
+        <img src="http://localhost:8080/images/Logo.png" class="logoImg" />
+        <a href="/" class="mainText">사조마켓</a>
+      </div>
+      <div class="navbar_toggleBtn">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <div class="navbar_toggle">
+        <div class="navbar_menu">
+          <div class="navbar_menu_text">
+            <a href="/posts" class="menuText">중고거래</a>
+          </div>
+          <div class="navbar_menu_right">
+            <div class="navbar_search">
+              <form action="/posts" method="post" class="searchForm">
+                <input
+                  name="search"
+                  type="search"
+                  placeholder="물품이나 동네를 검색해주세요."
+                  class="searchInput"
+                />
+                <button class="searchBtn" type="submit">검색</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <form
+      class="login-form"
+      action=""
+      method="post"
+      th:object="${loginForm}"
+      name="login"
+    >
+      <!-- 			<h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2> -->
 
-<body>
-	<nav class="navbar">
-		<div class="navbar_logo">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-			<a href="/" class="mainText">사조마켓</a>
-		</div>
-		<div class="navbar_toggleBtn">
-			<i class="fa-solid fa-bars"></i>
-		</div>
-		<div class="navbar_toggle">
-			<div class="navbar_menu">
-				<div class="navbar_menu_text">
-					<a href="/posts" class="menuText">중고거래</a>
-				</div>
-				<div class="navbar_menu_right">
-					<div class="navbar_search">
-						<form action="/posts" method="post" class="searchForm">
-							<input name="search" type="search" placeholder="물품이나 동네를 검색해주세요."
-								class="searchInput">
-							<button class="searchBtn" type="submit">검색</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<form class="login-form" action="" method="post"
-		th:object="${loginForm}" name="login">
-		<!-- 			<h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2> -->
+      <span class="entypo-user inputUserIcon">
+        <i class="fa fa-user"></i>
+      </span>
+      <label for="loginId"></label>
+      <input
+        type="text"
+        th:field="*{email}"
+        class="user"
+        id="email"
+        placeholder="아이디(이메일)를 입력해주세요."
+      />
+      <span class="entypo-key inputPassIcon"> <i class="fa fa-key"></i> </span>
+      <label for="password"></label>
+      <input
+        type="password"
+        th:field="*{password}"
+        class="pass"
+        id="password"
+        placeholder="비밀번호를 입력해주세요."
+      />
+      <div class="loginBtn">
+        <button
+          type="button"
+          th:onclick="|location.href='@{/}'|"
+          class="backBtn"
+          id="btn"
+        >
+          취소
+        </button>
+        <button type="submit" class="loginBtn">
+          <span class="entypo-lock"><i class="fa fa-lock"></i></span>
+        </button>
+      </div>
+      <div class="errorMessage">
+        <div th:errors="*{email}"></div>
+        <div th:errors="*{password}"></div>
+      </div>
+      <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
+          글로벌오류
+        </p>
+      </div>
+      <div>
+        <a href="/join" class="login-join">회원이 아니신가요?</a><br />
+        <a href="/login/findPw" class="login-findPw"
+          >비밀번호를 잊어버리셨나요?</a
+        >
+      </div>
+    </form>
+    <div class="footerSmall" id="footerSmall">
+      <p>Copyright © SajoMarket 2023</p>
+    </div>
 
-		<span class="entypo-user inputUserIcon"> <i class="fa fa-user"></i>
-		</span> <label for="loginId"></label> <input type="text" th:field="*{email}"
-			class="user" id="email" placeholder="아이디(이메일)를 입력해주세요."> <span
-			class="entypo-key inputPassIcon"> <i class="fa fa-key"></i>
-		</span> <label for="password"></label> <input type="password"
-			th:field="*{password}" class="pass" id="password"
-			placeholder="비밀번호를 입력해주세요.">
-		<div class="loginBtn">
-			<button type="button" th:onclick="|location.href='@{/}'|"
-				class="backBtn" id="btn">취소</button>
-			<button type="submit" class="loginBtn">
-				<span class="entypo-lock"><i class="fa fa-lock"></i></span>
-			</button>
-		</div>
-		<div class="errorMessage">
-			<div th:errors="*{email}"></div>
-			<div th:errors="*{password}"></div>
-		</div>
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
-				글로벌오류</p>
-		</div>
-		<div>
-			<a href="/join" class="login-join">회원이 아니신가요?</a><br /> <a
-				href="/login/findPw" class="login-findPw">비밀번호를 잊어버리셨나요?</a>
-		</div>
-	</form>
-	<div class="footerSmall" id="footerSmall">
-  	<p>Copyright © SajoMarket 2023</p>
-  </div>
-  	
-	
-	<script type="text/javascript">
+    <script type="text/javascript">
+      $(".user")
+        .focusin(function () {
+          $(".inputUserIcon").css("color", "#e74c3c");
+        })
+        .focusout(function () {
+          $(".inputUserIcon").css("color", "white");
+        });
 
-	$(".user").focusin(function(){
-	  $(".inputUserIcon").css("color", "#e74c3c");
-	}).focusout(function(){
-	  $(".inputUserIcon").css("color", "white");
-	});
-	
-	$(".pass").focusin(function(){
-	  $(".inputPassIcon").css("color", "#e74c3c");
-	}).focusout(function(){
-	  $(".inputPassIcon").css("color", "white");
-	});
-</script>
-	<script src="https://kit.fontawesome.com/9f54d9c571.js"
-		crossorigin="anonymous"></script>
-</body>
+      $(".pass")
+        .focusin(function () {
+          $(".inputPassIcon").css("color", "#e74c3c");
+        })
+        .focusout(function () {
+          $(".inputPassIcon").css("color", "white");
+        });
+    </script>
+    <script
+      src="https://kit.fontawesome.com/9f54d9c571.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>
