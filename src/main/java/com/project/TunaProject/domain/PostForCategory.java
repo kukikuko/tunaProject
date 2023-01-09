@@ -6,7 +6,6 @@ import java.util.Date;
 
 @Data
 public class PostForCategory {
-	
 	private String postCode;
 	private String postCtCode;
 	private int pMemCode;
@@ -21,7 +20,5 @@ public class PostForCategory {
 	private SaleType pSalesStatus;
 	private String pOpenStatus;
 	private int pView;
-	
-	
 
 }

@@ -26,8 +26,8 @@
 				<tr>
 					<td class="tr" th:text="${post.ctName}"></td>
 					<td class="tr" th:text="${post.memNick}"></td>
-					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.pTitle}"></a> <span th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
+					<td><a class="tr-pTitle" th:href="@{|/posts/${post.postCode}|}"
+						th:text="${post.pTitle}"></a> <span class="sales" th:text="${post.getPSalesStatus().getMemo()}"></span></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
 					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>

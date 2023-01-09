@@ -30,16 +30,19 @@
    </insert>
 
    <select id="selectByPostCode" resultType="Post">
-      select POSTCODE,postCtCode,
-      (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
-      ,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
+      select POSTCODE,postCtCode,pMemCode
+      ,(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+      ,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
+      ,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
+      , PTITLE, PCONTENT, PCREATETIME
+      ,pCorrectionTime,
       PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p
       where postCode = #{postCode}
    </select>
 
    <select id="selectAll" resultType="PostForCategory">
-      select POSTCODE,postCtCode,
-      (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+      select POSTCODE,postCtCode,pMemCode
+      ,(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
       ,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
       ,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
       , PTITLE, PCONTENT, PCREATETIME
