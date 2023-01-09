@@ -1,5 +1,6 @@
 package com.project.TunaProject.repository.mybatis;
 
+import com.project.TunaProject.domain.Category;
 import com.project.TunaProject.domain.MemberVO;
 import com.project.TunaProject.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,5 +19,20 @@ public class MybatisAdminRepository implements AdminRepository {
 
         List<MemberVO> memberList = adminMapper.selectAll();
         return memberList;
+    }
+
+    @Override
+    public void memberStatus(int memberCode, String status) {
+        adminMapper.memberStatus(memberCode, status);
+    }
+
+    @Override
+    public void postStatus(String postCode, String status) {
+        adminMapper.postStatus(postCode, status);
+    }
+
+    @Override
+    public List<Category> categoryAll() {
+        return adminMapper.categoryAll();
     }
 }

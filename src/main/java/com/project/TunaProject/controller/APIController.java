@@ -134,6 +134,12 @@ public class APIController {
     		 
     		chat_info_list += post.getPTitle()+"\0"+c.getChatCode()+"\0"+memberRepository.selectByCode(post.getPMemCode()).getMemberNick();
     	}
+    	
+    	if(!is_list)
+    	{
+    		//curChatCode member_code
+    	}
+    	
     	return chat_info_list;
     }
     
