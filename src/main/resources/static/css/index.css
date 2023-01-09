@@ -1,4 +1,37 @@
 @charset "UTF-8";
+ .mainText-link{
+	text-decoration:none;
+}
+.mainText{
+    display:inline-block;
+    position:relative;
+    color:black;
+    animation-name:popup;
+    animation-duration:1.6s;   
+    animation-iteration-count: infinite;
+    animation-direction:alternate;
+}
+.text2{
+	animation-delay:0.4s;
+}
+.text3{
+	animation-delay:0.8s;
+}
+.text4{
+	animation-delay:1.2s;
+}
+@keyframes popup{
+    
+    0%{
+        top:-7px;
+    }
+    20%{
+        top:0px;
+    }
+    100%{
+        top:0px;
+    }
+}
 
 
 html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,hgroup,menu,nav,section,summary,time,mark,audio,video {

@@ -8,13 +8,19 @@
     <link rel="stylesheet" href="/css/login.css" />
     <link rel="stylesheet" href="/css/header.css" />
     <link rel="stylesheet" href="/css/footerSmall.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> <!-- alert 창     -->
   </head>
 
   <body>
     <nav class="navbar">
       <div class="navbar_logo">
         <img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-        <a href="/" class="mainText">사조마켓</a>
+        <a href="/" class="mainText-link">
+				<span class="mainText text1">사</span>
+            	<span class="mainText text2">조</span>
+            	<span class="mainText text3">마</span>
+            	<span class="mainText text4">켓</span>
+			</a>
       </div>
       <div class="navbar_toggleBtn">
         <i class="fa-solid fa-bars"></i>
@@ -33,7 +39,7 @@
                   placeholder="물품이나 동네를 검색해주세요."
                   class="searchInput"
                 />
-                <button class="searchBtn" type="submit">검색</button>
+                <button class="searchBtn" type="submit" id="search1">검색</button>
               </form>
             </div>
           </div>
@@ -101,8 +107,18 @@
     <div class="footerSmall" id="footerSmall">
       <p>Copyright © SajoMarket 2023</p>
     </div>
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <script type="text/javascript">
+    document.getElementById('search1').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		 Swal.fire({
+	            title: "로그인 후 이용해주세요.", // Alert 제목
+	            text: "회원이 아니시라면 회원가입부터 진행해주세요.", // Alert 내용
+	            icon: "warning", // Alert 타입
+	          }); 
+		 return false;
+		
+	});
       $(".user")
         .focusin(function () {
           $(".inputUserIcon").css("color", "#e74c3c");
