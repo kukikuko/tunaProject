@@ -5,6 +5,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
 </head>
 <body>
 	<nav class="navbar">
@@ -52,6 +53,7 @@
 				가기</button>
 		</div>
 	</form>
+	<div th:replace="layout/footer :: footerFrag"></div>
 	<script>
 var memberMail = document.getElementById("memberMail");	//이메일 앞
 var email_add = document.getElementById("email_add");	//이메일 뒤

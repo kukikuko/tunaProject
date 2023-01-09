@@ -1,8 +1,10 @@
 @charset "UTF-8";
 
 
-
 body{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 	background-color: #EEEFF1;
 }
 .posts {

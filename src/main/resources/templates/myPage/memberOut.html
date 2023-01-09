@@ -7,6 +7,16 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> <!-- alert 창     -->
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/memberOut.css">
+<link rel="stylesheet" href="/css/footerSmall.css" />
+<style>
+body, html{
+ height: 100%;
+} 
+body {
+  display: flex;
+  flex-direction: column;
+}
+</style>
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
@@ -30,6 +40,7 @@
 			<button type="button" id="deleteBtn" class="outBtn">탈퇴</button>
 		</div>
 	</form>
+	<div th:replace="layout/footer :: footerFrag"></div>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
 	$('input[type="password"]').keydown(function() {
@@ -116,4 +127,7 @@
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
 </body>
+<div class="footerSmall" id="footer">
+  	<p>Copyright © SajoMarket 2023</p>
+  	</div>
 </html>

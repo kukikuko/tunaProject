@@ -1,5 +1,12 @@
 @charset "UTF-8";
 
+body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+
 .home-main-section {
     padding: 6rem 0;
 }

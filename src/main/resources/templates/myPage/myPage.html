@@ -5,14 +5,24 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/posts.css">
 <link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+<style>
+body, html {
+	height: 100%;
+}
+body {
+	display: flex;
+	flex-direction: column;
+}
+</style>
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<h1>내 활동</h1>
 
 	<h3>내 판매내역</h3>
-	
-	
+
+
 	<div class="board-list">
 		<table class="board-table">
 			<thead class="postsThead">
@@ -31,10 +41,12 @@
 					<td class="tr" th:text="${post.ctName}"></td>
 					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.pTitle}"></a> <span th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
+						th:text="${post.pTitle}"></a> <span
+						th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
-					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
+					<td class="tr"
+						th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -43,7 +55,7 @@
 
 	<h3>내가 찜한 게시글</h3>
 
-		<div class="board-list">
+	<div class="board-list">
 		<table class="board-table">
 			<thead class="postsThead">
 				<tr>
@@ -54,16 +66,18 @@
 					<th class="th-data">작성일</th>
 				</tr>
 			</thead>
-			<tbody th:each="post :${postsHeart}" th:if="${post.pOpenStatus != 'N'}"
-				class="postsTbody">
+			<tbody th:each="post :${postsHeart}"
+				th:if="${post.pOpenStatus != 'N'}" class="postsTbody">
 				<tr>
 					<td class="tr" th:text="${post.ctName}"></td>
 					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
-						th:text="${post.pTitle}"></a> <span th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
+						th:text="${post.pTitle}"></a> <span
+						th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
 					<td class="tr" th:text="${post.pView}"></td>
-					
-					<td class="tr" th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
+
+					<td class="tr"
+						th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
 				</tr>
 			</tbody>
 		</table>
@@ -73,5 +87,8 @@
 		가기</button>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
+	<div class="footer" id="footer">
+		<p>Copyright © SajoMarket 2023</p>
+	</div>
 </body>
 </html>

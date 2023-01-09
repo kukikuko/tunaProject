@@ -1,0 +1,21 @@
+.footer {
+	background-color: #ffc107;
+	height: 70px;
+	bottom:0;
+	width:100%;
+}
+
+p {
+	position: relative;
+	text-align: center;
+	padding: 15px;
+}
+
+.moveTopBtn {
+	position: fixed;
+	bottom: 1rem;
+	right: 1rem;
+	width: 3rem;
+	height: 3rem;
+	display: inline-block;
+}

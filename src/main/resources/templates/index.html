@@ -6,6 +6,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/index.css" />
+<link rel="stylesheet" href="/css/footer.css" />
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <style>
@@ -68,17 +69,17 @@
             <li class="home-story-list-item">
               <div class="icon-story icon-story-01"></div>
               <div class="text-s text-bold mt-3 mb-2">우리동네질문</div>
-              <div class="text-xs">궁금한 게 있을 땐 이웃에게 물어보세요.</div>
+              <div class="text-xs">궁금한 게 있을 땐<br> 이웃에게 물어보세요.</div>
             </li>
             <li class="home-story-list-item">
               <div class="icon-story icon-story-02"></div>
               <div class="text-s text-bold mt-3 mb-2">동네분실센터</div>
-              <div class="text-xs">무언가를 잃어버렸을 때, 함께 찾을 수 있어요.</div>
+              <div class="text-xs">무언가를 잃어버렸을 때,<br> 함께 찾을 수 있어요.</div>
             </li>
             <li class="home-story-list-item">
               <div class="icon-story icon-story-03"></div>
               <div class="text-s text-bold mt-3 mb-2">동네모임</div>
-              <div class="text-xs">관심사가 비슷한 이웃과 온오프라인으로 만나요.</div>
+              <div class="text-xs">관심사가 비슷한 이웃과<br> 온오프라인으로 만나요.</div>
             </li>
           </ul>
       </div>
@@ -96,8 +97,8 @@
 		  		<img th:if="${postCard.imageFiles} == null" src="http://localhost:8080/images/Logo.png" width="80" height="80" class="card-img-top">
 		  		<div class="card-body">
 		    		<h5 class="card-title" th:text="${postCard.pTitle}"></h5>
-				    <h6 class="card-text" th:text="${postCard.pPrice}"></h6>
-				    <p class="card-text" th:text="${postCard.pView}"></p>
+				    <h6 class="card-text" th:text="'가격: '+${postCard.pPrice}"></h6>
+				    <p class="card-text" th:text="'조회수: '+${postCard.pView}"></p>
 		  		</div>
 		</div>
 	</div>
@@ -105,6 +106,11 @@
       
     </div>
   </section>
+  
+  <div class="footer" id="footer">
+  	<p>Copyright © SajoMarket 2023</p>
+  </div>
+  	<img src="http://localhost:8080/images/top.png" class="moveTopBtn" />
 
 	
 
@@ -112,6 +118,13 @@
 		crossorigin="anonymous"></script>
 
 	<script>
+	
+	const $topBtn = document.querySelector(".moveTopBtn");
+
+	// 버튼 클릭 시 맨 위로 이동
+	$topBtn.onclick = () => {
+	  window.scrollTo({ top: 0, behavior: "smooth" });  
+	}
 const toggleBtn = document.querySelector('.navbar_toggleBtn');
 const menu = document.querySelector('.navbar_menu');
 const search = document.querySelector('.navbar_search');

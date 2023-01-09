@@ -12,6 +12,7 @@
 	integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
 	crossorigin="anonymous" />
 	<link rel="stylesheet" href="/css/header.css" />
+	<link rel="stylesheet" href="/css/footer.css" />
 <style>
 .logoImg {
 	width: 40px;
@@ -70,6 +71,7 @@
 		<button type="button" th:onClick="|location.href='@{/}'|">뒤로
 			가기</button>
 	</form>
+	<div th:replace="layout/footer :: footerFrag"></div>
 	<script>
       var pwd = document.getElementById("pwd"); //비밀번호
       var repwd = document.getElementById("repwd"); //비밀번호 확인
