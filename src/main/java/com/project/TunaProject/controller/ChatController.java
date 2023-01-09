@@ -36,7 +36,7 @@ public class ChatController {
     @RequestMapping("/add")
     String chatAdd(HttpServletRequest req,@RequestParam("postCode") String postCode,RedirectAttributes rAttr)
     {
-    	
+    	log.info("dd");
     	Chat chat = new Chat();
 
     	String uuid_v ="";
@@ -49,8 +49,11 @@ public class ChatController {
     			break;
     		}
     	}
+    	log.info("uuid {}",uuid_v);
+
     	int buyer_code=  memberRepository.selectByUUID(uuid_v).getMemberCode();
-    
+    	log.info("cc");
+
     	int seller_code = postRepository.selectByPostCode(postCode).getPMemCode();
     	//String image_path =  imageRepository.selectAll(postCode).get(0).getImageFiles();
     	chat.setPostCode(postCode);
@@ -61,6 +64,7 @@ public class ChatController {
     
     	
     	String chat_code = chatRepository.findChatCode(chat) +"";
+    	log.info("ff");
 
     	
     	//쿠키에 방 코드 저장

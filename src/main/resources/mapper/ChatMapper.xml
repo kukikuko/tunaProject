@@ -7,8 +7,8 @@
 	
 	<insert id="insertChat" parameterType="Chat">
 
-	insert into chat (chatCode,postCode,seller,buyer)
-	select chatPK.nextVal,#{postCode},#{seller},#{buyer}
+	insert into chat (chatCode,postCode,seller,buyer,sellercurview,buyercurview)
+	select chatPK.nextVal,#{postCode},#{seller},#{buyer},0,0
 	FROM DUAL WHERE not(EXISTS(SELECT * FROM CHAT where ( postCode=#{postCode} AND (SELLER=#{seller} AND buyer=#{buyer}))) or #{seller}=#{buyer})
 
 	</insert>
