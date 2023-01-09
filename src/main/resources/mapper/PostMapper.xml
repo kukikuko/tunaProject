@@ -38,7 +38,7 @@
    </select>
 
    <select id="selectAll" resultType="PostForCategory">
-      select POSTCODE,postCtCode,
+      select POSTCODE,postCtCode, pMemCode,
       (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
       ,(select memberNick from tuna_member where memberCode = p.PMEMCODE)as memNick
       ,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart

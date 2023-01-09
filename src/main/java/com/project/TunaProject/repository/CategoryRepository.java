@@ -10,4 +10,7 @@ public interface CategoryRepository {
 
 	public List<Category> selectAll();
 
+	public void updateCtName(Category category);
+
+	public void insertCategory(String ctName);
 }

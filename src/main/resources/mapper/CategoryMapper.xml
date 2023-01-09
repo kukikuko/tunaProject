@@ -9,4 +9,14 @@
 		select * from TUNA_CATEGORY order by ctCode
 	</select>
 
+	<update id="updateCtName" parameterType="Category">
+		update TUNA_CATEGORY
+		set ctName = #{ctName}
+		where ctCode = #{ctCode}
+	</update>
+
+	<insert id="insertCategory">
+		insert into tuna_category
+		values(concat('ct',CATEGORYSQ.nextVal), #{ctName})
+	</insert>
 </mapper>

@@ -11,4 +11,20 @@
 		order by MEMBERCODE
 	</select>
 
+	<update id="memberStatus">
+		update TUNA_MEMBER
+		set ADMINCK = #{status}
+		WHERE MEMBERCODE = #{memberCode}
+	</update>
+
+	<update id="postStatus">
+		update TUNA_POST
+		set POPENSTATUS = #{status}
+		WHERE POSTCODE = #{postCode}
+	</update>
+
+	<select id="categoryAll" resultType="Category">
+		select *
+		from TUNA_CATEGORY
+	</select>
 </mapper>

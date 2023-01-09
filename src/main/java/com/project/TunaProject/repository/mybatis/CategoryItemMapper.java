@@ -12,5 +12,9 @@ import com.project.TunaProject.domain.Post;
 public interface CategoryItemMapper {
 
 	public List<Category> selectAll();
+
+	public void updateCtName(Category category);
+
+	public void insertCategory(String ctName);
 	
 }
