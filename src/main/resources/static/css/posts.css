@@ -265,6 +265,14 @@ table {
 	width: 100px;
 	height: 40px;
 }
+
+
+.dealForm
+{
+	width:auto;
+	display:inline-block;
+}
+
 option{
 	border-radius: 20px;
 } */

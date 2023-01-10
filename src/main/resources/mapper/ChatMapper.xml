@@ -2,16 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
-   <mapper
-	namespace="com.project.TunaProject.repository.mybatis.ChatMapper">
+   <mapper namespace="com.project.TunaProject.repository.mybatis.ChatMapper">
 	
 	<insert id="insertChat" parameterType="Chat">
 
 	insert into TUNA_CHAT (chatCode,postCode,seller,buyer,sellercurview,buyercurview)
 	select TUNA_CHATPK.nextVal,#{postCode},#{seller},#{buyer},0,0
-	FROM DUAL WHERE not(EXISTS(SELECT * FROM CHAT where ( postCode=#{postCode} AND (SELLER=#{seller} AND buyer=#{buyer}))) or #{seller}=#{buyer})
+	FROM DUAL WHERE not(EXISTS(SELECT * FROM TUNA_CHAT where ( postCode=#{postCode} AND (SELLER=#{seller} AND buyer=#{buyer}))) or #{seller}=#{buyer})
 
 	</insert>
+	
+		
+	<update id="updateCurview1" parameterType="CurView">
+			UPDATE  TUNA_CHAT
+		     set  buyercurview = #{messageCode}
+		     where buyer=#{memberCode} and chatCode=#{chatCode}
+	</update>
+	
+	<update id="updateCurview2" parameterType="CurView">
+			UPDATE  TUNA_CHAT
+		     set  sellercurview = #{messageCode}
+		     where seller=#{memberCode} and chatCode=#{chatCode}
+	
+	</update>
+
 	
 	<select id="findChatCode" resultType="Chat">
 	select *

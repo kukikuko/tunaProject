@@ -14,11 +14,13 @@ function App() {
 
     let[securety,set_secure]=useState(false);
     let[id,set_id]=useState("");
+    let[UUID_v,set_UUID]=useState("");
 
     useEffect(() => {
         if (securety === true) {
             return
         }
+        set_UUID(Cookies.get("JSESSIONID"));
         axios.get('http://localhost:8080/api/uuid_info/'+ Cookies.get("JSESSIONID"))
         .then((response) => { set_id(response.data); })
         .catch(error => console.log(error))  
@@ -35,7 +37,7 @@ function App() {
         <div>
         <BrowserRouter>
                 <Routes>
-                <Route  path="/chat/:chatcode"  element={ <Chat_room member_code={id}/>}></Route>
+                <Route  path="/chat/:chatcode"  element={ <Chat_room member_code={id} uuid={UUID_v}/>}></Route>
                 
                 <Route  path="/chat/main"  element={ <Main_room member_code={id}/>}></Route>
                  <Route path="/:chatcode" element={<Image_upload member_code={id}/>}></Route>

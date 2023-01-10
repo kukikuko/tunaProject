@@ -53,10 +53,22 @@
   z-index: 2;
   background-color: rgba(0,0,0,0);
   width: 50px;
-  height: 45px;
+  height: 50px;
 
   left: 20px;
 }
+
+
+#send_btn{
+  z-index: 2;
+  background-color: rgba(0,0,0,0);
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
 #text_box{
   right: 90px;
   width: calc(100vw - 190px);
@@ -74,16 +86,6 @@
   right: 20px;
 }
 
-#send_btn{
-  z-index: 2;
-  background-color: rgba(0,0,0,0);
-  width: 50px;
-  height: 50px;
-  position: absolute;
-  bottom: 0px;
-  right: 20px;
-}
-
 #title{
 text-align:center;
   color: aliceblue;
@@ -92,6 +94,7 @@ text-align:center;
   z-index: 5;
 }
 #bottom_bar{
+  overflow: hidden;
   position: absolute;
   z-index: 1;
   width: 100vw;

@@ -4,6 +4,7 @@ package com.project.TunaProject.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -102,7 +103,7 @@ public class PostController {
 		model.addAttribute("post", new Post());
 		model.addAttribute("cateItem", cateItem);
 		model.addAttribute("member", memberVO);
-		
+
 		return "/posts/writing";
 	}
 	
@@ -119,6 +120,8 @@ public class PostController {
 		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
 
 		rAttr.addAttribute("postCode", post.getPostCode());
+
+		log.info("form {}", form);
 
 		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
 
@@ -142,9 +145,13 @@ public class PostController {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
+		List<Image> images = imageRepository.selectAll(postCode);
+		log.info("img {}", images);
+
 		model.addAttribute("post",postItem);
 		model.addAttribute("cateItem", cateItem);
-		model.addAttribute("member", memberVO);		
+		model.addAttribute("member", memberVO);
+		model.addAttribute("images", images);
 		return "/posts/update";
 	}
 	
@@ -152,8 +159,40 @@ public class PostController {
 	
 	@PostMapping("/update/{postCode}")
 	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem,
-			@ModelAttribute ItemForm form, @ModelAttribute Category ct) {
-		
+			@ModelAttribute ItemForm form, @ModelAttribute Category ct, @RequestParam(required = false) List<Integer> iCode) throws IOException {
+
+		List<Image> images = imageRepository.selectAll(postCode);
+		log.info("img {}", images);
+
+		if(iCode != null) {
+			for(int code : iCode) {
+				int cnt = 0;
+				for(Image i : images) {
+					if(code == i.getImageCode()) {
+						cnt++;
+					}
+				}
+				if(cnt != 1) {
+					imageRepository.deleteByImageCode(code);
+				}
+			}
+		} else {
+			imageRepository.deleteByPostCode(postCode);
+		}
+		log.info("asd {}", form);
+		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
+
+		log.info("files {}", storeImageFiles);
+
+		for(UploadFile uf : storeImageFiles) {
+			Image img = new Image();
+			img.setImageName(uf.getUploadFileName());
+			img.setImageFiles(uf.getStoreFileName());
+			img.setITarget("1");
+			img.setIType(postCode);
+			imageRepository.insert(img);
+		}
+
 		postRepository.update(postCode, postItem, ct.getCtCode());
 		return "redirect:/posts/{postCode}";
 	}
