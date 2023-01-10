@@ -10,7 +10,7 @@ import { useParams } from 'react-router-dom';
 
 
 
-function Chat_room({member_code}) {
+function Chat_room({member_code,uuid}) {
     const chat_code  = useParams().chatcode;
     let [message_str, set_str] = useState('');
     let [cur_message_code, set_message_code] = useState("0");
@@ -91,7 +91,15 @@ function Chat_room({member_code}) {
             //벌룬 사이즈 
             //93 173 277
         
-            document.getElementById("button"+str[i]).addEventListener("click",(event)=>{axios.post("http://localhost:8080/api/message/notify",{MessageCode:event.target.value, ChatCode:chat_code,doNotifyUser:member_code})});
+            document.getElementById("button"+str[i]).addEventListener("click",(event)=>{
+                if (window.confirm("해당 메세지를 신고 하시겠습니까?"))
+            {
+                axios.postForm("http://localhost:8080/api/message/notify",{messageCode: event.target.value, doNotifyUser: member_code});
+                alert("신고가 접수 되었습니다");
+                document.getElementById("content"+event.target.value).innerText="신고된 메세지";
+                event.target.innerText="신고됨";
+                event.target.disabled=true;
+            }});
         }
             set_message_code(str[i - 6]);
             if(ani_effect==false)
@@ -109,22 +117,25 @@ function Chat_room({member_code}) {
         {
             return;
         }
+        console.log(cur_message_code);
 
-        console.log("check")
         const timer = setInterval(() => {
-            axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code)
+            axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
                 .then((response) => { init_chat(response.data);   })
                 .catch(error => console.log(error))
         }, 100);
         
-        document.getElementById("messages").scroll({
-            top: document.getElementById("messages").scrollHeight,
-            behavior: 'auto'
-          });
+       
+            document.getElementById("messages").scroll({
+                top: document.getElementById("messages").scrollHeight,
+                behavior: 'auto'
+              });
+      
+       
          
         return ()=> clearInterval(timer);
 
-    }, [cur_message_code,member_code]);
+    }, [cur_message_code,member_code,uuid]);
 
     useEffect(() => {
        
@@ -151,7 +162,7 @@ function Chat_room({member_code}) {
             }
         });
 
-    },[member_code]);
+    },[member_code,uuid]);
 
     return (
         <div id="chat_room">
