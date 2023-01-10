@@ -18,54 +18,7 @@
 		<p class="post-category" th:text="${post.ctName}"></p>
 		<br /> -->
 		<p class="post-title" th:text="${post.pTitle}"></p>
-<<<<<<< HEAD
-		<p class="post-price">
-			가격 : <span th:text="${post.pPrice}"></span>
-		</p>
-		<p class="post-time" th:if="${post.pCorrectionTime == null}"
-			th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></p>
-		<p class="post-time" th:if="${post.pCorrectionTime != null}"
-			th:text="${#dates.format(post.pCorrectionTime, 'yy-MM-dd a hh시mm분')}"></p>
-		<p class="post-view">
-			조회수 : <span th:text="${post.pView}"></span>
-		</p>
-		<p class="post-content" th:text="${post.pContent}"></p>
-		<img class="post-img" th:each="image : ${images}"
-			th:src="|/posts/images/${image.imageFiles}|" width="300" height="300" /><br />
-		<button th:if="${post.pMemCode} == ${member.memberCode}"
-			th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|"
-			class="post_Btn">수정</button>
 
-
-
-
-		<form action="/posts/delete" method="post" class="deleteForm"
-			name="deleteForm" id="deleteForm">
-			<input type="hidden" th:value="${post.postCode}" name="postCode" />
-			<button type="button"
-				th:if="${post.pMemCode} == ${member.memberCode}" class="post_Btn"
-				id="deleteBtn">삭제</button>
-		</form>
-		
-	
-	<form th:if="${post.pMemCode} != ${member.memberCode}" class="dealForm" target="print_popup" action="http://localhost:8080/chat/add" method="post" onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
-<input hidden="true" name="postCode" th:value="${post.postCode}" />
-<button  class="post_Btn_back">거래하기</button>
-	</form>
-
-
-		<button th:onclick="|location.href='@{/posts}'|" class="post_Btn_back">
-			목록보기</button>
-
-
-
-		<button th:if="${post.pMemCode} != ${member.memberCode}" type="button"
-			id="notifyBtn" class="post_Btn_notify">신고하기</button>
-
-		<!-- 			class 건들면 찜하기 작동 안함 ㅅㄱ -->
-=======
-		<br />
->>>>>>> a68da4381bb455179a48a3a4b09dca0405c2ad26
 		<th:block th:if="${cnt123 == 0}">
 			<button th:if="${post.pMemCode} != ${member.memberCode}"
 				class="heartBtn" type="submit" id="heartBtnWhite">♥</button>
@@ -101,15 +54,12 @@
 					th:if="${post.pMemCode} == ${member.memberCode}" class="post_Btn"
 					id="deleteBtn">삭제</button>
 			</form>
-			<div th:if="${post.pMemCode} != ${member.memberCode}">
-				<form target="print_popup" action="http://localhost:8080/chat/add"
+				<form th:if="${post.pMemCode} != ${member.memberCode}"  class="dealForm" target="print_popup" action="http://localhost:8080/chat/add"
 					method="post"
 					onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
 					<input hidden="true" name="postCode" th:value="${post.postCode}" />
 					<button class="post_Btn_back">거래하기</button>
 				</form>
-				<br />
-			</div>
 			<button th:onclick="|location.href='@{/posts}'|"
 				class="post_Btn_back">목록보기</button>
 			<button th:if="${post.pMemCode} != ${member.memberCode}" type="button"

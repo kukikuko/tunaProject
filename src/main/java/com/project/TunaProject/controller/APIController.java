@@ -103,18 +103,22 @@ public class APIController {
     	return img_code;
     }
     
-    @RequestMapping("/chat/find/{member_code}/{curChatCode}")
-    public String find_chat(@PathVariable("member_code") String member_code,@PathVariable("curChatCode") String curChatCode)
+    @RequestMapping("/chat/find/{uuid}/{curChatCode}")
+    public String find_chat(@PathVariable("uuid") String uuid,@PathVariable("curChatCode") String curChatCode)
     {
+		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+		//최근 메세지 같이 보내기
+		//안 본 메세지 개수 같이 보내기
+		
     	String chat_info_list ="";
     	List<Chat> chat_list=null;
     	if(Integer.parseInt(curChatCode)==0)
     	{
-        	 chat_list = chatRepository.selectMyChat(Integer.parseInt(member_code));
+        	 chat_list = chatRepository.selectMyChat(member_code);
     	}
     	else
     	{
-        	chat_list = chatRepository.selectMyChatByCur(Integer.parseInt(member_code),Integer.parseInt(curChatCode));
+        	chat_list = chatRepository.selectMyChatByCur(member_code,Integer.parseInt(curChatCode));
     	}
     	
     	boolean is_list =false;
@@ -219,17 +223,8 @@ public class APIController {
     	resp.setStatus(204);
     	
 
-    	log.info("픽셀 사이즈 {}",message);
-
-    	log.info("픽셀 사이즈 {}",px_size);
-    	log.info("멤버 코드 {}",member_code);
-
-    	log.info("채팅코드 {}",chat_code);
-
-    	log.info("이미지 코드 {}",image_code);
 
     	Message m = new Message(message,Integer.parseInt(px_size),Integer.parseInt(member_code),Integer.parseInt(chat_code),Integer.parseInt(image_code));
-    	log.info("체크2번쨰");
 
     	messageRepository.insert_Message(m);
 

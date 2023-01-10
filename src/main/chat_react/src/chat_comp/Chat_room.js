@@ -97,8 +97,11 @@ function Chat_room({member_code,uuid}) {
                 axios.postForm("http://localhost:8080/api/message/notify",{messageCode: event.target.value, doNotifyUser: member_code});
                 alert("신고가 접수 되었습니다");
                 document.getElementById("content"+event.target.value).innerText="신고된 메세지";
+                document.getElementById("content"+event.target.value).className="chat c_Width2";
                 event.target.innerText="신고됨";
                 event.target.disabled=true;
+                document.getElementById("ballon"+event.target.value).src="/Chat_balloon/A chat_balloon/A chat_balloon2.png";
+                document.getElementById("ballon"+event.target.value).className="chat_balloon_S";
             }});
         }
             set_message_code(str[i - 6]);
@@ -123,7 +126,7 @@ function Chat_room({member_code,uuid}) {
             axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
                 .then((response) => { init_chat(response.data);   })
                 .catch(error => console.log(error))
-        }, 100);
+        }, 50);
         
        
             document.getElementById("messages").scroll({
