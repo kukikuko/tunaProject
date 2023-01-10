@@ -149,11 +149,14 @@ public class PostController {
 		List<Category> cateItem = categoryRepository.selectAll();
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		log.info("p {}", postItem);
+
+		List<Image> images = imageRepository.selectAll(postCode);
+		log.info("img {}", images);
 
 		model.addAttribute("post",postItem);
 		model.addAttribute("cateItem", cateItem);
-		model.addAttribute("member", memberVO);		
+		model.addAttribute("member", memberVO);
+		model.addAttribute("images", images);
 		return "/posts/update";
 	}
 	
