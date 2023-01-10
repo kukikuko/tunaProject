@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class Image {
-    private Long ImageCode;
+    private int ImageCode;
     private String imageName;
     private String imageFiles;
     private String IType;
