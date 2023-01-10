@@ -6,8 +6,8 @@
 	
 	<insert id="insertChat" parameterType="Chat">
 
-	insert into chat (chatCode,postCode,seller,buyer,sellercurview,buyercurview)
-	select chatPK.nextVal,#{postCode},#{seller},#{buyer},0,0
+	insert into TUNA_CHAT (chatCode,postCode,seller,buyer,sellercurview,buyercurview)
+	select TUNA_CHATPK.nextVal,#{postCode},#{seller},#{buyer},0,0
 	FROM DUAL WHERE not(EXISTS(SELECT * FROM CHAT where ( postCode=#{postCode} AND (SELLER=#{seller} AND buyer=#{buyer}))) or #{seller}=#{buyer})
 
 	</insert>
@@ -29,7 +29,7 @@
 	
 	<select id="findChatCode" resultType="Chat">
 	select *
-	from CHAT
+	from TUNA_CHAT
 	where postCode=#{postCode} AND (seller=#{seller} AND buyer=#{buyer})
 	order by chatCode	
 	
@@ -37,13 +37,13 @@
 	
 	<select id="findPostCode" resultType="string">
 	select postcode
-	from CHAT
+	from TUNA_CHAT
 	where chatCode = #{chatCode}
 	</select>
 	
 	<select id="selectMyChat" resultType="Chat">
 	select *
-	from CHAT
+	from TUNA_CHAT
 	where SELLER=#{memberCode} OR buyer=#{memberCode}
 	order by chatCode	
 	
@@ -51,7 +51,7 @@
 	
 	<select id="selectMyChatByCur" resultType="Chat">
 	select *
-	from CHAT
+	from TUNA_CHAT
 	where (SELLER=#{memberCode} OR buyer=#{memberCode}) AND chatCode > #{chatCode}
 	order by chatCode	
 	

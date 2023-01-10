@@ -4,11 +4,6 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
-body {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
 
 *, *:before, *:after {
 	-moz-box-sizing: border-box;
@@ -16,11 +11,10 @@ body {
 	box-sizing: border-box;
 }
 
-
-.login-form {
+.findPwForm {
 	position: relative;
 	margin: 50px auto;
-	width: 400px;
+	width: 800px;
 	height: auto;
 	text-align: center;
 	border-radius: 10px;
@@ -31,64 +25,56 @@ body {
 	padding: 20px;
 }
 
-.login-form input {
+.findPwForm input{
 	background: lavender;
 	padding: 16px;
 	border-radius: 7px;
 	border: 0px;
-	display: block;
-	margin: 10px;
-	width: 300px;
-	color: white;
+	display: inline-block;
+	margin: auto;
+	width: 200px;
+	color: black;
 	font-size: 15px;
 	height: 54px;
-	display :inline-block;
+}
+.findPwSelect{
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	display: inline-block;
+	margin: auto;
+	width: 150px;
+	color: black;
+	font-size: 15px;
+	height: 54px;
 }
 
-.login-form input:focus {
+.findPwForm input:focus {
 	outline-color: rgba(0, 0, 0, 0);
 	background: rgba(255, 255, 255, .95);
 	color: #e74c3c;
 }
-
-.login-form button {
-	color: white;
+.findPwBtn{
+	text-align: center;
+}
+.findPwBtnBack, .findPwBtnSubm {
 	height: 50px;
-	width: 60px;
+	width: 80px;
 	border: 0px;
 	background: #e74c3c;
 	border-radius: 7px;
 	padding: 0px;
-	color: white;
-	text-align: center;
-	margin: 5px;
+	color: black;
+	display: inline-block;
+	margin: 10px;
+	font-size: 15px;
 }
 
-.loginBtn{
-	display:inline-block;
+.findPwForm input::-webkit-input-placeholder {
+	color: black;
 }
 
-.inputUserIcon {
-  position:absolute;
-  top: 45px;
-  right: 65px;
-  color:white;
-}
-
-.inputPassIcon {
-  position:absolute;
-  top:120px;
-  right: 65px;
-  color:white;
-}
-.login-form input::-webkit-input-placeholder {
-	color: white;
-}
-
-.login-form input:focus::-webkit-input-placeholder {
+.findPwForm input:focus::-webkit-input-placeholder {
 	color: #e74c3c;
-}
-
-.errorMessage{
-	padding: 10px
 }

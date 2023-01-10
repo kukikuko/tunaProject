@@ -1,11 +1,18 @@
 @charset "UTF-8";
 
 
-
 body{
-	background-color: #EEEFF1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+/* 	background-color: #EEEFF1; */
 }
-.posts {
+
+a{
+	text-decoration: none;
+	color : black;
+}
+/* .posts {
 	padding-bottom: 20px;
 	text-align: center;
 	width: 100%;
@@ -14,13 +21,11 @@ body{
 	table-layout: fixed;
 	border-bottom: 1px solid gray;
 }
-
+ */
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-
-
 
 .board-table {
 	font-size: 13px;
@@ -63,16 +68,20 @@ table {
 	text-align: center;
 }
 
-.board-table tbody th {
+.tr {
+	padding-left: 28px;
+	padding-right: 14px;
+	text-align: center;
+}
+.tr-pTitle{
 	padding-left: 28px;
 	padding-right: 14px;
 	border-top: 1px solid #e7e7e7;
-	text-align: left;
+	text-align: left;	
 }
-
 .postBtn {
 	border-radius: 20px;
-	border: 1px solid black;
+	border: 2px solid #ffd900;;
 	background-color: white;
 	margin: auto;
 	margin-top: 5px;
@@ -81,50 +90,15 @@ table {
 	height: 40px;
 }
 
-.me-2 {
-	width: 300px;
-}
-
- .post {
-	margin: auto;
-	width: 300px;
-	background-color: #a7cdfd;
-	background-color: #EEEFF1;
-	border-radius: 5px;
-	text-align: center;
-	padding: 20px;
-}
-
-.loing-in, .post-p, .post-p-text {
-	width: 100%;
-	padding: 10px;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border: none;
-}
-
-.in, .post-p, .post-p-text {
-	margin-bottom: 10px;
-}
-
-.post {
-	margin: auto;
-	width: 1000px;
-	height: 100%;
-	background-color: #a7cdfd;
-	background-color: #EEEFF1;
-	border-radius: 5px;
-	padding: 20px;
-}
-
-.post-p-text {
-	width: 80px;
-	height: 50px;
+.sales{
+	border-radius: 20px;
+	border: 2px solid #ffd900;;
 	background-color: white;
-	padding: 10px;
-	box-sizing: border-box;
-	border-radius: 5px;
-	border: none;
+	margin: auto;
+	display: inline-block;
+	width: 65px;
+	height: 20px;	
+	text-decoration: none;
 }
 
 
@@ -133,7 +107,7 @@ table {
 .writing, .updateDiv{
 	margin: auto;
 	margin-top: 10px;
-	width: 100%;
+	width: 900px;
 	height: 100%;
 	background-color: #a7cdfd;
 	background-color: #EEEFF1;
@@ -150,13 +124,13 @@ table {
 	border: none;
 }
 
-.writing_category, .writing_price, .update_category, .update_price{
-	width: 24%;
-	margin: 3px;
+.writing_category, .writing_price, .update_category, .update_price{	
+	width: 200px;	
+	margin-right: 5px;
 }
 
 .writing_title, .update_title {
-	width: 50%;
+	width: 420px;
 }
 
 .writing_content, .update_content{
@@ -176,7 +150,7 @@ table {
 
 .writing_Btn, .update_Btn {
 	border-radius: 20px;
-	border: 1px solid black;
+	border: 2px solid #ffd900;
 	background-color: white;
 	margin: auto;
 	margin-top: 10px;
@@ -196,70 +170,88 @@ table {
 
 /* post */
 .Post {
-	margin: auto;
-	width: 100%;
+	margin: 10px auto 10px auto;
+	width: 900px;
 	height: 100%;
-	background-color: #a7cdfd;
 	background-color: #EEEFF1;
+/*  	background-color: white; */
 	border-radius: 5px;
-	text-align: center;
+/* 	text-align: center; */
 	padding: 20px;
 }
-
-.post-category, .post-title, .post-price , .post-view, .post-content, .post-img, .post-time{
-	margin-bottom: 10px;
+.img{
+	text-align: center;	
+}
+.post-category, .post-title, .post-price , .post-view, .post-content, .post-time, .post-heart{
+	/* margin-bottom: 10px; */
 	padding: 10px;
-	background-color: white;
+	/* background-color: white; */
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
 	display: inline-block;
-}
-
-.post-category {	
-	width: 15%;	
-	margin-right: 5px;
+	margin : 0px;
 }
 .post-title{
-	width: 50%;
-	margin-right: 5px;
+	font-size: 2rem;
 }
-.post-price, .post-view, .post-time{
-	width: 10%;	
-	margin-right: 5px;
+.post-time, .post-heart{
+	font-size: 0.7rem;
+	width:100%;
 }
-
+.post-img{
+	margin-top : 10px;
+	width: 80%;
+	height : 80%;
+	
+}
+.post-category {	
+	width: 140px;	
+	margin-right: 5px;
+	text-align: left;
+}
+.post-title{
+	width: 420px;
+}
+.post-price{
+	width: 170px;	
+}
+.post-heart{
+	width: 50px;	
+}
+.post-time{
+	width: 200px;	
+	margin: auto;
+}
 .post-content {
 	width: 100%;
-	height: 300px;
+	height: 100%;
 }
-
 .deleteForm{
 	display: inline-block;
 }
-
-
-.post_Btn {
+.BtnAll{
+	text-align: center;	
+}
+.post_Btn, .post_Btn_back, .post_Btn_notify, .heartBtn {
 	border-radius: 20px;
-	border: 1px solid black;
+	border: 2px solid #ffd900;
 	background-color: white;
 	margin: auto;
-	margin-top: 10px;
 	display: inline-block;
 	width: 100px;
 	height: 40px;
 }
-
-.post_Btn_back {
+.pSalesStatusBtn, select{
 	border-radius: 20px;
-	border: 1px solid black;
 	background-color: white;
 	margin: auto;
-	margin-top: 10px;
+	text-align: center;
 	display: inline-block;
 	width: 100px;
 	height: 40px;
 }
+<<<<<<< HEAD
 
 
 .dealForm
@@ -269,22 +261,8 @@ table {
 }
 
 .post_Btn_notify {
+=======
+option{
+>>>>>>> a68da4381bb455179a48a3a4b09dca0405c2ad26
 	border-radius: 20px;
-	border: 1px solid black;
-	background-color: white;
-	margin: auto;
-	margin-top: 10px;
-	display: inline-block;
-	width: 100px;
-	height: 40px;
-}
-.heartBtn{
-	border-radius: 20px;
-	border: 1px solid black;
-	background-color: white;
-	margin: auto;
-	margin-top: 10px;
-	display: inline-block;
-	width: 100px;
-	height: 40px;
 }

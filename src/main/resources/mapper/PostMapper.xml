@@ -36,6 +36,8 @@
 		(select CtName from TUNA_CATEGORY ct where
 		p.postCtCode = ct.ctCode)as ctName
 		,PMEMCODE, PTITLE, PCONTENT,
+		(select count(*) from tuna_heart where hpostcode
+		= p.POSTCODE)as heart,
 		PCREATETIME, pCorrectionTime,
 		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
 		from TUNA_POST p

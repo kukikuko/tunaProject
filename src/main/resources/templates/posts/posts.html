@@ -6,7 +6,20 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/posts.css">
 <link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
 </head>
+<style>
+body, html{
+ height: 100%;
+} 
+body {
+  display: flex;
+  flex-direction: column;
+}
+</style>
+
+
+
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<div class="board-list">
@@ -28,7 +41,7 @@
 					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}"
 						th:text="${post.pTitle}"></a> <span
-						th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
+						th:text="${post.getPSalesStatus().getMemo()}" class="sales"></span></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
 					<td class="tr"
@@ -37,10 +50,12 @@
 			</tbody>
 		</table>
 	</div>
+	
 	<div>
 		<!-- <button th:if="${memberVO.getMemberMail().equals('admin')}" th:onClick="location.href='@{/admin/home}'">관리자 화면</button> -->
 		<button class="postBtn" th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
 	</div>
+	<div th:replace="layout/footer :: footerFrag"></div>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
 </body>
