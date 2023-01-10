@@ -22,14 +22,14 @@
 		<th:block th:if="${cnt123 == 0}">
 			<button th:if="${post.pMemCode} != ${member.memberCode}"
 				class="heartBtn" type="submit" id="heartBtnWhite">
-				<i class="fa-regular fa-heart"></i>
+				<i id="whiteHeart" class="fa-regular fa-heart"></i>
 				</button>
 		</th:block>
 
 		<th:block th:if="${cnt123 >= 1}">
 			<button th:if="${post.pMemCode} != ${member.memberCode}"
 				class="heartBtn" type="submit" id="heartBtnRed">
-				<i class="fa-solid fa-heart"></i>
+				<i id="redHeart" class="fa-solid fa-heart"></i>
 				</button>
 		</th:block>
 		<p class="post-price"
@@ -79,7 +79,6 @@
 	<script>
       $("#postCode").css("display", "none");
       $("#pMemCode").css("display", "none");
-      $("#heartBtnRed").css("backgroundColor", "red");
       if (document.getElementById("notifyBtn")) {
         document.getElementById("notifyBtn").addEventListener("click", (e) => {
           Swal.fire({
@@ -184,16 +183,24 @@
               success: function (cnt) {
                 console.log(cnt);
                 if ((cnt) => 1) {
-                  $("#heartBtnWhite").css("backgroundColor", "red");
-                  $("#heartBtnRed").css("backgroundColor", "red");
+				  if($("#whiteHeart")){
+					  $("#whiteHeart").attr('class', 'fa-solid fa-heart')
+				  }
+				  if($("#redHeart")){
+					  $("#redHeart").attr('class', 'fa-solid fa-heart')
+				  }
                   Toast.fire({
                     icon: "success",
                     title: "찜 성공",
                   });
                 }
                 if (cnt == 0) {
-                  $("#heartBtnWhite").css("backgroundColor", "white");
-                  $("#heartBtnRed").css("backgroundColor", "white");
+					if($("#whiteHeart")){
+						$("#whiteHeart").attr('class', 'fa-regular fa-heart')
+					}
+					if($("#redHeart")){
+						$("#redHeart").attr('class', 'fa-regular fa-heart')
+					}
                   Toast.fire({
                     icon: "success",
                     title: "찜 취소",
