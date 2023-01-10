@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
    
-   <mapper
-	namespace="com.project.TunaProject.repository.mybatis.ChatMapper">
+   <mapper namespace="com.project.TunaProject.repository.mybatis.ChatMapper">
 	
 	<insert id="insertChat" parameterType="Chat">
 
@@ -12,6 +11,21 @@
 	FROM DUAL WHERE not(EXISTS(SELECT * FROM CHAT where ( postCode=#{postCode} AND (SELLER=#{seller} AND buyer=#{buyer}))) or #{seller}=#{buyer})
 
 	</insert>
+	
+		
+	<update id="updateCurview1" parameterType="CurView">
+			UPDATE  Chat
+		     set  buyercurview = #{messageCode}
+		     where buyer=#{memberCode} and chatCode=#{chatCode}
+	</update>
+	
+	<update id="updateCurview2" parameterType="CurView">
+			UPDATE  Chat
+		     set  sellercurview = #{messageCode}
+		     where seller=#{memberCode} and chatCode=#{chatCode}
+	
+	</update>
+
 	
 	<select id="findChatCode" resultType="Chat">
 	select *

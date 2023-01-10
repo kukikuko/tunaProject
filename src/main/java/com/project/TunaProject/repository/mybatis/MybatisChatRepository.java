@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.project.TunaProject.domain.Chat;
+import com.project.TunaProject.domain.CurView;
 import com.project.TunaProject.repository.ChatRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -56,6 +57,15 @@ public class MybatisChatRepository implements ChatRepository {
 		return chatMapper.findPostCode(chatCode);
 
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void updateCurview(CurView cv) {
+		// TODO Auto-generated method stub
+		 chatMapper.updateCurview1(cv);
+		 chatMapper.updateCurview2(cv);
+
+		
 	}
 
 }

@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartRequest;
 
 import com.project.TunaProject.domain.Chat;
+import com.project.TunaProject.domain.CurView;
 import com.project.TunaProject.domain.Image;
 import com.project.TunaProject.domain.Message;
 import com.project.TunaProject.domain.Notify;
@@ -32,11 +33,13 @@ import com.project.TunaProject.repository.ChatRepository;
 import com.project.TunaProject.repository.ImageRepository;
 import com.project.TunaProject.repository.MemberRepository;
 import com.project.TunaProject.repository.MessageRepository;
+import com.project.TunaProject.repository.NotifyRepository;
 import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.repository.mybatis.MessageMapper;
 import com.project.TunaProject.repository.mybatis.MybatisMessageRepository;
 import com.project.TunaProject.repository.mybatis.MybatisNotifyRepository;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -55,7 +58,8 @@ public class APIController {
 	private final ImageRepository imageRepository;
 	private final MybatisNotifyRepository mybatisNotifyRepository;
 	private final FileStore fileStore;
-	
+    private final NotifyRepository notifyRepository;
+
     @RequestMapping("/uuid_info/{uuid}")
     public String get_id(@PathVariable("uuid") String uuid)
     {
@@ -65,12 +69,9 @@ public class APIController {
     @RequestMapping("/chat_title/find/{chat_code}")
     public String find_title(@PathVariable("chat_code") String chat_code)
     {
-    	log.info("start");
 
     	String postcode =  chatRepository.findPostCode(Integer.parseInt(chat_code));
-    	log.info("check_point 1");
     	 Post post = postRepository.selectByPostCode(postcode);
-    	log.info("check_point 2");
  
     	return post.getPTitle()+"("+memberRepository.selectByCode(post.getPMemCode()).getMemberNick()+")";
     }
@@ -135,10 +136,7 @@ public class APIController {
     		chat_info_list += post.getPTitle()+"\0"+c.getChatCode()+"\0"+memberRepository.selectByCode(post.getPMemCode()).getMemberNick();
     	}
     	
-    	if(!is_list)
-    	{
-    		//curChatCode member_code
-    	}
+    
     	
     	return chat_info_list;
     }
@@ -159,9 +157,8 @@ public class APIController {
     }
 
 	
-    @RequestMapping("/message/get/{chat_code}/{message_code}")
-    public String get_chat(@PathVariable("chat_code") String chat_code,@PathVariable("message_code") String message_code) {
-    	
+    @RequestMapping("/message/get/{chat_code}/{message_code}/{uuid}")
+    public String get_chat(@PathVariable("chat_code") String chat_code,@PathVariable("message_code") String message_code,@PathVariable("uuid") String uuid) {
     	String str ="";
 
     	List<Message> message_list =null;
@@ -181,15 +178,35 @@ public class APIController {
         boolean is_start =true;
     	for(Message m:message_list)
     	{
-    		if(!is_start)
+    	
+    	
+    		//신고된 메세지 필터링
+    		if(notifyRepository.notifyfilter(m.getMessageCode()).intValue()==0)
     		{
-        		str+="\0";
+    			if(!is_start)
+        		{
+            		str+="\0";
+        		}
+    			else
+    			{
+            		is_start = false;
+
+    			}
+        		str+=m.all_data();
+        		
+
     		}
-    		else
-    		{
-        		is_start = false;
-    		}
-    		str+=m.all_data();
+    	}
+    	
+    	if(!is_start)
+    	{
+        
+    		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+    		CurView cv = new CurView();
+    		cv.setMessageCode(Integer.parseInt(message_code));
+    		cv.setMemberCode(member_code);
+    		cv.setChatCode(Integer.parseInt(chat_code));
+    		chatRepository.updateCurview(cv);
     	}
     	
     	return str;
@@ -198,30 +215,39 @@ public class APIController {
     }
     @PostMapping("/message/up")
     public void up_chat(HttpServletResponse resp,@RequestParam("message") String message,@RequestParam("member_code") String member_code,@RequestParam("chat_code") String chat_code,@RequestParam("px_size") String px_size,@RequestParam("image_code") String image_code) {
-    	resp.setStatus(204);
-    	log.info(image_code);
-    	log.info(message);
-    	log.info(member_code);
-    	log.info(chat_code);
-    	log.info(px_size);
 
+    	resp.setStatus(204);
     	
-        
+
+    	log.info("픽셀 사이즈 {}",message);
+
+    	log.info("픽셀 사이즈 {}",px_size);
+    	log.info("멤버 코드 {}",member_code);
+
+    	log.info("채팅코드 {}",chat_code);
+
+    	log.info("이미지 코드 {}",image_code);
+
     	Message m = new Message(message,Integer.parseInt(px_size),Integer.parseInt(member_code),Integer.parseInt(chat_code),Integer.parseInt(image_code));
+    	log.info("체크2번쨰");
+
     	messageRepository.insert_Message(m);
-        
+
     }
     
-    @PostMapping("message/notify")
-    public void up_chat(HttpServletResponse resp,@RequestParam("MessageCode") String MessageCode,@RequestParam("ChatCode") String ChatCode,@RequestParam("doNotifyUser") String doNotifyUser) {
+    @PostMapping("/message/notify")
+    public void up_chat(HttpServletResponse resp,@RequestParam("messageCode") String messageCode,@RequestParam("doNotifyUser") String doNotifyUser) {
+    	
+    	log.info("ddd");
     	resp.setStatus(204);
     	
-    	int NotifyUser = messageRepository.find_Message_Caller(Integer.parseInt(MessageCode));
+    	int NotifyUser = messageRepository.find_Message_Caller(Integer.parseInt(messageCode));
     	Notify notify = new Notify();
     	notify.setDoNotifyMemberCode(doNotifyUser);
     	notify.setNotifyMemberCode(NotifyUser+"");
     	notify.setNotifyTarget(2);
-    	notify.setNotifyType(MessageCode);
+    	notify.setNotifyType(messageCode);
+
     	mybatisNotifyRepository.insertNotify(notify);
     	
     	//메세지창 상대 멤버 코드 찾기 

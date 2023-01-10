@@ -24,6 +24,12 @@
 	where NOTIFYTYPE = #{notifyType} 
 	and donotifyMemberCode= #{doNotifyMemberCode}
 	</select>
+	
+	<select id="notifyfilter" resultType="Integer">
+	select count(*) 
+	from tuna_notify 
+	where NOTIFYTYPE = #{messageCode} 
+	</select>
 
 	<select id="selectNotifyAll" resultType="Notify">
 	select notifycode, notifytype, notifytime, donotifymembercode, notifymembercode

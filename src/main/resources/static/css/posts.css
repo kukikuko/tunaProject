@@ -127,6 +127,8 @@ table {
 	border: none;
 }
 
+
+
 /* writing, update */
 .writing, .updateDiv{
 	margin: auto;
@@ -257,6 +259,13 @@ table {
 	display: inline-block;
 	width: 100px;
 	height: 40px;
+}
+
+
+.dealForm
+{
+	width:auto;
+	display:inline-block;
 }
 
 .post_Btn_notify {
