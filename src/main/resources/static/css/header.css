@@ -1,11 +1,33 @@
 @charset "UTF-8";
+
+@font-face{
+font-family: "SUIT-Variable";
+src: url('/css/font/SUIT-Variable.ttf');
+}
+
+@font-face{
+font-family: "SUIT-ExtraBold";
+src: url('/css/font/SUIT-ExtraBold.ttf');
+}
+
+
+body{
+  font-family: SUIT-ExtraBold;
+  
+}
+
+
  .mainText-link{
 	text-decoration:none;
+	font-family: SUIT-ExtraBold;
+	font-size : 25px;
+	color: #ffd900;
+	text-shadow: -1px 0 #000, 0 1px #000, 1px 0 #000, 0 -1px #000;
 }
 .mainText{
     display:inline-block;
     position:relative;
-    color:black;
+    color: #ffd900;
     animation-name:popup;
     animation-duration:1.6s;   
     animation-iteration-count: infinite;
@@ -34,8 +56,9 @@
 }
 
 .logoImg {
-width: 40px;
-height: 40px;
+width: 50px;
+height: 50px;
+/* margin-left : 5px; */
 vertical-align: middle;
 }
 
@@ -56,7 +79,9 @@ width:100%;
 justify-content: start;
 background-color: white;
 align-items: center;
-padding: 8px 12px;
+padding: 8px 0;
+font-family: SUIT-Variable;
+border-bottom : 3px solid #ffd900;
 }
 
 .navbar_toggle {
@@ -66,32 +91,21 @@ justify-content: space-between;
 width:85%;
 align-items: center;
 background-color: white;
-padding: 8px 12px;
+/* padding: 8px 12px; */
 }
 
 .navbar_logo {
 display: inline-block;
 width:15%;
-/* min-width: 120px; */
 }
 
-/* .navbar_logo {
-font-size: 24px;
-color: black;
-}
-*/
-/* .navbar_logo {
-display: flex;
-list-style: none;
-padding-left: 0;
-}
-*/
 .navbar_menu {
 display: flex;
 list-style: none;
 padding-left: 0;
 align-items:center;
 width:100%;
+font-family : SUIT-Variable;
 }
 
 .navbar_menu_text {
@@ -139,6 +153,7 @@ padding: 8px 12px;
 	border: 2px solid #ffd900;
 	width: 250px;
 	font-size: 15px;
+	font-family: SUIT-Variable;
 }
 
 .navbar_toggleBtn {
@@ -206,6 +221,7 @@ margin: 10px;
 	width: 100px;
 	height: 40px;
 	margin-left: 5px;
+	font-family: SUIT-Variable;
 }
 
 .searchBtn {
@@ -217,6 +233,7 @@ margin: 10px;
 	display: inline-block;
 	width: 50px;
 	height: 40px;
+	font-family: SUIT-Variable;
 }
 
 .logout {
@@ -227,7 +244,8 @@ margin: 10px;
 	font-size: 13px;
 	text-decoration: none;
 	text-align: left;
-	width: 100%
+	width: 100%;
+	font-family : SUIT-Variable;
 }
 
 .dropdown {

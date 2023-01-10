@@ -29,9 +29,8 @@ body {
 			enctype="multipart/form-data" name="updateForm">
 			<input type="hidden" name="postCode" th:field="*{postCode}" /> <select
 				class="update_category" name="ctCode">
-				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}"
-					th:text="${ct.ctName}"
-					th:selected="${ct.ctCode} == ${post.postCtCode}"></option>
+				<option  class="updateOption" th:each="ct : ${cateItem}" th:value="${ct.ctCode}"
+					th:text="${ct.ctName}" th:selected="${ct.ctCode} == ${post.postCtCode}"></option>
 			</select> <input type="text" name="postTitle" th:field="*{pTitle}"
 				class="update_title" /> <input type="number"
 				name="postPrice" th:field="*{pPrice}" class="update_price" />
@@ -40,8 +39,6 @@ body {
 			<div class="updateBtn">
 				<input class="writing_image" type="file" multiple="multiple"
 					name="imageFiles" />
-
-				<div class="pSalesStatusBtn">
 					<select class="pSalesStatusBtn"
 						aria-expanded="false" th:value="${post.pSalesStatus}"
 						th:field="*{pSalesStatus}" id="saleStatus">
@@ -49,7 +46,7 @@ body {
 						<option value="S">예약중</option>
 						<option value="N">판매완료</option>
 					</select>
-				</div>
+
 
 				<button type="submit" class="update_Btn" id="update_Btn">
 					수정완료</button>

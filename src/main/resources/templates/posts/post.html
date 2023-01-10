@@ -31,15 +31,14 @@
 		<p class="post-price"
 			th:text="|가격 : ${#numbers.formatInteger(post.pPrice, 0, 'COMMA')}원|"></p>
 		<br />
-		<p class="post-heart" th:text="|찜  ${post.heart}|"></p>
+	<!-- 	<p class="post-heart" th:text="|찜  ${post.heart}|"></p> -->
 		<p class="post-time" th:if="${post.pCorrectionTime == null}"
 			th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-time" th:if="${post.pCorrectionTime != null}"
 			th:text="${#dates.format(post.pCorrectionTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-content" th:text="${post.pContent}"></p>
 		<div class="img" th:each="image : ${images}">
-			<img class="post-img" th:src="|/posts/images/${image.imageFiles}|"
-				width="300" height="300" />
+			<img class="post-img" th:src="|/posts/images/${image.imageFiles}|"/>
 		</div>
 
 		<br />

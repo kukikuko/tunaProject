@@ -25,7 +25,7 @@ body {
 	<div class="board-list">
 		<table class="board-table">
 			<thead class="postsThead">
-				<tr>
+				<tr class="title">
 					<th class="th-cate">카테고리</th>
 					<th class="th-title">작성자</th>
 					<th class="th-title">제목</th>
@@ -36,7 +36,7 @@ body {
 			</thead>
 			<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}"
 				class="postsTbody">
-				<tr>
+				<tr class="content">
 					<td class="tr" th:text="${post.ctName}"></td>
 					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}"
@@ -50,7 +50,7 @@ body {
 			</tbody>
 		</table>
 	</div>
-	
+	<br/>
 	<div>
 		<!-- <button th:if="${memberVO.getMemberMail().equals('admin')}" th:onClick="location.href='@{/admin/home}'">관리자 화면</button> -->
 		<button class="postBtn" th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
