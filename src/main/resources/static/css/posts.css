@@ -224,9 +224,6 @@ table {
 	margin-right: 5px;
 	text-align: left;
 }
-.post-title{
-	width: 420px;
-}
 .post-price{
 	width: 170px;	
 }
@@ -247,7 +244,7 @@ table {
 .BtnAll{
 	text-align: center;	
 }
-.post_Btn, .post_Btn_back, .post_Btn_notify, .heartBtn {
+.post_Btn, .post_Btn_back, .post_Btn_notify{
 	border-radius: 20px;
 	border: 2px solid #ffd900;
 	background-color: white;
@@ -256,14 +253,15 @@ table {
 	width: 100px;
 	height: 40px;
 }
-/* .pSalesStatusBtn, select{
+
+.heartBtn {
 	border-radius: 20px;
+	border: 2px solid #ffd900;
 	background-color: white;
-	margin: auto;
-	text-align: center;
+/* 	margin: auto; */
 	display: inline-block;
-	width: 100px;
-	height: 40px;
+	font-size : 1rem;
+
 }
 
 

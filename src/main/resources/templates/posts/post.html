@@ -21,12 +21,16 @@
 
 		<th:block th:if="${cnt123 == 0}">
 			<button th:if="${post.pMemCode} != ${member.memberCode}"
-				class="heartBtn" type="submit" id="heartBtnWhite">♥</button>
+				class="heartBtn" type="submit" id="heartBtnWhite">
+				<i class="fa-regular fa-heart"></i>
+				</button>
 		</th:block>
 
 		<th:block th:if="${cnt123 >= 1}">
 			<button th:if="${post.pMemCode} != ${member.memberCode}"
-				class="heartBtn" type="submit" id="heartBtnRed">♥</button>
+				class="heartBtn" type="submit" id="heartBtnRed">
+				<i class="fa-solid fa-heart"></i>
+				</button>
 		</th:block>
 		<p class="post-price"
 			th:text="|가격 : ${#numbers.formatInteger(post.pPrice, 0, 'COMMA')}원|"></p>

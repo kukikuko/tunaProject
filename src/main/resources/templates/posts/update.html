@@ -10,7 +10,6 @@
 <link rel="stylesheet" href="/css/posts.css" />
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/footer.css" />
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <style>
 body, html {
 	height: 100%;
@@ -38,20 +37,8 @@ body {
 			<textarea type="text" name="postContent" th:field="*{pContent}"
 				class="update_content"></textarea>
 			<div class="updateBtn">
-				<div class="form-group file-group writing_image" id="file-list">
-					<div class="file-add">
-						<a href="#this" onclick="addFile()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 파일추가</a>
-					</div>
-					<div th:each="image : ${images}">
-						<div class="file-input">
-							<input type='hidden' name="iCode" th:value="${image.getImageCode()}">
-							<span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
-							<span th:text="${image.getImageName()}"></span>
-							<a href='#this' name='file-delete'>삭제</a>
-						</div>
-					</div>
-				</div>
-				<div class="pSalesStatusBtn">
+				<input class="writing_image" type="file" multiple="multiple"
+					name="imageFiles" />
 					<select class="pSalesStatusBtn"
 						aria-expanded="false" th:value="${post.pSalesStatus}"
 						th:field="*{pSalesStatus}" id="saleStatus">
@@ -112,28 +99,6 @@ body {
           }
         });
       });
-
-    </script>
-    <script th:inline="javascript">
-		$(document).ready(function() {
-			$("a[name='file-delete']").on("click", function(e) {
-				e.preventDefault();
-				deleteFile($(this));
-			});
-		})
-
-		function addFile() {
-			var str = "<div class='file-input'><input type='file' name='imageFiles'><a href='#this' name='file-delete'>삭제</a></div>";
-			$("#file-list").append(str);
-			$("a[name='file-delete']").on("click", function(e) {
-				e.preventDefault();
-				deleteFile($(this));
-			});
-		}
-
-		function deleteFile(obj) {
-			obj.parent().remove();
-		}
     </script>
 </body>
 </html>
