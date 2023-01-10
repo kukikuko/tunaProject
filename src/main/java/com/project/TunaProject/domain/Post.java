@@ -12,7 +12,7 @@ public class Post {
 	private String postCtCode;
 	private int pMemCode;
 	private String memNick;
-	private String heart;
+	private int heart;
 	private String pTitle;
 	private String pContent;
 	private Date pCreateTime;

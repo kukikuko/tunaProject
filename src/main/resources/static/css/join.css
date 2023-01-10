@@ -19,12 +19,13 @@ zocial
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
+	text-align: center;
 }
 
 .joinform {
 	position: relative;
 	margin: 50px auto;
-	width: 400px;
+	width: 530px;
 	height: auto;
 	text-align: left;
 	border-radius: 10px;
@@ -35,7 +36,7 @@ zocial
 	padding: 20px;
 }
 .joinform label{
-	font-size: 12px;
+	font-size: 16px;
 	margin: 5px;
 }
 .join-input{
@@ -46,8 +47,8 @@ zocial
 	display: block;
 	margin: auto;
 	width: 300px;
-	color: white;
-	font-size: 15px;
+	color: black;
+	font-size: 16px;
 	height: 54px;
 	
 } 
@@ -57,9 +58,9 @@ zocial
 	border-radius: 7px;
 	border: 0px;
 	margin-left: 7px;
-	width: 140px;
-	color: white;
-	font-size: 15px;
+	width: 135px;
+	color: black;
+	font-size: 16px;
 	height: 54px;	
 	display :inline-block;
 }
@@ -71,8 +72,8 @@ zocial
 	margin-top: 9px;
 	margin-left: 7px;
 	width: 200px;
-	color: white;
-	font-size: 15px;
+	color: black;
+	font-size: 16px;
 	height: 54px;	
 	display :inline-block;
 }
@@ -85,21 +86,23 @@ zocial
 		margin-left: 7px;
 	width: 100px;
 	color: white;
-	font-size: 15px;
+	font-size: 16px;
 	height: 54px;	
 	display :inline-block;
 	padding: 3px;
 }
+
+
 .join-phonNumIn{
 	background: lavender;
-	padding: 16px;
+	padding: 9px;
 	border-radius: 7px;
 	border: 0px;
 	display: block;
 	margin: auto;
-	width: 60px;
-	color: white;
-	font-size: 15px;
+	width: 70px;
+	color: black;
+	font-size: 16px;
 	height: 54px;	
 	display :inline-block;
 }
@@ -120,7 +123,7 @@ zocial
 	border-radius: 7px;
 	border: 0px;
 	margin: auto;
-	margin-left: 7px;
+	
 	color: black;
 	font-size: 14px;
 	display :inline-block;
@@ -137,7 +140,7 @@ zocial
 	margin-top : 10px;
 	margin-left: 7px;
 	color: black;
-	font-size: 14px;
+	font-size: 15px;
 	display :inline-block;
 	color: white;
 	height: 54px;

@@ -64,7 +64,6 @@ public class PostController {
 		
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
-		log.info("posts {}" , postList);
 		return "/posts/posts";
 	}
 	
@@ -76,20 +75,13 @@ public class PostController {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
-		log.info("memberVO {}", memberVO.getMemberCode());
-		
 		//찜버튼 status를 전달할 수 있게
-		Heart h = new Heart();
-		h.setHMemCode(Integer.toString(memberVO.getMemberCode()));
-		h.setHPostCode(postCode);
-		int cnt = heartRepository.countHeart(h);
-		System.out.println("*******************"+cnt);
-		 
-		log.info(postCode);
+		Heart heart = new Heart();
+		heart.setHMemCode(Integer.toString(memberVO.getMemberCode()));
+		heart.setHPostCode(postCode);
+		int cnt = heartRepository.countHeart(heart);
 		
 		List<Image> images = imageRepository.selectAll(postCode);
-		
-		log.info("img {}", images);
 
 		model.addAttribute("images", images);
 		model.addAttribute("post",postItem);
@@ -166,14 +158,6 @@ public class PostController {
 	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem,
 			@ModelAttribute ItemForm form, @ModelAttribute Category ct) {
 		
-		log.info(postCode);
-		log.info("ct {}", ct);
-		
-		System.out.println(postItem.getPSalesStatus());
-		
-		log.info("postItem {}", postItem);
-		log.info("postEnum {}, {}", postItem.getPSalesStatus().getMemo(), postItem.getPSalesStatus());
-		
 		postRepository.update(postCode, postItem, ct.getCtCode());
 		return "redirect:/posts/{postCode}";
 	}
@@ -181,7 +165,6 @@ public class PostController {
 	
 	@PostMapping("/delete")
 	public String updateDeleteProcess(@ModelAttribute Post post) {
-		log.info("postCode {}", post.getPostCode());
 
 		postRepository.updateDelete(post.getPostCode());
 		
@@ -191,7 +174,7 @@ public class PostController {
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-		log.info(filename);
+		
 		return new UrlResource("file:" + fileStore.getFullPath(filename));
 	}
 	

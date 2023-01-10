@@ -41,7 +41,7 @@ body {
 					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}"
 						th:text="${post.pTitle}"></a> <span
-						th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
+						th:text="${post.getPSalesStatus().getMemo()}" class="sales"></span></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
 					<td class="tr"
