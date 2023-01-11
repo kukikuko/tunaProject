@@ -65,7 +65,7 @@ public class PostController {
 		
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
-		return "/posts/posts";
+		return "posts/posts";
 	}
 	
 	@GetMapping("/{postCode}")
@@ -89,7 +89,7 @@ public class PostController {
 		model.addAttribute("member", memberVO);
 		model.addAttribute("cnt123", cnt);
 		
-		return "/posts/post";
+		return "posts/post";
 		
 	}
 	
@@ -104,7 +104,7 @@ public class PostController {
 		model.addAttribute("cateItem", cateItem);
 		model.addAttribute("member", memberVO);
 
-		return "/posts/writing";
+		return "posts/writing";
 	}
 	
 	@PostMapping("/writing")
@@ -152,7 +152,7 @@ public class PostController {
 		model.addAttribute("cateItem", cateItem);
 		model.addAttribute("member", memberVO);
 		model.addAttribute("images", images);
-		return "/posts/update";
+		return "posts/update";
 	}
 	
 	
@@ -222,7 +222,7 @@ public class PostController {
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
-		return "/posts/posts";
+		return "posts/posts";
 	}
 	
 	@PostMapping("/notify")

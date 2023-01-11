@@ -122,7 +122,7 @@ public class LoginController {
 	@GetMapping("/login/findPw")
 	public String findPw() {
 		
-		return "/login/findPw";
+		return "login/findPw";
 	}
 	
 
