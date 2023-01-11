@@ -35,7 +35,9 @@ body {
 				class="postsTbody">
 				<tr class="content">
 					<td class="tr" th:text="${post.ctName}"></td>
-					<td class="tr" th:text="${post.memNick}"></td>
+					<td><a class="tr" th:text="${post.memNick}"
+					th:href="@{/posts/userPost/{pMemCode}(pMemCode= ${post.pMemCode})}"></a>
+					</td>
 					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}"
 						th:text="${post.pTitle}"></a> <span
 						th:text="${post.getPSalesStatus().getMemo()}" class="sales"></span></td>

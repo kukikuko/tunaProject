@@ -5,11 +5,10 @@
 <mapper
 	namespace="com.project.TunaProject.repository.mybatis.PostItemMapper">
 
-<!-- 게시글 작성 -->
+	<!-- 게시글 작성 -->
 	<insert id="insert" parameterType="Post">
 		<!-- <selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE"> -->
-		<selectKey keyProperty="postCode"
-			resultType="java.lang.String" order="BEFORE">
+		<selectKey keyProperty="postCode" resultType="java.lang.String" order="BEFORE">
 			SELECT
 			(concat(to_char(SYSDATE,'YYMMDD'), POSTCODESQ.nextVal)) as postCode
 			from dual
@@ -31,13 +30,18 @@
 		)
 	</insert>
 
-<!-- postCode에 맞는 게시글 정보 가져오기 -->
+	<!-- postCode에 맞는 게시글 정보 가져오기 -->
 	<select id="selectByPostCode" resultType="Post">
 		select
-		POSTCODE,postCtCode,
-		(select CtName from TUNA_CATEGORY ct where
-		p.postCtCode = ct.ctCode)as ctName
-		,PMEMCODE, PTITLE, PCONTENT,
+		POSTCODE,
+		postCtCode,
+		(select CtName
+		from TUNA_CATEGORY ct
+		where p.postCtCode = ct.ctCode)as ctName
+		,PMEMCODE
+		,PTITLE
+		,PCONTENT
+		,
 		(select count(*) from tuna_heart where hpostcode
 		= p.POSTCODE)as heart,
 		PCREATETIME, pCorrectionTime,
@@ -46,23 +50,29 @@
 		where postCode = #{postCode}
 	</select>
 
-<!-- 모든 게시글 정보를 가져오기 -->
+	<!-- 모든 게시글 정보를 가져오기 -->
 	<select id="selectAll" resultType="PostForCategory">
 		select POSTCODE,postCtCode,
 		(select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as
 		ctName
 		,(select memberNick from tuna_member where memberCode =
 		p.PMEMCODE)as
-		memNick
-		,(select count(*) from tuna_heart where hpostcode
+		memNick,
+		(select memberCode from tuna_member where
+		memberCode =
+		p.PMEMCODE)as
+		pMemCode
+		,(select count(*) from tuna_heart
+		where hpostcode
 		= p.POSTCODE)as heart
 		, PTITLE, PCONTENT, PCREATETIME
 		,pCorrectionTime,
-		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST p order by
+		PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW from TUNA_POST
+		p order by
 		postCode
 	</select>
 
-<!-- 게시글 수정 -->
+	<!-- 게시글 수정 -->
 	<update id="update">
 		update TUNA_POST
 		set pTitle = #{updatePost.pTitle}
@@ -77,7 +87,7 @@
 		#{postCode}
 	</update>
 
-<!-- postCode에 맞는 조회수 확인 -->
+	<!-- postCode에 맞는 조회수 확인 -->
 	<update id="viewCont">
 		update TUNA_POST
 		set pView = pView + 1
@@ -85,7 +95,7 @@
 		#{postCode}
 	</update>
 
-<!-- 게시물 삭제하면 공개여부 변경 -->
+	<!-- 게시물 삭제하면 공개여부 변경 -->
 	<update id="updateDelete">
 		update TUNA_POST
 		set POPENSTATUS = 'N'
@@ -93,7 +103,7 @@
 		#{postCode}
 	</update>
 
-<!-- 검색 기능 -->
+	<!-- 검색 기능 -->
 	<select id="selectSearch" parameterType="String"
 		resultType="PostForCategory">
 		select POSTCODE,postCtCode,
@@ -110,36 +120,42 @@
 		order
 		by postCode
 	</select>
-	
+
 	<!-- 조회수 TOP10 -->
 	<select id="orderByPview" resultType="Post">
 		select *
 		from (
 		select postCode from tuna_post
-		where PSALESSTATUS = 'Y' or PSALESSTATUS = 'S'
+		where PSALESSTATUS = 'Y'
+		or PSALESSTATUS = 'S'
 		and POPENSTATUS = 'Y'
 		order by pview desc
-		) where rownum <![CDATA[<=]]>
+		) where
+		rownum <![CDATA[<=]]>
 		10
 	</select>
 
-<!-- 조회수TOP10에 맞는 이미지 가져오기 -->
+	<!-- 조회수TOP10에 맞는 이미지 가져오기 -->
 	<select id="selectCard" resultType="PostCard">
 		select postCode, ptitle, pprice, pview, imagefiles
 		from
 		(select *
 		from (
 		select postCode, ptitle, pprice, pview from tuna_post
-		where PSALESSTATUS ='Y' or PSALESSTATUS = 'S'
+		where
+		PSALESSTATUS ='Y' or PSALESSTATUS = 'S'
 		and POPENSTATUS = 'Y'
-		order by pview desc
+		order by
+		pview desc
 		) where rownum <![CDATA[<=]]>
 		10 and postcode = #{postCode}
 		)t left outer join (select *
-		from tuna_postImage
+		from
+		tuna_postImage
 		where itype = #{postCode}
 		and rownum = 1) i
-		on t.postcode = i.itype
+		on t.postcode
+		= i.itype
 	</select>
 
 </mapper>
