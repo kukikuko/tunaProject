@@ -222,7 +222,8 @@ function Chat_room({member_code,uuid}) {
         <div id="chat_room">
             <div id="up_bar">
                 <p id="title">{chat_title}</p>
-                <button id="exit_btn">나가기</button>
+                <button className='exit_ui' id="exit_btn"></button>
+                <img  className="exit_ui" id='exit_image' src="/UI_img/exit.png"/>
             </div>
             <p className="hide" id="lengthcalc">{message_str}</p>
 
