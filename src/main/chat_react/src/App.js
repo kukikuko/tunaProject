@@ -39,8 +39,8 @@ function App() {
                 <Routes>
                 <Route  path="/chat/:chatcode"  element={ <Chat_room member_code={id} uuid={UUID_v}/>}></Route>
                 
-                <Route  path="/chat/main"  element={ <Main_room member_code={id}/>}></Route>
-                 <Route path="/:chatcode" element={<Image_upload member_code={id}/>}></Route>
+                <Route  path="/chat/main"  element={ <Main_room member_code={id} uuid={UUID_v}/>}></Route>
+                 <Route path="/:chatcode" element={<Image_upload uuid={UUID_v}/>}></Route>
 
                 </Routes>
             </BrowserRouter>
