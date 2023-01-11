@@ -559,11 +559,13 @@
 	                        cancelButtonText: "취소",
 	                        reverseButtons: true,
 	                      }).then((result) => {
+	  			        	if(result.isConfirmed) {
 	                		$("#memberMail").attr("readonly",true);
 	                		$("#email_add").attr("readonly",true);
 	     					hideDisplay();
 	     					console.log(memberMail.value)
 	     					console.log(email);
+	  			        	}
 	                });
 	                      } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
 	                	 Swal.fire({
