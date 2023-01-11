@@ -16,6 +16,8 @@ function Chat_room({member_code,uuid}) {
     let [cur_message_code, set_message_code] = useState("0");
     let [chat_title,set_title]=useState("로딩중...");
     let [ani_effect,set_effect]=useState(false);
+    let [connect_on,set_connect]=useState(true);
+
 
 
 
@@ -47,7 +49,6 @@ function Chat_room({member_code,uuid}) {
         if (datas === "") {
             return;
         }
-        console.log("데이타 보기:" + datas);
 
         let str = datas.split("\0");
         let i = 0;
@@ -65,12 +66,10 @@ function Chat_room({member_code,uuid}) {
             {
 
             }
-             console.log(message_data.img_src);
             message_data.message_code = str[i];
             let time_str =  str[i + 3].split("T");
             message_data.time =time_str[1];
             message_data.is_my = (str[i+1]==member_code ? true:false );
-            console.log("받아온 크기"+str[i + 5])
             if (str[i + 1] === member_code) {
                 message_data.is_my = true;
             }
@@ -87,7 +86,6 @@ function Chat_room({member_code,uuid}) {
                 message_data.ballon_size = 2 + Math.ceil(str[i + 5] / 237);
                
             }
-            console.log("계산된 크기"+message_data.ballon_size)
 
             add_chat(message_data);
             //벌룬 사이즈 
@@ -116,50 +114,86 @@ function Chat_room({member_code,uuid}) {
     }
  
 
-    useEffect(()=>{
+     useEffect( ()=>{
 
         if(member_code=="")
         {
             return;
         }
-        console.log(cur_message_code);
 
         let x =false;
 
+    if(connect_on)
+    {
         const timer = setInterval(() => {
-            axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
-                .then((response) => { init_chat(response.data);   })
-                .catch(error => console.log(error))
-                .finally(()=>{
-                    
-                    if(!x)
-                    {
-                        x=true;
 
-                        document.getElementById("messages").scroll({
-                        top: document.getElementById("messages").scrollHeight,
-                        behavior: 'auto'
-                        });
-                    }
-                    })
-            }, 200);
-        
-       
             
-      
-       
-         
-        return ()=> clearInterval(timer);
+            axios.get('http://localhost:8080/api/chat/check/'+chat_code+'/'+uuid)
+            .then((response) => 
+            { 
+                console.log(response.data);
+                if(response.data=="F")
+                {
+                    //상대방이 채팅창에서 나가셨습니다
+                    //더이상 메세지를 보낼수 없습니다.
+                     
+                    set_connect(false);
+                    alert("상대가 떠났습니다 \n더 이상 메세지를 보낼 수 없습니다");
 
-    }, [cur_message_code,member_code,uuid]);
+                }
+                else
+                {
+                    console.log("go")
+                    axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
+                    .then((response) => {  init_chat(response.data);   })
+                    .catch(error => console.log(error))
+                    .finally(()=>{
+                        
+                        if(!x)
+                        {
+                            x=true;
+    
+                            document.getElementById("messages").scroll({
+                            top: document.getElementById("messages").scrollHeight,
+                            behavior: 'auto'
+                            });
+                        }
+                        })
+                }
+               })
+            .catch(error => console.log(error))
+
+   
+            }, 200);
+            return ()=> clearInterval(timer);
+
+    }
+
+    }, [cur_message_code,member_code,uuid,connect_on]);
 
     useEffect(() => {
        
         axios.get('http://localhost:8080/api/chat_title/find/' + chat_code)
-                .then((response) => { set_title(response.data == "" ? "제목":response.data); console.log(response.data);   })
+                .then((response) => { set_title(response.data == "" ? "제목":response.data);    })
                 .catch(error => console.log(error))
 
+        
+        document.getElementById("exit_btn").addEventListener("click",()=>{
+            console.log("클릭 체크");
+            axios.get('http://localhost:8080/api/chat/exit/' + chat_code+"/"+uuid)
+                .then((response) => { if(response.data=="ok"){
+                    window.close();   
+                } })
+                .catch(error => console.log(error))
+
+        })
+        
         window.addEventListener('submit', (event) => {
+
+            if(!connect_on)
+            {
+                event.preventDefault();
+            }
 
             if (document.getElementById("text_box").value === "") {
                 event.preventDefault();
@@ -178,12 +212,13 @@ function Chat_room({member_code,uuid}) {
             }
         });
 
-    },[member_code,uuid]);
+    },[member_code,uuid,connect_on]);
 
     return (
         <div id="chat_room">
             <div id="up_bar">
                 <p id="title">{chat_title}</p>
+                <button id="exit_btn">나가기</button>
             </div>
             <p className="hide" id="lengthcalc">{message_str}</p>
 
