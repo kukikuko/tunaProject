@@ -97,6 +97,7 @@ table {
 	display: block;
 	width: 100px;
 	height: 40px;
+	cursor:pointer
 }
 
 .sales{
@@ -132,6 +133,7 @@ table {
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
+	cursor:pointer
 }
 
 .writing_category, .writing_price, .writingOption, .update_category, .updateOption, .update_price{	
@@ -169,6 +171,7 @@ table {
 	width: 100px;
 	height: 40px;
 	text-align: center;	
+	cursor:pointer
 }
 
 .writing_price::-webkit-outer-spin-button, 
@@ -186,9 +189,7 @@ table {
 	width: 900px;
 	height: 100%;
 	background-color: #EEEFF1;
-/*  	background-color: white; */
 	border-radius: 5px;
-/* 	text-align: center; */
 	padding: 20px;
 	 font-family: SUIT-Variable;
 }
@@ -196,20 +197,18 @@ table {
 	text-align: center;	
 }
 .post-category, .post-title, .post-price , .post-view, .post-content, .post-time, .post-heart{
-	/* margin-bottom: 10px; */
 	padding: 5px;
-	/* background-color: white; */
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
 	display: inline-block;
 	margin : 0px;
-	 font-family: SUIT-Variable;
+	font-family: SUIT-Variable;
 }
 .post-title{
 	font-size: 2rem;
 }
-.post-time, .post-heart{
+.post-time{
 	font-size: 0.7rem;
 	width:100%;
 }
@@ -219,21 +218,13 @@ table {
 	height : 300px;
 	
 }
-.post-category {	
-	width: 140px;	
-	margin-right: 5px;
-	text-align: left;
-}
 .post-price{
 	width: 170px;	
 }
 .post-heart{
-	width: 50px;	
+	width: 100px;	
 }
-.post-time{
-	width: 200px;	
-	margin: auto;
-}
+
 .post-content {
 	width: 100%;
 	height: 100%;
@@ -252,18 +243,17 @@ table {
 	display: inline-block;
 	width: 100px;
 	height: 40px;
+	cursor:pointer
 }
 
 .heartBtn {
 	border-radius: 20px;
 	border: 2px solid #ffd900;
 	background-color: white;
-/* 	margin: auto; */
 	display: inline-block;
 	font-size : 1rem;
-
+	cursor:pointer
 }
-
 
 .dealForm
 {
@@ -273,4 +263,4 @@ table {
 
 option{
 	border-radius: 20px;
-} */
+}

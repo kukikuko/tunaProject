@@ -139,6 +139,7 @@ list-style: none;
 color: black;
 display: flex;
 padding-left: 0;
+cursor:pointer
 }
 
 .dropdown-item {
@@ -222,6 +223,8 @@ margin: 10px;
 	height: 40px;
 	margin-left: 5px;
 	font-family: SUIT-Variable;
+	cursor:pointer;
+	text-align: center;
 }
 
 .searchBtn {
@@ -234,6 +237,7 @@ margin: 10px;
 	width: 50px;
 	height: 40px;
 	font-family: SUIT-Variable;
+	cursor:pointer;
 }
 
 .logout {
@@ -243,7 +247,7 @@ margin: 10px;
 	border-radius: 5px;
 	font-size: 13px;
 	text-decoration: none;
-	text-align: left;
+	text-align: center;
 	width: 100%;
 	font-family : SUIT-Variable;
 }
@@ -263,6 +267,7 @@ display: inline-block;
 	border: 2px solid #ffd900;
 	border-radius: 10px;
 	font-size: 13px;
+	text-align: center;
 }
 
 .dropdown-content a {
