@@ -47,6 +47,7 @@
           <img th:each="image : ${images}"
                th:src="|/posts/images/${image.getImageFiles}|" width="300" height="300" /><br />
         </div>
+        <br/>
         <div>
           <th:block th:if="${!post.getPOpenStatus().equals('N')}">
             <button class="btnAd" id="deleteBtn"><span>숨김 처리</span></button>

@@ -34,6 +34,4 @@ public class MybatisCategoryRepository implements CategoryRepository{
 	public void insertCategory(String ctName) {
 		categoryMapper.insertCategory(ctName);
 	}
-
-
 }

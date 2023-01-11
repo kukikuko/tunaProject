@@ -17,9 +17,6 @@ body {
   flex-direction: column;
 }
 </style>
-
-
-
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<div class="board-list">
@@ -52,7 +49,6 @@ body {
 	</div>
 	<br/>
 	<div>
-		<!-- <button th:if="${memberVO.getMemberMail().equals('admin')}" th:onClick="location.href='@{/admin/home}'">관리자 화면</button> -->
 		<button class="postBtn" th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
 	</div>
 	<div th:replace="layout/footer :: footerFrag"></div>

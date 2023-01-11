@@ -16,7 +16,20 @@ body{
   
 }
 
-
+.adminBtn{
+	padding: 8px;
+	font-size: 13px;
+	border-radius: 5px;
+	border: 2px solid #ffd900;
+	background-color: white;
+	display: inline-block;
+	width: 110px;
+	height: 40px;
+	margin-right: 5px;
+	font-family: SUIT-Variable;
+	cursor:pointer;
+	text-align: center;
+}
  .mainText-link{
 	text-decoration:none;
 	font-family: SUIT-ExtraBold;
@@ -139,6 +152,7 @@ list-style: none;
 color: black;
 display: flex;
 padding-left: 0;
+cursor:pointer
 }
 
 .dropdown-item {
@@ -152,6 +166,7 @@ padding: 8px 12px;
 	border-radius: 5px;
 	border: 2px solid #ffd900;
 	width: 250px;
+	height: 40px;
 	font-size: 15px;
 	font-family: SUIT-Variable;
 }
@@ -222,6 +237,8 @@ margin: 10px;
 	height: 40px;
 	margin-left: 5px;
 	font-family: SUIT-Variable;
+	cursor:pointer;
+	text-align: center;
 }
 
 .searchBtn {
@@ -234,6 +251,7 @@ margin: 10px;
 	width: 50px;
 	height: 40px;
 	font-family: SUIT-Variable;
+	cursor:pointer;
 }
 
 .logout , .message_BTN {
@@ -243,7 +261,7 @@ margin: 10px;
 	border-radius: 5px;
 	font-size: 13px;
 	text-decoration: none;
-	text-align: left;
+	text-align: center;
 	width: 100%;
 	font-family : SUIT-Variable;
 }
@@ -263,6 +281,7 @@ display: inline-block;
 	border: 2px solid #ffd900;
 	border-radius: 10px;
 	font-size: 13px;
+	text-align: center;
 }
 
 .dropdown-content a {

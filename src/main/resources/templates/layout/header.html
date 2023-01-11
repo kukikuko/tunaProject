@@ -28,6 +28,10 @@
 					</div>
 					<div class="navbar_menu_right">
 						<div class="navbar_search">
+							<button th:if="${member.memberMail} == 'admin'" class="adminBtn" type="button"
+							th:onClick="|location.href='@{/admin/main}'|" >관리자 페이지</button>
+							
+							
 							<form action="/posts" method="post" class="searchForm">
 								<input name="search" type="search" placeholder="물품을 검색해주세요."
 									class="searchInput">
@@ -64,7 +68,6 @@
         const menu = document.querySelector('.navbar_menu');
         const search = document.querySelector('.navbar_search');
         const menu_text = document.querySelector('.navbar_menu_text');
-        
 
         toggleBtn.addEventListener('click', () => {
             menu.classList.toggle('active');

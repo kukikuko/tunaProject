@@ -11,8 +11,11 @@ import com.project.TunaProject.domain.CurView;
 public interface ChatMapper {
 
 	public void insertChat(Chat chat);
+	
 	public Chat findChatCode(Chat chat);
+	
 	public List<Chat> selectMyChat(int memberCode);
+	
 	//인서트
 	public List<Chat> selectMyChatByCur(@Param("memberCode")int memberCode,@Param("chatCode")int chatCode);
     public String findPostCode(int chatCode);

@@ -30,12 +30,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 @RequiredArgsConstructor
 public class LoginController {
-	
+
 	private final Tuna_LoginService loginService;
 	private final SessionManager sessionManager;
 	private final MemberRepository memberRepository;
-	
-	
+
 	@GetMapping("/uuid_info/{uuid_v}")
 	public String infobyuuid(@PathVariable("uuid_v") String uuid_v){
 		String result = "";
@@ -43,87 +42,72 @@ public class LoginController {
 		// 참여한 방목록 //해당 방의 사진 이미지 
 		return result;
 	}
-	
+
 	@GetMapping("/login")
 	public String login(Model model) {
 		LoginForm loginForm = new LoginForm();
 		model.addAttribute("loginForm", loginForm);
-		
+
 		return "login/login";
 	}
-	
 
-	
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute LoginForm loginForm,
 			BindingResult bindingResult, HttpServletResponse resp
 			, HttpServletRequest req
 			, @RequestParam(name="redirectURL", defaultValue = "/") String redirectURL ) {
-		log.info("loginForm {}", loginForm);
-		
 		validateLoginForm(loginForm, bindingResult);
-		
 		if(bindingResult.hasErrors()) {
 			return "login/login";
 		}
-		
-	 	MemberVO memberVO = loginService.login(loginForm.getEmail(), loginForm.getPassword());
-	 	
-	 	if(memberVO == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
-	 		bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
-	 		return "login/login";
-	 	}
-	 	
-	 	if(memberVO.getAdminCk().equals("N")) { //탈퇴한 회원일때...
-	 		bindingResult.reject("loginForm", "탈퇴한 회원입니다. 회원가입을 다시 진행해주세요.");
-	 		return "login/login";
-	 	}
-	 	
-	 	if(memberVO.getAdminCk().equals("S")) { //정지당한 회원일때...
-	 		bindingResult.reject("loginForm", "활동정지된 회원입니다. 관리자에게 문의해주세요.");
-	 		return "login/login";
-	 	}
+		MemberVO memberVO = loginService.login(loginForm.getEmail(), loginForm.getPassword());
 
-		 log.info("memberVO {}", memberVO);
+		if(memberVO == null) { //계정정보가 없거나, 비밀번호가 안맞거나 로그인 실패
+			bindingResult.reject("loginForm", "아이디 or 비밀번호 불일치");
+			return "login/login";
+		}
+		if(memberVO.getAdminCk().equals("N")) { //탈퇴한 회원일때...
+			bindingResult.reject("loginForm", "탈퇴한 회원입니다. 회원가입을 다시 진행해주세요.");
+			return "login/login";
+		}
+		if(memberVO.getAdminCk().equals("S")) { //정지당한 회원일때...
+			bindingResult.reject("loginForm", "활동정지된 회원입니다. 관리자에게 문의해주세요.");
+			return "login/login";
+		}
+		HttpSession session = req.getSession();
+		session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
 
-	 	HttpSession session = req.getSession();
-	 	session.setAttribute(SessionVar.LOGIN_MEMBER, memberVO);
-	 	
-	     memberVO.setActiveUUID(session.getId());
-	     memberRepository.updateUUID(memberVO);
+		memberVO.setActiveUUID(session.getId());
+		memberRepository.updateUUID(memberVO);
 
-		
 		return "redirect:" + redirectURL; //  
 	}
-	
+
 	public void validateLoginForm(LoginForm loginForm, Errors errors) {
 		if(!StringUtils.hasText(loginForm.getEmail())) {
 			errors.rejectValue("email", null, "아이디 필수 입력입니다.");
 		}
-		
 		if(!StringUtils.hasText(loginForm.getPassword())) {
 			errors.rejectValue("password", null, "비밀번호 필수 입력입니다.");
 		}
 	}
-	
+
 	@PostMapping("/logout")
 	public String logout(HttpServletResponse resp, HttpServletRequest req) {
 		HttpSession session = req.getSession(false);
-		
+
 		if(session != null) {
-		 	MemberVO memberVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
-		 	memberVO.setActiveUUID(null);
-		     memberRepository.updateUUID(memberVO);
+			MemberVO memberVO = (MemberVO)session.getAttribute(SessionVar.LOGIN_MEMBER);
+			memberVO.setActiveUUID(null);
+			memberRepository.updateUUID(memberVO);
 			session.invalidate();
 		}
-		
+
 		return "redirect:/";
 	}
+
 	@GetMapping("/login/findPw")
 	public String findPw() {
-		
 		return "login/findPw";
 	}
-	
-
 }

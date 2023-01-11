@@ -55,14 +55,12 @@ body {
 	document.getElementById('checkBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();
 		let form = document.deleteMemeber;
-
 		  $.ajax({
 			  type: "POST",
 			  url: "/myPage/pwcheck",
 			  data: {password : $('input#oldpassword').val()},
 			  success: function(data) {
 				  if(data.result == 1) {
-					  
 					  Swal.fire({
 				            title: "비밀번호가 일치합니다!", // Alert 제목
 				            text: "회원 탈퇴 버튼을 클릭하면, 탈퇴가 진행되요.", // Alert 내용
@@ -83,8 +81,6 @@ body {
 			  }
 		  })
 	});
-	
-	
 	
 	document.getElementById('deleteBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();
@@ -125,7 +121,6 @@ body {
 </script>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
-
 </body>
 <div class="footerSmall" id="footer">
   	<p>Copyright © SajoMarket 2023</p>

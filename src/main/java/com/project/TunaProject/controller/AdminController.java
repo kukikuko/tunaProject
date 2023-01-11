@@ -32,7 +32,6 @@ public class AdminController {
     public String adminHome(Model model) {
 
         List<MemberVO> memberVOS = adminRepository.selectAll();
-        log.info("member {}", memberVOS);
         model.addAttribute("members", memberVOS);
 
         return "admin/home";
@@ -73,6 +72,8 @@ public class AdminController {
         List<Notify> notifyList = notifyRepository.selectNotifyAll("2");
         model.addAttribute("notifyList", notifyList);
 
+        log.info("chat {}", notifyList);
+
         return "admin/notifyChat";
     }
 
@@ -80,7 +81,6 @@ public class AdminController {
     public String posts(Model model){
 
         List<Post> posts = postRepository.selectAll();
-        log.info("p {}", posts);
         model.addAttribute("posts", posts);
 
         return "admin/posts";
@@ -95,6 +95,14 @@ public class AdminController {
         model.addAttribute("images", images);
 
         return "admin/post";
+    }
+
+    @GetMapping("/chat/{chatCode}")
+    public String chat(@PathVariable("chatCode")String chatCode, Model model) {
+
+
+
+        return "admin/chat";
     }
 
     @ResponseBody
@@ -126,7 +134,6 @@ public class AdminController {
     @PostMapping("/category")
     public void categoryChange(@RequestParam("ctCode") String ctCode
                 ,@RequestParam("ctName") String ctName){
-        log.info("category {} {}", ctCode, ctName);
         categoryRepository.updateCtName(new Category(ctCode, ctName));
     }
 

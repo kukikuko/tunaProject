@@ -12,37 +12,34 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class SessionManager {
-	
+
 	public static final String SESSION_COOKIE_NAME = "tempSessionId";
 	private Map<String, Object> sessionMap = new HashMap<String, Object>();
-	
+
 	public void create(Object object, HttpServletResponse resp) {
 		String sessionId = UUID.randomUUID().toString();
 		sessionMap.put(sessionId, object);
-		
+
 		Cookie cookie = new Cookie(SESSION_COOKIE_NAME, sessionId);
 		resp.addCookie(cookie);
-		
+
 	}
-	
+
 	public void remove(HttpServletRequest req) {
 		Cookie cookie = findCookie(req, SESSION_COOKIE_NAME);
 		if(cookie != null) {
 			sessionMap.remove(cookie.getValue());
 		}
 	}
-	
+
 	public Object getSessionObject(HttpServletRequest req) {
-		//req -> Cookie -> tempSessionId(name) -> value(UUID)
-		//value(UUID)    sessionMap<value(UUID), Member)
 		Cookie cookie = findCookie(req, SESSION_COOKIE_NAME);
 		if(cookie != null) {
 			return sessionMap.get(cookie.getValue());
 		}
-		
 		return null;
 	}
-	
+
 	public Cookie findCookie(HttpServletRequest req, String cookieName) {
 		if(req.getCookies() != null) {
 			for(Cookie cookie : req.getCookies()) {
@@ -53,6 +50,4 @@ public class SessionManager {
 		}
 		return null;
 	}
-	
-	
 }

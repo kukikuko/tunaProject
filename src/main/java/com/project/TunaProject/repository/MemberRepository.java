@@ -11,10 +11,9 @@ public interface MemberRepository {
 	public MemberVO memberInsert(MemberVO memberVO);
 	
 	public MemberVO selectByEmail(String email);
+
 	public MemberVO selectByUUID(String activeUUID);
 	
-
-
 	//id중복체크
 	public Integer idCheck(String email);
 	
@@ -26,8 +25,8 @@ public interface MemberRepository {
 	public void deleteMember(MemberVO memberVO);
 	
 	public boolean updateUUID(MemberVO memberVO);
+
 	//회원탈퇴
-//	public void deleteMember(MemberVO memberVO);
 	public boolean updateAdminCk(MemberVO memberVO);
 	
 	//회원 탈퇴시, 게시물 공개여부를 변경하기
