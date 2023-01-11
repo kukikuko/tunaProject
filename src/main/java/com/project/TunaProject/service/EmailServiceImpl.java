@@ -25,8 +25,6 @@ public class EmailServiceImpl implements EmailService{
  
     private MimeMessage createMessage(String to)throws Exception{
     	ePw = createKey();
-    	System.out.println("보내는 대상 : "+ to);
-        System.out.println("인증 번호 : "+ePw);
         MimeMessage  message = emailSender.createMimeMessage();
         
         message.addRecipients(RecipientType.TO, to);//보내는 대상
@@ -36,27 +34,24 @@ public class EmailServiceImpl implements EmailService{
         msgg+= "<div style='margin:20px;'>";
         msgg+= "<h1> 안녕하세요 사조마켓입니다. </h1>";
         msgg+= "<br>";
-        msgg+= "<p>아래 코드를 복사해 입력해주세요<p>";
+        msgg+= "<p>아래의 인증번호를 입력해주세요.<p>";
         msgg+= "<br>";
         msgg+= "<p>감사합니다.<p>";
         msgg+= "<br>";
         msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-        msgg+= "<h3 style='color:blue;'>회원가입 인증 코드입니다.</h3>";
+        msgg+= "<h3 style='color:blue;'>회원가입 인증번호 입니다.</h3>";
         msgg+= "<div style='font-size:130%'>";
         msgg+= "CODE : <strong>";
         msgg+= ePw+"</strong><div><br/> ";
         msgg+= "</div>";
         message.setText(msgg, "utf-8", "html");//내용
         message.setFrom(new InternetAddress("humanedu6.4@gmail.com","<SAJO>Market"));//보내는 사람
-        
  
         return message;
     }
     
     private MimeMessage createMessagePassword(String to, String password)throws Exception{
     	ePw = createKey();
-    	System.out.println("보내는 대상 : "+ to);
-        System.out.println("비밀 번호 : "+ password);
         MimeMessage  message = emailSender.createMimeMessage();
         
         message.addRecipients(RecipientType.TO, to);//보내는 대상
@@ -69,7 +64,7 @@ public class EmailServiceImpl implements EmailService{
         msgg+= "<p>감사합니다.<p>";
         msgg+= "<br>";
         msgg+= "<div align='center' style='border:1px solid black; font-family:verdana';>";
-        msgg+= "<h3 style='color:blue;'>회원님이 가입하신 비밀번호입니다.</h3>";
+        msgg+= "<h3 style='color:blue;'>회원님의 비밀번호입니다.</h3>";
         msgg+= "<h6 style='color:blue;'>비밀번호 노출 위험이 있으니, 로그인 후 변경하여 주십시오.</h6>";
         msgg+= "<div style='font-size:130%'>";
         msgg+= "PASSWORD : <strong>";
@@ -133,8 +128,4 @@ public class EmailServiceImpl implements EmailService{
         }
         return ePw;
     }
-
-
-    
-    
 }

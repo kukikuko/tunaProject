@@ -15,7 +15,6 @@ public class Tuna_LoginService {
 	
 	private final MemberRepository memberRepository;
 	
-	
 	public MemberVO login(String email, String password) {
 		MemberVO memberVO = memberRepository.selectByEmail(email);
 		
@@ -24,7 +23,6 @@ public class Tuna_LoginService {
 				return memberVO;
 			}
 		}
-		
 		return null;
 	}
 	
@@ -38,7 +36,6 @@ public class Tuna_LoginService {
 				return memberVO;
 			}
 		}
-		
 		return null;
 	}
 }

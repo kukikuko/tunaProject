@@ -23,6 +23,7 @@ public interface PostRepository {
 	public void viewCont(String postCode);
 	
 	public List<Post> selectSearch(String keyword);
+	
 	public boolean ACCOUNTUPDATE(@Param("postCode")String postCode,@Param("accountcode")String accountcode);
 
 	//조회수 top10

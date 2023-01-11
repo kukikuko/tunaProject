@@ -4,7 +4,7 @@
 
 <mapper	namespace="com.project.TunaProject.repository.mybatis.HeartMapper">
 
-<!-- 	찜 누르면 작동 -->
+<!--찜 누르면 작동 -->
 	<insert id="insertHeart">
 		insert into tuna_heart
 		values(
@@ -13,7 +13,7 @@
 			)
 	</insert>
 	
-<!-- 	한 사용자가, 특정한 게시물에 찜 버튼을 눌렀는지 체크 -->
+<!--한 사용자가, 특정 게시물에 찜 버튼을 눌렀는지 체크 -->
 	<select id="countHeart" resultType="Integer">
 	select count(*) 
 	from tuna_heart 
@@ -22,7 +22,8 @@
 	and
 		hpostcode= #{hPostCode}
 	</select>
-	
+
+<!-- 찜 한 게시물 취소할 수 있게	 -->
 	<delete id="deleteHeart">
 	delete from tuna_heart 
 	where

@@ -55,19 +55,21 @@ public class PostController {
 	private final ImageRepository imageRepository;
 	private final FileStore fileStore;
 	private final HeartRepository heartRepository;
-	
+
+	//게시판 목록
 	@GetMapping
 	public String posts(Model model, HttpServletRequest req) {
 		List<Post> postList = postRepository.selectAll();
-		
+
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		
+
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
 		return "posts/posts";
 	}
 	
+	//게시글 상세
 	@GetMapping("/{postCode}")
 	public String post(Model model, @PathVariable("postCode") String postCode, @ModelAttribute("post") Post postItem
 			, HttpServletRequest req) {
@@ -81,32 +83,32 @@ public class PostController {
 		heart.setHMemCode(Integer.toString(memberVO.getMemberCode()));
 		heart.setHPostCode(postCode);
 		int cnt = heartRepository.countHeart(heart);
-		
+
 		List<Image> images = imageRepository.selectAll(postCode);
 
 		model.addAttribute("images", images);
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
 		model.addAttribute("cnt123", cnt);
-		
+
 		return "posts/post";
-		
 	}
-	
+
+	//글작성
 	@GetMapping("/writing")
 	public String postWriting(Model model, HttpServletRequest req) {
-		
+
 		List<Category> cateItem = categoryRepository.selectAll();
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		
+
 		model.addAttribute("post", new Post());
 		model.addAttribute("cateItem", cateItem);
 		model.addAttribute("member", memberVO);
 
 		return "posts/writing";
 	}
-	
+	//글작성
 	@PostMapping("/writing")
 	public String postWritingInsert(@ModelAttribute Post postItem
 			, @ModelAttribute ItemForm form
@@ -116,12 +118,9 @@ public class PostController {
 
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-		
+
 		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
-
 		rAttr.addAttribute("postCode", post.getPostCode());
-
-		log.info("form {}", form);
 
 		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
 
@@ -132,21 +131,20 @@ public class PostController {
 			img.setITarget("1");
 			img.setIType(post.getPostCode());
 			imageRepository.insert(img);
-
 		}
-
 		return "redirect:/posts/{postCode}";
 	}
 	
+	//글 수정
 	@GetMapping("/update/{postCode}")
 	public String updatePost(Model model, @PathVariable("postCode")String postCode, HttpServletRequest req) {
 		Post postItem = postRepository.selectByPostCode(postCode);
 		List<Category> cateItem = categoryRepository.selectAll();
+
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
 		List<Image> images = imageRepository.selectAll(postCode);
-		log.info("img {}", images);
 
 		model.addAttribute("post",postItem);
 		model.addAttribute("cateItem", cateItem);
@@ -154,15 +152,15 @@ public class PostController {
 		model.addAttribute("images", images);
 		return "posts/update";
 	}
-	
-	
-	
+	//글 수정
 	@PostMapping("/update/{postCode}")
-	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode, @ModelAttribute Post postItem,
-			@ModelAttribute ItemForm form, @ModelAttribute Category ct, @RequestParam(required = false) List<Integer> iCode) throws IOException {
+	public String updatePostProcess(Model model, @PathVariable("postCode")String postCode
+			, @ModelAttribute Post postItem
+			, @ModelAttribute ItemForm form
+			, @ModelAttribute Category ct
+			, @RequestParam(required = false) List<Integer> iCode) throws IOException {
 
 		List<Image> images = imageRepository.selectAll(postCode);
-		log.info("img {}", images);
 
 		if(iCode != null) {
 			for(int code : iCode) {
@@ -179,42 +177,41 @@ public class PostController {
 		} else {
 			imageRepository.deleteByPostCode(postCode);
 		}
-		log.info("asd {}", form);
-		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
-
-		log.info("files {}", storeImageFiles);
-
-		for(UploadFile uf : storeImageFiles) {
-			Image img = new Image();
-			img.setImageName(uf.getUploadFileName());
-			img.setImageFiles(uf.getStoreFileName());
-			img.setITarget("1");
-			img.setIType(postCode);
-			imageRepository.insert(img);
+		
+		if(form.getImageFiles() != null) {
+			
+			List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
+	
+			for(UploadFile uf : storeImageFiles) {
+				Image img = new Image();
+				img.setImageName(uf.getUploadFileName());
+				img.setImageFiles(uf.getStoreFileName());
+				img.setITarget("1");
+				img.setIType(postCode);
+				imageRepository.insert(img);
+			}
 		}
-
 		postRepository.update(postCode, postItem, ct.getCtCode());
 		return "redirect:/posts/{postCode}";
 	}
 	
-	
+	//글 삭제(글 상태만 y->n으로 업데이트)
 	@PostMapping("/delete")
 	public String updateDeleteProcess(@ModelAttribute Post post) {
 
 		postRepository.updateDelete(post.getPostCode());
-		
+
 		return "redirect:/posts";
 	}
 
 	@ResponseBody
 	@GetMapping("/images/{filename}")
 	public Resource downloadImage(@PathVariable String filename) throws MalformedURLException {
-		
 		return new UrlResource("file:" + fileStore.getFullPath(filename));
 	}
-	
+
 	//검색 메소드
- 	@PostMapping
+	@PostMapping
 	public String selectSearch(Model model,HttpServletRequest req) {
 		String keyword = req.getParameter("search");
 		List<Post> postList = postRepository.selectSearch(keyword);
@@ -225,13 +222,10 @@ public class PostController {
 		return "posts/posts";
 	}
 	
+	//글 신고
 	@PostMapping("/notify")
 	public String notifyPost(@RequestParam Map<String, String> postCode) {
-		
 		String a = postCode.get("postCode");
-		System.out.println("****" + a + "****");
-		
 		return "redirect:/";
 	}
-	
 }

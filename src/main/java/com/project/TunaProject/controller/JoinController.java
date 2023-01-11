@@ -23,20 +23,14 @@ public class JoinController {
 	
 	@GetMapping("/join")
 	public String join(@ModelAttribute MemberVO memberVO, HttpServletRequest req) {
-		
 		return "join/join";
 	}
 	
 	@PostMapping("/join")
 	public String memberInsert(@ModelAttribute MemberVO memberVO, HttpServletRequest req) {
-		
-		
 		memberVO.setMemberMail(memberVO.getMemberMail1()+"@"+memberVO.getMemberMail2());
-		
 		memberVO.setMemberPN(String.valueOf(memberVO.getMemberPN1())+"-"+String.valueOf(memberVO.getMemberPN2())+"-"+String.valueOf(memberVO.getMemberPN3()));
 		memberRepository.memberInsert(memberVO);
-		
-		log.info("member {}", memberVO);
 		return "redirect:/";
 	}
 	
