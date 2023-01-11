@@ -4,10 +4,10 @@ package com.project.TunaProject.controller;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Controller;
@@ -32,13 +32,12 @@ import com.project.TunaProject.img.UploadFile;
 import com.project.TunaProject.repository.CategoryRepository;
 import com.project.TunaProject.repository.HeartRepository;
 import com.project.TunaProject.repository.ImageRepository;
+import com.project.TunaProject.repository.MemberRepository;
 import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
 
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -55,12 +54,13 @@ public class PostController {
 	private final ImageRepository imageRepository;
 	private final FileStore fileStore;
 	private final HeartRepository heartRepository;
-
+	private final MemberRepository memberRepository;
+	
 	//게시판 목록
 	@GetMapping
 	public String posts(Model model, HttpServletRequest req) {
 		List<Post> postList = postRepository.selectAll();
-
+		
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
@@ -228,4 +228,26 @@ public class PostController {
 		String a = postCode.get("postCode");
 		return "redirect:/";
 	}
+	
+	//다른 유저 판매 내역 확인
+	@GetMapping("/userPost/{pMemCode}")
+	public String userPost(Model model, HttpServletRequest req, @PathVariable("pMemCode") int pMemCode) {
+		
+		List<Post> postList = memberRepository.selectByMemberCode(pMemCode);
+		
+		for(int i =0; i<postList.size(); i++) {
+			System.out.println(postList.get(i));
+		}
+		
+		
+		
+		HttpSession session = req.getSession(false);
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+	
+		
+		model.addAttribute("posts", postList);
+		model.addAttribute("member", memberVO);
+		return "posts/userPost";
+	}
+	
 }
