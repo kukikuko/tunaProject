@@ -9,10 +9,7 @@
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
 	<h1>내 활동</h1>
-
 	<h3>내 판매내역</h3>
-
-
 	<div class="board-list">
 		<table class="board-table">
 			<thead class="postsThead">
@@ -41,10 +38,7 @@
 			</tbody>
 		</table>
 	</div>
-
-
 	<h3>내가 찜한 게시글</h3>
-
 	<div class="board-list">
 		<table class="board-table">
 			<thead class="postsThead">
@@ -72,11 +66,9 @@
 			</tbody>
 		</table>
 	</div>
-
 	<button type="button" th:onClick="|location.href='@{/}'|">뒤로
 		가기</button>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
 </body>
-	
 </html>

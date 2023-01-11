@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script> <!-- 꽃가루 -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> <!-- alert 창     -->
+<script
+	src="https://tistory4.daumcdn.net/tistory/3134841/skin/images/confetti_v2.js"></script>
+<!-- 꽃가루 -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<!-- alert 창     -->
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/join.css">
@@ -12,18 +16,22 @@
 <link rel="stylesheet" href="/css/footer.css" />
 
 <style>
-	canvas{z-index:10;pointer-events: none;position: fixed;top: 0;transform: scale(1.1);}
+canvas {
+	z-index: 10;
+	pointer-events: none;
+	position: fixed;
+	top: 0;
+	transform: scale(1.1);
+}
 </style>
 </head>
 <body>
 	<nav class="navbar">
 		<div class="navbar_logo">
 			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-			<a href="/" class="mainText-link">
-				<span class="mainText text1">사</span>
-            	<span class="mainText text2">조</span>
-            	<span class="mainText text3">마</span>
-            	<span class="mainText text4">켓</span>
+			<a href="/" class="mainText-link"> <span class="mainText text1">사</span>
+				<span class="mainText text2">조</span> <span class="mainText text3">마</span>
+				<span class="mainText text4">켓</span>
 			</a>
 		</div>
 		<div class="navbar_toggleBtn">
@@ -47,102 +55,95 @@
 		</div>
 	</nav>
 	<div class="join-div">
-		<form action="" method="post" name="memberJoin" class="joinform"> 
-			<label>아이디<br/>
-				<input type="text" name="memberMail1" id="memberMail" maxlength="15" class="join-email" placeholder="아이디"> @
-				<input type="text" name="memberMail2" id="email_add" maxlength="15" class="join-email">
-				<select name="email_sel" id="email_sel" onchange="change_email();" class="join-emailSelect">
+		<form action="" method="post" name="memberJoin" class="joinform">
+			<label>아이디<br /> <input type="text" name="memberMail1"
+				id="memberMail" maxlength="15" class="join-email" placeholder="아이디">
+				@ <input type="text" name="memberMail2" id="email_add"
+				maxlength="15" class="join-email"> <select name="email_sel"
+				id="email_sel" onchange="change_email();" class="join-emailSelect">
 					<option value="">직접입력</option>
 					<option value="naver.com">naver</option>
 					<option value="gmail.com">gmail</option>
 					<option value="nate.com">nate</option>
-				</select>
+			</select>
 			</label>
-			
-				<button type="submit" class="join-emailCheckBtn" id="mailChkBtn">중복확인</button>
-				
-				<div class="mail-check-box" id="mailCheckBox">
-					<button type="submit" class="join-emailcheckNumBtn" id="mailCheckBtn1">인증번호발송</button>
-					<!-- <p id="time" class="join-emailChckTime">180</p> -->
-					<input class="join-emailCheckInput" id="mailCheckInput"
-						name="mailCheckInput" placeholder="인증번호를 입력해주세요!" maxlength="8">
-					<button type="button" id="ePw-Check-Btn" class="join-emailcheckNumBtn">인증번호 확인</button>
-				</div>
-				<br>
-				  비밀번호
-			<label> 
-				<input type="password" name="password" id="pwd" placeholder="영문자+숫자+특수문자 조합" class="join-input">
-			</label> 
-			<label>비밀번호 재확인 
-				<input type="password" name="repwd" id="repwd" class="join-input">
-			</label> 
-			<label>이름 
-				<input type="text" name="memberName" id="uname" maxlength="6" class="join-input">
-			</label> 
-			<label>생년월일 
-				<input type="text" name="memberBirth" id="memberBirth" placeholder="ex)19000101" maxlength="8" class="join-input">
-			</label> 
-			<label>닉네임 
-				<input type="text" name="memberNick"
+
+			<button type="submit" class="join-emailCheckBtn" id="mailChkBtn">중복확인</button>
+
+			<div class="mail-check-box" id="mailCheckBox">
+				<button type="submit" class="join-emailcheckNumBtn"
+					id="mailCheckBtn1">인증번호발송</button>
+				<!-- <p id="time" class="join-emailChckTime">180</p> -->
+				<input class="join-emailCheckInput" id="mailCheckInput"
+					name="mailCheckInput" placeholder="인증번호를 입력해주세요!" maxlength="8">
+				<button type="button" id="ePw-Check-Btn"
+					class="join-emailcheckNumBtn">인증번호 확인</button>
+			</div>
+			<br> 비밀번호 <label> <input type="password" name="password"
+				id="pwd" placeholder="영문자+숫자+특수문자 조합" class="join-input">
+			</label> <label>비밀번호 재확인 <input type="password" name="repwd"
+				id="repwd" class="join-input">
+			</label> <label>이름 <input type="text" name="memberName" id="uname"
+				maxlength="6" class="join-input">
+			</label> <label>생년월일 <input type="text" name="memberBirth"
+				id="memberBirth" placeholder="ex)19000101" maxlength="8"
+				class="join-input">
+			</label> <label>닉네임 <input type="text" name="memberNick"
 				id="memberNickName" maxlength="6" placeholder="2~6글자 한글로 입력해주세요."
 				class="join-input">
-			</label>
-			 전화번호 ("-"없이 숫자만 입력)
+			</label> 전화번호 ("-"없이 숫자만 입력)
 			<div class="pnBox">
-			 <br/>
-					<select id="PN_sel" onchange="change_PN();" class="join-PhonNumSelect">
-							<option value="">직접입력</option>
-							<option value="010">010</option>
-							<option value="011">011</option>
-							<option value="011">017</option>
-							<option value="011">018</option>
-					</select> 
-					<input type="text" name="memberPN1" id="PN_add" maxlength="3"
-						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-						class="join-phonNumIn"> - 
-						<input type="text" name="memberPN2"
-						id="mobile2" maxlength="4"
-						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-						class="join-phonNumIn"> -
-						<input type="text" name="memberPN3"
-						id="mobile3" maxlength="4"
-						oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
-						class="join-phonNumIn"> <br/> 
-				</div>
-				 주소
+				<br /> <select id="PN_sel" onchange="change_PN();"
+					class="join-PhonNumSelect">
+					<option value="">직접입력</option>
+					<option value="010">010</option>
+					<option value="011">011</option>
+					<option value="011">017</option>
+					<option value="011">018</option>
+				</select> <input type="text" name="memberPN1" id="PN_add" maxlength="3"
+					oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+					class="join-phonNumIn"> - <input type="text"
+					name="memberPN2" id="mobile2" maxlength="4"
+					oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+					class="join-phonNumIn"> - <input type="text"
+					name="memberPN3" id="mobile3" maxlength="4"
+					oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+					class="join-phonNumIn"> <br />
+			</div>
+			주소
 			<div>
-				<label> <br> 
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기" class="join-input">
-					<br> 
-					<input type="text" id="sample6_postcode" name="memberAddr1" placeholder="우편번호" readonly class="join-input"><br>
-					<input type="text" id="sample6_address" name="memberAddr2" placeholder="주소" readonly class="join-input"><br> 
-					<input type="text" id="sample6detailAddress" name="memberAddr3" placeholder="상세주소" class="join-input"><br> 
-					<input type="text" id="sample6extraAddress" name="memberAddr4" placeholder="참고항목" class="join-input">
+				<label> <br> <input type="button"
+					onclick="sample6_execDaumPostcode()" value="우편번호 찾기"
+					class="join-input"> <br> <input type="text"
+					id="sample6_postcode" name="memberAddr1" placeholder="우편번호"
+					readonly class="join-input"><br> <input type="text"
+					id="sample6_address" name="memberAddr2" placeholder="주소" readonly
+					class="join-input"><br> <input type="text"
+					id="sample6detailAddress" name="memberAddr3" placeholder="상세주소"
+					class="join-input"><br> <input type="text"
+					id="sample6extraAddress" name="memberAddr4" placeholder="참고항목"
+					class="join-input">
 				</label>
 			</div>
 			<script
 				src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
 			<br>
 			<button id="joinBtn" type="submit" class="joinBtn">가입하기</button>
 		</form>
 	</div>
 
-<div class="footer" id="footer">
-  	<p>Copyright © SajoMarket 2023</p>
-  </div>
-  	
-
-<div class="buttonContainer">
-	<button class="canvasBtn" id="stopButton">Stop Confetti</button>
-	<button class="canvasBtn" id="startButton">Drop Confetti</button>	
-</div>
-
-<canvas id="canvas"></canvas>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-	<script>
-
+	<div class="footer" id="footer">
+		<p>Copyright © SajoMarket 2023</p>
+	</div>
+	<div class="buttonContainer">
+		<button class="canvasBtn" id="stopButton">Stop Confetti</button>
+		<button class="canvasBtn" id="startButton">Drop Confetti</button>
+	</div>
+	<canvas id="canvas"></canvas>
+	<script
+		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	
+	<script>
 	$("#mailCheckBox").css("display", "none");
 	$("#time").css("display", "none");
 	$("#stopButton").css("display", "none");
@@ -160,9 +161,7 @@
 	var mailCheckInput = document.getElementById("mailCheckInput"); 
 	var sample6detailAddress = document.getElementById("sample6detailAddress");
 	var sample6extraAddress = document.getElementById("sample6extraAddress");
-	
 	var checkCnt = 0;
-	
 	var regEmail = /^[a-zA-Z0-9]/;	//이메일 정규식. 알파벳, 숫자로 구성 
 	var pwdCheck = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/; //비밀번호 영문자+숫자+특수조합(8~25자리 입력) 정규식
 	let reg_name1 = /^[가-힣]+$/; // 한글만
@@ -177,10 +176,8 @@
 		}
 	});
 	
-	
 	function reAction(){
 	  	$("#startButton").trigger("click");
-// 	  	setTimeout(function(){
 	  		Swal.fire({
 				  title: '회원가입이 완료되었습니다!',         // Alert 제목
 				  text: '사조마켓의 회원이 되신 것을 진심으로 축하드립니다!',  // Alert 내용
@@ -188,10 +185,8 @@
 				}).then((result) => {
 	  				form.submit();
 				})
-// 	  	}, 3000);
  };
-	  
-// 	  function showPopup() { window.open("08_2_popup.html", "a", "width=400, height=300, left=100, top=50"); }
+ 
 		document.getElementById('mailChkBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();
 		email = memberMail.value + "@" + email_add.value;  // 이메일 주소값 얻어오기!
@@ -215,8 +210,6 @@
 		e.preventDefault();
 		
 		if(memberMail.value==""||email_add.value==""){
-			console.log(memberMail.value + "@" + email_add.value);
-			console.log(email);
 			Swal.fire({
 				  title: '이메일 주소를 확인해주세요.',         // Alert 제목
 				  text: '모든 내용을 작성하셨나요?',  // Alert 내용
@@ -225,8 +218,6 @@
 		    memberMail.focus();
 		    return false;
 		}else if(email != memberMail.value + "@" + email_add.value){
-			console.log(memberMail.value + "@" + email_add.value);
-			console.log(email);
 			Swal.fire({
 				  title: '이메일 주소를 확인해주세요.',         // Alert 제목
 				  text: '모든 내용을 작성하셨나요?',  // Alert 내용
@@ -236,7 +227,6 @@
 		    return false;
 		}
 		else{
-			
 			Swal.fire({
 				  title: '해당 이메일로 인증번호 발송이 완료되었습니다.',         // Alert 제목
 				  text: '확인 부탁드립니다.',  // Alert 내용
@@ -249,19 +239,13 @@
 			         "email" : email
 			      },
 			      success : function(data){
-			         console.log("data : "+data);
-			         
 			         setInterval(function() {
 			        	 $("#mailCheckBtn1").css("display","none");
 			        	 $("#time").css("display", "block");
 			        	 $("#time").text($("#time").text()-1);
 			         }, 1000);
-			         
-			         
-// 			         chkEmailConfirm(data, $memailconfirm, $memailconfirmTxt);
 			document.getElementById('ePw-Check-Btn').addEventListener('click', (e)=>{ 
 			e.preventDefault();
-			console.log("input  : " + mailCheckInput);
 			if (data != mailCheckInput.value) { 
 				Swal.fire({
 					  title: '인증번호가 일치하지 않습니다.',         // Alert 제목
@@ -271,7 +255,7 @@
  				}else{
  					Swal.fire({
  						  title: '인증번호가 일치합니다.',         // Alert 제목
- 						  text: '다음 내용들을 작성해주세요',  // Alert 내용
+ 						  text: '회원 가입을 계속 진행해주세요.',  // Alert 내용
  						  icon: 'success',                         // Alert 타입
  						});
  					document.getElementById('memberMail').readOnly = true;
@@ -286,20 +270,15 @@
 			   })
 		    return false;
 		}
-				
 			});
-		
 	
  		document.getElementById('joinBtn').addEventListener('click', (e)=>{ 
 		e.preventDefault();
-		
-		
 		  var canJoin = true;
-			
 		  if (form.password.value == "") {
 			  Swal.fire({
 				  title: '비밀번호를 입력해주세요.',         // Alert 제목
-				  text: '공란은 허용되지 않아요',  // Alert 내용
+				  text: '공란은 허용되지 않습니다.',  // Alert 내용
 				  icon: 'warning',                         // Alert 타입
 				});
 		    pwd.focus();
@@ -329,7 +308,7 @@
 		  if (uname.value == "") {
 			  Swal.fire({
 				  title: '이름을 입력해주세요.',         // Alert 제목
-				  text: '공란은 허용되지 않아요.',  // Alert 내용
+				  text: '공란은 허용되지 않습니다.',  // Alert 내용
 				  icon: 'warning',                         // Alert 타입
 				});
 		    uname.focus();
@@ -339,7 +318,7 @@
 		  if (!reg_name1.test(uname.value)) {
 			  Swal.fire({
 				  title: '이름을 확인해주세요.',         // Alert 제목
-				  text: '이름은 한글만 입력할 수 있답니다.',  // Alert 내용
+				  text: '이름은 한글만 입력할 수 있습니다.',  // Alert 내용
 				  icon: 'warning',                         // Alert 타입
 				});
 		    uname.focus();
@@ -349,7 +328,7 @@
 		  if(uname<2 || uname>6){
 			  Swal.fire({
 				  title: '이름을 확인해주세요.',         // Alert 제목
-				  text: '이름은 2글자~ 6글자로 입력해야해요.',  // Alert 내용
+				  text: '이름은 2글자~ 6글자로 입력해주세요.',  // Alert 내용
 				  icon: 'warning',                         // Alert 타입
 				});
 			    memberNickName.focus();
@@ -359,7 +338,7 @@
 		  if (!reg_name1.test(memberNickName.value)) {
 			  Swal.fire({
 				  title: '닉네임을 확인해주세요.',         // Alert 제목
-				  text: '닉네임은 한글로 입력해야해요.',  // Alert 내용
+				  text: '닉네임은 한글로 입력해주세요.',  // Alert 내용
 				  icon: 'warning',                         // Alert 타입
 				});
 			    memberNickName.focus();
@@ -369,7 +348,7 @@
 		if(memberNickName<2 || memberNickName>6){
 			 Swal.fire({
 				  title: '닉네임을을 확인해주세요.',         // Alert 제목
-				  text: '닉네임은 2글자~ 6글자로 입력해야해요.',  // Alert 내용
+				  text: '닉네임은 2글자~ 6글자로 입력해주세요.',  // Alert 내용
 				  icon: 'warning',                         // Alert 타입
 				});
 		    memberNickName.focus();
@@ -379,7 +358,7 @@
 		  if (memberBirth.value.length!=8) {
 			  Swal.fire({
 				  title: '생일을 바르게 입력해주세요.',         // Alert 제목
-				  text: '생년월일은 8글자로 입력해야합니다.',  // Alert 내용
+				  text: '생년월일은 8글자로 입력해주세요.',  // Alert 내용
 				  icon: 'warning',                         // Alert 타입
 				});
 			    memberBirth.focus();
@@ -393,7 +372,6 @@
 				var yearNow = today.getFullYear(); // 올해 연도 가져옴
 				var monthNow = today.getMonth() + 1;
 				var dateNow = today.getDate();
-				
 				
 				// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
 					if (1900 > year || year > yearNow){
@@ -429,7 +407,6 @@
 					    memberBirth.focus();
 						return false;
 					} else if (month == 2) {
-
 						var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 						if (day>29 || (day==29 && !isleap)) {
 							 Swal.fire({
@@ -470,7 +447,6 @@
 		    return false;
 		  };
 		  
-		  
 		  const email2 = memberMail.value + "@" + email_add.value;
 			  if(email != email2) {
 				  Swal.fire({
@@ -491,10 +467,8 @@
 			    return false;
 			  };	  
 		
-		
 		if(canJoin){
 			 if(checkCnt >= 1){
-				 
 				 Swal.fire({
 			          title: "회원가입 하시겠습니까?",
 			          text: "입력한 회원 정보는, 회원가입 이후에 수정하실 수 있습니다.",
@@ -507,7 +481,6 @@
 			          reverseButtons: true,
 			        }).then((result) => {
 			        	if(result.isConfirmed) {
-			        		
 					 reAction();
 			        }
 					});
@@ -519,13 +492,8 @@
 						});
 					 memberMail.focus();
 				 }
-		 
 		 }
-					
  		});
- 		
- 		
- 	
  		
 		//이메일 옵션 선택후 주소 자동 완성
 		function change_email() {
@@ -541,7 +509,6 @@
 		//이메일 중복체크 메소드
 		function checkId(){
 	        var email = memberMail.value + "@" + email_add.value; //id값이 "id"인 입력란의 값을 저장
-	       	console.log(email);
 	        $.ajax({
 	            url:"joongbok", //Controller에서 요청 받을 주소
 	            type:'post', //POST 방식으로 전달
@@ -550,7 +517,7 @@
 	                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
 	                	Swal.fire({
 	                        title: "이 메일주소를 사용하시겠습니까?",
-	                        text: "로그인 시, 아이디로 사용될 것 입니다.",
+	                        text: "로그인 시, 아이디로 사용됩니다.",
 	                        icon: "warning",
 	                        showCancelButton: true,
 	                        confirmButtonColor: "#3085d6",
@@ -563,8 +530,6 @@
 	                		$("#memberMail").attr("readonly",true);
 	                		$("#email_add").attr("readonly",true);
 	     					hideDisplay();
-	     					console.log(memberMail.value)
-	     					console.log(email);
 	  			        	}
 	                });
 	                      } else { // cnt가 1일 경우 -> 이미 존재하는 아이디

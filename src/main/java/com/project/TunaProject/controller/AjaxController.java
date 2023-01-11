@@ -34,6 +34,5 @@ public class AjaxController {
 		
 		int cnt = memberRepository.idCheck(email);
 		return cnt;
-		
 	}
 }

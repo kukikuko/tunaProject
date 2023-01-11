@@ -25,8 +25,6 @@ public class MybatisChatRepository implements ChatRepository {
 	@Override
 	public String findChatCode(Chat chat) {
 		// TODO Auto-generated method stub
-	
-		
 		Chat c = chatMapper.findChatCode(chat);
 		if(c==null)
 		{
@@ -39,7 +37,6 @@ public class MybatisChatRepository implements ChatRepository {
 	public List<Chat> selectMyChat(int memberCode) {
 		// TODO Auto-generated method stub
 		 List<Chat> chat_list = chatMapper.selectMyChat(memberCode);
-
 		return chat_list;
 	}
 
@@ -47,15 +44,12 @@ public class MybatisChatRepository implements ChatRepository {
 	public List<Chat> selectMyChatByCur(int memberCode, int chatCode) {
 		// TODO Auto-generated method stub
 		 List<Chat> chat_list = chatMapper.selectMyChatByCur(memberCode,chatCode);
-
 		return chat_list;
 	}
 
 	@Override
 	public String findPostCode(int chatCode) {
-		
 		return chatMapper.findPostCode(chatCode);
-
 		// TODO Auto-generated method stub
 	}
 
@@ -64,13 +58,10 @@ public class MybatisChatRepository implements ChatRepository {
 		// TODO Auto-generated method stub
 		 chatMapper.updateCurview1(cv);
 		 chatMapper.updateCurview2(cv);
-
-		
 	}
 
 	@Override
 	public Chat findChatInfo(int chatCode) {
 		return chatMapper.findChatInfo(chatCode);
 	}
-
 }

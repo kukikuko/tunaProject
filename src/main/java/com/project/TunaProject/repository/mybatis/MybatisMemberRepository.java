@@ -15,24 +15,19 @@ import lombok.RequiredArgsConstructor;
 public class MybatisMemberRepository implements MemberRepository{
 
 	private final MemberMapper memberMapper;
-	
-	
+
 	@Override
 	public MemberVO memberInsert(MemberVO memberVO) {
 		// TODO Auto-generated method stub
 		memberMapper.memberInsert(memberVO);
-		
 		return memberVO;
 	}
 	
 	@Override
 	public MemberVO selectByEmail(String email) {
 		// TODO Auto-generated method stub
-		
 		MemberVO memberVO = memberMapper.selectByEmail(email);
-		
 		return memberVO;
-	
 	}
 
 	@Override
@@ -45,7 +40,6 @@ public class MybatisMemberRepository implements MemberRepository{
 	public Integer idCheck(String email) {
 		// TODO Auto-generated method stub
 		Integer cnt = memberMapper.idCheck(email);
-		
 		return cnt;
 	}
 	
@@ -56,7 +50,6 @@ public class MybatisMemberRepository implements MemberRepository{
 		boolean result = false;
 		memberMapper.updateMemberByEmail(memberVO);
 		result = true;
-		
 		return result;
 	}
 	
@@ -81,12 +74,6 @@ public class MybatisMemberRepository implements MemberRepository{
 		
 	}
 
-	//회원탈퇴 메소드
-//	@Override
-//	public void deleteMember(MemberVO memberVO) {
-//		// TODO Auto-generated method stub
-//		memberMapper.deleteMember(memberVO);
-//	}
 	@Override
 	public boolean updateAdminCk(MemberVO memberVO) {
 		boolean result = false;
@@ -98,12 +85,10 @@ public class MybatisMemberRepository implements MemberRepository{
 	@Override
 	public MemberVO selectByUUID(String activeUUID) {
 		// TODO Auto-generated method stub
-		
 		MemberVO memberVO = memberMapper.selectByUUID(activeUUID);
-
-		
 		return memberVO;
 	}
+	
 	//회원탈퇴시, 탈퇴한 회원이 작성한 게시물의 공개여부를 변경하는 메소드
 	public boolean updatePopenStatus(MemberVO memberVO) {
 		boolean result = false;
@@ -117,10 +102,7 @@ public class MybatisMemberRepository implements MemberRepository{
 	@Override
 	public String emailFindPw(String email) {
 		// TODO Auto-generated method stub
-		System.out.println("여기" + email);
 		String password = memberMapper.emailFindPw(email);
-		System.out.println("여기1" + password);
-		
 		return password;
 	}
 
@@ -129,7 +111,6 @@ public class MybatisMemberRepository implements MemberRepository{
 	public List<Post> selectByMemberCode(Integer memberCode) {
 		// TODO Auto-generated method stub
 		List<Post> postList = memberMapper.selectByMemberCode(memberCode);
-		
 		return postList;
 		
 	}
@@ -144,10 +125,5 @@ public class MybatisMemberRepository implements MemberRepository{
 	@Override
 	public void deleteMember(MemberVO memberVO) {
 		// TODO Auto-generated method stub
-		
 	}
-	
-	
-	
-
 }

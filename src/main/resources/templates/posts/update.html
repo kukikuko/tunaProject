@@ -60,7 +60,6 @@ body {
 				</select>
 				<button type="submit" class="update_Btn" id="update_Btn">
 					수정완료</button>
-
 				<button type="button" th:onclick="|location.href='@{/posts}'|" class="update_Btn">
 					목록보기</button>
 			</div>
@@ -75,7 +74,6 @@ body {
       function change_saleStatus() {
         var saleStatus = document.getElementById("saleStatus");
         var saleStatus_drop = document.getElementById("saleStatus_drop");
-
         //지금 골라진 옵션의 순서와 값 구하기
         var idx = saleStatus_drop.options.selectedIndex;
         var val = saleStatus_drop.options[idx].value;
@@ -84,9 +82,7 @@ body {
       }
       document.getElementById("update_Btn").addEventListener("click", (e) => {
         e.preventDefault();
-
         let form = document.updateForm;
-
         Swal.fire({
           title: "게시글을 수정 하시겠습니까?",
           text: "수정된 게시물은, 나중에 다시 수정 가능합니다.",

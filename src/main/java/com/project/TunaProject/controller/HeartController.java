@@ -41,10 +41,7 @@ public class HeartController {
 			heartRepository.deleteHeart(h);
 			cnt=0;
 		}
-
 		return cnt;
-		
-		
 	}
 	
 	@PostMapping("/heart/delete")
@@ -60,11 +57,7 @@ public class HeartController {
 		
 		heartRepository.deleteHeart(h);
 		int deleteCnt = heartRepository.countHeart(h);
-		
-		System.out.println("deleteCnt"+ deleteCnt);
-		
 		heartRepository.insertHeart(h);
 		return deleteCnt;
-		
 	}
 }

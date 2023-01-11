@@ -40,5 +40,12 @@
 	where notifytarget = #{target}
 	</select>
 
+	<select id="selectNotifyChatAll" resultType="ChatMSG">
+		select messagecode, chatcode, contents, notifytime, imagecode, notifycode, notifytarget, notifytype,
+			donotifymembercode, notifymembercode
+		from tuna_message m, tuna_notify n
+		where m.messagecode = n.notifytype
+		and n.notifytarget = 2;
+	</select>
 
 </mapper>

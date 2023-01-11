@@ -14,18 +14,13 @@
 	<div class="Post" name="post" id="post" th:value="${post.postCode}">
 		<p class="post-code" id="postCode" th:text="${post.postCode}"></p>
 		<p class="post-member" id="pMemCode" th:text="${post.pMemCode}"></p>
-		<!-- 
-		<p class="post-category" th:text="${post.ctName}"></p>
-		<br /> -->
 		<p class="post-title" th:text="${post.pTitle}"></p>
-
 		<th:block th:if="${cnt123 == 0}">
 			<button th:if="${post.pMemCode} != ${member.memberCode}"
 				class="heartBtn" type="submit" id="heartBtnWhite">
 				<i id="whiteHeart" class="fa-regular fa-heart"></i>
 				</button>
 		</th:block>
-
 		<th:block th:if="${cnt123 >= 1}">
 			<button th:if="${post.pMemCode} != ${member.memberCode}"
 				class="heartBtn" type="submit" id="heartBtnRed">
@@ -35,7 +30,6 @@
 		<p class="post-price"
 			th:text="|가격 : ${#numbers.formatInteger(post.pPrice, 0, 'COMMA')}원|"></p>
 		<br />
-	<!-- 	<p class="post-heart" th:text="|찜  ${post.heart}|"></p> -->
 		<p class="post-time" th:if="${post.pCorrectionTime == null}"
 			th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></p>
 		<p class="post-time" th:if="${post.pCorrectionTime != null}"
@@ -44,7 +38,6 @@
 		<div class="img" th:each="image : ${images}">
 			<img class="post-img" th:src="|/posts/images/${image.imageFiles}|"/>
 		</div>
-
 		<br />
 		<div class="BtnAll">
 			<button th:if="${post.pMemCode} == ${member.memberCode}"
@@ -69,8 +62,6 @@
 				id="notifyBtn" class="post_Btn_notify">신고하기</button>
 		</div>
 	</div>
-
-
 	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://kit.fontawesome.com/ef08a6d352.js"
 		crossorigin="anonymous"></script>
@@ -101,10 +92,8 @@
                   pMemCode: $("#pMemCode").text(),
                 },
                 success: function (cnt) {
-                  console.log(cnt);
                   if (cnt == 0) {
                     //cnt가 0일때. 사용자가 신고하지 않은 게시글
-                    console.log(cnt);
                     Swal.fire({
                       icon: "success",
                       title: "신고가 완료되었습니다.",
@@ -114,7 +103,6 @@
                     });
                   } else if (cnt >= 1) {
                     //cnt가 1 이상일때, 사용자가 1번 이상 신고한 게시글
-                    console.log(cnt);
                     Swal.fire({
                       icon: "error",
                       title: "이미 신고된 게시물입니다.",
@@ -131,9 +119,7 @@
       if (document.getElementById("deleteBtn")) {
         document.getElementById("deleteBtn").addEventListener("click", (e) => {
           e.preventDefault();
-
           let form = document.deleteForm;
-
           Swal.fire({
             title: "게시글을 삭제하시겠습니까?",
             text: "삭제된 게시글은 되돌릴 수 없습니다.",
@@ -181,7 +167,6 @@
                 postCode: $("#postCode").text(),
               },
               success: function (cnt) {
-                console.log(cnt);
                 if ((cnt) => 1) {
 				  if($("#whiteHeart")){
 					  $("#whiteHeart").attr('class', 'fa-solid fa-heart')

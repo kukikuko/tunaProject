@@ -29,10 +29,6 @@ public class MemberValidator implements Validator {
 		if(!StringUtils.hasText(memberVO.getPassword())) {
 			errors.rejectValue("password", null, "비밀번호는 필수 입력입니다.");
 		}
-//		if(!StringUtils.hasText(memberVO.getName())) {
-//			errors.rejectValue("name", null, "이름은 필수 입력입니다.");
-//		}
-		
 	}
 
 }
