@@ -14,30 +14,28 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @org.springframework.stereotype.Controller
 public class EmailController {
-	
+
 	private final EmailService emailService;
 	private final MemberRepository memberRepository;
-	
+
 	@GetMapping("/emailConfirm")
 	public String getemail() {
-
-		  return "confirm";
-		}
+		return "confirm";
+	}
 
 	@PostMapping("/emailConfirm")
 	@ResponseBody
 	public String emailConfirm(@RequestParam String email) throws Exception {
-//	  String email = memberMail1 + "@" + memberMail2;
-	  String confirm = emailService.sendSimpleMessage(email);
-	  return confirm;
+		String confirm = emailService.sendSimpleMessage(email);
+		return confirm;
 	}
-	
+
 	//비밀번호 찾는 메소드
 	@GetMapping("/emailFindPw")
 	public String getEmail() {
 		return "find";
 	}
-	
+
 	@PostMapping("/emailFindPw")
 	@ResponseBody
 	public String emailFindPw(@RequestParam String email) throws Exception {
@@ -47,4 +45,4 @@ public class EmailController {
 		return "redirect:/login";
 	}
 
-	}
+}

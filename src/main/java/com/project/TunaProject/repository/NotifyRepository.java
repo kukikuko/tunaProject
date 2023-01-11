@@ -11,6 +11,7 @@ public interface NotifyRepository {
 	public Integer notifyCheck(Notify notify);
 
 	public List<Notify> selectNotifyAll(String target);
+
 	public Integer notifyfilter(int messageCode);
 
 }

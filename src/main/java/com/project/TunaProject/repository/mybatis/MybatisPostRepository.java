@@ -12,9 +12,6 @@ import com.project.TunaProject.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
-
-
-
 @Repository
 @RequiredArgsConstructor
 public class MybatisPostRepository implements PostRepository{
@@ -24,7 +21,6 @@ public class MybatisPostRepository implements PostRepository{
 	@Override
 	public Post insert(Post post, int membercode, String ctCode) {
 		// TODO Auto-generated method stub
-//		Post postItem = postItemMapper.insert(post, membercode);
 		post.setPMemCode(membercode);
 		post.setPostCtCode(ctCode);
 		Integer result = postItemMapper.insert(post);
@@ -35,7 +31,6 @@ public class MybatisPostRepository implements PostRepository{
 	public Post selectByPostCode(String postCode) {
 		// TODO Auto-generated method stub
 		Post post = postItemMapper.selectByPostCode(postCode);
-
 		return post;
 	}
 
@@ -95,7 +90,6 @@ public class MybatisPostRepository implements PostRepository{
 	public List<Post> orderByPview() {
 		// TODO Auto-generated method stub
 		List<Post> postList = postItemMapper.orderByPview();
-		
 		return postList;
 	}
 

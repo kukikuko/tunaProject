@@ -32,7 +32,6 @@ public class AdminController {
     public String adminHome(Model model) {
 
         List<MemberVO> memberVOS = adminRepository.selectAll();
-        log.info("member {}", memberVOS);
         model.addAttribute("members", memberVOS);
 
         return "admin/home";
@@ -80,7 +79,6 @@ public class AdminController {
     public String posts(Model model){
 
         List<Post> posts = postRepository.selectAll();
-        log.info("p {}", posts);
         model.addAttribute("posts", posts);
 
         return "admin/posts";
@@ -126,7 +124,6 @@ public class AdminController {
     @PostMapping("/category")
     public void categoryChange(@RequestParam("ctCode") String ctCode
                 ,@RequestParam("ctName") String ctName){
-        log.info("category {} {}", ctCode, ctName);
         categoryRepository.updateCtName(new Category(ctCode, ctName));
     }
 

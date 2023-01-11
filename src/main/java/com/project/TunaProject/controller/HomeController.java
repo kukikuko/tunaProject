@@ -27,49 +27,33 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final PostRepository postRepository;
-    private final SessionManager sessionManager;
-    private final ImageRepository imageRepository;
+	private final PostRepository postRepository;
+	private final SessionManager sessionManager;
+	private final ImageRepository imageRepository;
 
-    @GetMapping("/")
-    public String home(Model model, HttpServletRequest req) {
-    	
-    	
-    	
-        HttpSession session = req.getSession(false);
-        if(session == null) {
-        	List<Post> postListTop10 = postRepository.orderByPview();
-        	List<PostCard> postCardList = new ArrayList<>();
-        	for(Post p : postListTop10) {
-        		postCardList.add(postRepository.selectCard(p.getPostCode()));
-        	}
-        	
-        	log.info("포카리 {}", postCardList);
-        	model.addAttribute("postCardList", postCardList);
-        	
-            return "index";
-        }
-
-        Enumeration<String> sessionName = session.getAttributeNames();
-        while(sessionName.hasMoreElements()) {
-            String name = sessionName.nextElement();
-            log.info("session {}, {}", name, session.getAttribute(name));
-        }
-
-        log.info("{}, {}, {}, {}, {}", session.getId(), session.getMaxInactiveInterval(),
-                session.getCreationTime(), session.getLastAccessedTime(), session.isNew());
-
-        MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
-        if(memberVO == null) {
-            return "index";
-        }
-        List<Post> postList = postRepository.selectAll();
-        
-        model.addAttribute("posts", postList);
-        model.addAttribute("member", memberVO);
-        
-        log.info("Login memberInfo {}", memberVO);
-
-        return "posts/posts";
-    }
+	@GetMapping("/")
+	public String home(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		if(session == null) {
+			List<Post> postListTop10 = postRepository.orderByPview();
+			List<PostCard> postCardList = new ArrayList<>();
+			for(Post p : postListTop10) {
+				postCardList.add(postRepository.selectCard(p.getPostCode()));
+			}
+			model.addAttribute("postCardList", postCardList);
+			return "index";
+		}
+		Enumeration<String> sessionName = session.getAttributeNames();
+		while(sessionName.hasMoreElements()) {
+			String name = sessionName.nextElement();
+		}
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		if(memberVO == null) {
+			return "index";
+		}
+		List<Post> postList = postRepository.selectAll();
+		model.addAttribute("posts", postList);
+		model.addAttribute("member", memberVO);
+		return "posts/posts";
+	}
 }

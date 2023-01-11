@@ -59,37 +59,35 @@ public class APIController {
 	private final ImageRepository imageRepository;
 	private final MybatisNotifyRepository mybatisNotifyRepository;
 	private final FileStore fileStore;
-    private final NotifyRepository notifyRepository;
+	private final NotifyRepository notifyRepository;
 
-    @RequestMapping("/uuid_info/{uuid}")
-    public String get_id(@PathVariable("uuid") String uuid)
-    {
-    	String member_code = memberRepository.selectByUUID(uuid).getMemberCode()+"";
-    	return member_code;
-    }
-    @RequestMapping("/chat_title/find/{chat_code}")
-    public String find_title(@PathVariable("chat_code") String chat_code)
-    {
+	@RequestMapping("/uuid_info/{uuid}")
+	public String get_id(@PathVariable("uuid") String uuid)
+	{
+		String member_code = memberRepository.selectByUUID(uuid).getMemberCode()+"";
+		return member_code;
+	}
+	
+	@RequestMapping("/chat_title/find/{chat_code}")
+	public String find_title(@PathVariable("chat_code") String chat_code)
+	{
+		String postcode =  chatRepository.findPostCode(Integer.parseInt(chat_code));
+		Post post = postRepository.selectByPostCode(postcode);
 
-    	String postcode =  chatRepository.findPostCode(Integer.parseInt(chat_code));
-    	 Post post = postRepository.selectByPostCode(postcode);
- 
-    	return post.getPTitle()+"("+memberRepository.selectByCode(post.getPMemCode()).getMemberNick()+")";
-    }
-    
-    @ResponseBody
-    @RequestMapping("image/up")
-    public String up_image(HttpServletRequest req,MultipartRequest multiPartReq)
-    {
-    	String img_code= " ";
+		return post.getPTitle()+"("+memberRepository.selectByCode(post.getPMemCode()).getMemberNick()+")";
+	}
+
+	@ResponseBody
+	@RequestMapping("image/up")
+	public String up_image(HttpServletRequest req,MultipartRequest multiPartReq)
+	{
+		String img_code= " ";
 		MultipartFile mpFile = multiPartReq.getFile("chatImage");  //요청 넘어온 것중에 파일 받아내기
 		try {
 			//파일 받은거 실제 경로에 옮겨서 저장처리하기
-			
+
 			UploadFile uf = fileStore.storeFile(mpFile);
-			
-			log.info("uf {}",uf);
-			
+
 			Image img = new Image();
 			img.setImageFiles(uf.getStoreFileName());
 			img.setImageName(uf.getUploadFileName());
@@ -101,192 +99,148 @@ public class APIController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
-    	return img_code;
-    }
-    
-    @RequestMapping("/chat/find/{uuid}/{curChatCode}")
-    public String find_chat(@PathVariable("uuid") String uuid,@PathVariable("curChatCode") String curChatCode)
-    {
-    	
-    	log.info("dd {}",uuid);
+		return img_code;
+	}
+
+	@RequestMapping("/chat/find/{uuid}/{curChatCode}")
+	public String find_chat(@PathVariable("uuid") String uuid,@PathVariable("curChatCode") String curChatCode)
+	{
 		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
 		//최근 메세지 같이 보내기
 		//안 본 메세지 개수 같이 보내기
+
+		String chat_info_list ="";
+		List<Chat> chat_list=null;
+		if(Integer.parseInt(curChatCode)==0)
+		{
+			chat_list = chatRepository.selectMyChat(member_code);
+		}
+		else
+		{
+			chat_list = chatRepository.selectMyChatByCur(member_code,Integer.parseInt(curChatCode));
+		}
+
+		boolean is_list =false;
+ 
+		for(Chat c:chat_list)
+		{
+			if(is_list==true)
+			{
+				chat_info_list +="\0";
+			}
+			else
+			{
+				is_list=true;
+			}
+			Post post = postRepository.selectByPostCode(c.getPostCode());
+			chat_info_list += post.getPTitle()+"\0"+c.getChatCode()+"\0"+memberRepository.selectByCode(post.getPMemCode()).getMemberNick();
+		}
+		return chat_info_list;
+	}
+
+	@RequestMapping("/image/get/{img_code}")
+	public String get_image(@PathVariable("img_code") String img_code)
+	{
+		String str ="";
+		Image img = imageRepository.selectByImageCode(img_code);
+		if(img!=null)
+		{
+			str = img.getImageFiles();
+		}
+		return str;
+	}
+
+	@RequestMapping("/chat/new_info/{chat_code}/{uuid}")
+	public String get_new_message_info(@PathVariable("chat_code") String chat_code,@PathVariable("uuid") String uuid)
+	{
+		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+		NewMessageInfo nmi = null;
+		//chat_code 를 사용해서 해당 챗에대한 정보
+		Chat c = chatRepository.findChatInfo(Integer.parseInt(chat_code));
+
+		if(c.getBuyer()==member_code)
+		{
+			nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getBuyerCurView());
+		}
+		else
+		{
+			nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getSellerCurView());
+		}
+		if(nmi.getLastCode()==0)
+		{
+			return " "+"\0"+"0";
+		}
+		return messageRepository.find_message(nmi.getLastCode()).getContents()+"\0"+nmi.getCountMessage();
+	}
+
+	@RequestMapping("/message/get/{chat_code}/{message_code}/{uuid}")
+	public String get_chat(@PathVariable("chat_code") String chat_code,@PathVariable("message_code") String message_code,@PathVariable("uuid") String uuid) {
+		String str ="";
+
+		List<Message> message_list =null;
+		if(Integer.parseInt(message_code)==0)
+		{
+			message_list =messageRepository.select_Message(Integer.parseInt(chat_code));
+		}
+		else
+		{
+			message_list =messageRepository.select_Message_cur(Integer.parseInt(chat_code),Integer.parseInt(message_code));
+
+		}
+
+		boolean is_start =true;
+		for(Message m:message_list)
+		{
+			//신고된 메세지 필터링
+			if(notifyRepository.notifyfilter(m.getMessageCode()).intValue()==0)
+			{
+				if(!is_start)
+				{
+					str+="\0";
+				}
+				else
+				{
+					is_start = false;
+				}
+				str+=m.all_data();
+			}
+		}
+
+		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+		CurView cv = new CurView();
+		cv.setMessageCode(Integer.parseInt(message_code));
+		cv.setMemberCode(member_code);
+		cv.setChatCode(Integer.parseInt(chat_code));
+		chatRepository.updateCurview(cv);
+
+		return str;
+	}
+	
+	@PostMapping("/message/up")
+	public void up_chat(HttpServletResponse resp, @RequestParam("message") String message,
+						@RequestParam("uuid") String uuid, @RequestParam("chat_code") String chat_code,
+						@RequestParam("px_size") String px_size, @RequestParam("image_code") String image_code) {
 		
-    	String chat_info_list ="";
-    	List<Chat> chat_list=null;
-    	if(Integer.parseInt(curChatCode)==0)
-    	{
-        	 chat_list = chatRepository.selectMyChat(member_code);
-    	}
-    	else
-    	{
-        	chat_list = chatRepository.selectMyChatByCur(member_code,Integer.parseInt(curChatCode));
-    	}
-    	
-    	boolean is_list =false;
-    	
-    	
-    	
+		resp.setStatus(204);
+		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+		Message m = new Message(message,Integer.parseInt(px_size),member_code,Integer.parseInt(chat_code),Integer.parseInt(image_code));
+		messageRepository.insert_Message(m);
+	}
 
-    	for(Chat c:chat_list)
-    	{
-    		
-    		if(is_list==true)
-    		{
-    			chat_info_list +="\0";
-    		}
-    		else
-    		{
-        		is_list=true;
-    		}
-    		 Post post = postRepository.selectByPostCode(c.getPostCode());
-    		 
-    		chat_info_list += post.getPTitle()+"\0"+c.getChatCode()+"\0"+memberRepository.selectByCode(post.getPMemCode()).getMemberNick();
-    	}
-    	
-    
-    	log.info("ddgg44");
-    	return chat_info_list;
-    }
-    
+	@PostMapping("/message/notify")
+	public void up_chat(HttpServletResponse resp,@RequestParam("messageCode") String messageCode,
+						@RequestParam("doNotifyUser") String doNotifyUser) {
 
-    
-    @RequestMapping("/image/get/{img_code}")
-    public String get_image(@PathVariable("img_code") String img_code)
-    {
-    	String str ="";
-    	Image img = imageRepository.selectByImageCode(img_code);
-    	if(img!=null)
-    	{
-        	str = img.getImageFiles();
-    	}
-    	return str;
-    	
-    }
-    
-    
-    @RequestMapping("/chat/new_info/{chat_code}/{uuid}")
-    public String get_new_message_info(@PathVariable("chat_code") String chat_code,@PathVariable("uuid") String uuid)
-    {
-    	log.info("cccc1");
+		resp.setStatus(204);
 
-    	int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+		int NotifyUser = messageRepository.find_Message_Caller(Integer.parseInt(messageCode));
+		Notify notify = new Notify();
+		notify.setDoNotifyMemberCode(doNotifyUser);
+		notify.setNotifyMemberCode(NotifyUser+"");
+		notify.setNotifyTarget(2);
+		notify.setNotifyType(messageCode);
 
-    	NewMessageInfo nmi = null;
-    	//chat_code 를 사용해서 해당 챗에대한 정보
-    	log.info("cccc2");
-
-    	Chat c = chatRepository.findChatInfo(Integer.parseInt(chat_code));
-
-    	if(c.getBuyer()==member_code)
-    	{
-
-    		nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getBuyerCurView());
-
-    	}
-    	else
-    	{
-
-    		nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getSellerCurView());
-    	}
-    	if(nmi.getLastCode()==0)
-    	{
-    		return " "+"\0"+"0";
-    	}
-    	
-
-    	return messageRepository.find_message(nmi.getLastCode()).getContents()+"\0"+nmi.getCountMessage();
-  
-    }
-	
-	
-    @RequestMapping("/message/get/{chat_code}/{message_code}/{uuid}")
-    public String get_chat(@PathVariable("chat_code") String chat_code,@PathVariable("message_code") String message_code,@PathVariable("uuid") String uuid) {
-    	String str ="";
-
-    	List<Message> message_list =null;
-        if(Integer.parseInt(message_code)==0)
-        {
-        	message_list =messageRepository.select_Message(Integer.parseInt(chat_code));
-        }
-        else
-        {
-        	message_list =messageRepository.select_Message_cur(Integer.parseInt(chat_code),Integer.parseInt(message_code));
-        	
-        }
-        
-
-    	
-        
-        boolean is_start =true;
-    	for(Message m:message_list)
-    	{
-    	
-    	
-    		//신고된 메세지 필터링
-    		if(notifyRepository.notifyfilter(m.getMessageCode()).intValue()==0)
-    		{
-    			if(!is_start)
-        		{
-            		str+="\0";
-        		}
-    			else
-    			{
-            		is_start = false;
-
-    			}
-        		str+=m.all_data();
-        		
-
-    		}
-    	}
-    	
-   
-    		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
-    		CurView cv = new CurView();
-    		cv.setMessageCode(Integer.parseInt(message_code));
-    		cv.setMemberCode(member_code);
-    		cv.setChatCode(Integer.parseInt(chat_code));
-    		chatRepository.updateCurview(cv);
-    	
-    	
-    	return str;
-      
-    	 
-    }
-    @PostMapping("/message/up")
-    public void up_chat(HttpServletResponse resp,@RequestParam("message") String message,@RequestParam("uuid") String uuid,@RequestParam("chat_code") String chat_code,@RequestParam("px_size") String px_size,@RequestParam("image_code") String image_code) {
-
-    	resp.setStatus(204);
-    	
-    	int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
-
-
-    	Message m = new Message(message,Integer.parseInt(px_size),member_code,Integer.parseInt(chat_code),Integer.parseInt(image_code));
-
-    	messageRepository.insert_Message(m);
-
-    }
-    
-    @PostMapping("/message/notify")
-    public void up_chat(HttpServletResponse resp,@RequestParam("messageCode") String messageCode,@RequestParam("doNotifyUser") String doNotifyUser) {
-    	
-    	log.info("ddd");
-    	resp.setStatus(204);
-    	
-    	int NotifyUser = messageRepository.find_Message_Caller(Integer.parseInt(messageCode));
-    	Notify notify = new Notify();
-    	notify.setDoNotifyMemberCode(doNotifyUser);
-    	notify.setNotifyMemberCode(NotifyUser+"");
-    	notify.setNotifyTarget(2);
-    	notify.setNotifyType(messageCode);
-
-    	mybatisNotifyRepository.insertNotify(notify);
-    	
-    	//메세지창 상대 멤버 코드 찾기 
-    	
-    	}
-    
-	
+		mybatisNotifyRepository.insertNotify(notify);
+		//메세지창 상대 멤버 코드 찾기 
+	}
 }

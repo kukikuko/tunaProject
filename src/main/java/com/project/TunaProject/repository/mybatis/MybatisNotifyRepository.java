@@ -19,8 +19,6 @@ public class MybatisNotifyRepository implements NotifyRepository{
 	public Notify insertNotify(Notify notify) {
 		// TODO Auto-generated method stub
 		notifyMapper.insertNotify(notify);
-		
-		
 		return notify;
 	}
 
@@ -41,8 +39,6 @@ public class MybatisNotifyRepository implements NotifyRepository{
 	public Integer notifyfilter(int messageCode) {
 		// TODO Auto-generated method stub
 		int result = notifyMapper.notifyfilter(messageCode);
-
 		return result;
 	}
-
 }

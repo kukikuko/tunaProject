@@ -30,11 +30,6 @@ public class NotifyController {
 	@ResponseBody
 	public Integer notifyPost(@RequestParam Map<String, String> data, HttpServletRequest req) {
 		
-//		int cnt = mybatisNotifyRepository.selectById();
-//		if(cnt > 0) {
-//			return 1;
-//		} else {
-		
 		HttpSession session = req.getSession(false);
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		
@@ -45,24 +40,9 @@ public class NotifyController {
 		n.setNotifyTarget(1);
 		
 		int cnt = mybatisNotifyRepository.notifyCheck(n);
-		System.out.println("********************" + cnt);
-		
 		if(cnt==0) {
 			mybatisNotifyRepository.insertNotify(n);
 		}
-		
-//		
-//		return 2;
-//		}
 		return cnt;
 	}
-	
-//	@PostMapping("/chat")
-//	public String notifyChat(@RequestParam Map<String, String> postCode) {
-//		
-//		String a = postCode.get("postCode");
-//		System.out.println("****" + a + "****");
-//		
-//		return "redirect:/";
-//	}
 }
