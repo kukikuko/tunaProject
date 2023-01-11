@@ -7,7 +7,7 @@
  
  
   <mapper namespace="com.project.TunaProject.repository.mybatis.MemberMapper">
-	
+<!-- 회원가입  -->
 	<insert id="memberInsert" parameterType="MemberVO">
   		insert into TUNA_MEMBER 
   		values
@@ -29,7 +29,7 @@
   		)
   	</insert>
   	
-<!--   	로그인 -->
+<!-- 로그인 -->
   	<select id="selectByEmail" resultType="MemberVO">
 		select memberCode, membermail, password, memberName, memberBirth, memberNick, ADMINCK,
 		
@@ -44,26 +44,29 @@
 		  from tuna_member
 		where memberMail = #{email}
 	</select>
-
+	
+<!-- memeberCode로 회원 정보 가져오기 -->
 	<select id="selectByCode" resultType="MemberVO">
 		select *
 		from tuna_member
 		where memberCode = #{memberCode}
 	</select>
 	
+<!-- uuid로 회원정보 가져오기 -->
 	<select id ="selectByUUID" resultType="MemberVO">
 	select *
 	from tuna_member
 	where activeUUID = #{activeUUID}
 	</select>
 	
+<!-- uuid에 맞는 memberMail 정보 가져오기 -->
 	<update id="updateUUID" parameterType="MemberVO">
 	UPDATE tuna_member
 	set activeUUID = #{activeUUID}
 	where memberMail = #{memberMail}
 	</update>
 	
-<!-- 	개인정보 변경 -->
+<!-- 개인정보 변경 -->
 	<update id="updateMemberByEmail" parameterType="MemberVO">
 	UPDATE tuna_member
 	set memberName = #{memberName},
@@ -76,6 +79,7 @@
 	where memberMail = #{memberMail}
 	</update>
 	
+<!-- 비밀번호 변경 -->
 	<update id="updatePassword">
 	UPDATE tuna_member
 	set password = #{password}
@@ -122,12 +126,6 @@
 	</select>
 	
 <!-- 	memberCode로 사용자가 작성한 글 보여주기 -->
-<!--	<select id="selectByMemberCode" resultType="Post">-->
-<!--	select * -->
-<!--	from tuna_post -->
-<!--	where pmemcode = #{memberCode}-->
-<!--	</select>-->
-
 	<select id="selectByMemberCode" resultType="PostForCategory">
 		select POSTCODE,postCtCode,
 			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName

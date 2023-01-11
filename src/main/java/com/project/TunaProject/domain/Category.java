@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class Category {
 	    
-	  private String ctCode;
-	  private String ctName;
+	  private String ctCode;	//카테고리 코드
+	  private String ctName;	//카테고리 이름
 
 }

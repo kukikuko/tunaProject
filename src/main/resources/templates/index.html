@@ -36,7 +36,7 @@
 		<div class="navbar_toggle">
 			<div class="navbar_menu">
 				<div class="navbar_menu_text">
-					<a href="/posts" class="menuText">중고거래</a>
+					<a href="/posts" class="menuText" id="joongGo">중고거래</a>
 				</div>
 				<div class="navbar_menu_right">
 					<div class="navbar_search">
@@ -168,6 +168,17 @@
 		crossorigin="anonymous"></script>
 
 	<script>
+	document.getElementById('joongGo').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		 Swal.fire({
+	            title: "로그인 후 이용해주세요.", // Alert 제목
+	            text: "회원이 아니시라면 회원가입부터 진행해주세요.", // Alert 내용
+	            icon: "warning", // Alert 타입
+	          }); 
+		 return false;
+		
+	});
+
 	
 	
 	const $topBtn = document.querySelector(".moveTopBtn");

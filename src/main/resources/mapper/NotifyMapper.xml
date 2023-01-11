@@ -4,8 +4,8 @@
 
 <mapper	namespace="com.project.TunaProject.repository.mybatis.NotifyMapper">
 
+<!-- 게시글 신고 -->
 	<insert id="insertNotify">
-		
 	insert into TUNA_NOTIFY 
 	values
 			(TUNA_notifyCode.nextVal
@@ -18,6 +18,7 @@
 			)
 	</insert>
 	
+<!-- 이미 신고한 게시물인지 확인 -->
 	<select id="notifyCheck" resultType="Integer">
 	select count(*) 
 	from tuna_notify 
@@ -25,12 +26,14 @@
 	and donotifyMemberCode= #{doNotifyMemberCode}
 	</select>
 	
+<!-- 신고된 메세지인지 확인	 -->
 	<select id="notifyfilter" resultType="Integer">
 	select count(*) 
 	from tuna_notify 
 	where NOTIFYTYPE = #{messageCode} 
 	</select>
 
+<!-- 신고된 글 또는 채팅 가져오기 -->
 	<select id="selectNotifyAll" resultType="Notify">
 	select notifycode, notifytype, notifytime, donotifymembercode, notifymembercode
 	from tuna_notify
