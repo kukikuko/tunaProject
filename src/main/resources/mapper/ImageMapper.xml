@@ -8,7 +8,7 @@
 	<insert id="insert" parameterType="Image">
 	
 	<selectKey keyProperty="imageCode"
-         resultType="_long" order="BEFORE">
+         resultType="_int" order="BEFORE">
          SELECT
          IMAGECODESQ.nextVal as imageCode
          from dual
@@ -31,10 +31,21 @@
 	</select>
 	
 	
-		<select id="selectByImageCode" resultType="Image">
+	<select id="selectByImageCode" resultType="Image">
 		select IMAGEFILES
 		from TUNA_POSTIMAGE
 		where IMAGECODE = #{ImageCode}
-		</select>
+	</select>
 
+	<delete id="deleteByImageCode">
+		delete
+		from tuna_postImage
+		where imageCode = #{ImageCode}
+	</delete>
+
+	<delete id="deleteByPostCode">
+		delete
+		from tuna_postImage
+		where itype = #{ImageCode}
+	</delete>
 </mapper>

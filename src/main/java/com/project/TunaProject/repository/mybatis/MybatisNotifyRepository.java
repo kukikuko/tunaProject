@@ -37,4 +37,12 @@ public class MybatisNotifyRepository implements NotifyRepository{
 		return notifyList;
 	}
 
+	@Override
+	public Integer notifyfilter(int messageCode) {
+		// TODO Auto-generated method stub
+		int result = notifyMapper.notifyfilter(messageCode);
+
+		return result;
+	}
+
 }

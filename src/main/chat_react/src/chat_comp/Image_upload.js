@@ -25,6 +25,8 @@ function Image_upload({member_code}) {
                 document.getElementById("img_code").value=response.data;
                 console.log(response.data);
                 document.getElementById("myForm").submit();
+                setTimeout(()=>{window.close()},10);
+
               })
               .catch((error) => {
                 // 예외 처리

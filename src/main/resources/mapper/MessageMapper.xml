@@ -5,7 +5,7 @@
 
 	<select id="select_Message" resultType="Message">
 	select *
-	from chat_message
+	from tuna_message
 	where chatCode = #{chat_code}
 	order by messageCode
 	</select>
@@ -13,20 +13,20 @@
 	
 	<select id="find_Message_Caller" resultType="Message">
 	select memberCode
-	from chat_message
+	from tuna_message
 	where messageCode = #{messageCode}
 	</select>
 	
 	<select id="select_Message_cur" resultType="Message">
 	select *
-	from chat_message
+	from tuna_message
 	where (chatCode = #{chat_code}) and (messageCode &gt; #{message_code})
 	order by messageCode	
 	</select>
 	
 	<insert id="insert_Message" parameterType="Message">
-	insert into chat_message
-	values(chat_messagePK.nextVal,#{chatCode},#{memberCode},#{contents},SYSDATE,#{imageCode},#{pixelLength})
+	insert into tuna_message
+	values(tuna_messagePK.nextVal,#{chatCode},#{memberCode},#{contents},SYSDATE,#{imageCode},#{pixelLength})
 	
 	</insert>
 	

@@ -1,7 +1,9 @@
 package com.project.TunaProject.repository.mybatis;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
+import com.project.TunaProject.domain.Image;
 import com.project.TunaProject.domain.Notify;
 
 import java.util.List;
@@ -14,4 +16,6 @@ public interface NotifyMapper {
 	public Integer notifyCheck(Notify notify);
 
 	public List<Notify> selectNotifyAll(String target);
+	
+	public Integer notifyfilter(int messageCode);
 }

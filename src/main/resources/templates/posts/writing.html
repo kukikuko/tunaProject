@@ -28,7 +28,7 @@
 			name="writing" enctype="multipart/form-data">
 			<select class="writing_category" name="ctCode">
 				<option th:each="ct : ${cateItem}" th:value="${ct.ctCode}"
-					th:text="${ct.ctName}"></option>
+					th:text="${ct.ctName}" class="writingOption"></option>
 			</select> <input type="hidden" name="postCode" th:field="*{postCode}">
 			<input class="writing_title" type="text" name="postTitle"
 				th:field="*{pTitle}" id="pTitle" placeholder="제목을 입력하세요."> <input

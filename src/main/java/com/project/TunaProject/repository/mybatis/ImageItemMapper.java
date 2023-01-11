@@ -18,5 +18,7 @@ public interface ImageItemMapper {
 	
 	public void update(@Param("imageCode")String postCode, @Param("updatePost")Image image);
 	
-	public void deleteByImageCode(String ImageCode);
+	public void deleteByImageCode(int ImageCode);
+
+	public void deleteByPostCode(String postCode);
 }

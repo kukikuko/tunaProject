@@ -74,8 +74,8 @@ function Chat({data}) {
 
     return(
         <>
-            <p className={set_message}>{data.message_contents}</p>
-            <img className={set_ballon} src={ballon_img_src}></img>
+            <p id={"content"+data.message_code} className={set_message}>{data.message_contents}</p>
+            <img id={"ballon"+data.message_code} className={set_ballon} src={ballon_img_src}></img>
             <br/>
             <p className={time_class}>{data.time}</p>
             <button value={data.message_code}  className={button_class} id={"button"+data.message_code}>신고</button>
