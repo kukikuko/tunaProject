@@ -163,15 +163,15 @@ public class PostController {
 		List<Image> images = imageRepository.selectAll(postCode);
 
 		if(iCode != null) {
-			for(int code : iCode) {
+			for(Image i : images) {
 				int cnt = 0;
-				for(Image i : images) {
+				for(int code : iCode) {
 					if(code == i.getImageCode()) {
 						cnt++;
 					}
 				}
 				if(cnt != 1) {
-					imageRepository.deleteByImageCode(code);
+					imageRepository.deleteByImageCode(i.getImageCode());
 				}
 			}
 		} else {
