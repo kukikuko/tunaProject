@@ -187,6 +187,11 @@ vertical-align:middle;
 line-height:30px;
 }
 
+.exit_btn{
+  position: absolute;
+  left: 0px;
+}
+
 .chat{
   z-index: 1;
   position: absolute;

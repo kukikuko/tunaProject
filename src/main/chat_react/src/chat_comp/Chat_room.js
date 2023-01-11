@@ -127,42 +127,46 @@ function Chat_room({member_code,uuid}) {
     {
         const timer = setInterval(() => {
 
-            
-            axios.get('http://localhost:8080/api/chat/check/'+chat_code+'/'+uuid)
-            .then((response) => 
-            { 
-                console.log(response.data);
-                if(response.data=="F")
-                {
-                    //상대방이 채팅창에서 나가셨습니다
-                    //더이상 메세지를 보낼수 없습니다.
-                     
-                    set_connect(false);
-                    alert("상대가 떠났습니다 \n더 이상 메세지를 보낼 수 없습니다");
-
-                }
-                else
-                {
-                    console.log("go")
-                    axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
-                    .then((response) => {  init_chat(response.data);   })
-                    .catch(error => console.log(error))
-                    .finally(()=>{
-                        
-                        if(!x)
-                        {
-                            x=true;
-    
-                            document.getElementById("messages").scroll({
-                            top: document.getElementById("messages").scrollHeight,
-                            behavior: 'auto'
-                            });
-                        }
-                        })
-                }
-               })
+            console.log("go")
+            axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
+            .then((response) => {  init_chat(response.data);   })
             .catch(error => console.log(error))
+            .finally(()=>{
+                
+                if(!x)
+                {
+                    x=true;
 
+                    document.getElementById("messages").scroll({
+                    top: document.getElementById("messages").scrollHeight,
+                    behavior: 'auto'
+                    });
+                }
+
+                axios.get('http://localhost:8080/api/chat/check/'+chat_code+'/'+uuid)
+                .then((response) => 
+                { 
+                    console.log(response.data);
+                    if(response.data=="F")
+                    {
+                        //상대방이 채팅창에서 나가셨습니다
+                        //더이상 메세지를 보낼수 없습니다.
+                         
+                        set_connect(false);
+                        alert("상대가 떠났습니다 \n더 이상 메세지를 보낼 수 없습니다");
+                        clearInterval(timer)
+                        axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
+                        .then((response) => {  init_chat(response.data);   })
+                        .catch(error => console.log(error))
+
+                    }
+                   
+                   })
+                .catch(error => console.log(error))
+               
+                })
+            
+          
    
             }, 200);
             return ()=> clearInterval(timer);
@@ -190,7 +194,7 @@ function Chat_room({member_code,uuid}) {
         
         window.addEventListener('submit', (event) => {
 
-            if(!connect_on)
+            if((event.target.id!="exit_btn")&&!connect_on)
             {
                 event.preventDefault();
             }
