@@ -1,11 +1,21 @@
 @charset "UTF-8";
 
+@font-face{
+font-family: "SUIT-Variable";
+src: url('/css/font/SUIT-Variable.ttf');
+}
+
+@font-face{
+font-family: "SUIT-ExtraBold";
+src: url('/css/font/SUIT-ExtraBold.ttf');
+}
+
 
 body{
   height: 100%;
   display: flex;
   flex-direction: column;
-/* 	background-color: #EEEFF1; */
+  font-family: SUIT-Variable;
 }
 
 a{
@@ -30,8 +40,8 @@ table {
 .board-table {
 	font-size: 13px;
 	width: 100%;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ffd900;
+	border-bottom: 1px solid #ffd900;
 }
 
 .board-table a {
@@ -83,8 +93,7 @@ table {
 	border-radius: 20px;
 	border: 2px solid #ffd900;;
 	background-color: white;
-	margin: auto;
-	margin-top: 5px;
+	margin: auto auto 100px auto;
 	display: block;
 	width: 100px;
 	height: 40px;
@@ -99,6 +108,7 @@ table {
 	width: 65px;
 	height: 20px;	
 	text-decoration: none;
+	text-align: center;
 }
 
 
@@ -106,8 +116,8 @@ table {
 /* writing, update */
 .writing, .updateDiv{
 	margin: auto;
-	margin-top: 10px;
-	width: 900px;
+	margin-top: 30px;
+	width: 700px;
 	height: 100%;
 	background-color: #a7cdfd;
 	background-color: #EEEFF1;
@@ -115,8 +125,8 @@ table {
 	padding: 20px;
 }
 
-.writing_category, .writing_price, .writing_title, .writing_content, .writing_image 
-,.update_category, .update_title, .update_price, .update_content{
+.writing_category, .writingOption, .writing_price, .writing_title, .writing_content, .writing_image 
+,.update_category, .updateOption, .update_title, .update_price, .update_content{
 	background-color: white;
 	padding: 10px;
 	box-sizing: border-box;
@@ -124,9 +134,10 @@ table {
 	border: none;
 }
 
-.writing_category, .writing_price, .update_category, .update_price{	
-	width: 200px;	
+.writing_category, .writing_price, .writingOption, .update_category, .updateOption, .update_price{	
+	width: 130px;	
 	margin-right: 5px;
+	border-radius: 5px;
 }
 
 .writing_title, .update_title {
@@ -148,7 +159,7 @@ table {
 	text-align: center;
 }
 
-.writing_Btn, .update_Btn {
+.writing_Btn, .update_Btn, .pSalesStatusBtn {
 	border-radius: 20px;
 	border: 2px solid #ffd900;
 	background-color: white;
@@ -157,6 +168,7 @@ table {
 	display: inline-block;
 	width: 100px;
 	height: 40px;
+	text-align: center;	
 }
 
 .writing_price::-webkit-outer-spin-button, 
@@ -170,7 +182,7 @@ table {
 
 /* post */
 .Post {
-	margin: 10px auto 10px auto;
+	margin: 30px auto 30px auto;
 	width: 900px;
 	height: 100%;
 	background-color: #EEEFF1;
@@ -178,19 +190,21 @@ table {
 	border-radius: 5px;
 /* 	text-align: center; */
 	padding: 20px;
+	 font-family: SUIT-Variable;
 }
 .img{
 	text-align: center;	
 }
 .post-category, .post-title, .post-price , .post-view, .post-content, .post-time, .post-heart{
 	/* margin-bottom: 10px; */
-	padding: 10px;
+	padding: 5px;
 	/* background-color: white; */
 	box-sizing: border-box;
 	border-radius: 5px;
 	border: none;
 	display: inline-block;
 	margin : 0px;
+	 font-family: SUIT-Variable;
 }
 .post-title{
 	font-size: 2rem;
@@ -201,17 +215,14 @@ table {
 }
 .post-img{
 	margin-top : 10px;
-	width: 80%;
-	height : 80%;
+ 	width : 300px;
+	height : 300px;
 	
 }
 .post-category {	
 	width: 140px;	
 	margin-right: 5px;
 	text-align: left;
-}
-.post-title{
-	width: 420px;
 }
 .post-price{
 	width: 170px;	
@@ -233,7 +244,7 @@ table {
 .BtnAll{
 	text-align: center;	
 }
-.post_Btn, .post_Btn_back, .post_Btn_notify, .heartBtn {
+.post_Btn, .post_Btn_back, .post_Btn_notify{
 	border-radius: 20px;
 	border: 2px solid #ffd900;
 	background-color: white;
@@ -242,14 +253,15 @@ table {
 	width: 100px;
 	height: 40px;
 }
-.pSalesStatusBtn, select{
+
+.heartBtn {
 	border-radius: 20px;
+	border: 2px solid #ffd900;
 	background-color: white;
-	margin: auto;
-	text-align: center;
+/* 	margin: auto; */
 	display: inline-block;
-	width: 100px;
-	height: 40px;
+	font-size : 1rem;
+
 }
 
 

@@ -4,6 +4,15 @@
 
 @import url(https://fonts.googleapis.com/css?family=Roboto);
 
+@font-face {
+	font-family: "SUIT-Variable";
+	src: url('/css/font/SUIT-Variable.ttf');
+}
+
+@font-face {
+	font-family: "SUIT-ExtraBold";
+	src: url('/css/font/SUIT-ExtraBold.ttf');
+}
 
 
 *, *:before, *:after {
@@ -24,9 +33,11 @@
 	font-family: 'Roboto', sans-serif;
 	padding: 20px;
 	text-align: center;
+	font-family: "SUIT-Variable";
 }
 .memUpdateForm label{
 	text-align: left;
+	font-family: "SUIT-Variable";
 }
 .memUpInput {
 	background: lavender;
@@ -40,6 +51,7 @@
 	font-size: 15px;
 	height: 54px;
 	text-align: left;
+	font-family: "SUIT-Variable";
 }
 .memUpPNInput{
 	background: lavender;
@@ -73,6 +85,7 @@
 	display: inline-block;
 	margin-top: 20px;
 	font-size: 15px;
+	font-family: "SUIT-Variable";
 }
 
 .memUpdateForm input::-webkit-input-placeholder {

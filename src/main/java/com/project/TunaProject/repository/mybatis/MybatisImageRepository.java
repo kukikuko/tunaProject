@@ -49,9 +49,14 @@ public class MybatisImageRepository implements ImageRepository{
 	}
 
 	@Override
-	public void deleteByImageCode(String ImageCode) {
+	public void deleteByImageCode(int ImageCode) {
 		// TODO Auto-generated method stub
 		imageItemMapper.deleteByImageCode(ImageCode);
+	}
+
+	@Override
+	public void deleteByPostCode(String postCode) {
+		imageItemMapper.deleteByPostCode(postCode);
 	}
 
 }

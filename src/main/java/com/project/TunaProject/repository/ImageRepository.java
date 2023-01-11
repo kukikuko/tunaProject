@@ -13,5 +13,7 @@ public interface ImageRepository {
 	
 	public boolean update(String ImageCode,Image image);
 	
-	public void deleteByImageCode(String ImageCode);
+	public void deleteByImageCode(int ImageCode);
+
+	public void deleteByPostCode(String postCode);
 }

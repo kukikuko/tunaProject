@@ -37,8 +37,7 @@ public class LoginController {
 	
 	
 	@GetMapping("/uuid_info/{uuid_v}")
-	public String infobyuuid(@PathVariable("uuid_v") String uuid_v)
-	{
+	public String infobyuuid(@PathVariable("uuid_v") String uuid_v){
 		String result = "";
 		result = memberRepository.selectByUUID(uuid_v).getMemberMail().toString();
 		// 참여한 방목록 //해당 방의 사진 이미지 
@@ -105,7 +104,6 @@ public class LoginController {
 		if(!StringUtils.hasText(loginForm.getPassword())) {
 			errors.rejectValue("password", null, "비밀번호 필수 입력입니다.");
 		}
-		
 	}
 	
 	@PostMapping("/logout")

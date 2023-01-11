@@ -37,7 +37,7 @@
 				<div class="navbar_menu_right">
 					<div class="navbar_search">
 						<form action="/posts" method="post" class="searchForm">
-							<input name="search" type="search" placeholder="물품이나 동네를 검색해주세요."
+							<input name="search" type="search" placeholder="물품을 검색해주세요."
 								class="searchInput">
 							<button class="searchBtn" type="submit">검색</button>
 						</form>
@@ -559,11 +559,13 @@
 	                        cancelButtonText: "취소",
 	                        reverseButtons: true,
 	                      }).then((result) => {
+	  			        	if(result.isConfirmed) {
 	                		$("#memberMail").attr("readonly",true);
 	                		$("#email_add").attr("readonly",true);
 	     					hideDisplay();
 	     					console.log(memberMail.value)
 	     					console.log(email);
+	  			        	}
 	                });
 	                      } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
 	                	 Swal.fire({
