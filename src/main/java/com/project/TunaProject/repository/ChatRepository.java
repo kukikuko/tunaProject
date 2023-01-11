@@ -13,5 +13,6 @@ public interface ChatRepository {
     public String findPostCode(int chatCode);
     public void updateCurview(CurView cv);
     public Chat findChatInfo(int chatCode);
+    public void exitChat(int memberCode,int chatCode);
 
 }

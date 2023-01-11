@@ -19,6 +19,8 @@ public interface ChatMapper {
     public void updateCurview1(CurView cv);
     public void updateCurview2(CurView cv);
     public Chat findChatInfo(int chatCode);
-	
+    public void exitChatSeller(@Param("memberCode")int memberCode,@Param("chatCode")int chatCode);
+    public void exitChatBuyer(@Param("memberCode")int memberCode,@Param("chatCode")int chatCode);
+
 	
 }

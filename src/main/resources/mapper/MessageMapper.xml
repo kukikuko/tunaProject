@@ -3,6 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.project.TunaProject.repository.mybatis.MessageMapper">
 
+	<!-- 채팅창에 맞는 모든 메세지 찾기-->
 	<select id="select_Message" resultType="Message">
 	select *
 	from tuna_message
@@ -10,24 +11,29 @@
 	order by messageCode
 	</select>
 	
-	
+		<!-- 메세지 코드로 해당  메세지의 발신자 멤버 코드 찾기 -->
 	<select id="find_Message_Caller" resultType="Integer">
 	select memberCode
 	from tuna_message
 	where messageCode = #{messageCode}
 	</select>
 	
+	<!-- 가장 최근 메세지 코드 찾기 -->
 	<select id="new_Message_Content" resultType="Integer">
 		select NVL(max(messageCode),0)
 		from tuna_message
 		where chatCode = #{chat_code}
 			</select>
+			
+			<!-- 읽지 않은 메세지 개수 구하기 -->
 	<select id="new_Message_Count" resultType="Integer">
 		select count(messageCode) 
 		from tuna_message
 		where chatCode = #{chat_code}
 		and messageCode &gt; #{message_code}
 			</select>
+			
+			<!-- 채팅창에 맞는 실시간 새로운 메세지 찾기 -->
 	<select id="select_Message_cur" resultType="Message">
 	select *
 	from tuna_message
@@ -35,12 +41,14 @@
 	order by messageCode	
 	</select>
 	
+	<!-- 메세지 코드로 메세지 찾기 -->
 	<select id="find_message" resultType="Message">
 	select *
 	from tuna_message
 	where messageCode = #{message_code}
 	</select>
 	
+	<!-- 메세지 추가하기 -->
 	<insert id="insert_Message" parameterType="Message">
 	insert into tuna_message
 	values(tuna_messagePK.nextVal,#{chatCode},#{memberCode},#{contents},SYSDATE,#{imageCode},#{pixelLength})

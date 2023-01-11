@@ -73,4 +73,11 @@ public class MybatisChatRepository implements ChatRepository {
 		return chatMapper.findChatInfo(chatCode);
 	}
 
+	@Override
+	public void exitChat(int memberCode, int chatCode) {
+
+		chatMapper.exitChatBuyer(memberCode, chatCode);
+		chatMapper.exitChatSeller(memberCode, chatCode);
+	}
+
 }
