@@ -219,7 +219,7 @@ margin: 10px;
 	height: 40px;
 }
 
-.logout {
+.logout , .message_BTN {
 	background-color: white;
 	padding: 9px;
 	border: none;
@@ -254,7 +254,9 @@ text-decoration: none;
 display: block;
 }
 
-.dropdown-content a:hover, .logout:hover {
+
+
+.dropdown-content a:hover, .logout:hover, .message_BTN:hover {
 	background-color: #ffd900;
 	border-radius: 5px;
 }

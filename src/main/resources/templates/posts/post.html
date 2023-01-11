@@ -56,7 +56,7 @@
 			</form>
 				<form th:if="${post.pMemCode} != ${member.memberCode}"  class="dealForm" target="print_popup" action="http://localhost:8080/chat/add"
 					method="post"
-					onsubmit="window.open('about:blank','print_popup','width=1000,height=800');">
+					onsubmit="window.open('about:blank','print_popup','width=500,height=750');">
 					<input hidden="true" name="postCode" th:value="${post.postCode}" />
 					<button class="post_Btn_back">거래하기</button>
 				</form>

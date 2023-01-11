@@ -32,6 +32,8 @@ function Chat_room({member_code,uuid}) {
         .catch(error => console.log(error))});
     }
 
+    
+
     let add_chat = (message_data) => {
 
         let message_comp = ReactDOMServer.renderToString(<Chat data={message_data} />);
@@ -122,17 +124,28 @@ function Chat_room({member_code,uuid}) {
         }
         console.log(cur_message_code);
 
+        let x =false;
+
         const timer = setInterval(() => {
             axios.get('http://localhost:8080/api/message/get/' + chat_code + "/" + cur_message_code+"/"+uuid)
                 .then((response) => { init_chat(response.data);   })
                 .catch(error => console.log(error))
-        }, 50);
+                .finally(()=>{
+                    
+                    if(!x)
+                    {
+                        x=true;
+
+                        document.getElementById("messages").scroll({
+                        top: document.getElementById("messages").scrollHeight,
+                        behavior: 'auto'
+                        });
+                    }
+                    })
+            }, 200);
         
        
-            document.getElementById("messages").scroll({
-                top: document.getElementById("messages").scrollHeight,
-                behavior: 'auto'
-              });
+            
       
        
          
@@ -188,7 +201,7 @@ function Chat_room({member_code,uuid}) {
                 <form action="http://localhost:8080/api/message/up" method="post" id="myForm">
                     <input id="text_box" type="text" name="message"  maxLength='105'></input>
                     <input id="text_length" type="hidden" name="px_size" ></input>
-                    <input type="hidden" value={member_code} name="member_code" ></input>
+                    <input type="hidden" value={uuid} name="uuid" ></input>
                     <input type="hidden" value={chat_code} name="chat_code" ></input>
                     <input type="hidden" value={0} name="image_code" ></input>
 

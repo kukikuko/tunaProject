@@ -68,4 +68,9 @@ public class MybatisChatRepository implements ChatRepository {
 		
 	}
 
+	@Override
+	public Chat findChatInfo(int chatCode) {
+		return chatMapper.findChatInfo(chatCode);
+	}
+
 }

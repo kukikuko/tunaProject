@@ -18,7 +18,7 @@ public interface ChatMapper {
     public String findPostCode(int chatCode);
     public void updateCurview1(CurView cv);
     public void updateCurview2(CurView cv);
-
+    public Chat findChatInfo(int chatCode);
 	
 	
 }

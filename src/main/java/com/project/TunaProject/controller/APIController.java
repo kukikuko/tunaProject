@@ -25,6 +25,7 @@ import com.project.TunaProject.domain.Chat;
 import com.project.TunaProject.domain.CurView;
 import com.project.TunaProject.domain.Image;
 import com.project.TunaProject.domain.Message;
+import com.project.TunaProject.domain.NewMessageInfo;
 import com.project.TunaProject.domain.Notify;
 import com.project.TunaProject.domain.Post;
 import com.project.TunaProject.img.FileStore;
@@ -106,6 +107,8 @@ public class APIController {
     @RequestMapping("/chat/find/{uuid}/{curChatCode}")
     public String find_chat(@PathVariable("uuid") String uuid,@PathVariable("curChatCode") String curChatCode)
     {
+    	
+    	log.info("dd {}",uuid);
 		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
 		//최근 메세지 같이 보내기
 		//안 본 메세지 개수 같이 보내기
@@ -125,8 +128,10 @@ public class APIController {
     	
     	
     	
+
     	for(Chat c:chat_list)
     	{
+    		
     		if(is_list==true)
     		{
     			chat_info_list +="\0";
@@ -141,7 +146,7 @@ public class APIController {
     	}
     	
     
-    	
+    	log.info("ddgg44");
     	return chat_info_list;
     }
     
@@ -159,7 +164,42 @@ public class APIController {
     	return str;
     	
     }
+    
+    
+    @RequestMapping("/chat/new_info/{chat_code}/{uuid}")
+    public String get_new_message_info(@PathVariable("chat_code") String chat_code,@PathVariable("uuid") String uuid)
+    {
+    	log.info("cccc1");
 
+    	int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+
+    	NewMessageInfo nmi = null;
+    	//chat_code 를 사용해서 해당 챗에대한 정보
+    	log.info("cccc2");
+
+    	Chat c = chatRepository.findChatInfo(Integer.parseInt(chat_code));
+
+    	if(c.getBuyer()==member_code)
+    	{
+
+    		nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getBuyerCurView());
+
+    	}
+    	else
+    	{
+
+    		nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getSellerCurView());
+    	}
+    	if(nmi.getLastCode()==0)
+    	{
+    		return " "+"\0"+"0";
+    	}
+    	
+
+    	return messageRepository.find_message(nmi.getLastCode()).getContents()+"\0"+nmi.getCountMessage();
+  
+    }
+	
 	
     @RequestMapping("/message/get/{chat_code}/{message_code}/{uuid}")
     public String get_chat(@PathVariable("chat_code") String chat_code,@PathVariable("message_code") String message_code,@PathVariable("uuid") String uuid) {
@@ -202,29 +242,28 @@ public class APIController {
     		}
     	}
     	
-    	if(!is_start)
-    	{
-        
+   
     		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
     		CurView cv = new CurView();
     		cv.setMessageCode(Integer.parseInt(message_code));
     		cv.setMemberCode(member_code);
     		cv.setChatCode(Integer.parseInt(chat_code));
     		chatRepository.updateCurview(cv);
-    	}
+    	
     	
     	return str;
       
     	 
     }
     @PostMapping("/message/up")
-    public void up_chat(HttpServletResponse resp,@RequestParam("message") String message,@RequestParam("member_code") String member_code,@RequestParam("chat_code") String chat_code,@RequestParam("px_size") String px_size,@RequestParam("image_code") String image_code) {
+    public void up_chat(HttpServletResponse resp,@RequestParam("message") String message,@RequestParam("uuid") String uuid,@RequestParam("chat_code") String chat_code,@RequestParam("px_size") String px_size,@RequestParam("image_code") String image_code) {
 
     	resp.setStatus(204);
     	
+    	int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
 
 
-    	Message m = new Message(message,Integer.parseInt(px_size),Integer.parseInt(member_code),Integer.parseInt(chat_code),Integer.parseInt(image_code));
+    	Message m = new Message(message,Integer.parseInt(px_size),member_code,Integer.parseInt(chat_code),Integer.parseInt(image_code));
 
     	messageRepository.insert_Message(m);
 

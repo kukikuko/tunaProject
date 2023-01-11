@@ -4,7 +4,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
 
-function Image_upload({member_code}) {
+function Image_upload({member_code,uuid}) {
     const chat_code  = useParams().chatcode;
 
 
@@ -61,7 +61,7 @@ function Image_upload({member_code}) {
             <form action="http://localhost:8080/api/message/up" method="post" id="myForm">
                     <input id="text_box" type="hidden" name="message" value="image"  maxLength='105'></input>
                     <input id="text_length" type="hidden" name="px_size"  value="0"></input>
-                    <input type="hidden" value={member_code} name="member_code" ></input>
+                    <input type="hidden" value={uuid} name="uuid" ></input>
                     <input type="hidden" value={chat_code} name="chat_code" ></input>
                     <input type="hidden" name="image_code" id="img_code" ></input>
                 </form>

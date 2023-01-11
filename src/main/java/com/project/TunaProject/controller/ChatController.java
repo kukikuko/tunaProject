@@ -36,7 +36,6 @@ public class ChatController {
     @RequestMapping("/add")
     String chatAdd(HttpServletRequest req,@RequestParam("postCode") String postCode,RedirectAttributes rAttr)
     {
-    	log.info("dd");
     	Chat chat = new Chat();
 
     	String uuid_v ="";

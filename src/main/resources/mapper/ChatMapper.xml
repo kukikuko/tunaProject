@@ -26,7 +26,12 @@
 	
 	</update>
 
-	
+	<select id="findChatInfo" resultType="Chat">
+	select *
+	from TUNA_CHAT
+	where chatCode=#{chatCode}
+	</select>
+
 	<select id="findChatCode" resultType="Chat">
 	select *
 	from TUNA_CHAT
