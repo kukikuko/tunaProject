@@ -1,16 +1,14 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8" />
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<title>Insert title here</title>
-<link rel="stylesheet" href="/css/header.css" />
-<link rel="stylesheet" href="/css/login.css" />
-<link rel="stylesheet" href="/css/footerSmall.css" />
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<!-- alert 창     -->
-</head>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <title>Insert title here</title>
+    <link rel="stylesheet" href="/css/header.css" />
+    <link rel="stylesheet" href="/css/login.css" />
+    <link rel="stylesheet" href="/css/footerSmall.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css"> <!-- alert 창     -->
+  </head>
 
 <body>
 	<nav class="navbar">
@@ -20,66 +18,105 @@
 				<span class="mainText text2">조</span> <span class="mainText text3">마</span>
 				<span class="mainText text4">켓</span>
 			</a>
-		</div>
-		<div class="navbar_toggleBtn">
-			<i class="fa-solid fa-bars"></i>
-		</div>
-		<div class="navbar_toggle">
-			<div class="navbar_menu">
-				<div class="navbar_menu_text">
-					<a href="/posts" class="menuText">중고거래</a>
-				</div>
-				<div class="navbar_menu_right">
-					<div class="navbar_search">
-						<form action="/posts" method="post" class="searchForm">
-							<input name="search" type="search" placeholder="물품을 검색해주세요."
-								class="searchInput" />
-							<button class="searchBtn" type="submit" id="search1">검색</button>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</nav>
-	<form class="login-form" action="" method="post"
-		th:object="${loginForm}" name="login">
-		<span class="entypo-user inputUserIcon"> <!--  <i class="fa fa-user"></i> -->
-		</span> <label for="loginId"></label> <input type="text" th:field="*{email}"
-			class="user" id="email" placeholder="아이디(이메일)를 입력해주세요." /> <span
-			class="entypo-key inputPassIcon">
-			<!--  <i class="fa fa-key"></i> -->
-		</span> <label for="password"></label> <input type="password"
-			th:field="*{password}" class="pass" id="password"
-			placeholder="비밀번호를 입력해주세요." />
-		<div class="loginBtn">
-			<button type="button" th:onclick="|location.href='@{/}'|"
-				class="backBtn" id="btn">취소</button>
-			<button type="submit" class="loginBtn">
-				<span class="entypo-lock">
-					<!-- <i class="fa fa-lock"></i> -->
-				</span>
-			</button>
-		</div>
-		<div class="errorMessage">
-			<div th:errors="*{email}"></div>
-			<div th:errors="*{password}"></div>
-		</div>
-		<div th:if="${#fields.hasGlobalErrors()}">
-			<p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
-				글로벌오류</p>
-		</div>
-		<div>
-			<a href="/join" class="login-join">회원이 아니신가요?</a><br /> <a
-				href="/login/findPw" class="login-findPw">비밀번호를
-				잊어버리셨나요?</a>
-		</div>
-	</form>
-	<div class="footerSmall" id="footerSmall">
-		<p>Copyright © SajoMarket 2023</p>
-	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
-	<script type="text/javascript">
+      </div>
+      <div class="navbar_toggleBtn">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+      <div class="navbar_toggle">
+        <div class="navbar_menu">
+          <div class="navbar_menu_text">
+            <a href="/posts" class="menuText" id="joongGo">중고거래</a>
+          </div>
+          <div class="navbar_menu_right">
+            <div class="navbar_search">
+              <form action="/posts" method="post" class="searchForm">
+                <input
+                  name="search"
+                  type="search"
+                  placeholder="물품을 검색해주세요."
+                  class="searchInput"
+                />
+                <button class="searchBtn" type="submit" id="search1">검색</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <form
+      class="login-form"
+      action=""
+      method="post"
+      th:object="${loginForm}"
+      name="login"
+    >
+      <!-- 			<h2><span class="entypo-login"><i class="fa fa-sign-in"></i></span> Login</h2> -->
+
+      <span class="entypo-user inputUserIcon">
+       <!--  <i class="fa fa-user"></i> -->
+      </span>
+      <label for="loginId"></label>
+      <input
+        type="text"
+        th:field="*{email}"
+        class="user"
+        id="email"
+        placeholder="아이디(이메일)를 입력해주세요."
+      />
+      <span class="entypo-key inputPassIcon"><!--  <i class="fa fa-key"></i> --> </span>
+      <label for="password"></label>
+      <input
+        type="password"
+        th:field="*{password}"
+        class="pass"
+        id="password"
+        placeholder="비밀번호를 입력해주세요."
+      />
+      <div class="loginBtn">
+        <button
+          type="button"
+          th:onclick="|location.href='@{/}'|"
+          class="backBtn"
+          id="btn"
+        >
+          취소
+        </button>
+        <button type="submit" class="loginBtn">
+          <span class="entypo-lock"><!-- <i class="fa fa-lock"></i> --></span>
+        </button>
+      </div>
+      <div class="errorMessage">
+        <div th:errors="*{email}"></div>
+        <div th:errors="*{password}"></div>
+      </div>
+      <div th:if="${#fields.hasGlobalErrors()}">
+        <p th:each="error : ${#fields.globalErrors()}" th:text="${error}">
+          글로벌오류
+        </p>
+      </div>
+      <div>
+        <a href="/join" class="login-join">회원이 아니신가요?</a><br />
+        <a href="/login/findPw" class="login-findPw"
+          >비밀번호를 잊어버리셨나요?</a
+        >
+      </div>
+    </form>
+    <div class="footerSmall" id="footerSmall">
+      <p>Copyright © SajoMarket 2023</p>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+    <script type="text/javascript">
+    document.getElementById('joongGo').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		 Swal.fire({
+	            title: "로그인 후 이용해주세요.", // Alert 제목
+	            text: "회원이 아니시라면 회원가입부터 진행해주세요.", // Alert 내용
+	            icon: "warning", // Alert 타입
+	          }); 
+		 return false;
+		
+	});
+    
     document.getElementById('search1').addEventListener('click', (e)=>{ 
 		e.preventDefault();
 		 Swal.fire({
