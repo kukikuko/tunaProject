@@ -1,5 +1,6 @@
 package com.project.TunaProject.repository.mybatis;
 
+import com.project.TunaProject.domain.ChatMSG;
 import org.springframework.stereotype.Repository;
 
 import com.project.TunaProject.domain.Notify;
@@ -43,6 +44,13 @@ public class MybatisNotifyRepository implements NotifyRepository{
 		int result = notifyMapper.notifyfilter(messageCode);
 
 		return result;
+	}
+
+	@Override
+	public List<ChatMSG> selectNotifyChatAll() {
+
+		return notifyMapper.selectNotifyChatAll();
+
 	}
 
 }

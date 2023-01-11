@@ -47,8 +47,8 @@
                                 <td th:text="${i.count}"></td>
                                 <td><a th:text="${notify.getNotifyType()}" th:href="@{|/admin/chat/${notify.getNotifyType()}|}"></a></td>
                                 <td th:text="${#dates.format(notify.getNotifyTime(), 'yyyy-MM-dd a hh:mm:ss')}"></td>
-                                <td><a th:text="${notify.getDoNotifyMemberCode()}" th:href="@{|/admin/member/${notify.getDoNotifyMemberCode()}|}"></a></td>
-                                <td><a th:text="${notify.getNotifyMemberCode()}" th:href="@{|/admin/member/${notify.getNotifyMemberCode()}|}"></a></td>
+                                <td th:text="${notify.getDoNotifyMemberCode()}"></td>
+                                <td th:text="${notify.getNotifyMemberCode()}"></td>
                                 <td><button>복구하기</button></td>
                             </tr>
                             </tbody>

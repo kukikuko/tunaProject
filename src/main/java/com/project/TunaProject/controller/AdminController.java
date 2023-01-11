@@ -73,6 +73,8 @@ public class AdminController {
         List<Notify> notifyList = notifyRepository.selectNotifyAll("2");
         model.addAttribute("notifyList", notifyList);
 
+        log.info("chat {}", notifyList);
+
         return "admin/notifyChat";
     }
 
@@ -95,6 +97,14 @@ public class AdminController {
         model.addAttribute("images", images);
 
         return "admin/post";
+    }
+
+    @GetMapping("/chat/{chatCode}")
+    public String chat(@PathVariable("chatCode")String chatCode, Model model) {
+
+
+
+        return "admin/chat";
     }
 
     @ResponseBody
