@@ -219,7 +219,7 @@ margin: 10px;
 	border: 2px solid #ffd900;
 	background-color: white;
 	display: inline-block;
-	width: 100px;
+	width: 110px;
 	height: 40px;
 	margin-left: 5px;
 	font-family: SUIT-Variable;
@@ -240,7 +240,7 @@ margin: 10px;
 	cursor:pointer;
 }
 
-.logout {
+.logout , .message_BTN {
 	background-color: white;
 	padding: 9px;
 	border: none;
@@ -277,7 +277,9 @@ text-decoration: none;
 display: block;
 }
 
-.dropdown-content a:hover, .logout:hover {
+
+
+.dropdown-content a:hover, .logout:hover, .message_BTN:hover {
 	background-color: #ffd900;
 	border-radius: 5px;
 }

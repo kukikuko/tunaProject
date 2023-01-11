@@ -35,7 +35,7 @@ public class AdminController {
         log.info("member {}", memberVOS);
         model.addAttribute("members", memberVOS);
 
-        return "/admin/home";
+        return "admin/home";
     }
 
     @GetMapping("/members")
@@ -43,7 +43,7 @@ public class AdminController {
 
         List<MemberVO> memberVOS = adminRepository.selectAll();
         model.addAttribute("members", memberVOS);
-        return "/admin/members";
+        return "admin/members";
     }
 
     @GetMapping("/member/{memberCode}")
@@ -55,7 +55,7 @@ public class AdminController {
         model.addAttribute("member", memberVO);
         model.addAttribute("posts", posts);
 
-        return "/admin/member";
+        return "admin/member";
     }
 
     @GetMapping("/notify/post")
@@ -64,7 +64,7 @@ public class AdminController {
         List<Notify> notifyList = notifyRepository.selectNotifyAll("1");
         model.addAttribute("notifyList", notifyList);
 
-        return "/admin/notifyPost";
+        return "admin/notifyPost";
     }
 
     @GetMapping("/notify/chat")
@@ -73,7 +73,7 @@ public class AdminController {
         List<Notify> notifyList = notifyRepository.selectNotifyAll("2");
         model.addAttribute("notifyList", notifyList);
 
-        return "/admin/notifyChat";
+        return "admin/notifyChat";
     }
 
     @GetMapping("/posts")
@@ -83,7 +83,7 @@ public class AdminController {
         log.info("p {}", posts);
         model.addAttribute("posts", posts);
 
-        return "/admin/posts";
+        return "admin/posts";
     }
 
     @GetMapping("/post/{postCode}")
@@ -94,7 +94,7 @@ public class AdminController {
         model.addAttribute("post", post);
         model.addAttribute("images", images);
 
-        return "/admin/post";
+        return "admin/post";
     }
 
     @ResponseBody
@@ -119,7 +119,7 @@ public class AdminController {
 
         model.addAttribute("categories", adminRepository.categoryAll());
 
-        return "/admin/category";
+        return "admin/category";
     }
 
     @ResponseBody

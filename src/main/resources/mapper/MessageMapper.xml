@@ -11,17 +11,34 @@
 	</select>
 	
 	
-	<select id="find_Message_Caller" resultType="Message">
+	<select id="find_Message_Caller" resultType="Integer">
 	select memberCode
 	from tuna_message
 	where messageCode = #{messageCode}
 	</select>
 	
+	<select id="new_Message_Content" resultType="Integer">
+		select NVL(max(messageCode),0)
+		from tuna_message
+		where chatCode = #{chat_code}
+			</select>
+	<select id="new_Message_Count" resultType="Integer">
+		select count(messageCode) 
+		from tuna_message
+		where chatCode = #{chat_code}
+		and messageCode &gt; #{message_code}
+			</select>
 	<select id="select_Message_cur" resultType="Message">
 	select *
 	from tuna_message
 	where (chatCode = #{chat_code}) and (messageCode &gt; #{message_code})
 	order by messageCode	
+	</select>
+	
+	<select id="find_message" resultType="Message">
+	select *
+	from tuna_message
+	where messageCode = #{message_code}
 	</select>
 	
 	<insert id="insert_Message" parameterType="Message">

@@ -5,16 +5,34 @@ import Room from "./Room.js"
 import ReactDOMServer from 'react-dom/server'
 
 
-function Main_room({member_code})
+function Main_room({member_code,uuid})
 {
     let [cur_chat_code,set_chat_code] = useState("0");
 
-    let init_main=(datas)=>{
+
+    function  find_newInfo (chatCode) 
+    {
+       if(chatCode==0)
+       {
+           return "";
+       }
+       return new Promise((resolve)=>{
+        axios.get('http://localhost:8080/api/chat/new_info/' + chatCode+"/"+uuid)
+        .then((response) =>{resolve(response.data)})
+       .catch(error => console.log(error))
+    });
+   }
+
+    async function init_main(datas){
         let str = datas.split("\0");
         let i=0;
         for(i=0;i<str.length-1;i+=3)
         {
-            let room_data = { title: str[i], chatCode: str[i+1], nick: str[i+2] }
+          let val = await find_newInfo(str[i+1]);
+            let str2 = val.split("\0");
+
+
+            let room_data = { title: str[i], chatCode: str[i+1], nick: str[i+2],lastMessage: str2[0],count: str2[1]}
             let room_comp = ReactDOMServer.renderToString(<Room data={room_data} />);
             document.getElementById("rooms").insertAdjacentHTML('beforeend', room_comp);
             document.getElementById("rooms").insertAdjacentHTML('beforeend', "<br/>");
@@ -41,7 +59,7 @@ function Main_room({member_code})
         }
         else{
             console.log(cur_chat_code);
-            axios.get('http://localhost:8080/api/chat/find/' + member_code+"/"+cur_chat_code)
+            axios.get('http://localhost:8080/api/chat/find/' + uuid+"/"+cur_chat_code)
             .then((response) => { init_main(response.data); })
             .catch(error => console.log(error))
         }
@@ -49,7 +67,7 @@ function Main_room({member_code})
         },200);
 
         return ()=> clearInterval(timer);
-    },[member_code,cur_chat_code])
+    },[member_code,cur_chat_code,uuid])
 
     return(
             <div id="rooms">

@@ -70,6 +70,6 @@ public class HomeController {
         
         log.info("Login memberInfo {}", memberVO);
 
-        return "/posts/posts";
+        return "posts/posts";
     }
 }

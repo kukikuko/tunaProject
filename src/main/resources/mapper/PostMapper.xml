@@ -121,7 +121,7 @@
 		(select *
 		from (
 		select postCode, ptitle, pprice, pview from tuna_post
-		where PSALESSTATUS = 'Y' or PSALESSTATUS = 'S'
+		where PSALESSTATUS ='Y' or PSALESSTATUS = 'S'
 		and POPENSTATUS = 'Y'
 		order by pview desc
 		) where rownum <![CDATA[<=]]>
