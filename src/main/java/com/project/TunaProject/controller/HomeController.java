@@ -56,4 +56,27 @@ public class HomeController {
 		model.addAttribute("member", memberVO);
 		return "posts/posts";
 	}
+	
+	@GetMapping("/index2")
+	public String index2(Model model, HttpServletRequest req) {
+		HttpSession session = req.getSession(false);
+		
+			List<Post> postListTop10 = postRepository.orderByPview();
+			List<PostCard> postCardList = new ArrayList<>();
+			for(Post p : postListTop10) {
+				postCardList.add(postRepository.selectCard(p.getPostCode()));
+			}
+			model.addAttribute("postCardList", postCardList);
+		
+		Enumeration<String> sessionName = session.getAttributeNames();
+		while(sessionName.hasMoreElements()) {
+			String name = sessionName.nextElement();
+		}
+		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+
+		List<Post> postList = postRepository.selectAll();
+		model.addAttribute("posts", postList);
+		model.addAttribute("member", memberVO);
+		return "posts/index2";
+	}
 }

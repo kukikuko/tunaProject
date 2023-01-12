@@ -41,16 +41,16 @@
 	</select>
 	
 	
-	<update id="exitChatSeller" parameterType="Chat">
+	<update id="exitChatSeller" parameterType="Cexit">
 	UPDATE  TUNA_CHAT
 		     set  seller = -1
-		     where seller=#{memberCode} and chatCode=#{chatCode}
+		     where seller = #{memberCode} and chatCode = #{chatCode}
 	</update>
 	
-	<update id="exitChatBuyer" parameterType="Chat">
+	<update id="exitChatBuyer" parameterType="Cexit">
 	UPDATE  TUNA_CHAT
 		     set  buyer = -1
-		     where buyer=#{memberCode} and chatCode=#{chatCode}
+		     where buyer= #{memberCode} and chatCode= #{chatCode}
 	</update>
 	
 
