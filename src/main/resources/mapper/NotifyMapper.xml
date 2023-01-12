@@ -41,11 +41,14 @@
 	</select>
 
 	<select id="selectNotifyChatAll" resultType="ChatMSG">
-		select messagecode, chatcode, contents, notifytime, imagecode, notifycode, notifytarget, notifytype,
-			donotifymembercode, notifymembercode
-		from tuna_message m, tuna_notify n
-		where m.messagecode = n.notifytype
-		and n.notifytarget = 2;
+		select messagecode, chatcode, contents, notifytime, a.imagecode, notifycode, notifytarget, notifytype,
+			   donotifymembercode, notifymembercode, imagefiles
+		from tuna_chatMSG a left outer JOIN tuna_postimage b
+		on a.imagecode = b.imagecode
 	</select>
 
+	<delete id="deleteNotify">
+		delete from tuna_notify
+		where notifyType = #{notifyType}
+	</delete>
 </mapper>
