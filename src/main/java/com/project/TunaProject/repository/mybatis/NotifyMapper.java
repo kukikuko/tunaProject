@@ -1,5 +1,6 @@
 package com.project.TunaProject.repository.mybatis;
 
+import com.project.TunaProject.domain.ChatMSG;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -18,4 +19,9 @@ public interface NotifyMapper {
 	public List<Notify> selectNotifyAll(String target);
 	
 	public Integer notifyfilter(int messageCode);
+
+	public List<ChatMSG> selectNotifyChatAll();
+
+	public void deleteNotify(int notifyType);
+
 }

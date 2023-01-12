@@ -10,8 +10,8 @@
 	<th:block th:fragment="headFrag">
 		<nav class="navbar">
 			<div class="navbar_logo">
-				<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-				<a href="/" class="mainText-link">
+				<img th:src="|@{/images/Logo.png}|" class="logoImg" />
+				<a href="/index2" class="mainText-link">
 				<span class="mainText text1">사</span>
             	<span class="mainText text2">조</span>
             	<span class="mainText text3">마</span>
@@ -28,6 +28,10 @@
 					</div>
 					<div class="navbar_menu_right">
 						<div class="navbar_search">
+							<button th:if="${member.memberMail} == 'admin'" class="adminBtn" type="button"
+							th:onClick="|location.href='@{/admin/main}'|" >관리자 페이지</button>
+							
+							
 							<form action="/posts" method="post" class="searchForm">
 								<input name="search" type="search" placeholder="물품을 검색해주세요."
 									class="searchInput">
@@ -44,6 +48,12 @@
 								<a class="dropdown-item" href="/myPage/memberUpdate">개인정보 변경</a> 
 								<a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호 변경</a> 
 								<a class="dropdown-item" href="/myPage/memberOut">회원 탈퇴</a>
+								<form  target="print_popup" action="http://localhost:3000/chat/main" method="get" onsubmit="window.open('about:blank','print_popup','width=500,height=750');">
+							
+								<button  class="message_BTN">
+								메세지
+								</button>
+								</form>
 								<form th:action="@{/logout}" method="post">
 									<button type="submit" class="logout">로그아웃</button>
 								</form>

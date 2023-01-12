@@ -61,20 +61,51 @@ public class APIController {
 	private final FileStore fileStore;
 	private final NotifyRepository notifyRepository;
 
-	@RequestMapping("/uuid_info/{uuid}")
-	public String get_id(@PathVariable("uuid") String uuid)
-	{
-		String member_code = memberRepository.selectByUUID(uuid).getMemberCode()+"";
-		return member_code;
-	}
-	
-	@RequestMapping("/chat_title/find/{chat_code}")
-	public String find_title(@PathVariable("chat_code") String chat_code)
-	{
-		String postcode =  chatRepository.findPostCode(Integer.parseInt(chat_code));
-		Post post = postRepository.selectByPostCode(postcode);
+    @RequestMapping("/chat/exit/{chat_code}/{uuid}")
+    public String exit_chat(@PathVariable("chat_code") String chat_code,@PathVariable("uuid") String uuid)
+    {
+    	int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+    	chatRepository.exitChat(member_code , Integer.parseInt(chat_code));
+    	
 
-		return post.getPTitle()+"("+memberRepository.selectByCode(post.getPMemCode()).getMemberNick()+")";
+    	return "ok";
+    }
+    
+    @RequestMapping("/chat/check/{chat_code}/{uuid}")
+    public String exit_chack(@PathVariable("chat_code") String chat_code,@PathVariable("uuid") String uuid)
+    {
+    	String str = "F";
+    	int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
+    	//채팅방의 참여자 멤버 코드가 필요
+    	Chat c = chatRepository.findChatInfo(Integer.parseInt(chat_code));
+    	
+    	if(c.getBuyer()==member_code&&c.getSeller()!=-1)
+    	{
+    		str="T";
+    	}
+    	else if(c.getSeller()==member_code&&c.getBuyer()!=-1)
+    	{
+    		str="T";
+
+    	}
+    	return  str;
+    }
+
+    
+    @RequestMapping("/uuid_info/{uuid}")
+    public String get_id(@PathVariable("uuid") String uuid)
+    {
+    	String member_code = memberRepository.selectByUUID(uuid).getMemberCode()+"";
+    	return member_code;
+    }
+    @RequestMapping("/chat_title/find/{chat_code}")
+    public String find_title(@PathVariable("chat_code") String chat_code)
+    {
+    	int buyer_code = chatRepository.findChatInfo(Integer.parseInt(chat_code)).getBuyer();
+    	String buyer  = memberRepository.selectByCode(buyer_code).getMemberNick();
+    	String post_code = chatRepository.findPostCode(Integer.parseInt(chat_code));
+    	Post post = postRepository.selectByPostCode(post_code);
+		return post.getPTitle()+"("+memberRepository.selectByCode(post.getPMemCode()).getMemberNick()+") - "+buyer;
 	}
 
 	@ResponseBody

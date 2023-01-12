@@ -149,10 +149,13 @@ public class MemberController {
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);		
 		List<Post> postList = memberRepository.selectByMemberCode(tempVO.getMemberCode());		
 		List<Post> postListHeart = memberRepository.selectByMemberAndHeart(tempVO.getMemberCode());		
+	
 		model.addAttribute("posts", postList);
 		model.addAttribute("postsHeart", postListHeart);
 		model.addAttribute("member", tempVO);
 
 		return "myPage/myPage";
 	}
+	
+	
 }

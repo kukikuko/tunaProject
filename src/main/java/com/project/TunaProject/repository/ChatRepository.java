@@ -14,11 +14,9 @@ public interface ChatRepository {
 	public List<Chat> selectMyChat(int memberCode);
 	
 	public List<Chat> selectMyChatByCur(int memberCode,int chatCode);
-    
-	public String findPostCode(int chatCode);
-    
-	public void updateCurview(CurView cv);
-    
-	public Chat findChatInfo(int chatCode);
+    public String findPostCode(int chatCode);
+    public void updateCurview(CurView cv);
+    public Chat findChatInfo(int chatCode);
+    public void exitChat(int memberCode,int chatCode);
 
 }

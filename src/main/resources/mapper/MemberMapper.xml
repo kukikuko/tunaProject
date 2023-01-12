@@ -119,8 +119,14 @@
 	</select>
 	
 <!-- 	memberCode로 사용자가 작성한 글 보여주기 -->
-	<select id="selectByMemberCode" resultType="PostForCategory">
-		select POSTCODE,postCtCode,
+	<select id="selectByMemberCode" resultType="Post">
+		select POSTCODE,postCtCode,(select memberNick from tuna_member where memberCode =
+		p.PMEMCODE)as
+		memNick,
+		(select count(*) from tuna_heart
+		where hpostcode
+		= p.POSTCODE)as heart
+		,
 			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
 				,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
 			   PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
@@ -132,13 +138,16 @@
 	
 <!-- 	사용자가 찜한 게시물을 내활동 페이지에서 보여주기 -->
 	<select id="selectByMemberAndHeart" resultType="Post">
-	select * 
-	from tuna_post tp 
-	where tp.postcode in 
+       select postCode, postCTcode, pmemCode, pTitle, Pcontent, pcreateTime, pcorrectionTime, pprice, psalesStatus, pOpenStatus, pview,
+       (select memberNick from tuna_member where memberCode =
+		p.PMEMCODE)as
+		memNick, (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+	from tuna_post p 
+	where p.postcode in 
 		(
 		select hpostcode 
 		from tuna_heart 
-		where hmemCode=#{memberCode}
+		where hmemCode= ${memberCode}
 		)
 	</select>
 	

@@ -20,10 +20,10 @@
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <h1 class="mt-4">게시글 신고 관리</h1>
+                <h1 class="mt-4">채팅 신고 관리</h1>
                 <ol class="breadcrumb mb-4">
                     <li class="breadcrumb-item"><a th:href="@{/admin/main}">Home</a></li>
-                    <li class="breadcrumb-item active">notify post</li>
+                    <li class="breadcrumb-item active">notify chat</li>
                 </ol>
                 <div class="card mb-4">
                     <div class="card-header">
@@ -31,19 +31,25 @@
                         신고 목록
                     </div>
                     <div class="card-body">
-                        <table id="datatablesSimple">
+                        <table id="datatablesSimple1">
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>신고 게시글 코드</th>
+                                <th>채팅방 코드</th>
                                 <th>신고 시간</th>
+                                <th>신고자</th>
+                                <th>신고 당한 사람</th>
+                                <th>복구</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="notify, i : ${notifyList}">
                                 <td th:text="${i.count}"></td>
-                                <td><a th:text="${notify.getNotifyType()}" th:href="@{|/admin/post/${notify.getNotifyType()}|}"></a></td>
+                                <td><a th:text="${notify.getNotifyType()}" th:href="@{|/admin/chat/${notify.getNotifyType()}|}"></a></td>
                                 <td th:text="${#dates.format(notify.getNotifyTime(), 'yyyy-MM-dd a hh:mm:ss')}"></td>
+                                <td th:text="${notify.getDoNotifyMemberCode()}"></td>
+                                <td th:text="${notify.getNotifyMemberCode()}"></td>
+                                <td><button>복구하기</button></td>
                             </tr>
                             </tbody>
                         </table>
@@ -57,7 +63,7 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-<script src="/js/datatables-simple-demo.js"></script>
+<script src="/js/table.js"></script>
 
 </body>
 </html>

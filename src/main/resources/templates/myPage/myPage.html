@@ -5,6 +5,18 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/posts.css">
 <link rel="stylesheet" href="/css/header.css" />
+<style>
+.backBtn{
+    border-radius: 20px;
+    border: 2px solid #ffd900;
+    background-color: white;
+    margin: auto auto 100px auto;
+    display: block;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag"></div>
@@ -64,7 +76,8 @@
 			</tbody>
 		</table>
 	</div>
-	<button type="button" th:onClick="|location.href='@{/}'|">뒤로
+	<br>
+	<button class="backBtn" type="button" th:onClick="|location.href='@{/}'|">뒤로
 		가기</button>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
