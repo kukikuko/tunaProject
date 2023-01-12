@@ -43,7 +43,6 @@
                             <tr>
                                 <th>#</th>
                                 <th>메세지 코드</th>
-                                <th>채팅방 코드</th>
                                 <th>채팅 내용</th>
                                 <th>멤버 코드</th>
                                 <th>신고 시간</th>
@@ -55,7 +54,6 @@
                             <tr th:each="notify, i : ${notifyList}">
                                 <td th:text="${i.count}"></td>
                                 <td th:text="${notify.getMessageCode()}"></td>
-                                <td><a th:text="${notify.getChatCode()}" th:href="@{|/admin/chat/${notify.getChatCode()}|}"></a></td>
                                 <td th:if="${notify.getImageCode() == 0}" th:text="${notify.getContents()}"></td>
                                 <td th:if="${notify.getImageCode() != 0}">
                                         <img class="notifyImg"
