@@ -101,7 +101,8 @@ public class APIController {
     @RequestMapping("/chat_title/find/{chat_code}")
     public String find_title(@PathVariable("chat_code") String chat_code)
     {
-    	int buyer = chatRepository.findChatInfo(Integer.parseInt(chat_code)).getBuyer();
+    	int buyer_code = chatRepository.findChatInfo(Integer.parseInt(chat_code)).getBuyer();
+    	String buyer  = memberRepository.selectByCode(buyer_code).getMemberNick();
     	String post_code = chatRepository.findPostCode(Integer.parseInt(chat_code));
     	Post post = postRepository.selectByPostCode(post_code);
 		return post.getPTitle()+"("+memberRepository.selectByCode(post.getPMemCode()).getMemberNick()+") - "+buyer;
