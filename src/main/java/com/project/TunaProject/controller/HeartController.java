@@ -32,6 +32,8 @@ public class HeartController {
 		h.setHMemCode(Integer.toString(tempVO.getMemberCode()));
 		h.setHPostCode(postCode);
 		
+		System.out.println(h.getHMemCode());
+		
 		int cnt = heartRepository.countHeart(h);
 		
 		if(cnt==0) {
