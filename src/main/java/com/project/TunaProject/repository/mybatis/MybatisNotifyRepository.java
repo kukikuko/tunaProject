@@ -50,4 +50,9 @@ public class MybatisNotifyRepository implements NotifyRepository{
 
 	}
 
+	@Override
+	public void deleteNotify(int notifyType) {
+		notifyMapper.deleteNotify(notifyType);
+	}
+
 }

@@ -69,10 +69,10 @@ public class AdminController {
     @GetMapping("/notify/chat")
     public String notifyChat(Model model) {
 
-        List<Notify> notifyList = notifyRepository.selectNotifyAll("2");
-        model.addAttribute("notifyList", notifyList);
+        List<ChatMSG> chatMSGs = notifyRepository.selectNotifyChatAll();
+        model.addAttribute("notifyList", chatMSGs);
 
-        log.info("chat {}", notifyList);
+        log.info("msg {}", chatMSGs);
 
         return "admin/notifyChat";
     }
@@ -100,8 +100,6 @@ public class AdminController {
     @GetMapping("/chat/{chatCode}")
     public String chat(@PathVariable("chatCode")String chatCode, Model model) {
 
-
-
         return "admin/chat";
     }
 
@@ -120,6 +118,7 @@ public class AdminController {
             , @RequestParam("status") String status) {
 
         adminRepository.postStatus(postCode, status);
+        notifyRepository.deleteNotify(Integer.parseInt(postCode));
     }
 
     @GetMapping("/category")
@@ -141,6 +140,20 @@ public class AdminController {
     @PostMapping("/category/insert")
     public void categoryInsert(@RequestParam("ctName") String ctName){
         categoryRepository.insertCategory(ctName);
+    }
+
+    @ResponseBody
+    @PostMapping("/chat/status")
+    public void chatStatus(@RequestParam("messageCode") int messageCode,
+                           @RequestParam("imageCode") int imageCode,
+                           @RequestParam("status") int status) {
+
+        if(status == 1) {
+            notifyRepository.deleteNotify(messageCode);
+        } else if(status == 2) {
+            notifyRepository.deleteNotify(messageCode);
+            imageRepository.deleteByImageCode(imageCode);
+        }
     }
 }
 

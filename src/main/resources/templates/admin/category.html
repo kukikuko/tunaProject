@@ -47,7 +47,7 @@
                 <td th:text="${i.count}"></td>
                 <td th:text="${category.getCtCode()}"></td>
                 <td th:text="${category.getCtName()}"></td>
-                <td><button class="btnColor" th:ctCode="${category.getCtCode()}" th:ctName="${category.getCtName()}"
+                <td><button th:ctCode="${category.getCtCode()}" th:ctName="${category.getCtName()}"
                             th:onclick="changeCateName(this.getAttribute('ctCode'), this.getAttribute('ctName'))">이름 변경
                     </button></td>
               </tr>

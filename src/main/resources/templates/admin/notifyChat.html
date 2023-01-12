@@ -12,6 +12,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <style>
+        .notifyImg {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
 </head>
 <body class="sb-nav-fixed">
 <div th:replace="/admin/nav :: navBar"></div>
@@ -35,21 +42,34 @@
                             <thead>
                             <tr>
                                 <th>#</th>
+                                <th>메세지 코드</th>
                                 <th>채팅방 코드</th>
+                                <th>채팅 내용</th>
+                                <th>멤버 코드</th>
                                 <th>신고 시간</th>
                                 <th>신고자</th>
-                                <th>신고 당한 사람</th>
-                                <th>복구</th>
+                                <th>복구/삭제</th>
                             </tr>
                             </thead>
                             <tbody>
                             <tr th:each="notify, i : ${notifyList}">
                                 <td th:text="${i.count}"></td>
-                                <td><a th:text="${notify.getNotifyType()}" th:href="@{|/admin/chat/${notify.getNotifyType()}|}"></a></td>
+                                <td th:text="${notify.getMessageCode()}"></td>
+                                <td><a th:text="${notify.getChatCode()}" th:href="@{|/admin/chat/${notify.getChatCode()}|}"></a></td>
+                                <td th:if="${notify.getImageCode() == 0}" th:text="${notify.getContents()}"></td>
+                                <td th:if="${notify.getImageCode() != 0}">
+                                        <img class="notifyImg"
+                                           th:src="@{|/posts/images/${notify.getImageFiles()}|}">
+                                </td>
+                                <td><a th:text="${notify.getNotifyMemberCode()}" th:href="@{|/admin/member/${notify.getNotifyMemberCode()}|}"></a></td>
                                 <td th:text="${#dates.format(notify.getNotifyTime(), 'yyyy-MM-dd a hh:mm:ss')}"></td>
                                 <td><a th:text="${notify.getDoNotifyMemberCode()}" th:href="@{|/admin/member/${notify.getDoNotifyMemberCode()}|}"></a></td>
-                                <td><a th:text="${notify.getNotifyMemberCode()}" th:href="@{|/admin/member/${notify.getNotifyMemberCode()}|}"></a></td>
-                                <td><button>복구하기</button></td>
+                                <td>
+                                    <button th:msgCode="${notify.getMessageCode()}" th:imgCode="${notify.getImageCode()}"
+                                            th:onclick="chatStatus(this.getAttribute('msgCode'), this.getAttribute('imgCode'), 1)">복구하기</button>
+                                    <button th:msgCode="${notify.getMessageCode()}" th:imgCode="${notify.getImageCode()}"
+                                            th:onclick="chatStatus(this.getAttribute('msgCode'), this.getAttribute('imgCode'), 2)">삭제하기</button>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -64,6 +84,28 @@
 <script src="/js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
 <script src="/js/table.js"></script>
+<script th:inline="javascript">
+    function chatStatus (msgCode, imgCode, status) {
+        if(confirm("하시겠습니까?")) {
+            $.ajax({
+                url : "/admin/chat/status",
+                type : 'POST',
+                data : {
+                    messageCode : msgCode,
+                    imageCode : imgCode,
+                    status : status
+                },
+                success : function(data) {
+                    alert("정상처리되었습니다.");
+                    location.href = "/admin/notify/chat"
+                },
+                error : function() {
+                    alert("error");
+                }
+            })
+        }
+    }
+</script>
 
 </body>
 </html>
