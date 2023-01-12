@@ -15,7 +15,6 @@
 			<thead class="postsThead">
 				<tr>
 					<th class="th-cate">카테고리</th>
-					<th class="th-title">작성자</th>
 					<th class="th-title">제목</th>
 					<th class="th-view">조회수</th>
 					<th class="th-view">찜</th>
@@ -26,7 +25,6 @@
 				class="postsTbody">
 				<tr>
 					<td class="tr" th:text="${post.ctName}"></td>
-					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
 						th:text="${post.pTitle}"></a> <span
 						th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>

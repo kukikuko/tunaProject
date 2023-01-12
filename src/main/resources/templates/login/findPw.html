@@ -7,19 +7,13 @@
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/findPw.css" />
 <link rel="stylesheet" href="/css/footerSmall.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<!-- alert 창     -->
+<!-- <link rel="stylesheet" href="/css/test1.css" /> -->
 </head>
 <body>
 	<nav class="navbar">
 		<div class="navbar_logo">
 			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-			<a href="/" class="mainText-link">
-				<span class="mainText text1">사</span>
-            	<span class="mainText text2">조</span>
-            	<span class="mainText text3">마</span>
-            	<span class="mainText text4">켓</span>
-			</a>
+			<a href="/" class="mainText">사조마켓</a>
 		</div>
 		<div class="navbar_toggleBtn">
 			<i class="fa-solid fa-bars"></i>
@@ -27,14 +21,14 @@
 		<div class="navbar_toggle">
 			<div class="navbar_menu">
 				<div class="navbar_menu_text">
-					<a href="/posts" class="menuText" id="joongGo">중고거래</a>
+					<a href="/posts" class="menuText">중고거래</a>
 				</div>
 				<div class="navbar_menu_right">
 					<div class="navbar_search">
 						<form action="/posts" method="post" class="searchForm">
 							<input name="search" type="search" placeholder="물품을 검색해주세요."
 								class="searchInput">
-							<button class="searchBtn" type="submit" id="search1">검색</button>
+							<button class="searchBtn" type="submit">검색</button>
 						</form>
 					</div>
 				</div>
@@ -70,100 +64,58 @@
 	<div class="footerSmall" id="footer">
 		<p>Copyright © SajoMarket 2023</p>
 	</div>
-	<script
-		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
-	document.getElementById('search1').addEventListener('click', (e)=>{ 
-		e.preventDefault();
-		 Swal.fire({
-	            title: "로그인 후 이용해주세요.", // Alert 제목
-	            text: "회원이 아니시라면 회원가입부터 진행해주세요.", // Alert 내용
-	            icon: "warning", // Alert 타입
-	          }); 
-		 return false;
+		var memberMail = document.getElementById("memberMail");	//이메일 앞
+		var email_add = document.getElementById("email_add");	//이메일 뒤
 		
-	});
-	
-	document.getElementById('joongGo').addEventListener('click', (e)=>{ 
-		e.preventDefault();
-		 Swal.fire({
-	            title: "로그인 후 이용해주세요.", // Alert 제목
-	            text: "회원이 아니시라면 회원가입부터 진행해주세요.", // Alert 내용
-	            icon: "warning", // Alert 타입
-	          }); 
-		 return false;
-		
-	});
-	
-var memberMail = document.getElementById("memberMail");	//이메일 앞
-var email_add = document.getElementById("email_add");	//이메일 뒤
+		document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{ 
+			e.preventDefault();
+		var email = memberMail.value + "@" + email_add.value;
+			if(memberMail.value==""||email_add.value==""){
+				alert("메일 주소를 입력해주세요.");
+				memberMail.focus
+				return false;
+			}
+			checkId();
+			});
+		   
+		function change_email() {
+			  var email_add = document.getElementById("email_add");
+			  var email_sel = document.getElementById("email_sel");
+			  //지금 골라진 옵션의 순서와 값 구하기
+			  var idx = email_sel.options.selectedIndex;
+			  var val = email_sel.options[idx].value;
+			  email_add.value = val;
+			}
 
-document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{ 
-	e.preventDefault();
-	
-	var email = memberMail.value + "@" + email_add.value;
-
-	if(memberMail.value==""||email_add.value==""){
-		 Swal.fire({
-	            title: "메일 주소를 입력해주세요.", // Alert 제목
-	            text: "공란은 허용되지 않아요.", // Alert 내용
-	            icon: "warning", // Alert 타입
-	          }); 
-		 
-	}else{
-		checkId();	
-	}
-	});
-   
-	function change_email() {
-		  var email_add = document.getElementById("email_add");
-		  var email_sel = document.getElementById("email_sel");
-	
-		  //지금 골라진 옵션의 순서와 값 구하기
-		  var idx = email_sel.options.selectedIndex;
-		  var val = email_sel.options[idx].value;
-	
-		  email_add.value = val;
-		}
-	
-	function checkId(){
-        var email = memberMail.value + "@" + email_add.value; //id값이 "id"인 입력란의 값을 저장
-        $.ajax({
-            url:"/joongbok", //Controller에서 요청 받을 주소
-            type:'post', //POST 방식으로 전달
-            data:{"email":email},
-            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
-                if(cnt == 1){ //cnt가 1이면(=1일 경우) -> 존재하는 아이디 
-                	Swal.fire({
-         	            title: "해당 메일 주소로 비밀번호가 전송되었습니다.", // Alert 제목
-         	            text: "개인정보 노출의 위험이 있으니, 로그인 후 비밀번호를 변경해주세요.", // Alert 내용
-         	            icon: "success", // Alert 타입
-         	          }).then((result) => {
-	                	   $.ajax({
-	                	   type : "POST",
-	                	   url : "/emailFindPw",
-	                	   data : {"email" : email},
-	                	   success : function(data){
-	                		})
-                		$("#memberMail").attr("readonly",true);
-                		$("#email_add").attr("readonly",true);
-     					location.href="http://localhost:8080/login";
-         	         })
-                } else { // cnt가 0일 경우 -> 존재하지 않는 아이디
-                		Swal.fire({
-                	            title: "이메일을 확인해주세요.", // Alert 제목
-                	            text: "가입되지 않은 이메일입니다.", // Alert 내용
-                	            icon: "warning", // Alert 타입
-                	          }); 
-                		 return false;
-                    $('#memberMail').val('');
-                }
-            },
-            error:function(){
-                alert("에러입니다");
-            }
-        });
-	};
+		function checkId(){
+	        var email = memberMail.value + "@" + email_add.value; //id값이 "id"인 입력란의 값을 저장
+	        $.ajax({
+	            url:"/joongbok", //Controller에서 요청 받을 주소
+	            type:'post', //POST 방식으로 전달
+	            data:{"email":email},
+	            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+	                if(cnt == 1){ //cnt가 1이면(=1일 경우) -> 존재하는 아이디 
+	                		alert("해당 이메일로 비밀번호 발송이 완료되었습니다. \n 확인부탁드립니다.")
+		                	   $.ajax({
+		                	   type : "POST",
+		                	   url : "/emailFindPw",
+		                	   data : {"email" : email},
+		                	   success : function(data){
+		                	    }})
+	                		$("#memberMail").attr("readonly",true);
+	                		$("#email_add").attr("readonly",true);
+	     					location.href="http://localhost:8080/login";
+	                } else { // cnt가 0일 경우 -> 존재하지 않는 아이디
+	                     alert("가입되지 않은 이메일입니다. 이메일을 확인해주세요");
+	                    $('#memberMail').val('');
+	                }
+	            },
+	            error:function(){
+	                alert("에러입니다");
+	            }
+	        });
+		};
 </script>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>
