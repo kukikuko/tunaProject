@@ -10,8 +10,8 @@
 	<th:block th:fragment="headFrag">
 		<nav class="navbar">
 			<div class="navbar_logo">
-				<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
-				<a href="/" class="mainText-link">
+				<img th:src="|@{/images/Logo.png}|" class="logoImg" />
+				<a href="/index2" class="mainText-link">
 				<span class="mainText text1">사</span>
             	<span class="mainText text2">조</span>
             	<span class="mainText text3">마</span>
