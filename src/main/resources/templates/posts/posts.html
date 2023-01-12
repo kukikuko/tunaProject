@@ -35,12 +35,16 @@ body {
 				class="postsTbody">
 				<tr class="content">
 					<td class="tr" th:text="${post.ctName}"></td>
-					<td><a class="tr" th:text="${post.memNick}"
-					th:href="@{/posts/userPost/{pMemCode}(pMemCode= ${post.pMemCode})}"></a>
+					
+					
+					<td>
+					<a th:if="${member.memberCode == post.pMemCode}" th:href="@{/myPage/myPage}"  class="tr" th:text="${post.memNick}"></a>
+					<a th:if="${member.memberCode != post.pMemCode}" th:href="@{/posts/userPost/{pMemCode}(pMemCode= ${post.pMemCode})}"  class="tr" th:text="${post.memNick}"></a>
 					</td>
-					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}"
-						th:text="${post.pTitle}"></a> <span
-						th:text="${post.getPSalesStatus().getMemo()}" class="sales"></span></td>
+					
+					
+					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}" th:text="${post.pTitle}"></a> 
+						<span th:text="${post.getPSalesStatus().getMemo()}" class="sales"></span></td>
 					<td class="tr" th:text="${post.pView}"></td>
 					<td class="tr" th:text="${post.heart}"></td>
 					<td class="tr"

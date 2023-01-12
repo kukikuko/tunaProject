@@ -13,7 +13,7 @@
 <body>
 	<nav class="navbar">
 		<div class="navbar_logo">
-			<img src="http://localhost:8080/images/Logo.png" class="logoImg" />
+			<img th:src="|@{/images/Logo.png}|" class="logoImg" />
 			<a href="/" class="mainText-link">
 				<span class="mainText text1">사</span>
             	<span class="mainText text2">조</span>
@@ -144,11 +144,11 @@ document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{
 	                	   url : "/emailFindPw",
 	                	   data : {"email" : email},
 	                	   success : function(data){
-	                		})
+	                		}})
                 		$("#memberMail").attr("readonly",true);
                 		$("#email_add").attr("readonly",true);
      					location.href="http://localhost:8080/login";
-         	         })
+	                	   })
                 } else { // cnt가 0일 경우 -> 존재하지 않는 아이디
                 		Swal.fire({
                 	            title: "이메일을 확인해주세요.", // Alert 제목
