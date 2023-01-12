@@ -18,7 +18,7 @@ public class FilterConfig {
 		filterRegistrationBean.setFilter(new LoginFilter());
 		filterRegistrationBean.setOrder(1);
 		filterRegistrationBean.addUrlPatterns("/*");
-		
+
 		return filterRegistrationBean;
 	}
 }

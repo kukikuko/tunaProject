@@ -5,6 +5,18 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="/css/posts.css">
 <link rel="stylesheet" href="/css/header.css" />
+<style>
+.backBtn{
+    border-radius: 20px;
+    border: 2px solid #ffd900;
+    background-color: white;
+    margin: auto auto 100px auto;
+    display: block;
+    width: 100px;
+    height: 40px;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
 	<div th:replace="layout/header :: headFrag(${member.activeUUID})"></div>
@@ -15,7 +27,6 @@
 			<thead class="postsThead">
 				<tr>
 					<th class="th-cate">카테고리</th>
-					<th class="th-title">작성자</th>
 					<th class="th-title">제목</th>
 					<th class="th-view">조회수</th>
 					<th class="th-view">찜</th>
@@ -26,7 +37,6 @@
 				class="postsTbody">
 				<tr>
 					<td class="tr" th:text="${post.ctName}"></td>
-					<td class="tr" th:text="${post.memNick}"></td>
 					<td><a class="tr" th:href="@{|/posts/${post.postCode}|}"
 						th:text="${post.pTitle}"></a> <span
 						th:text="'('+${post.getPSalesStatus().getMemo()}+')'"></span></td>
@@ -66,7 +76,8 @@
 			</tbody>
 		</table>
 	</div>
-	<button type="button" th:onClick="|location.href='@{/}'|">뒤로
+	<br>
+	<button class="backBtn" type="button" th:onClick="|location.href='@{/}'|">뒤로
 		가기</button>
 	<script src="https://kit.fontawesome.com/9f54d9c571.js"
 		crossorigin="anonymous"></script>

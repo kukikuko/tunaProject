@@ -86,13 +86,6 @@
 	set password = #{password}
 	where memberMail = #{memberMail}
 	</update>
-	
-	
-<!-- 	<delete id="deleteMember"> -->
-<!-- 	delete from tuna_member -->
-<!--     where membermail =#{memberMail} -->
-<!-- 	</delete> -->
-
 
 <!-- 	회원탈퇴 수정본 -->
 	<update id="updateAdminCk" parameterType="MemberVO">
@@ -138,6 +131,7 @@
 			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
 				,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
 			   PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
+			   ,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
 		from TUNA_POST p
 		where pmemcode = #{memberCode}
 		order by postCode

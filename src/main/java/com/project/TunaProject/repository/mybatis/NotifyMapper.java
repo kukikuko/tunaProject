@@ -22,4 +22,6 @@ public interface NotifyMapper {
 
 	public List<ChatMSG> selectNotifyChatAll();
 
+	public void deleteNotify(int notifyType);
+
 }

@@ -16,4 +16,6 @@ public interface NotifyRepository {
 	public Integer notifyfilter(int messageCode);
 
 	public List<ChatMSG> selectNotifyChatAll();
+
+	public void deleteNotify(int notifyType);
 }

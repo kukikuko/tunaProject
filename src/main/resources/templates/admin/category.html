@@ -16,9 +16,9 @@
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 </head>
 <body class="sb-nav-fixed">
-<div th:replace="/admin/nav :: navBar"></div>
+<div th:replace="admin/nav :: navBar"></div>
 <div id="layoutSidenav">
-  <div th:replace="/admin/sideNav :: sideNavbar"></div>
+  <div th:replace="admin/sideNav :: sideNavbar"></div>
   <div id="layoutSidenav_content">
     <main>
       <div class="container-fluid px-4">
@@ -47,7 +47,7 @@
                 <td th:text="${i.count}"></td>
                 <td th:text="${category.getCtCode()}"></td>
                 <td th:text="${category.getCtName()}"></td>
-                <td><button class="btnColor" th:ctCode="${category.getCtCode()}" th:ctName="${category.getCtName()}"
+                <td><button th:ctCode="${category.getCtCode()}" th:ctName="${category.getCtName()}"
                             th:onclick="changeCateName(this.getAttribute('ctCode'), this.getAttribute('ctName'))">이름 변경
                     </button></td>
               </tr>
@@ -58,7 +58,7 @@
         </div>
       </div>
     </main>
-    <div th:replace="/admin/footer :: footer"></div>
+    <div th:replace="admin/footer :: footer"></div>
   </div>
 </div>
 <script th:inline="javascript">

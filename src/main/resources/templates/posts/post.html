@@ -98,9 +98,7 @@
                       icon: "success",
                       title: "신고가 완료되었습니다.",
                       text: "해당 게시물은 관리자에게 전달되었습니다.",
-                    }).then((result) => {
-                      location.href = "http://localhost:8080";
-                    });
+                    })
                   } else if (cnt >= 1) {
                     //cnt가 1 이상일때, 사용자가 1번 이상 신고한 게시글
                     Swal.fire({
