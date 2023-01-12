@@ -128,22 +128,25 @@
 						alert_cir1.className="";
 						alert_cir2.className="";
 						count_message="";
+							alert_cir1.textContent = count_message;
+					alert_cir2.textContent = count_message;
 					}
 					else if(count_message>99)
 					{
 							alert_cir1.className="alert_cir_h";
 						alert_cir2.className="alert_cir_h";
-alert_cir1.textContent = "99+";
+					alert_cir1.textContent = "99+";
 					alert_cir2.textContent = "99+";
 					}
 					else 
 					{
 						alert_cir1.className="alert_cir_h";
 						alert_cir2.className="alert_cir_h";
+							alert_cir1.textContent = count_message;
+					alert_cir2.textContent = count_message;
 						
 					}
-					alert_cir1.textContent = count_message;
-					alert_cir2.textContent = count_message;
+				
 					
 			  		}
 			  		});
