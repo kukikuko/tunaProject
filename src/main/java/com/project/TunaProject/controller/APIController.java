@@ -65,7 +65,9 @@ public class APIController {
     public String exit_chat(@PathVariable("chat_code") String chat_code,@PathVariable("uuid") String uuid)
     {
     	int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
-    	chatRepository.exitChat(Integer.parseInt(chat_code), member_code);
+    	chatRepository.exitChat(member_code , Integer.parseInt(chat_code));
+    	
+
     	return "ok";
     }
     
@@ -99,7 +101,9 @@ public class APIController {
     @RequestMapping("/chat_title/find/{chat_code}")
     public String find_title(@PathVariable("chat_code") String chat_code)
     {
-
+    	
+    	String post_code = chatRepository.findPostCode(Integer.parseInt(chat_code));
+    	Post post = postRepository.selectByPostCode(post_code);
 		return post.getPTitle()+"("+memberRepository.selectByCode(post.getPMemCode()).getMemberNick()+")";
 	}
 
