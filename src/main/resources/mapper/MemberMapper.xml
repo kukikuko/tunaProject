@@ -40,7 +40,8 @@
 		  memberAddr1,
 		  memberAddr2,
 		  memberAddr3,
-		  memberAddr4
+		  memberAddr4,
+		  activeUUID
 		  from tuna_member
 		where memberMail = #{email}
 	</select>

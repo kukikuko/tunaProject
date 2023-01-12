@@ -16,6 +16,7 @@ body{
   
 }
 
+
 .adminBtn{
 	padding: 8px;
 	font-size: 13px;
@@ -55,6 +56,26 @@ body{
 .text4{
 	animation-delay:1.2s;
 }
+
+
+.alert_cir_h
+{
+  left: 0px;
+  
+  position: absolute;
+  display: inline-block;
+  background-color:rgb(255, 54, 54);
+  color: aliceblue;
+width:20px;
+height:20px;
+border-radius:75px;
+text-align:center;
+margin:0 auto;
+font-size:12px;
+vertical-align:middle;
+line-height:20px;
+}
+
 @keyframes popup{
     
     0%{

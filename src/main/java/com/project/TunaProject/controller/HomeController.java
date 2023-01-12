@@ -8,11 +8,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.project.TunaProject.domain.Chat;
 import com.project.TunaProject.domain.Image;
 import com.project.TunaProject.domain.MemberVO;
 import com.project.TunaProject.domain.Post;
 import com.project.TunaProject.domain.PostCard;
+import com.project.TunaProject.repository.ChatRepository;
 import com.project.TunaProject.repository.ImageRepository;
+import com.project.TunaProject.repository.MessageRepository;
 import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
@@ -30,6 +33,8 @@ public class HomeController {
 	private final PostRepository postRepository;
 	private final SessionManager sessionManager;
 	private final ImageRepository imageRepository;
+	private final MessageRepository messageRepository;
+	private final ChatRepository chatRepository;
 
 	@GetMapping("/")
 	public String home(Model model, HttpServletRequest req) {
@@ -52,6 +57,10 @@ public class HomeController {
 			return "index";
 		}
 		List<Post> postList = postRepository.selectAll();
+		
+		
+	
+
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
 		return "posts/posts";
@@ -75,6 +84,10 @@ public class HomeController {
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
 		List<Post> postList = postRepository.selectAll();
+		
+
+		
+		
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
 		return "posts/index2";

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.TunaProject.domain.Category;
+import com.project.TunaProject.domain.Chat;
 import com.project.TunaProject.domain.Heart;
 import com.project.TunaProject.domain.Image;
 import com.project.TunaProject.domain.MemberVO;
@@ -30,9 +31,11 @@ import com.project.TunaProject.form.ItemForm;
 import com.project.TunaProject.img.FileStore;
 import com.project.TunaProject.img.UploadFile;
 import com.project.TunaProject.repository.CategoryRepository;
+import com.project.TunaProject.repository.ChatRepository;
 import com.project.TunaProject.repository.HeartRepository;
 import com.project.TunaProject.repository.ImageRepository;
 import com.project.TunaProject.repository.MemberRepository;
+import com.project.TunaProject.repository.MessageRepository;
 import com.project.TunaProject.repository.PostRepository;
 import com.project.TunaProject.session.SessionManager;
 import com.project.TunaProject.session.SessionVar;
@@ -55,7 +58,9 @@ public class PostController {
 	private final FileStore fileStore;
 	private final HeartRepository heartRepository;
 	private final MemberRepository memberRepository;
-	
+	private final MessageRepository messageRepository;
+	private final ChatRepository chatRepository;
+
 	//게시판 목록
 	@GetMapping
 	public String posts(Model model, HttpServletRequest req) {
@@ -63,6 +68,7 @@ public class PostController {
 		
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
 
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
@@ -86,6 +92,8 @@ public class PostController {
 
 		List<Image> images = imageRepository.selectAll(postCode);
 
+		
+	
 		model.addAttribute("images", images);
 		model.addAttribute("post",postItem);
 		model.addAttribute("member", memberVO);
@@ -101,6 +109,7 @@ public class PostController {
 		List<Category> cateItem = categoryRepository.selectAll();
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
 
 		model.addAttribute("post", new Post());
 		model.addAttribute("cateItem", cateItem);
@@ -120,6 +129,8 @@ public class PostController {
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
 		Post post = postRepository.insert(postItem, memberVO.getMemberCode(), ct.getCtCode());
+		
+		
 		rAttr.addAttribute("postCode", post.getPostCode());
 
 		List<UploadFile> storeImageFiles = fileStore.storeFiles(form.getImageFiles());
@@ -145,6 +156,7 @@ public class PostController {
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 
 		List<Image> images = imageRepository.selectAll(postCode);
+
 
 		model.addAttribute("post",postItem);
 		model.addAttribute("cateItem", cateItem);
@@ -217,6 +229,8 @@ public class PostController {
 		List<Post> postList = postRepository.selectSearch(keyword);
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
+		
+
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
 		return "posts/posts";
@@ -244,7 +258,7 @@ public class PostController {
 		HttpSession session = req.getSession(false);
 		MemberVO memberVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 	
-		
+	
 		model.addAttribute("posts", postList);
 		model.addAttribute("member", memberVO);
 		return "posts/userPost";

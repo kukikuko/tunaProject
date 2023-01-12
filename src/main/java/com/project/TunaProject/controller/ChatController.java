@@ -45,6 +45,7 @@ public class ChatController {
     			break;
     		}
     	}
+    	
     	int buyer_code=  memberRepository.selectByUUID(uuid_v).getMemberCode();
     	int seller_code = postRepository.selectByPostCode(postCode).getPMemCode();
     	//String image_path =  imageRepository.selectAll(postCode).get(0).getImageFiles();

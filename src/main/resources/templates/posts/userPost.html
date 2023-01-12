@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="/css/header.css" />
 </head>
 <body>
-	<div th:replace="layout/header :: headFrag"></div>
+	<div th:replace="layout/header :: headFrag(${member.activeUUID})"></div>
 
 
 	<h1 th:text="${posts[0].memNick}+'님의 판매내역'"></h1>

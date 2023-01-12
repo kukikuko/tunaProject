@@ -16,10 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.TunaProject.domain.Chat;
 import com.project.TunaProject.domain.MemberVO;
 import com.project.TunaProject.domain.Post;
 import com.project.TunaProject.form.LoginForm;
+import com.project.TunaProject.repository.ChatRepository;
 import com.project.TunaProject.repository.MemberRepository;
+import com.project.TunaProject.repository.MessageRepository;
 import com.project.TunaProject.session.SessionVar;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -34,6 +37,10 @@ import lombok.extern.slf4j.Slf4j;
 public class MemberController {
 
 	private final MemberRepository memberRepository;
+	private final MessageRepository messageRepository;
+	private final ChatRepository chatRepository;
+
+	
 
 	//개인정보 변경
 	@GetMapping("/memberUpdate")
@@ -42,6 +49,26 @@ public class MemberController {
 
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
+		int member_code = memberVO.getMemberCode();
+		List<Chat> c_list = chatRepository.selectMyChat(member_code);
+		int alarm =0;
+		for(Chat c: c_list)
+		{
+			int  chat_code =c.getChatCode();
+			if(c.getBuyer()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+
+			}
+			else if(c.getSeller()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+
+			}
+		}
+		
+
+		model.addAttribute("alarm", alarm);
 		model.addAttribute("member",memberVO);
 		return "myPage/memberUpdate";
 	}
@@ -68,6 +95,27 @@ public class MemberController {
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
 		memberVO.setMemberMail(tempVO.getMemberMail());
+		
+		int member_code = memberVO.getMemberCode();
+		List<Chat> c_list = chatRepository.selectMyChat(member_code);
+		int alarm =0;
+		for(Chat c: c_list)
+		{
+			int  chat_code =c.getChatCode();
+			if(c.getBuyer()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+
+			}
+			else if(c.getSeller()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+
+			}
+		}
+		
+
+		model.addAttribute("alarm", alarm);
 		model.addAttribute("member",memberVO);
 		return "myPage/passwordUpdate";
 	}
@@ -123,6 +171,26 @@ public class MemberController {
 		HttpSession session = req.getSession(false);
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);
 		MemberVO memberVO = memberRepository.selectByEmail(tempVO.getMemberMail());
+		int member_code = memberVO.getMemberCode();
+		List<Chat> c_list = chatRepository.selectMyChat(member_code);
+		int alarm =0;
+		for(Chat c: c_list)
+		{
+			int  chat_code =c.getChatCode();
+			if(c.getBuyer()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+
+			}
+			else if(c.getSeller()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+
+			}
+		}
+		
+
+		model.addAttribute("alarm", alarm);
 		model.addAttribute("member",memberVO);
 
 		return "myPage/memberOut";
@@ -148,7 +216,28 @@ public class MemberController {
 		HttpSession session = req.getSession(false);		
 		MemberVO tempVO = (MemberVO) session.getAttribute(SessionVar.LOGIN_MEMBER);		
 		List<Post> postList = memberRepository.selectByMemberCode(tempVO.getMemberCode());		
-		List<Post> postListHeart = memberRepository.selectByMemberAndHeart(tempVO.getMemberCode());		
+		List<Post> postListHeart = memberRepository.selectByMemberAndHeart(tempVO.getMemberCode());
+		
+		int member_code = tempVO.getMemberCode();
+		List<Chat> c_list = chatRepository.selectMyChat(member_code);
+		int alarm =0;
+		for(Chat c: c_list)
+		{
+			int  chat_code =c.getChatCode();
+			if(c.getBuyer()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+
+			}
+			else if(c.getSeller()== member_code)
+			{
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+
+			}
+		}
+		
+
+		model.addAttribute("alarm", alarm);
 	
 		model.addAttribute("posts", postList);
 		model.addAttribute("postsHeart", postListHeart);

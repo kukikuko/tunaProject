@@ -16,20 +16,7 @@ public class Message {
 	private int imageCode;
 	private int pixelLength;
 	
-	public Message()
-	{
-		
-	}
-	
-	public Message(String contents,int pixelLength,int memberCode,int chatCode,int imageCode)
-	{
-		this.contents=contents;
-		this.pixelLength=pixelLength;
-		this.memberCode = memberCode;
-		this.chatCode =chatCode;
-		this.imageCode=imageCode;
-	}
-	
+
 	public String all_data()
 	{
 		
