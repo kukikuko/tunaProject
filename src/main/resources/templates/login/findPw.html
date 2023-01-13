@@ -7,8 +7,9 @@
 <link rel="stylesheet" href="/css/header.css" />
 <link rel="stylesheet" href="/css/findPw.css" />
 <link rel="stylesheet" href="/css/footerSmall.css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
-<!-- alert 창     -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<!-- <link rel="stylesheet" href="/css/test1.css" /> -->
 </head>
 <body>
 	<nav class="navbar">
@@ -27,14 +28,14 @@
 		<div class="navbar_toggle">
 			<div class="navbar_menu">
 				<div class="navbar_menu_text">
-					<a href="/posts" class="menuText" id="joongGo">중고거래</a>
+					<a href="/posts" class="menuText">중고거래</a>
 				</div>
 				<div class="navbar_menu_right">
 					<div class="navbar_search">
 						<form action="/posts" method="post" class="searchForm">
 							<input name="search" type="search" placeholder="물품을 검색해주세요."
 								class="searchInput">
-							<button class="searchBtn" type="submit" id="search1">검색</button>
+							<button class="searchBtn" type="submit">검색</button>
 						</form>
 					</div>
 				</div>
@@ -73,30 +74,28 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
 	<script>
-	document.getElementById('search1').addEventListener('click', (e)=>{ 
-		e.preventDefault();
-		 Swal.fire({
-	            title: "로그인 후 이용해주세요.", // Alert 제목
-	            text: "회원이 아니시라면 회원가입부터 진행해주세요.", // Alert 내용
-	            icon: "warning", // Alert 타입
-	          }); 
-		 return false;
+		var memberMail = document.getElementById("memberMail");	//이메일 앞
+		var email_add = document.getElementById("email_add");	//이메일 뒤
 		
-	});
-	
-	document.getElementById('joongGo').addEventListener('click', (e)=>{ 
-		e.preventDefault();
-		 Swal.fire({
-	            title: "로그인 후 이용해주세요.", // Alert 제목
-	            text: "회원이 아니시라면 회원가입부터 진행해주세요.", // Alert 내용
-	            icon: "warning", // Alert 타입
-	          }); 
-		 return false;
-		
-	});
-	
-var memberMail = document.getElementById("memberMail");	//이메일 앞
-var email_add = document.getElementById("email_add");	//이메일 뒤
+		document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{ 
+			e.preventDefault();
+		var email = memberMail.value + "@" + email_add.value;
+			if(memberMail.value==""||email_add.value==""){
+				alert("메일 주소를 입력해주세요.");
+				memberMail.focus
+				return false;
+			}
+			checkId();
+			});
+		   
+		function change_email() {
+			  var email_add = document.getElementById("email_add");
+			  var email_sel = document.getElementById("email_sel");
+			  //지금 골라진 옵션의 순서와 값 구하기
+			  var idx = email_sel.options.selectedIndex;
+			  var val = email_sel.options[idx].value;
+			  email_add.value = val;
+			}
 
 document.getElementById('mailCheckBtn1').addEventListener('click', (e)=>{ 
 	e.preventDefault();

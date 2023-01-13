@@ -10,7 +10,7 @@
 	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
 </head>
 <body>
-	<div th:replace="layout/header :: headFrag"></div>
+	<div th:replace="layout/header :: headFrag(${member.activeUUID})"></div>
 	<div class="Post" name="post" id="post" th:value="${post.postCode}">
 		<p class="post-code" id="postCode" th:text="${post.postCode}"></p>
 		<p class="post-member" id="pMemCode" th:text="${post.pMemCode}"></p>

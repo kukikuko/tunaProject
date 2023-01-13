@@ -24,7 +24,7 @@ a {
 </style>
 </head>
 <body>
-	<div th:replace="layout/header :: headFrag"></div>
+	<div th:replace="layout/header :: headFrag(${member.activeUUID})"></div>
 	
 	<section class='section'>
 		<div class='masthead-image' id='master-container'>

@@ -16,7 +16,7 @@
 <link rel="stylesheet" href="/css/memberUpdate.css" />
 </head>
 <body>
-	<div th:replace="layout/header :: headFrag"></div>
+	<div th:replace="layout/header :: headFrag(${member.activeUUID})"></div>
 	<form action="" method="post" th:object="${member}" name="memberUpdate"
 		class="memUpdateForm">
 		<h3>개인정보 수정</h3>

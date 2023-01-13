@@ -31,6 +31,7 @@
 		from tuna_message
 		where chatCode = #{chat_code}
 		and messageCode &gt; #{message_code}
+		and memberCode != #{member_code}
 			</select>
 			
 			<!-- 채팅창에 맞는 실시간 새로운 메세지 찾기 -->
@@ -50,8 +51,16 @@
 	
 	<!-- 메세지 추가하기 -->
 	<insert id="insert_Message" parameterType="Message">
+	
+	<selectKey keyProperty="messageCode"
+         resultType="_int" order="BEFORE">
+         SELECT
+         tuna_messagePK.nextVal as messageCode
+         from dual
+      </selectKey>
+	
 	insert into tuna_message
-	values(tuna_messagePK.nextVal,#{chatCode},#{memberCode},#{contents},SYSDATE,#{imageCode},#{pixelLength})
+	values(#{messageCode},#{chatCode},#{memberCode},#{contents},SYSDATE,#{imageCode},#{pixelLength})
 	
 	</insert>
 	

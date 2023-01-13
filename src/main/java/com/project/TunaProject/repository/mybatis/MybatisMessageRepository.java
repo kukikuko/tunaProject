@@ -36,7 +36,7 @@ public class MybatisMessageRepository implements MessageRepository {
 
 	@Override
 	public void insert_Message(Message message) {
-		messageMapper.insert_Message(message);
+		 messageMapper.insert_Message(message);
 		// TODO Auto-generated method stub
 	}
 
@@ -48,12 +48,12 @@ public class MybatisMessageRepository implements MessageRepository {
 	}
 
 	@Override
-	public NewMessageInfo find_Message_New(int chat_code, int message_code) {
+	public NewMessageInfo find_Message_New(int chat_code, int message_code,int member_code) {
 		// TODO Auto-generated method stub
 		NewMessageInfo nmi = new NewMessageInfo();
 	//만약 아무메세지도 없으면 0
 		nmi.setLastCode(messageMapper.new_Message_Content(chat_code).intValue());
-		nmi.setCountMessage(messageMapper.new_Message_Count(chat_code,message_code).intValue());
+		nmi.setCountMessage(messageMapper.new_Message_Count(chat_code,message_code,member_code).intValue());
 		return nmi;
 	}
 

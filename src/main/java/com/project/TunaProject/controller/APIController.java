@@ -191,21 +191,23 @@ public class APIController {
 
 		if(c.getBuyer()==member_code)
 		{
-			nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getBuyerCurView());
+			nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getBuyerCurView(),member_code);
 		}
 		else
 		{
-			nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getSellerCurView());
+			nmi=messageRepository.find_Message_New(Integer.parseInt(chat_code), c.getSellerCurView(),member_code);
 		}
 		if(nmi.getLastCode()==0)
 		{
 			return " "+"\0"+"0";
 		}
-		return messageRepository.find_message(nmi.getLastCode()).getContents()+"\0"+nmi.getCountMessage();
+		return messageRepository.find_message(nmi.getLastCode()).getContents()+"\0"+(nmi.getCountMessage()+"");
 	}
 
 	@RequestMapping("/message/get/{chat_code}/{message_code}/{uuid}")
 	public String get_chat(@PathVariable("chat_code") String chat_code,@PathVariable("message_code") String message_code,@PathVariable("uuid") String uuid) {
+		
+	
 		String str ="";
 
 		List<Message> message_list =null;
@@ -237,13 +239,14 @@ public class APIController {
 			}
 		}
 
+		
 		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
 		CurView cv = new CurView();
 		cv.setMessageCode(Integer.parseInt(message_code));
 		cv.setMemberCode(member_code);
 		cv.setChatCode(Integer.parseInt(chat_code));
 		chatRepository.updateCurview(cv);
-
+		
 		return str;
 	}
 	
@@ -254,8 +257,16 @@ public class APIController {
 		
 		resp.setStatus(204);
 		int member_code = memberRepository.selectByUUID(uuid).getMemberCode();
-		Message m = new Message(message,Integer.parseInt(px_size),member_code,Integer.parseInt(chat_code),Integer.parseInt(image_code));
+		Message m = new Message();
+		m.setContents(message);
+		m.setPixelLength(Integer.parseInt(px_size));
+		m.setMemberCode(member_code);
+		m.setChatCode(Integer.parseInt(chat_code));
+		m.setImageCode(Integer.parseInt(image_code));
 		messageRepository.insert_Message(m);
+
+		
+		
 	}
 
 	@PostMapping("/message/notify")

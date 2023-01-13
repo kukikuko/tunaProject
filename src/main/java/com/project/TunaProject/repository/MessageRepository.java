@@ -15,7 +15,7 @@ public interface MessageRepository {
 	
 	public int find_Message_Caller(int message_code);
 	
-	public NewMessageInfo find_Message_New(int chat_code,int message_code);
+	public NewMessageInfo find_Message_New(int chat_code,int message_code,int member_code);
 	
 	public Message find_message(int message_code);
 }

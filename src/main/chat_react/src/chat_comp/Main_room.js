@@ -31,10 +31,10 @@ function Main_room({member_code,uuid})
           let val = await find_newInfo(str[i+1]);
             let str2 = val.split("\0");
 
-            if(str2[1]>100) {
-                str2[1]="+99";
+            if(str2[1]>100)
+            {
+                str2[1]="99+";
             }
-
             let room_data = { title: str[i], chatCode: str[i+1], nick: str[i+2],lastMessage: str2[0],count: str2[1]}
             let room_comp = ReactDOMServer.renderToString(<Room data={room_data} />);
             document.getElementById("rooms").insertAdjacentHTML('beforeend', room_comp);
