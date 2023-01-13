@@ -121,7 +121,6 @@
       				cache : false,
       				success: function(data){
 					count_message += parseInt(data.split("\0")[1],10);
-					console.log(count_message);
 					
 					if(count_message==0)
 					{
@@ -129,13 +128,16 @@
 						alert_cir2.className="";
 						count_message="";
 							alert_cir1.textContent = count_message;
+							count_message=0;
 					alert_cir2.textContent = count_message;
 					}
 					else if(count_message>99)
 					{
 							alert_cir1.className="alert_cir_h";
 						alert_cir2.className="alert_cir_h";
+
 					alert_cir1.textContent = "99+";
+
 					alert_cir2.textContent = "99+";
 					}
 					else 
@@ -152,7 +154,7 @@
 			  		});
 			  
 				}
-				setTimeout(update_alarm, 1000, chat_code, uuid);
+				setTimeout(update_alarm, 5000, chat_code, uuid);
 		
 		}
 		

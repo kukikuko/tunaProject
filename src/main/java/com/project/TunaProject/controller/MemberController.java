@@ -57,12 +57,12 @@ public class MemberController {
 			int  chat_code =c.getChatCode();
 			if(c.getBuyer()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView(),member_code).getCountMessage();
 
 			}
 			else if(c.getSeller()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView(),member_code).getCountMessage();
 
 			}
 		}
@@ -104,12 +104,12 @@ public class MemberController {
 			int  chat_code =c.getChatCode();
 			if(c.getBuyer()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView(),member_code).getCountMessage();
 
 			}
 			else if(c.getSeller()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView(),member_code).getCountMessage();
 
 			}
 		}
@@ -179,12 +179,12 @@ public class MemberController {
 			int  chat_code =c.getChatCode();
 			if(c.getBuyer()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView(),member_code).getCountMessage();
 
 			}
 			else if(c.getSeller()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView(),member_code).getCountMessage();
 
 			}
 		}
@@ -226,12 +226,12 @@ public class MemberController {
 			int  chat_code =c.getChatCode();
 			if(c.getBuyer()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getBuyerCurView(),member_code).getCountMessage();
 
 			}
 			else if(c.getSeller()== member_code)
 			{
-				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView()).getCountMessage();
+				alarm += messageRepository.find_Message_New(chat_code, c.getSellerCurView(),member_code).getCountMessage();
 
 			}
 		}
