@@ -1,0 +1,266 @@
+@charset "UTF-8";
+
+@font-face{
+font-family: "SUIT-Variable";
+src: url('/css/font/SUIT-Variable.ttf');
+}
+
+@font-face{
+font-family: "SUIT-ExtraBold";
+src: url('/css/font/SUIT-ExtraBold.ttf');
+}
+
+
+body{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: SUIT-Variable;
+}
+
+a{
+	text-decoration: none;
+	color : black;
+}
+/* .posts {
+	padding-bottom: 20px;
+	text-align: center;
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	table-layout: fixed;
+	border-bottom: 1px solid gray;
+}
+ */
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.board-table {
+	font-size: 13px;
+	width: 100%;
+	border-top: 1px solid #ffd900;
+	border-bottom: 1px solid #ffd900;
+}
+
+.board-table a {
+	color: #333;
+	display: inline-block;
+	line-height: 1.4;
+	word-break: break-all;
+	vertical-align: middle;
+}
+
+.board-table a:hover {
+	text-decoration: underline;
+}
+
+.board-table th {
+	text-align: center;
+}
+
+.board-table .th-view {
+	width: 100px;
+	text-align: center;
+}
+
+.board-table .th-date, .th-cate {
+	width: 200px;
+}
+
+.board-table th, .board-table td {
+	padding: 14px 0;
+}
+
+.board-table tbody td {
+	border-top: 1px solid #e7e7e7;
+	text-align: center;
+}
+
+.tr {
+	padding-left: 28px;
+	padding-right: 14px;
+	text-align: center;
+}
+.tr-pTitle{
+	padding-left: 28px;
+	padding-right: 14px;
+	border-top: 1px solid #e7e7e7;
+	text-align: left;	
+}
+.postBtn {
+	border-radius: 20px;
+	border: 2px solid #ffd900;;
+	background-color: white;
+	margin: auto auto 100px auto;
+	display: block;
+	width: 100px;
+	height: 40px;
+	cursor:pointer
+}
+
+.sales{
+	border-radius: 20px;
+	border: 2px solid #ffd900;;
+	background-color: white;
+	margin: auto;
+	display: inline-block;
+	width: 65px;
+	height: 20px;	
+	text-decoration: none;
+	text-align: center;
+}
+
+
+
+/* writing, update */
+.writing, .updateDiv{
+	margin: auto;
+	margin-top: 30px;
+	width: 700px;
+	height: 100%;
+	background-color: #a7cdfd;
+	background-color: #EEEFF1;
+	border-radius: 5px;
+	padding: 20px;
+}
+
+.writing_category, .writingOption, .writing_price, .writing_title, .writing_content, .writing_image 
+,.update_category, .updateOption, .update_title, .update_price, .update_content{
+	background-color: white;
+	padding: 10px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	cursor:pointer
+}
+
+.writing_category, .writing_price, .writingOption, .update_category, .updateOption, .update_price{	
+	width: 130px;	
+	margin-right: 5px;
+	border-radius: 5px;
+}
+
+.writing_title, .update_title {
+	width: 420px;
+}
+
+.writing_content, .update_content{
+	width: 100%;
+	height: 300px;
+	margin-top: 10px;
+}
+
+.writing_image {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.writingBtn, .updateBtn {
+	text-align: center;
+}
+
+.writing_Btn, .update_Btn, .pSalesStatusBtn {
+	border-radius: 20px;
+	border: 2px solid #ffd900;
+	background-color: white;
+	margin: auto;
+	margin-top: 10px;
+	display: inline-block;
+	width: 100px;
+	height: 40px;
+	text-align: center;	
+	cursor:pointer
+}
+
+.writing_price::-webkit-outer-spin-button, 
+.writing_price::-webkit-inner-spin-button,
+.update_price::-webkit-outer-spin-button, 
+.update_price::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* post */
+.Post {
+	margin: 30px auto 30px auto;
+	width: 900px;
+	height: 100%;
+	background-color: #EEEFF1;
+	border-radius: 5px;
+	padding: 20px;
+	 font-family: SUIT-Variable;
+}
+.img{
+	text-align: center;	
+}
+.post-category, .post-title, .post-price , .post-view, .post-content, .post-time, .post-heart{
+	padding: 5px;
+	box-sizing: border-box;
+	border-radius: 5px;
+	border: none;
+	display: inline-block;
+	margin : 0px;
+	font-family: SUIT-Variable;
+}
+.post-title{
+	font-size: 2rem;
+}
+.post-time{
+	font-size: 0.7rem;
+	width:100%;
+}
+.post-img{
+	margin-top : 10px;
+ 	width : 300px;
+	height : 300px;
+	
+}
+.post-price{
+	width: 170px;	
+}
+.post-heart{
+	width: 100px;	
+}
+
+.post-content {
+	width: 100%;
+	height: 100%;
+}
+.deleteForm{
+	display: inline-block;
+}
+.BtnAll{
+	text-align: center;	
+}
+.post_Btn, .post_Btn_back, .post_Btn_notify{
+	border-radius: 20px;
+	border: 2px solid #ffd900;
+	background-color: white;
+	margin: auto;
+	display: inline-block;
+	width: 100px;
+	height: 40px;
+	cursor:pointer
+}
+
+.heartBtn {
+	border-radius: 20px;
+	border: 2px solid #ffd900;
+	background-color: white;
+	display: inline-block;
+	font-size : 1rem;
+	cursor:pointer
+}
+
+.dealForm
+{
+	width:auto;
+	display:inline-block;
+}
+
+option{
+	border-radius: 20px;
+}

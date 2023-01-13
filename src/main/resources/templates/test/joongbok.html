@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<title>Insert title here</title>
+<style>
+.id_ok{
+color:#008000;
+display: none;
+}
+
+.id_already{
+color:#6A82FB; 
+display: none;
+}
+</style>
+</head>
+<body>
+<h1>중복확인</h1>
+	<form action="" method="post" name="mailCheck">
+
+			<div>
+				<label>이메일  </label> 
+					<input type="text" name="memberMail1" id="memberMail" maxlength="15">@
+					<input type="text" name="memberMail2" id="email_add" maxlength="15">
+					<select name="email_sel" id="email_sel" onchange="change_email();">
+						<option value="">직접입력</option>
+						<option value="naver.com">naver</option>
+						<option value="gmail.com">gmail</option>
+						<option value="nate.com">nate</option>
+					</select>
+					<span class="id_ok">사용 가능한 아이디입니다.</span>
+					<span class="id_already">누군가 이 아이디를 사용하고 있어요.</span>
+					<button type="submit" class="btn btn-primary" id="mail-Check-Btn">중복확인</button>
+			</div>
+	</form>
+	
+<script>
+	var memberMail = document.getElementById("memberMail");	//이메일 앞
+	var email_add = document.getElementById("email_add");	//이메일 뒤
+	var regEmail = /^[a-zA-Z0-9]/;	//이메일 정규식. 알파벳, 숫자로 구성 
+	
+	document.getElementById('mail-Check-Btn').addEventListener('click', (e)=>{ 
+		e.preventDefault();
+		
+		
+		let form = document.mailCheck; 
+	
+	if(memberMail.value==""||email_add.value==""){
+		alert("이메일 주소를 입력해주세요.");
+	    memberMail.focus();
+	    return false;
+	    }
+	
+	if (!regEmail.test(memberMail.value)) {
+	    alert("이메일 형식을 올바르게 입력하세요.");
+	    memberMail.focus();
+	    return false;
+	  }
+	
+	
+	checkId();
+	
+	});
+	
+	
+	function change_email() {
+		  var email_add = document.getElementById("email_add");
+		  var email_sel = document.getElementById("email_sel");
+
+		  //지금 골라진 옵션의 순서와 값 구하기
+		  var idx = email_sel.options.selectedIndex;
+		  var val = email_sel.options[idx].value;
+
+		  email_add.value = val;
+		}
+	
+	function checkId(){
+        var email = memberMail.value + "@" + email_add.value; //id값이 "id"인 입력란의 값을 저장
+       	console.log(email);
+        $.ajax({
+            url:'/joongbok', //Controller에서 요청 받을 주소
+            type:'post', //POST 방식으로 전달
+            data:{email:email},
+            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다 
+                if(cnt == 0){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디 
+                    $('.id_ok').css("display","inline-block"); 
+                    $('.id_already').css("display", "none");
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    $('.id_already').css("display","inline-block");
+                    $('.id_ok').css("display", "none");
+//                     alert("아이디를 다시 입력해주세요");
+                    $('#memberMail').val('');
+                }
+            },
+            error:function(){
+                alert("에러입니다");
+            }
+        });
+        };
+
+</script>
+</body>
+</html>

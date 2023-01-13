@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project.TunaProject.repository.mybatis.AdminMapper">
+
+	<select id="selectAll" resultType="MemberVO">
+		select * from TUNA_Member
+		where membercode >= 1
+		order by MEMBERCODE
+	</select>
+
+	<update id="memberStatus">
+		update TUNA_MEMBER
+		set ADMINCK = #{status}
+		WHERE MEMBERCODE = #{memberCode}
+	</update>
+
+	<update id="postStatus">
+		update TUNA_POST
+		set POPENSTATUS = #{status}
+		WHERE POSTCODE = #{postCode}
+	</update>
+
+	<select id="categoryAll" resultType="Category">
+		select *
+		from TUNA_CATEGORY
+	</select>
+</mapper>

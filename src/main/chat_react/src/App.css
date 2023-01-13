@@ -1,0 +1,301 @@
+
+
+
+
+
+@keyframes chat_balloon_ani{
+  0%
+  {
+    opacity:0;
+  }
+  100%
+  {
+    opacity:1;
+  }
+}
+
+.chat_ani
+{
+  animation-name: chat_balloon_ani;
+  animation-duration: 2s;
+}
+
+#chat_room{
+  width: 100vw;
+  height: 100vh;
+}
+
+#messages
+{
+  z-index: 1;
+  overflow:auto;
+  width: 100vw;
+  height: calc(100vh - 100px);
+  top: 0px;
+  position: relative;
+  background-color: bisque;
+}
+
+#rooms{
+  overflow-x: hidden;
+  overflow-y:auto;
+
+  background-color: antiquewhite;
+  height: 100vh;
+}
+
+#up_bar{
+ z-index: 0;
+ width: 100vw;
+ height: 50px;
+ background-color: black;
+}
+#imgup_btn{
+  position: absolute;
+  bottom: 0px;
+  z-index: 2;
+  background-color: rgba(0,0,0,0);
+  width: 50px;
+  height: 50px;
+
+  left: 20px;
+}
+
+
+#send_btn{
+  z-index: 2;
+  background-color: rgba(0,0,0,0);
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
+#text_box{
+  right: 90px;
+  width: calc(100vw - 190px);
+  z-index: 1;
+  bottom: 10px;
+  height: 30px;
+  position: absolute;
+
+}
+#send{
+  z-index: 1;
+  width: 50px;
+  position: absolute;
+  bottom: 0px;
+  right: 20px;
+}
+
+#title{
+text-align:center;
+  color: aliceblue;
+  top: 12px;
+  position: relative;
+  z-index: 5;
+}
+#bottom_bar{
+  overflow: hidden;
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+ height: 50px;
+ bottom: 0vh;
+ background-color: black;
+}
+#add_img{
+  position: absolute;
+  z-index: 2;
+  height: 50px;
+  bottom: 0px;
+  left: 20px;
+
+}
+
+.my_message{
+   right: 0px;
+
+}
+
+.time_ui_my{
+  margin-bottom: 10px;
+  display: inline-block;
+  left:calc(100% -  60px);
+
+  color: black;
+  position: relative;
+  width: auto;
+
+}
+
+.time_ui
+{
+  margin-top: 5px;
+  margin-bottom: 6px;
+  display: inline-block;
+  color: black;
+  left:20px;
+  position: relative;
+}
+
+.my_balloon{
+  left: calc(100% - 275px);
+  position:relative;
+}
+
+.c_Width1{
+  width: 93px;
+}
+.c_Width2{ 
+  width: 173px;
+}
+.c_Width3{
+  width: 277px;
+}
+
+.word_break{
+  word-wrap: break-word;
+  
+}
+.titles
+{
+  left: 35px;
+  position: relative;
+}
+.lastM{
+  position: relative;
+  left:10px;
+  width: 100%;
+}
+.alert_circle
+{
+  left: 0px;
+  
+  position: absolute;
+  display: inline-block;
+  background-color:rgb(255, 54, 54);
+  color: aliceblue;
+width:30px;
+height:30px;
+border-radius:75px;
+text-align:center;
+margin:0 auto;
+font-size:12px;
+vertical-align:middle;
+line-height:30px;
+}
+
+#exit_btn{
+  background-color: rgba(0, 0, 0, 0);
+
+  z-index: 6;
+
+}
+
+.exit_ui
+{
+
+  position: absolute;
+  top:0px;
+  height: 50px;
+  width: 50px;
+  right: 20px;
+
+
+}
+
+#exit_image
+{
+  z-index: 5;
+
+
+}
+
+.chat{
+  z-index: 1;
+  position: absolute;
+  color: azure;
+  font-family: 'MICEGothic Bold';
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 12px;
+}
+
+.chat_balloon_S{
+  z-index: 0;
+  height: 50px;
+  transform: scaleY(-1);
+
+}
+
+.chat_balloon_L{
+  z-index: 0;
+  width:  274px;
+  position: relative;
+  transform: scaleY(-1);
+
+}
+
+#previewimg{
+  position: relative;
+  max-width: 350px;
+  max-height: 300px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+#imgup_btn{
+  z-index: 3;
+  position: relative;
+  
+}
+
+#submit_btn{
+  position: relative;
+}
+
+.image_file{
+  z-index: 0;
+  max-height: 300px;
+  width:  274px;
+  position: relative;
+
+}
+
+.hide{
+  z-index:0;
+  position:absolute;
+  font-family: 'MICEGothic Bold';
+}
+
+.roombox{
+  cursor: pointer;
+  width: 100%;
+  height: 100px;
+  background-color: rgb(152, 238, 118);
+  border: 3px solid;
+  border-color: rgb(59, 199, 4);
+  border-radius: 10px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.button_ui_my
+{
+  display: none;
+}
+
+.button_ui{
+  position: relative;
+  left:30px;
+  border-radius: 10px;
+}

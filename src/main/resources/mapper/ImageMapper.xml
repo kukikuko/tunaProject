@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project.TunaProject.repository.mybatis.ImageItemMapper">
+
+	<insert id="insert" parameterType="Image">
+	
+	<selectKey keyProperty="imageCode"
+         resultType="_int" order="BEFORE">
+         SELECT
+         IMAGECODESQ.nextVal as imageCode
+         from dual
+      </selectKey>
+		INSERT INTO TUNA_POSTIMAGE
+		values (
+			#{imageCode},
+		    #{imageName},
+		    #{imageFiles},
+		    #{IType},
+		    #{ITarget}
+			   )
+	</insert>
+
+	<select id="selectAll" resultType="Image">
+		select *
+		from TUNA_POSTIMAGE
+		where IType = #{code}
+		order by IMAGECODE
+	</select>
+	
+	
+	<select id="selectByImageCode" resultType="Image">
+		select IMAGEFILES
+		from TUNA_POSTIMAGE
+		where IMAGECODE = #{ImageCode}
+	</select>
+
+	<delete id="deleteByImageCode">
+		delete
+		from tuna_postImage
+		where imageCode = #{ImageCode}
+	</delete>
+
+	<delete id="deleteByPostCode">
+		delete
+		from tuna_postImage
+		where itype = #{ImageCode}
+	</delete>
+</mapper>

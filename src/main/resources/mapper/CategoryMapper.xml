@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.project.TunaProject.repository.mybatis.CategoryItemMapper">
+
+	<!-- 카테고리 불러오기  -->
+	<select id="selectAll" resultType="Category">
+		select * from TUNA_CATEGORY order by ctCode
+	</select>
+
+	<!-- 카테고리 이름 수정 -->
+	<update id="updateCtName" parameterType="Category">
+		update TUNA_CATEGORY
+		set ctName = #{ctName}
+		where ctCode = #{ctCode}
+	</update>
+
+	<!-- 카테고리 추가 -->
+	<insert id="insertCategory">
+		insert into tuna_category
+		values(concat('ct',CATEGORYSQ.nextVal), #{ctName})
+	</insert>
+</mapper>

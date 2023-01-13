@@ -1,0 +1,97 @@
+@charset "UTF-8";
+
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+@font-face {
+	font-family: "SUIT-Variable";
+	src: url('/css/font/SUIT-Variable.ttf');
+}
+
+@font-face {
+	font-family: "SUIT-ExtraBold";
+	src: url('/css/font/SUIT-ExtraBold.ttf');
+}
+
+
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.memUpdateForm {
+	position: relative;
+	margin: 50px auto;
+	width: 400px;
+	height: auto;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #F8F9FA;
+	font-family: 'Roboto', sans-serif;
+	padding: 20px;
+	text-align: center;
+	font-family: "SUIT-Variable";
+}
+.memUpdateForm label{
+	text-align: left;
+	font-family: "SUIT-Variable";
+}
+.memUpInput {
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	display: block;
+	margin: auto;
+	width: 300px;
+	color: black;
+	font-size: 15px;
+	height: 54px;
+	text-align: left;
+	font-family: "SUIT-Variable";
+}
+.memUpPNInput{
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	display: block;
+	margin: auto;
+	width: 90px;
+	color: black;
+	font-size: 15px;
+	height: 54px;	
+	display :inline-block;
+	
+}
+.memUpdateForm input:focus {
+	outline-color: rgba(0, 0, 0, 0);
+	background: rgba(255, 255, 255, .95);
+	color: #e74c3c;
+}
+
+.memUpdateForm button {
+	height: 50px;
+	width: 70px;
+	border: 0px;
+	background: #e74c3c;
+	border-radius: 7px;
+	padding: 0px;
+	color: black;
+	text-align: center;
+	display: inline-block;
+	margin-top: 20px;
+	font-size: 15px;
+	font-family: "SUIT-Variable";
+}
+
+.memUpdateForm input::-webkit-input-placeholder {
+	color: black;
+}
+
+.memUpdateForm input:focus::-webkit-input-placeholder {
+	color: #e74c3c;
+}

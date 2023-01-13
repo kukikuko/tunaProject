@@ -1,0 +1,215 @@
+@charset "UTF-8";
+
+@import url(http://weloveiconfonts.com/api/?family=entypo);
+
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+
+@font-face {
+	font-family: "SUIT-Variable";
+	src: url('/css/font/SUIT-Variable.ttf');
+}
+
+@font-face {
+	font-family: "SUIT-ExtraBold";
+	src: url('/css/font/SUIT-ExtraBold.ttf');
+}
+
+body {
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+zocial
+[class*="entypo-"]:before {
+	font-family: 'entypo', sans-serif;
+}
+
+*, *:before, *:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	text-align: center;
+}
+
+.joinform {
+	position: relative;
+	margin: 50px auto;
+	width: 530px;
+	height: auto;
+	text-align: left;
+	border-radius: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #F8F9FA;
+	font-family: 'Roboto', sans-serif;
+	padding: 20px;
+	font-family: SUIT-Variable;
+}
+
+.joinform label {
+	font-size: 16px;
+	margin: 5px;
+	font-family: SUIT-Variable;
+}
+
+.join-input {
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	display: block;
+	margin: auto;
+	width: 300px;
+	color: black;
+	font-size: 16px;
+	height: 54px;
+	font-family: SUIT-Variable;
+}
+
+.join-email {
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	margin-left: 7px;
+	width: 135px;
+	color: black;
+	font-size: 16px;
+	height: 54px;
+	display: inline-block;
+}
+
+.join-emailCheckInput {
+	background: lavender;
+	padding: 16px;
+	border-radius: 7px;
+	border: 0px;
+	margin-top: 9px;
+	margin-left: 7px;
+	width: 200px;
+	color: black;
+	font-size: 16px;
+	height: 54px;
+	display: inline-block;
+}
+
+.join-emailSelect {
+	background: lavender;
+	border-radius: 7px;
+	border: 0px;
+	margin-top: 5px;
+	margin-left: 7px;
+	width: 100px;
+	color: black;
+	font-size: 16px;
+	height: 54px;
+	display: inline-block;
+	padding: 3px;
+	font-family: SUIT-Variable;
+}
+
+.join-phonNumIn {
+	background: lavender;
+	padding: 9px;
+	border-radius: 7px;
+	border: 0px;
+	display: block;
+	margin: auto;
+	width: 70px;
+	color: black;
+	font-size: 16px;
+	height: 54px;
+	display: inline-block;
+}
+
+.join-PhonNumSelect {
+	background: lavender;
+	border-radius: 7px;
+	border: 0px;
+	margin: auto;
+	width: 80px;
+	color: black;
+	font-size: 15px;
+	height: 54px;
+	display: inline-block;
+	font-family: SUIT-Variable;
+}
+
+.join-emailCheckBtn {
+	padding: 0px;
+	border-radius: 7px;
+	border: 0px;
+	margin: auto;
+	color: black;
+	font-size: 14px;
+	display: inline-block;
+	color: white;
+	height: 54px;
+	width: 60px;
+	background: #e74c3c;
+	font-family: SUIT-Variable;
+}
+
+.join-emailcheckNumBtn {
+	padding: 0px;
+	border-radius: 7px;
+	border: 0px;
+	margin-top: 10px;
+	margin-left: 7px;
+	color: black;
+	font-size: 15px;
+	display: inline-block;
+	color: white;
+	height: 54px;
+	width: 100px;
+	background: #e74c3c;
+	font-family: SUIT-Variable;
+}
+
+/*  .join-emailChckTime{
+	padding: 10px;
+	border-radius: 7px;
+	border: 0px;
+	margin-top : 10px;
+	color: black;
+	font-size: 18px;
+	float : left;
+	color: white;
+	height: 54px;
+	width: 70px;
+	background: #e74c3c;
+	text-align: center;
+} */
+.joinform input:focus {
+	outline-color: rgba(0, 0, 0, 0);
+	background: rgba(255, 255, 255, .95);
+	color: #e74c3c;
+}
+
+.joinBtn {
+	color: white;
+	height: 54px;
+	width: 100px;
+	border: 0px;
+	background: #e74c3c;
+	border-radius: 7px;
+	padding: 0px;
+	color: white;
+	text-align: center;
+	margin: auto;
+	display: block;
+	font-family: SUIT-Variable;
+}
+
+.joinform input::-webkit-input-placeholder {
+	color: black;
+}
+
+.joinform input:focus::-webkit-input-placeholder {
+	color: #e74c3c;
+}
+
+.errorMessage {
+	padding: 10px
+}

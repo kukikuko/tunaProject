@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper	namespace="com.project.TunaProject.repository.mybatis.NotifyMapper">
+
+<!-- 게시글 신고 -->
+	<insert id="insertNotify">
+	insert into TUNA_NOTIFY 
+	values
+			(TUNA_notifyCode.nextVal
+			, #{notifyTarget}
+			, #{notifyType}
+			, SYSDATE
+			, #{doNotifyMemberCode}
+			, #{notifyMemberCode}
+			
+			)
+	</insert>
+	
+<!-- 이미 신고한 게시물인지 확인 -->
+	<select id="notifyCheck" resultType="Integer">
+	select count(*) 
+	from tuna_notify 
+	where NOTIFYTYPE = #{notifyType} 
+	and donotifyMemberCode= #{doNotifyMemberCode}
+	</select>
+	
+<!-- 신고된 메세지인지 확인	 -->
+	<select id="notifyfilter" resultType="Integer">
+	select count(*) 
+	from tuna_notify 
+	where NOTIFYTYPE = #{messageCode} 
+	</select>
+
+<!-- 신고된 글 또는 채팅 가져오기 -->
+	<select id="selectNotifyAll" resultType="Notify">
+	select notifycode, notifytype, notifytime, donotifymembercode, notifymembercode
+	from tuna_notify
+	where notifytarget = #{target}
+	</select>
+
+	<select id="selectNotifyChatAll" resultType="ChatMSG">
+		select messagecode, chatcode, contents, notifytime, a.imagecode, notifycode, notifytarget, notifytype,
+			   donotifymembercode, notifymembercode, imagefiles
+		from tuna_chatMSG a left outer JOIN tuna_postimage b
+		on a.imagecode = b.imagecode
+	</select>
+
+	<delete id="deleteNotify">
+		delete from tuna_notify
+		where notifyType = #{notifyType}
+	</delete>
+</mapper>
