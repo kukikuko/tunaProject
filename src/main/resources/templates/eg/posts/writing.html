@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>물품등록</h1>
+	<form action="writing" method="post" th:object="${post}">
+		<div>
+			<input type="hidden" name="postCode" th:field="*{postCode}">
+			
+			<label>제목
+				<input type="text" name="postTitle" th:field="*{pTitle}">
+			</label><br/>
+			
+			<label>내용
+				<textarea type="text" name="postContent" th:field="*{pContent}"></textarea>
+			</label><br/>
+			
+			<label>가격 :
+				<input type="number" name="postPrice" th:field="*{pPrice}">원
+			</label><br/>		
+
+			<!-- <label>이미지
+				<input type="file" name="postImege" th:field="*{p_imageCode}">
+			</label><br/> -->		
+			
+		<!-- 	<label>작성시간
+				<p th:field="*{p_createTime}"></p>
+			</label><br/>	 -->	
+		</div>
+		
+		<div>
+			<button type="submit">등록하기</button>
+			<button type="button" th:onClick="|location.href='@{/posts}'|">뒤로가기</button>
+		</div>
+	
+	
+	
+	
+	
+	
+	</form>
+</body>
+</html>
