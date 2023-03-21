@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/posts.css" />
+<link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+</head>
+<body>
+	<div th:replace="layout/header :: headFrag(${member.activeUUID})"></div>
+	<div class="Post" name="post" id="post" th:value="${post.postCode}">
+		<p class="post-code" id="postCode" th:text="${post.postCode}"></p>
+		<p class="post-member" id="pMemCode" th:text="${post.pMemCode}"></p>
+		<p class="post-title" th:text="${post.pTitle}"></p>
+		<th:block th:if="${cnt123 == 0}">
+			<button th:if="${post.pMemCode} != ${member.memberCode}"
+				class="heartBtn" type="submit" id="heartBtnWhite">
+				<i id="whiteHeart" class="fa-regular fa-heart"></i>
+				</button>
+		</th:block>
+		<th:block th:if="${cnt123 >= 1}">
+			<button th:if="${post.pMemCode} != ${member.memberCode}"
+				class="heartBtn" type="submit" id="heartBtnRed">
+				<i id="redHeart" class="fa-solid fa-heart"></i>
+				</button>
+		</th:block>
+		<p class="post-price"
+			th:text="|가격 : ${#numbers.formatInteger(post.pPrice, 0, 'COMMA')}원|"></p>
+		<br />
+		<p class="post-time" th:if="${post.pCorrectionTime == null}"
+			th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh시mm분')}"></p>
+		<p class="post-time" th:if="${post.pCorrectionTime != null}"
+			th:text="${#dates.format(post.pCorrectionTime, 'yy-MM-dd a hh시mm분')}"></p>
+		<p class="post-content" th:text="${post.pContent}"></p>
+		<div class="img" th:each="image : ${images}">
+			<img class="post-img" th:src="|/posts/images/${image.imageFiles}|"/>
+		</div>
+		<br />
+		<div class="BtnAll">
+			<button th:if="${post.pMemCode} == ${member.memberCode}"
+				th:onClick="|location.href='@{/posts/update/{postCode}(postCode=${post.postCode})}'|"
+				class="post_Btn">수정</button>
+			<form action="/posts/delete" method="post" class="deleteForm"
+				name="deleteForm" id="deleteForm">
+				<input type="hidden" th:value="${post.postCode}" name="postCode" />
+				<button type="button"
+					th:if="${post.pMemCode} == ${member.memberCode}" class="post_Btn"
+					id="deleteBtn">삭제</button>
+			</form>
+				<form th:if="${post.pMemCode} != ${member.memberCode}"  class="dealForm" target="print_popup" action="http://localhost:8080/chat/add"
+					method="post"
+					onsubmit="window.open('about:blank','print_popup','width=500,height=750');">
+					<input hidden="true" name="postCode" th:value="${post.postCode}" />
+					<button class="post_Btn_back">거래하기</button>
+				</form>
+			<button th:onclick="|location.href='@{/posts}'|"
+				class="post_Btn_back">목록보기</button>
+			<button th:if="${post.pMemCode} != ${member.memberCode}" type="button"
+				id="notifyBtn" class="post_Btn_notify">신고하기</button>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://kit.fontawesome.com/ef08a6d352.js"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script>
+      $("#postCode").css("display", "none");
+      $("#pMemCode").css("display", "none");
+      if (document.getElementById("notifyBtn")) {
+        document.getElementById("notifyBtn").addEventListener("click", (e) => {
+          Swal.fire({
+            title: "게시물을 신고하시겠습니까?",
+            text: "허위 신고시에, 관리자의 제재를 받을 수 있습니다.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "승인",
+            cancelButtonText: "취소",
+            reverseButtons: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              $.ajax({
+                type: "POST",
+                url: "/notify/post",
+                data: {
+                  postCode: $("#postCode").text(),
+                  pMemCode: $("#pMemCode").text(),
+                },
+                success: function (cnt) {
+                  if (cnt == 0) {
+                    //cnt가 0일때. 사용자가 신고하지 않은 게시글
+                    Swal.fire({
+                      icon: "success",
+                      title: "신고가 완료되었습니다.",
+                      text: "해당 게시물은 관리자에게 전달되었습니다.",
+                    })
+                  } else if (cnt >= 1) {
+                    //cnt가 1 이상일때, 사용자가 1번 이상 신고한 게시글
+                    Swal.fire({
+                      icon: "error",
+                      title: "이미 신고된 게시물입니다.",
+                      text: "다시 한 번 확인해주세요.",
+                    });
+                  }
+                },
+              });
+            }
+          });
+        });
+      }
+
+      if (document.getElementById("deleteBtn")) {
+        document.getElementById("deleteBtn").addEventListener("click", (e) => {
+          e.preventDefault();
+          let form = document.deleteForm;
+          Swal.fire({
+            title: "게시글을 삭제하시겠습니까?",
+            text: "삭제된 게시글은 되돌릴 수 없습니다.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "승인",
+            cancelButtonText: "취소",
+            reverseButtons: true,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "삭제가 완료되었습니다!", // Alert 제목
+                text: "다른 물품등록으로, 거래를 이어가보세요!", // Alert 내용
+                icon: "success", // Alert 타입
+              }).then((result) => {
+                form.submit();
+              });
+            }
+          });
+        });
+      }
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "center-center",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
+
+      var heartBtn = document.querySelectorAll(".heartBtn");
+      if (heartBtn) {
+        for (let i = 0; i < 2; i++) {
+          heartBtn[i].addEventListener("click", (e) => {
+            $.ajax({
+              type: "POST",
+              url: "/heart",
+              data: {
+                postCode: $("#postCode").text(),
+              },
+              success: function (cnt) {
+                if ((cnt) => 1) {
+				  if($("#whiteHeart")){
+					  $("#whiteHeart").attr('class', 'fa-solid fa-heart')
+				  }
+				  if($("#redHeart")){
+					  $("#redHeart").attr('class', 'fa-solid fa-heart')
+				  }
+                  Toast.fire({
+                    icon: "success",
+                    title: "찜 성공",
+                  });
+                }
+                if (cnt == 0) {
+					if($("#whiteHeart")){
+						$("#whiteHeart").attr('class', 'fa-regular fa-heart')
+					}
+					if($("#redHeart")){
+						$("#redHeart").attr('class', 'fa-regular fa-heart')
+					}
+                  Toast.fire({
+                    icon: "success",
+                    title: "찜 취소",
+                  });
+                }
+              },
+            });
+          });
+        }
+      }
+
+      let curPos = 0;
+      let postion = 0;
+      const IMAGE_WIDTH = 640;
+      const prevBtn = document.querySelector(".prev");
+      const nextBtn = document.querySelector(".next");
+      const images = document.querySelector(".images");
+
+      function prev() {
+        if (curPos > 0) {
+          nextBtn.removeAttribute("disabled");
+          postion += IMAGE_WIDTH;
+          images.style.transform = `translateX(${postion}px)`;
+          curPos = curPos - 1;
+        }
+        if (curPos == 0) {
+          prevBtn.setAttribute("disabled", "true");
+        }
+      }
+      function next() {
+        if (curPos < 3) {
+          prevBtn.removeAttribute("disabled");
+          postion -= IMAGE_WIDTH;
+          images.style.transform = `translateX(${postion}px)`;
+          curPos = curPos + 1;
+        }
+        if (curPos == 3) {
+          nextBtn.setAttribute("disabled", "true");
+        }
+      }
+
+      function init() {
+        prevBtn.setAttribute("disabled", "true");
+        prevBtn.addEventListener("click", prev);
+        nextBtn.addEventListener("click", next);
+      }
+
+      init();
+    </script>
+</body>
+</html>

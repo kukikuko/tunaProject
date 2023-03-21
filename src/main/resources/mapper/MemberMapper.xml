@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--   mapper 태그에 namespace 속성은 연동시키고자 하는 Mapper 인터페이스명을 경로와 함께 명시 -->
+ 
+ 
+  <mapper namespace="com.project.TunaProject.repository.mybatis.MemberMapper">
+<!-- 회원가입  -->
+	<insert id="memberInsert" parameterType="MemberVO">
+  		insert into TUNA_MEMBER 
+  		values
+  		(
+  		TUNA_memberCode.nextVal,
+  		#{memberMail},
+  		#{password},
+  		#{memberName},
+  		#{memberBirth},
+  		#{memberNick},
+  		#{memberPN},
+  		#{memberAddr1},
+  		#{memberAddr2},
+  		#{memberAddr3},
+  		#{memberAddr4},
+  		'Y',
+  		sysdate,
+  		null
+  		)
+  	</insert>
+  	
+<!-- 로그인 -->
+  	<select id="selectByEmail" resultType="MemberVO">
+		select memberCode, membermail, password, memberName, memberBirth, memberNick, ADMINCK,
+		
+		 (SELECT SUBSTR(memberPN, 1, INSTR(memberPN, '-', 1, 1) - 1) from tuna_member where membermail = #{email}) memberPN1,
+		 (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 1) + 1, INSTR(memberPN, '-', 1, 2)- INSTR(memberPN, '-', 1, 1) - 1)  FROM tuna_member where membermail = #{email})memberPN2,
+		  (SELECT SUBSTR(memberPN, INSTR(memberPN, '-', 1, 2) + 1) FROM tuna_member where membermail = #{email})memberPN3,
+		 
+		  memberAddr1,
+		  memberAddr2,
+		  memberAddr3,
+		  memberAddr4,
+		  activeUUID
+		  from tuna_member
+		where memberMail = #{email}
+	</select>
+	
+<!-- memeberCode로 회원 정보 가져오기 -->
+	<select id="selectByCode" resultType="MemberVO">
+		select *
+		from tuna_member
+		where memberCode = #{memberCode}
+	</select>
+	
+<!-- uuid로 회원정보 가져오기 -->
+	<select id ="selectByUUID" resultType="MemberVO">
+	select *
+	from tuna_member
+	where activeUUID = #{activeUUID}
+	</select>
+	
+<!-- uuid에 맞는 memberMail 정보 가져오기 -->
+	<update id="updateUUID" parameterType="MemberVO">
+	UPDATE tuna_member
+	set activeUUID = #{activeUUID}
+	where memberMail = #{memberMail}
+	</update>
+	
+<!-- 개인정보 변경 -->
+	<update id="updateMemberByEmail" parameterType="MemberVO">
+	UPDATE tuna_member
+	set memberName = #{memberName},
+    memberNick = #{memberNick},
+    memberPN = #{memberPN1}||'-'||#{memberPN2}||'-'||#{memberPN3},
+    memberAddr1 = #{memberAddr1},
+    memberAddr2 = #{memberAddr2},
+    memberAddr3 = #{memberAddr3},
+    memberAddr4 = #{memberAddr4}
+	where memberMail = #{memberMail}
+	</update>
+	
+<!-- 비밀번호 변경 -->
+	<update id="updatePassword">
+	UPDATE tuna_member
+	set password = #{password}
+	where memberMail = #{memberMail}
+	</update>
+
+<!-- 	회원탈퇴 수정본 -->
+	<update id="updateAdminCk" parameterType="MemberVO">
+		UPDATE tuna_member
+		set adminCk = 'N'
+		where memberMail = #{memberMail}
+	</update>
+	
+<!-- 	회원 탈퇴시, 작성한 게시물의 공개여부를 N으로 바뀌도록 -->
+	<update id="updatePopenStatus" parameterType="MemberVO">
+		UPDATE tuna_POST 
+		set POPENSTATUS = 'N' 
+		where PMEMCODE= (
+			select memberCode 
+			from tuna_member 
+			where memberMail = #{memberMail} 
+			)
+	</update>
+	
+	
+<!-- 	회원가입시, 아이디 중복인지 체크 -->
+	<select id="idCheck" resultType="Integer">
+		select count(*) from tuna_member 
+		where memberMail = #{email}
+	</select>
+	
+<!-- 	이메일로 비밀번호를 찾는 메소드 -->
+	<select id="emailFindPw" resultType="String">
+		select password
+		from tuna_member
+		where memberMail= #{email}
+	</select>
+	
+<!-- 	memberCode로 사용자가 작성한 글 보여주기 -->
+	<select id="selectByMemberCode" resultType="Post">
+		select POSTCODE,postCtCode,(select memberNick from tuna_member where memberCode =
+		p.PMEMCODE)as
+		memNick,
+		(select count(*) from tuna_heart
+		where hpostcode
+		= p.POSTCODE)as heart
+		,
+			   (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+				,PMEMCODE, PTITLE, PCONTENT, PCREATETIME, pCorrectionTime,
+			   PPRICE,PSALESSTATUS,POPENSTATUS,PVIEW
+			   ,(select count(*) from tuna_heart where hpostcode = p.POSTCODE)as heart
+		from TUNA_POST p
+		where pmemcode = #{memberCode}
+		order by postCode
+	</select>
+	
+<!-- 	사용자가 찜한 게시물을 내활동 페이지에서 보여주기 -->
+	<select id="selectByMemberAndHeart" resultType="Post">
+       select postCode, postCTcode, pmemCode, pTitle, Pcontent, pcreateTime, pcorrectionTime, pprice, psalesStatus, pOpenStatus, pview,
+       (select memberNick from tuna_member where memberCode =
+		p.PMEMCODE)as
+		memNick, (select CtName from TUNA_CATEGORY ct where p.postCtCode = ct.ctCode)as ctName
+	from tuna_post p 
+	where p.postcode in 
+		(
+		select hpostcode 
+		from tuna_heart 
+		where hmemCode= ${memberCode}
+		)
+	</select>
+	
+	
+  </mapper>

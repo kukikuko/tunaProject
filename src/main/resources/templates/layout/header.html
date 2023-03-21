@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/header.css" />
+</head>
+<body>
+	<th:block th:fragment="headFrag(uuid)">
+		<nav class="navbar">
+			<div class="navbar_logo">
+				<img th:src="|@{/images/Logo.png}|" class="logoImg" />
+				<a href="/index2" class="mainText-link">
+				<span class="mainText text1">사</span>
+            	<span class="mainText text2">조</span>
+            	<span class="mainText text3">마</span>
+            	<span class="mainText text4">켓</span>
+			</a>
+			</div>
+			<div class="navbar_toggleBtn">
+					<i class="fa-solid fa-bars"></i>
+				</div>
+			<div class="navbar_toggle">
+				<div class="navbar_menu">
+					<div class="navbar_menu_text">
+						<a href="/posts" class="menuText">중고거래</a>
+					</div>
+					<div class="navbar_menu_right">
+						<div class="navbar_search">
+							<button th:if="${member.memberMail} == 'admin'" class="adminBtn" type="button"
+							th:onClick="|location.href='@{/admin/main}'|" >관리자 페이지</button>
+							
+							
+							<form action="/posts" method="post" class="searchForm">
+								<input name="search" type="search" placeholder="물품을 검색해주세요."
+									class="searchInput">
+								<button class="searchBtn" type="submit">검색</button>
+							</form>
+						</div>
+						<div class="dropdown">
+
+							<button class="dropdown-button" type="button" th:text="${member.memberNick}"></button>
+							<div  class="" id="alert_cir2"  ></div>
+
+							<div class="dropdown-content">
+								<form  target="print_popup" action="http://localhost:3000/chat/main" method="get" onsubmit="window.open('about:blank','print_popup','width=500,height=750');">	
+								<button  class="message_BTN">메세지</button>
+								</form>
+								<a class="dropdown-item" href="/myPage/myPage">내 활동</a>
+								<a class="dropdown-item" href="/myPage/memberUpdate">개인정보 변경</a> 
+								<a class="dropdown-item" href="/myPage/passwordUpdate">비밀번호 변경</a> 
+								<a class="dropdown-item" href="/myPage/memberOut">회원 탈퇴</a>
+								<form  target="print_popup" action="http://localhost:3000/chat/main" method="get" onsubmit="window.open('about:blank','print_popup','width=500,height=750');">
+									<div   class="" id="alert_cir1" ></div>
+								<button  class="message_BTN" type="submit" >
+								메세지
+								</button>
+								</form>
+								<form th:action="@{/logout}" method="post">
+									<button type="submit" class="logout">로그아웃</button>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+		<script src="https://kit.fontawesome.com/9f54d9c571.js"
+			crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+		<script th:inline="javascript">
+		 /*<![CDATA[*/
+        const toggleBtn = document.querySelector('.navbar_toggleBtn');
+        const menu = document.querySelector('.navbar_menu');
+        const search = document.querySelector('.navbar_search');
+        const menu_text = document.querySelector('.navbar_menu_text');
+        const alert_cir1 = document.querySelector('#alert_cir1');
+        const alert_cir2 = document.querySelector('#alert_cir2');
+
+
+        toggleBtn.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            search.classList.toggle('active');
+            menu_text.classList.toggle('active');   
+        });
+        
+		        
+        function get_chat_list(uuid_v)
+        {
+			let chat_code_list =[];
+			$.ajax({url:"/api/chat/find/"+uuid_v+"/"+0, 
+			type:"get",
+      		cache : false,
+      		success: function(data){
+				let str = data.split("\0");
+				for(i=0;i<str.length-1;i+=3)
+        		{
+					chat_code_list.push(data.split("\0")[i+1]);
+				}
+						update_alarm(chat_code_list,uuid_v); 
+
+			  }});
+			  
+		}
+		
+	
+		
+
+		function update_alarm(chat_code,uuid)
+		{
+
+				    let count_message =0;
+				   
+			
+			for(i=0;i<chat_code.length;i++)
+        		{
+					$.ajax({url:"/api/chat/new_info/"+chat_code[i]+"/"+uuid, 
+					type:"get",
+      				cache : false,
+      				success: function(data){
+					count_message += parseInt(data.split("\0")[1],10);
+					
+					if(count_message==0)
+					{
+						alert_cir1.className="";
+						alert_cir2.className="";
+						count_message="";
+						alert_cir1.textContent = count_message;
+						alert_cir2.textContent = count_message;
+						count_message=0;
+
+					}
+					else if(count_message>99)
+					{
+							alert_cir1.className="alert_cir_h";
+						alert_cir2.className="alert_cir_h";
+
+					alert_cir1.textContent = "99+";
+
+					alert_cir2.textContent = "99+";
+					}
+					else 
+					{
+						alert_cir1.className="alert_cir_h";
+						alert_cir2.className="alert_cir_h";
+							alert_cir1.textContent = count_message;
+					alert_cir2.textContent = count_message;
+						
+					}
+				
+					
+			  		}
+			  		});
+			  
+				}
+				setTimeout(update_alarm, 5000, chat_code, uuid);
+		
+		}
+		
+		get_chat_list(/*[[${uuid}]]*/);
+		
+		
+    
+        /*]]>*/
+    </script>
+	</th:block>
+</body>
+</html>

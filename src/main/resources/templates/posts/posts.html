@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/css/posts.css">
+<link rel="stylesheet" href="/css/header.css" />
+<link rel="stylesheet" href="/css/footer.css" />
+</head>
+<style>
+body, html{
+ height: 100%;
+} 
+body {
+  display: flex;
+  flex-direction: column;
+}
+</style>
+<body>
+	<div th:replace="layout/header :: headFrag(${member.activeUUID})"></div>
+	<div class="board-list">
+		<table class="board-table">
+			<thead class="postsThead">
+				<tr class="title">
+					<th class="th-cate">카테고리</th>
+					<th class="th-title">작성자</th>
+					<th class="th-title">제목</th>
+					<th class="th-view">조회수</th>
+					<th class="th-view">찜</th>
+					<th class="th-data">작성일</th>
+				</tr>
+			</thead>
+			<tbody th:each="post :${posts}" th:if="${post.pOpenStatus != 'N'}"
+				class="postsTbody">
+				<tr class="content">
+					<td class="tr" th:text="${post.ctName}"></td>
+					
+					
+					<td>
+					<a th:if="${member.memberCode == post.pMemCode}" th:href="@{/myPage/myPage}"  class="tr" th:text="${post.memNick}"></a>
+					<a th:if="${member.memberCode != post.pMemCode}" th:href="@{/posts/userPost/{pMemCode}(pMemCode= ${post.pMemCode})}"  class="tr" th:text="${post.memNick}"></a>
+					</td>
+					
+					
+					<td><a class="tr" th:href="@{/posts/{postCode}(postCode = ${post.postCode})}" th:text="${post.pTitle}"></a> 
+						<span th:text="${post.getPSalesStatus().getMemo()}" class="sales"></span></td>
+					<td class="tr" th:text="${post.pView}"></td>
+					<td class="tr" th:text="${post.heart}"></td>
+					<td class="tr"
+						th:text="${#dates.format(post.pCreateTime, 'yy-MM-dd a hh:mm:ss')}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<br/>
+	<div>
+		<button class="postBtn" th:onClick="|location.href='@{/posts/writing}'|">물품등록</button>
+	</div>
+	<div th:replace="layout/footer :: footerFrag"></div>
+	<script src="https://kit.fontawesome.com/9f54d9c571.js"
+		crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+   <mapper namespace="com.project.TunaProject.repository.mybatis.ChatMapper">
+	
+	<insert id="insertChat" parameterType="Chat">
+
+	insert into TUNA_CHAT (chatCode,postCode,seller,buyer,sellercurview,buyercurview)
+	select TUNA_CHATPK.nextVal,#{postCode},#{seller},#{buyer},0,0
+	FROM DUAL WHERE not(EXISTS(SELECT * FROM TUNA_CHAT where ( postCode=#{postCode} AND (SELLER=#{seller} AND buyer=#{buyer}))) or #{seller}=#{buyer})
+
+	</insert>
+	
+		
+	<update id="updateCurview1" parameterType="CurView">
+			UPDATE  TUNA_CHAT
+		     set  buyercurview = #{messageCode}
+		     where buyer=#{memberCode} and chatCode=#{chatCode}
+	</update>
+	
+	<update id="updateCurview2" parameterType="CurView">
+			UPDATE  TUNA_CHAT
+		     set  sellercurview = #{messageCode}
+		     where seller=#{memberCode} and chatCode=#{chatCode}
+	
+	</update>
+
+	<select id="findChatInfo" resultType="Chat">
+	select *
+	from TUNA_CHAT
+	where chatCode=#{chatCode}
+	</select>
+
+	<select id="findChatCode" resultType="Chat">
+	select *
+	from TUNA_CHAT
+	where postCode=#{postCode} AND (seller=#{seller} AND buyer=#{buyer})
+	order by chatCode	
+	
+	</select>
+	
+	
+	<update id="exitChatSeller" parameterType="Cexit">
+	UPDATE  TUNA_CHAT
+		     set  seller = -1
+		     where seller = #{memberCode} and chatCode = #{chatCode}
+	</update>
+	
+	<update id="exitChatBuyer" parameterType="Cexit">
+	UPDATE  TUNA_CHAT
+		     set  buyer = -1
+		     where buyer= #{memberCode} and chatCode= #{chatCode}
+	</update>
+	
+
+	
+	<select id="findPostCode" resultType="string">
+	select postcode
+	from TUNA_CHAT
+	where chatCode = #{chatCode}
+	</select>
+	
+	<select id="selectMyChat" resultType="Chat">
+	select *
+	from TUNA_CHAT
+	where SELLER=#{memberCode} OR buyer=#{memberCode}
+	order by chatCode	
+	
+	</select>
+	
+	<select id="selectMyChatByCur" resultType="Chat">
+	select *
+	from TUNA_CHAT
+	where (SELLER=#{memberCode} OR buyer=#{memberCode}) AND chatCode > #{chatCode}
+	order by chatCode	
+	
+	</select>
+	
+	</mapper>

@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  background: #384b5f;
+}
+
+.link {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 10px;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+.link a {
+  color: black;
+  text-decoration: none;
+}
+.link a:hover {
+  text-decoration: underline;
+}
+
+svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+.name {
+  transform-origin: 50% 50%;
+  transform: scale(0.75);
+}
